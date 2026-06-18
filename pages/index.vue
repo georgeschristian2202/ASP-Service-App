@@ -1,7 +1,65 @@
 <template>
   <div class="bg-white m-0 p-0">
     <!-- Hero Section avec carousel -->
-    <section class="relative min-h-screen bg-gradient-to-br from-asp-blue-900 to-asp-blue-700 m-0 pt-20">
+    <section class="relative min-h-screen bg-gradient-to-br from-asp-blue-900 to-asp-blue-700 m-0">
+      <!-- Navigation overlay pour hero -->
+      <div class="fixed top-0 left-0 right-0 z-50 m-0">
+        <nav class="bg-white/95 backdrop-blur-sm shadow-lg">
+          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+              <!-- Logo uniquement -->
+              <div class="flex items-center">
+                <img 
+                  src="/logo.png" 
+                  alt="ASP Services Gabon" 
+                  class="h-14 w-auto"
+                  @error="handleImageError"
+                >
+              </div>
+
+              <!-- Menu navigation Desktop -->
+              <div class="hidden md:flex items-center space-x-6">
+                <NuxtLink to="/" class="nav-link text-asp-blue-700 font-semibold">Accueil</NuxtLink>
+                <NuxtLink to="/services" class="nav-link">Services</NuxtLink>
+                <NuxtLink to="/a-propos" class="nav-link">À Propos</NuxtLink>
+                <NuxtLink to="/realisations" class="nav-link">Réalisations</NuxtLink>
+                <NuxtLink to="/contact" class="nav-link">Contact</NuxtLink>
+              </div>
+
+              <!-- WhatsApp Button Desktop -->
+              <div class="hidden md:flex items-center gap-3">
+                <a
+                  href="tel:+241078631098"
+                  class="text-gray-700 hover:text-asp-blue-600 transition-colors flex items-center gap-2 cursor-pointer"
+                >
+                  <Phone class="w-5 h-5" />
+                  <span class="text-sm font-medium">07 86 31 98</span>
+                </a>
+              </div>
+
+              <!-- Mobile Menu Button -->
+              <button 
+                @click="mobileMenuOpen = !mobileMenuOpen"
+                class="md:hidden text-gray-700 hover:text-asp-blue-600 cursor-pointer"
+              >
+                <Menu v-if="!mobileMenuOpen" class="w-6 h-6" />
+                <X v-else class="w-6 h-6" />
+              </button>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div v-if="mobileMenuOpen" class="md:hidden pb-4 pt-2">
+              <div class="flex flex-col space-y-3">
+                <NuxtLink to="/" class="nav-link-mobile text-asp-blue-700 font-semibold">Accueil</NuxtLink>
+                <NuxtLink to="/services" class="nav-link-mobile">Services</NuxtLink>
+                <NuxtLink to="/a-propos" class="nav-link-mobile">À Propos</NuxtLink>
+                <NuxtLink to="/realisations" class="nav-link-mobile">Réalisations</NuxtLink>
+                <NuxtLink to="/contact" class="nav-link-mobile">Contact</NuxtLink>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
 
       <!-- Hero Content -->
       <div class="relative z-5 pt-28 pb-20 px-4 sm:px-6 lg:px-8">
@@ -303,131 +361,197 @@
       <Transition name="modal">
         <div
           v-if="showQuoteModal"
-          class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+          class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm"
           @click.self="showQuoteModal = false"
         >
-          <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-            <!-- Header Modal -->
-            <div class="sticky top-0 bg-white border-b border-gray-200 px-8 py-6 flex items-center justify-between rounded-t-2xl">
-              <h2 class="text-3xl font-bold text-asp-black">Demandez Votre Devis Gratuit</h2>
+          <div class="bg-white rounded-2xl shadow-2xl max-w-3xl w-full max-h-[90vh] overflow-hidden">
+            <!-- Header Modal avec gradient -->
+            <div class="sticky top-0 bg-gradient-to-r from-asp-blue-900 to-asp-blue-700 px-8 py-6 flex items-center justify-between rounded-t-2xl">
+              <div>
+                <h2 class="text-3xl font-bold text-white mb-1">Demandez Votre Devis Gratuit</h2>
+                <p class="text-blue-100 text-sm">Réponse sous 24h • Service professionnel garanti</p>
+              </div>
               <button
                 @click="showQuoteModal = false"
-                class="text-gray-400 hover:text-gray-600 transition-colors"
+                class="text-white/80 hover:text-white transition-colors cursor-pointer p-2 hover:bg-white/10 rounded-lg"
               >
                 <X class="w-6 h-6" />
               </button>
             </div>
 
             <!-- Contenu Modal -->
-            <div class="p-8">
-              <p class="text-lg text-asp-gray-600 mb-8">
-                Remplissez ce formulaire et recevez votre devis PDF personnalisé sous 24h
-              </p>
+            <div class="p-8 overflow-y-auto max-h-[calc(90vh-100px)]">
+              <!-- Avantages rapides -->
+              <div class="grid grid-cols-3 gap-4 mb-8 p-4 bg-blue-50 rounded-xl border border-blue-100">
+                <div class="flex items-center gap-2">
+                  <CheckCircle2 class="w-5 h-5 text-green-600 flex-shrink-0" />
+                  <span class="text-sm font-medium text-asp-gray-800">Devis gratuit</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <CheckCircle2 class="w-5 h-5 text-green-600 flex-shrink-0" />
+                  <span class="text-sm font-medium text-asp-gray-800">Réponse 24h</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <CheckCircle2 class="w-5 h-5 text-green-600 flex-shrink-0" />
+                  <span class="text-sm font-medium text-asp-gray-800">Sans engagement</span>
+                </div>
+              </div>
 
               <form @submit.prevent="submitQuoteForm" class="space-y-6">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <!-- Nom complet -->
-                  <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-2">
-                      Nom complet <span class="text-red-500">*</span>
-                    </label>
-                    <input 
-                      v-model="quoteForm.name"
-                      type="text" 
-                      required
-                      class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-asp-blue-500 focus:border-transparent transition-all"
-                      placeholder="Jean Dupont"
-                    />
+                <!-- Informations personnelles -->
+                <div class="space-y-4">
+                  <h3 class="text-lg font-semibold text-asp-blue-900 flex items-center gap-2">
+                    <User class="w-5 h-5" />
+                    Vos informations
+                  </h3>
+                  
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Nom complet -->
+                    <div>
+                      <label class="block text-sm font-semibold text-asp-gray-800 mb-2">
+                        Nom complet <span class="text-red-500">*</span>
+                      </label>
+                      <input 
+                        v-model="quoteForm.name"
+                        type="text" 
+                        required
+                        class="w-full px-4 py-3 border-2 border-asp-gray-200 rounded-lg focus:ring-2 focus:ring-asp-blue-500 focus:border-asp-blue-500 transition-all duration-200"
+                        placeholder="Jean Dupont"
+                      />
+                    </div>
+
+                    <!-- Téléphone -->
+                    <div>
+                      <label class="block text-sm font-semibold text-asp-gray-800 mb-2">
+                        Téléphone <span class="text-red-500">*</span>
+                      </label>
+                      <input 
+                        v-model="quoteForm.phone"
+                        type="tel" 
+                        required
+                        class="w-full px-4 py-3 border-2 border-asp-gray-200 rounded-lg focus:ring-2 focus:ring-asp-blue-500 focus:border-asp-blue-500 transition-all duration-200"
+                        placeholder="+241 07 XX XX XX XX"
+                      />
+                    </div>
                   </div>
 
-                  <!-- Téléphone -->
+                  <!-- Email -->
                   <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-2">
-                      Téléphone <span class="text-red-500">*</span>
+                    <label class="block text-sm font-semibold text-asp-gray-800 mb-2">
+                      Email <span class="text-red-500">*</span>
                     </label>
                     <input 
-                      v-model="quoteForm.phone"
-                      type="tel" 
+                      v-model="quoteForm.email"
+                      type="email" 
                       required
-                      class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-asp-blue-500 focus:border-transparent transition-all"
-                      placeholder="+241 07 XX XX XX XX"
+                      class="w-full px-4 py-3 border-2 border-asp-gray-200 rounded-lg focus:ring-2 focus:ring-asp-blue-500 focus:border-asp-blue-500 transition-all duration-200"
+                      placeholder="jean.dupont@email.com"
                     />
                   </div>
                 </div>
 
-                <!-- Email -->
-                <div>
-                  <label class="block text-sm font-semibold text-gray-700 mb-2">
-                    Email <span class="text-red-500">*</span>
-                  </label>
-                  <input 
-                    v-model="quoteForm.email"
-                    type="email" 
-                    required
-                    class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-asp-blue-500 focus:border-transparent transition-all"
-                    placeholder="jean.dupont@email.com"
-                  />
+                <div class="border-t border-gray-200 pt-6"></div>
+
+                <!-- Détails du projet -->
+                <div class="space-y-4">
+                  <h3 class="text-lg font-semibold text-asp-blue-900 flex items-center gap-2">
+                    <Briefcase class="w-5 h-5" />
+                    Votre projet
+                  </h3>
+
+                  <!-- Service -->
+                  <div>
+                    <label class="block text-sm font-semibold text-asp-gray-800 mb-3">
+                      Service souhaité <span class="text-red-500">*</span>
+                    </label>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                      <label
+                        v-for="service in services"
+                        :key="service.value"
+                        class="relative cursor-pointer"
+                      >
+                        <input
+                          type="radio"
+                          v-model="quoteForm.service"
+                          :value="service.value"
+                          required
+                          class="peer sr-only"
+                        />
+                        <div class="p-4 border-2 border-asp-gray-200 rounded-lg transition-all duration-200 hover:border-asp-blue-300 peer-checked:border-asp-blue-600 peer-checked:bg-blue-50 peer-checked:shadow-md">
+                          <component :is="service.icon" class="w-6 h-6 text-asp-blue-600 mb-2" />
+                          <p class="text-sm font-semibold text-asp-gray-800">{{ service.label }}</p>
+                        </div>
+                      </label>
+                    </div>
+                  </div>
+
+                  <!-- Description -->
+                  <div>
+                    <label class="block text-sm font-semibold text-asp-gray-800 mb-2">
+                      Description de votre projet <span class="text-red-500">*</span>
+                    </label>
+                    <textarea 
+                      v-model="quoteForm.description"
+                      rows="4"
+                      required
+                      class="w-full px-4 py-3 border-2 border-asp-gray-200 rounded-lg focus:ring-2 focus:ring-asp-blue-500 focus:border-asp-blue-500 transition-all duration-200 resize-none"
+                      placeholder="Décrivez votre projet : dimensions, quantités, matériaux souhaités, délais..."
+                    ></textarea>
+                    <p class="text-xs text-asp-gray-600 mt-1">Plus votre description est détaillée, plus notre devis sera précis</p>
+                  </div>
                 </div>
 
-                <!-- Service -->
-                <div>
-                  <label class="block text-sm font-semibold text-gray-700 mb-2">
-                    Service souhaité <span class="text-red-500">*</span>
-                  </label>
-                  <select 
-                    v-model="quoteForm.service"
-                    required
-                    class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-asp-blue-500 focus:border-transparent transition-all cursor-pointer"
+                <!-- Boutons -->
+                <div class="space-y-3 pt-4">
+                  <button 
+                    type="submit"
+                    :disabled="isSubmitting"
+                    class="w-full bg-gradient-to-r from-asp-blue-700 to-asp-blue-600 hover:from-asp-blue-800 hover:to-asp-blue-700 disabled:from-gray-400 disabled:to-gray-400 text-white py-4 rounded-lg font-semibold transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer shadow-lg hover:shadow-xl disabled:cursor-not-allowed"
                   >
-                    <option value="">Sélectionnez un service</option>
-                    <option value="signaletique">Signalétique</option>
-                    <option value="marquage-sol">Marquage au Sol</option>
-                    <option value="impression-grand-format">Impression Grand Format</option>
-                    <option value="consommables-xerox">Consommables Xerox</option>
-                    <option value="impression-tshirts">Impression T-shirts</option>
-                  </select>
+                    <FileText v-if="!isSubmitting" class="w-5 h-5" />
+                    <span v-if="isSubmitting" class="flex items-center gap-2">
+                      <svg class="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      Envoi en cours...
+                    </span>
+                    <span v-else>Envoyer ma demande de devis</span>
+                  </button>
+
+                  <p class="text-xs text-asp-gray-600 text-center flex items-center justify-center gap-1">
+                    <ShieldCheck class="w-4 h-4" />
+                    Vos données sont sécurisées et ne seront jamais partagées
+                  </p>
                 </div>
-
-                <!-- Description -->
-                <div>
-                  <label class="block text-sm font-semibold text-gray-700 mb-2">
-                    Description de votre projet <span class="text-red-500">*</span>
-                  </label>
-                  <textarea 
-                    v-model="quoteForm.description"
-                    rows="5"
-                    required
-                    class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-asp-blue-500 focus:border-transparent transition-all"
-                    placeholder="Décrivez votre projet en détail : dimensions, quantités, délais souhaités..."
-                  ></textarea>
-                </div>
-
-                <!-- Bouton submit -->
-                <button 
-                  type="submit"
-                  :disabled="isSubmitting"
-                  class="w-full bg-asp-blue-600 hover:bg-asp-blue-700 disabled:bg-gray-400 text-white py-4 rounded-lg font-semibold transition-colors duration-200 flex items-center justify-center gap-2 cursor-pointer"
-                >
-                  <FileText v-if="!isSubmitting" class="w-5 h-5" />
-                  <span v-if="isSubmitting">Génération du devis en cours...</span>
-                  <span v-else>Générer mon Devis PDF</span>
-                </button>
-
-                <p class="text-sm text-gray-500 text-center">
-                  Vos données sont sécurisées et ne seront jamais partagées avec des tiers.
-                </p>
               </form>
 
               <!-- Message de succès -->
-              <div v-if="quoteSubmitted" class="mt-6 p-4 bg-green-50 border-2 border-green-500 rounded-lg">
-                <div class="flex items-center gap-3">
-                  <CheckCircle2 class="w-6 h-6 text-green-600" />
-                  <div>
-                    <p class="font-semibold text-green-900">Demande envoyée avec succès !</p>
-                    <p class="text-sm text-green-700">Nous vous contacterons sous 24h avec votre devis personnalisé.</p>
+              <Transition name="fade">
+                <div v-if="quoteSubmitted" class="mt-6 p-5 bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-500 rounded-xl shadow-lg">
+                  <div class="flex items-start gap-4">
+                    <div class="flex-shrink-0 w-12 h-12 bg-green-500 rounded-full flex items-center justify-center">
+                      <CheckCircle2 class="w-7 h-7 text-white" />
+                    </div>
+                    <div class="flex-1">
+                      <p class="font-bold text-green-900 text-lg mb-1">Demande envoyée avec succès !</p>
+                      <p class="text-sm text-green-800 mb-3">
+                        Merci pour votre confiance. Notre équipe va étudier votre demande et vous contacter sous 24h avec un devis personnalisé.
+                      </p>
+                      <div class="flex items-center gap-4 text-sm">
+                        <a
+                          href="https://wa.me/241078631098"
+                          target="_blank"
+                          class="inline-flex items-center gap-2 text-green-700 hover:text-green-900 font-medium"
+                        >
+                          <Phone class="w-4 h-4" />
+                          WhatsApp: 07 86 31 98
+                        </a>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </Transition>
             </div>
           </div>
         </div>
@@ -1020,7 +1144,10 @@ import {
   Shield,
   Clock,
   Award,
-  CreditCard
+  CreditCard,
+  User,
+  Briefcase,
+  ShieldCheck
 } from 'lucide-vue-next'
 
 useHead({
@@ -1035,6 +1162,16 @@ useHead({
 
 // Mobile menu state
 const mobileMenuOpen = ref(false)
+
+// Services list for modal
+const services = [
+  { value: 'signaletique', label: 'Signalétique', icon: Building },
+  { value: 'marquage-sol', label: 'Marquage au Sol', icon: Car },
+  { value: 'impression-grand-format', label: 'Impression Grand Format', icon: Printer },
+  { value: 'consommables-xerox', label: 'Consommables Xerox', icon: Package },
+  { value: 'impression-tshirts', label: 'Impression T-shirts', icon: Shirt },
+  { value: 'badges-cartes', label: 'Badges & Cartes', icon: CreditCard }
+]
 
 // Scroll to top button
 const showScrollTop = ref(false)
@@ -1482,3 +1619,44 @@ html {
   padding: 0 !important;
 }
 </style>
+
+
+/* Transitions pour la modal */
+.modal-enter-active,
+.modal-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.modal-enter-from,
+.modal-leave-to {
+  opacity: 0;
+}
+
+.modal-enter-active .bg-white,
+.modal-leave-active .bg-white {
+  transition: transform 0.3s ease;
+}
+
+.modal-enter-from .bg-white {
+  transform: scale(0.9);
+}
+
+.modal-leave-to .bg-white {
+  transform: scale(0.9);
+}
+
+/* Transition pour le message de succès */
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 0.3s ease;
+}
+
+.fade-enter-from {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+.fade-leave-to {
+  opacity: 0;
+  transform: translateY(10px);
+}
