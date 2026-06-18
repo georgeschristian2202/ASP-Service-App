@@ -1,0 +1,22 @@
+{
+  "name": "asp-services-website",
+  "version": "1.0.0",
+  "description": "Professional showcase website for ASP Services Gabon - Graphic Design & Management",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "nuxt": "^3.13.0",
+    "vue": "^3.4.38"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.2",
+    "typescript": "^5.5.0"
+  }
+}

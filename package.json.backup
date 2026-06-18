@@ -1,0 +1,38 @@
+{
+  "name": "asp-services-website",
+  "version": "1.0.0",
+  "description": "Professional showcase website for ASP Services Gabon - Graphic Design & Management",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "copy-images": "node scripts/copy-images.cjs",
+    "clean": "rm -rf .nuxt node_modules package-lock.json && npm install"
+  },
+  "dependencies": {
+    "@nuxt/image": "^1.8.0",
+    "@nuxtjs/google-fonts": "^3.2.0",
+    "@nuxtjs/tailwindcss": "^6.12.1",
+    "@vueuse/core": "^10.11.0",
+    "@vueuse/nuxt": "^10.11.0",
+    "nuxt": "^3.13.0",
+    "vue": "^3.4.38",
+    "vue-router": "^4.4.0"
+  },
+  "devDependencies": {
+    "@heroicons/vue": "^2.1.5",
+    "@nuxt/eslint": "^0.5.7",
+    "@types/node": "^20.14.2",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.47",
+    "tailwindcss": "^3.4.13",
+    "typescript": "^5.5.0",
+    "vue-tsc": "^2.0.29"
+  }
+}

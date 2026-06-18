@@ -1,0 +1,169 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* Custom base styles for ASP Services */
+  html {
+    @apply scroll-smooth;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    @apply font-sans text-asp-black antialiased;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Reset for Nuxt wrappers */
+  #__nuxt,
+  #__layout {
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Respect reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  /* Primary Button */
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-8 py-3 text-base font-semibold text-asp-white bg-asp-blue-700 rounded-lg transition-colors duration-200 cursor-pointer hover:bg-asp-blue-900 focus:outline-none focus:ring-2 focus:ring-asp-blue-500 focus:ring-offset-2;
+  }
+
+  /* Secondary Button (CTA) */
+  .btn-secondary {
+    @apply inline-flex items-center justify-center px-8 py-3 text-base font-semibold text-asp-white bg-asp-blue-500 rounded-lg transition-colors duration-200 cursor-pointer hover:bg-asp-blue-600 focus:outline-none focus:ring-2 focus:ring-asp-blue-500 focus:ring-offset-2;
+  }
+
+  /* Ghost Button */
+  .btn-ghost {
+    @apply inline-flex items-center justify-center px-8 py-3 text-base font-semibold text-asp-blue-700 bg-transparent border-2 border-asp-blue-700 rounded-lg transition-all duration-200 cursor-pointer hover:bg-asp-blue-700 hover:text-asp-white focus:outline-none focus:ring-2 focus:ring-asp-blue-500 focus:ring-offset-2;
+  }
+
+  /* Service Card */
+  .card-service {
+    @apply bg-asp-white border border-asp-gray-200 rounded-xl p-8 shadow-asp-md transition-all duration-300 cursor-pointer hover:shadow-asp-xl hover:scale-[1.02];
+  }
+
+  /* Image Card (Portfolio) */
+  .card-image {
+    @apply bg-asp-white rounded-lg overflow-hidden shadow-asp-lg transition-all duration-300 cursor-pointer hover:shadow-asp-2xl;
+  }
+
+  /* Section Container */
+  .section-container {
+    @apply max-w-7xl mx-auto px-6 lg:px-8;
+  }
+
+  /* Section Padding */
+  .section-padding {
+    @apply py-16 md:py-24 lg:py-32;
+  }
+
+  /* Heading Styles */
+  .heading-display {
+    @apply text-4xl md:text-5xl lg:text-6xl font-bold leading-tight;
+  }
+
+  .heading-1 {
+    @apply text-3xl md:text-4xl lg:text-5xl font-bold leading-tight;
+  }
+
+  .heading-2 {
+    @apply text-2xl md:text-3xl lg:text-4xl font-semibold leading-snug;
+  }
+
+  .heading-3 {
+    @apply text-xl md:text-2xl lg:text-3xl font-semibold leading-snug;
+  }
+
+  /* Text Styles */
+  .text-muted {
+    @apply text-asp-gray-600;
+  }
+
+  .text-muted-light {
+    @apply text-asp-gray-400;
+  }
+
+  /* Link Styles */
+  .link {
+    @apply text-asp-blue-700 transition-colors duration-200 hover:text-asp-blue-900 hover:underline focus:outline-none focus:ring-2 focus:ring-asp-blue-500 focus:ring-offset-2 rounded;
+  }
+
+  /* Form Input */
+  .form-input {
+    @apply w-full px-4 py-3 text-base text-asp-black border border-asp-gray-400 rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-asp-blue-500 focus:border-transparent placeholder:text-asp-gray-400;
+  }
+
+  /* Form Label */
+  .form-label {
+    @apply block text-sm font-medium text-asp-gray-800 mb-2;
+  }
+
+  /* Form Error */
+  .form-error {
+    @apply text-sm text-red-600 mt-1;
+  }
+
+  /* Overlay (for hero sections) */
+  .overlay-dark {
+    @apply absolute inset-0 bg-asp-blue-900/70;
+  }
+
+  .overlay-gradient {
+    @apply absolute inset-0 bg-gradient-to-r from-asp-blue-900/90 to-asp-blue-900/50;
+  }
+}
+
+@layer utilities {
+  /* Custom utilities */
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .animation-delay-200 {
+    animation-delay: 200ms;
+  }
+
+  .animation-delay-400 {
+    animation-delay: 400ms;
+  }
+
+  .animation-delay-600 {
+    animation-delay: 600ms;
+  }
+
+  /* Aspect ratio utilities */
+  .aspect-16-9 {
+    aspect-ratio: 16 / 9;
+  }
+
+  .aspect-4-3 {
+    aspect-ratio: 4 / 3;
+  }
+
+  .aspect-square {
+    aspect-ratio: 1 / 1;
+  }
+
+  /* Glass morphism effect */
+  .glass {
+    @apply bg-white/80 backdrop-blur-md;
+  }
+
+  .glass-dark {
+    @apply bg-asp-blue-900/80 backdrop-blur-md;
+  }
+}
