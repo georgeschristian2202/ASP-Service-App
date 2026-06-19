@@ -26,34 +26,12 @@
     <section class="section-padding bg-asp-white">
       <Container>
         <div class="space-y-24">
-          <!-- Service 1: Signalétique -->
+          <!-- Affichage dynamique de TOUS les services -->
           <ServiceDetail
-            :service="services[0]"
-            :reversed="false"
-          />
-
-          <!-- Service 2: Marquage au sol -->
-          <ServiceDetail
-            :service="services[1]"
-            :reversed="true"
-          />
-
-          <!-- Service 3: Impression grand format -->
-          <ServiceDetail
-            :service="services[2]"
-            :reversed="false"
-          />
-
-          <!-- Service 4: Consommables Xerox -->
-          <ServiceDetail
-            :service="services[3]"
-            :reversed="true"
-          />
-
-          <!-- Service 5: Impression T-shirts -->
-          <ServiceDetail
-            :service="services[4]"
-            :reversed="false"
+            v-for="(service, index) in services"
+            :key="service.id"
+            :service="service"
+            :reversed="index % 2 === 1"
           />
         </div>
       </Container>
@@ -95,12 +73,7 @@
 </template>
 
 <script setup lang="ts">
-import {
-  CheckBadgeIcon,
-  ClockIcon,
-  WrenchScrewdriverIcon,
-  CurrencyDollarIcon
-} from '@heroicons/vue/24/outline'
+import { BadgeCheck, Clock, Wrench, DollarSign } from 'lucide-vue-next'
 
 const { services } = useServices()
 
@@ -109,29 +82,29 @@ useHead({
   meta: [
     {
       name: 'description',
-      content: 'Découvrez nos services : signalétique professionnelle, marquage au sol, impression grand format, consommables Xerox et impression textile à Libreville, Gabon.'
+      content: 'Découvrez nos services : signalétique professionnelle, marquage au sol, impression grand format, consommables Xerox et impression textile à Libreville, Likouala.'
     }
   ]
 })
 
 const benefits = [
   {
-    icon: CheckBadgeIcon,
+    icon: BadgeCheck,
     title: 'Qualité Garantie',
     description: 'Matériaux de qualité et finitions professionnelles pour tous vos projets'
   },
   {
-    icon: ClockIcon,
+    icon: Clock,
     title: 'Délais Respectés',
     description: 'Engagement sur les délais de livraison et réactivité optimale'
   },
   {
-    icon: WrenchScrewdriverIcon,
+    icon: Wrench,
     title: 'Équipement Pro',
     description: 'Traceur MUTOH, imprimantes Xerox et outils de dernière génération'
   },
   {
-    icon: CurrencyDollarIcon,
+    icon: DollarSign,
     title: 'Prix Compétitifs',
     description: 'Tarifs adaptés à tous les budgets avec devis gratuit sous 24h'
   }

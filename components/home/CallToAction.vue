@@ -21,7 +21,7 @@
               target="_blank"
               rel="noopener noreferrer"
             >
-              <ChatBubbleLeftRightIcon class="w-6 h-6" />
+              <MessageCircle class="w-6 h-6" />
               Devis Gratuit via WhatsApp
             </Button>
 
@@ -31,7 +31,7 @@
               to="/contact"
               class="!text-asp-white !border-asp-white hover:!bg-asp-white hover:!text-asp-blue-900"
             >
-              <EnvelopeIcon class="w-6 h-6" />
+              <Mail class="w-6 h-6" />
               Formulaire de Contact
             </Button>
           </div>
@@ -42,7 +42,7 @@
               :href="`tel:${config.public.phone.replace(/\s/g, '')}`"
               class="flex items-center gap-2 hover:text-asp-white transition-colors duration-200 cursor-pointer"
             >
-              <PhoneIcon class="w-5 h-5" />
+              <Phone class="w-5 h-5" />
               <span>{{ config.public.phone }}</span>
             </a>
 
@@ -52,15 +52,15 @@
               :href="`mailto:${config.public.email}`"
               class="flex items-center gap-2 hover:text-asp-white transition-colors duration-200 cursor-pointer"
             >
-              <EnvelopeIcon class="w-5 h-5" />
+              <Mail class="w-5 h-5" />
               <span>{{ config.public.email }}</span>
             </a>
 
             <span class="hidden sm:block text-asp-gray-600">|</span>
 
             <div class="flex items-center gap-2">
-              <MapPinIcon class="w-5 h-5" />
-              <span>Libreville, Gabon</span>
+              <MapPin class="w-5 h-5" />
+              <span>Libreville, Likouala</span>
             </div>
           </div>
         </div>
@@ -77,11 +77,11 @@
 
 <script setup lang="ts">
 import {
-  ChatBubbleLeftRightIcon,
-  EnvelopeIcon,
-  PhoneIcon,
-  MapPinIcon
-} from '@heroicons/vue/24/outline'
+  MessageCircle,
+  Mail,
+  Phone,
+  MapPin
+} from 'lucide-vue-next'
 
 const config = useRuntimeConfig()
 </script>

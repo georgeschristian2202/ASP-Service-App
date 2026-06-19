@@ -1,4 +1,4 @@
-<template>
+ <template>
   <form @submit.prevent="handleSubmit" class="space-y-6">
     <!-- Name -->
     <div>
@@ -99,7 +99,7 @@
         :disabled="isSubmitting"
         class="flex-1"
       >
-        <PaperAirplaneIcon v-if="!isSubmitting" class="w-5 h-5" />
+        <Send v-if="!isSubmitting" class="w-5 h-5" />
         <span v-if="isSubmitting" class="inline-block animate-spin mr-2">⏳</span>
         {{ isSubmitting ? 'Envoi en cours...' : 'Envoyer le message' }}
       </Button>
@@ -111,14 +111,14 @@
         rel="noopener noreferrer"
         class="flex-1"
       >
-        <ChatBubbleLeftRightIcon class="w-5 h-5" />
+        <MessageCircle class="w-5 h-5" />
         WhatsApp Direct
       </Button>
     </div>
 
     <!-- Success Message -->
     <Transition
-      enter-active-class="transition-all duration-300 ease-out"
+      enter-active-class="transition-all duration-200 ease-out"
       enter-from-class="opacity-0 scale-95"
       enter-to-class="opacity-100 scale-100"
       leave-active-class="transition-all duration-200 ease-in"
@@ -129,7 +129,7 @@
         v-if="showSuccess"
         class="p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg flex items-start gap-3"
       >
-        <CheckCircleIcon class="w-6 h-6 flex-shrink-0" />
+        <CheckCircle class="w-6 h-6 flex-shrink-0" />
         <div>
           <p class="font-semibold">Message envoyé avec succès !</p>
           <p class="text-sm mt-1">Nous vous répondrons dans les plus brefs délais.</p>
@@ -139,7 +139,7 @@
 
     <!-- Error Message -->
     <Transition
-      enter-active-class="transition-all duration-300 ease-out"
+      enter-active-class="transition-all duration-200 ease-out"
       enter-from-class="opacity-0 scale-95"
       enter-to-class="opacity-100 scale-100"
       leave-active-class="transition-all duration-200 ease-in"
@@ -150,7 +150,7 @@
         v-if="showError"
         class="p-4 bg-asp-red-100 border border-asp-red-500 text-asp-red-600 rounded-lg flex items-start gap-3"
       >
-        <ExclamationCircleIcon class="w-6 h-6 flex-shrink-0" />
+        <AlertCircle class="w-6 h-6 flex-shrink-0" />
         <div>
           <p class="font-semibold">Erreur lors de l'envoi</p>
           <p class="text-sm mt-1">Veuillez réessayer ou nous contacter via WhatsApp.</p>
@@ -163,11 +163,11 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
 import { 
-  PaperAirplaneIcon,
-  ChatBubbleLeftRightIcon,
-  CheckCircleIcon,
-  ExclamationCircleIcon
-} from '@heroicons/vue/24/outline'
+  Send,
+  MessageCircle,
+  CheckCircle,
+  AlertCircle
+} from 'lucide-vue-next'
 
 const config = useRuntimeConfig()
 
@@ -257,6 +257,8 @@ const validateForm = (): boolean => {
   return isValid
 }
 
+const { sendEmail } = useEmailJS()
+
 const handleSubmit = async () => {
   if (!validateForm()) {
     return
@@ -267,8 +269,33 @@ const handleSubmit = async () => {
   showError.value = false
 
   try {
-    // Simulate API call (replace with actual endpoint)
-    await new Promise(resolve => setTimeout(resolve, 1500))
+    // Préparer les paramètres pour EmailJS
+    const serviceNames: Record<string, string> = {
+      signaletique: 'Signalétique',
+      marquage: 'Marquage au sol',
+      impression: 'Impression grand format',
+      xerox: 'Consommables Xerox',
+      tshirts: 'Impression T-shirts',
+      autre: 'Autre'
+    }
+
+    const templateParams = {
+      to_email: 'andih12003@yahoo.fr',
+      from_name: formData.name,
+      from_email: formData.email,
+      client_phone: formData.phone,
+      service_type: serviceNames[formData.service] || formData.service,
+      message: formData.message,
+      reply_to: formData.email,
+      // Informations supplémentaires
+      submission_date: new Date().toLocaleString('fr-FR', {
+        dateStyle: 'full',
+        timeStyle: 'short'
+      })
+    }
+
+    // Envoyer l'email via EmailJS
+    await sendEmail(templateParams)
 
     // Success
     showSuccess.value = true
@@ -283,6 +310,7 @@ const handleSubmit = async () => {
       showSuccess.value = false
     }, 5000)
   } catch (error) {
+    console.error('Error sending email:', error)
     showError.value = true
     
     // Hide error message after 5 seconds

@@ -45,7 +45,7 @@
             <Card variant="service" :hoverable="true">
               <div class="text-center space-y-4">
                 <div class="w-16 h-16 mx-auto rounded-full bg-green-100 flex items-center justify-center group-hover:bg-green-600 transition-colors duration-200">
-                  <ChatBubbleLeftRightIcon class="w-8 h-8 text-green-600 group-hover:text-white transition-colors duration-200" />
+                  <MessageCircle class="w-8 h-8 text-green-600 group-hover:text-white transition-colors duration-200" />
                 </div>
                 <h3 class="text-xl font-semibold text-asp-black">
                   WhatsApp
@@ -68,7 +68,7 @@
             <Card variant="service" :hoverable="true">
               <div class="text-center space-y-4">
                 <div class="w-16 h-16 mx-auto rounded-full bg-asp-blue-100 flex items-center justify-center group-hover:bg-asp-blue-700 transition-colors duration-200">
-                  <PhoneIcon class="w-8 h-8 text-asp-blue-700 group-hover:text-white transition-colors duration-200" />
+                  <Phone class="w-8 h-8 text-asp-blue-700 group-hover:text-white transition-colors duration-200" />
                 </div>
                 <h3 class="text-xl font-semibold text-asp-black">
                   Téléphone
@@ -91,7 +91,7 @@
             <Card variant="service" :hoverable="true">
               <div class="text-center space-y-4">
                 <div class="w-16 h-16 mx-auto rounded-full bg-asp-blue-100 flex items-center justify-center group-hover:bg-asp-blue-500 transition-colors duration-200">
-                  <EnvelopeIcon class="w-8 h-8 text-asp-blue-500 group-hover:text-white transition-colors duration-200" />
+                  <Mail class="w-8 h-8 text-asp-blue-500 group-hover:text-white transition-colors duration-200" />
                 </div>
                 <h3 class="text-xl font-semibold text-asp-black">
                   Email
@@ -175,7 +175,7 @@
               <Card class="backdrop-blur-sm bg-asp-white/95">
                 <div class="space-y-3">
                   <div class="flex items-start gap-3">
-                    <MapPinIcon class="w-5 h-5 text-asp-blue-700 flex-shrink-0 mt-0.5" />
+                    <MapPin class="w-5 h-5 text-asp-blue-700 flex-shrink-0 mt-0.5" />
                     <div>
                       <p class="font-semibold text-asp-black text-sm mb-1">Adresse</p>
                       <p class="text-asp-gray-600 text-sm">{{ config.public.address }}</p>
@@ -184,7 +184,7 @@
 
                   <div class="border-t border-asp-gray-200 pt-3">
                     <div class="flex items-center gap-2 text-sm text-asp-gray-600">
-                      <ClockIcon class="w-4 h-4 text-asp-blue-700" />
+                      <Clock class="w-4 h-4 text-asp-blue-700" />
                       <span>Lun-Ven: 8h-17h • Sam: 9h-13h</span>
                     </div>
                   </div>
@@ -242,13 +242,13 @@
 
 <script setup lang="ts">
 import {
-  ChatBubbleLeftRightIcon,
-  PhoneIcon,
-  EnvelopeIcon,
+  MessageCircle,
+  Phone,
+  Mail,
   MapIcon,
-  MapPinIcon,
-  ClockIcon
-} from '@heroicons/vue/24/outline'
+  MapPin,
+  Clock
+} from 'lucide-vue-next'
 
 const config = useRuntimeConfig()
 
@@ -257,7 +257,7 @@ useHead({
   meta: [
     {
       name: 'description',
-      content: 'Contactez ASP Services Gabon pour vos projets de signalétique et impression à Libreville. Devis gratuit par WhatsApp, téléphone ou email. Rue Agondjo Okawé, Villa 716.'
+      content: 'Contactez ASP Services Gabon pour vos projets de signalétique et impression à Libreville. Devis gratuit par WhatsApp, téléphone ou email. Likouala en face de l\'église Hebron.'
     }
   ]
 })

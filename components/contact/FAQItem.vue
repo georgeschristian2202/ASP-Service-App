@@ -9,7 +9,7 @@
         <h3 class="text-lg font-semibold text-asp-black">
           {{ question }}
         </h3>
-        <ChevronDownIcon 
+        <ChevronDown 
           :class="[
             'w-5 h-5 text-asp-blue-700 flex-shrink-0 transition-transform duration-200',
             isOpen ? 'rotate-180' : ''
@@ -19,7 +19,7 @@
 
       <!-- Answer -->
       <Transition
-        enter-active-class="transition-all duration-300 ease-out"
+        enter-active-class="transition-all duration-200 ease-out"
         enter-from-class="max-h-0 opacity-0"
         enter-to-class="max-h-96 opacity-100"
         leave-active-class="transition-all duration-200 ease-in"
@@ -38,7 +38,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { ChevronDownIcon } from '@heroicons/vue/24/outline'
+import { ChevronDown } from 'lucide-vue-next'
 
 interface Props {
   question: string

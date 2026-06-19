@@ -1,164 +1,119 @@
 <template>
-  <footer class="bg-asp-black text-asp-white">
-    <!-- Main Footer Content -->
-    <div class="py-16">
-      <Container>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          <!-- Company Info -->
-          <div class="lg:col-span-2">
-            <div class="flex items-center gap-3 mb-6">
-              <img 
-                src="/logo.png" 
-                alt="ASP Services Gabon" 
-                class="h-12 w-auto"
-                @error="handleImageError"
-              >
-              <span class="text-2xl font-bold">ASP Services</span>
-            </div>
-            
-            <p class="text-asp-gray-400 mb-6 text-lg leading-relaxed max-w-md">
-              Votre partenaire de confiance en signalétique, impression grand format et marquage au sol à Libreville depuis plusieurs années.
-            </p>
-            
-            <!-- Social Links / Contact CTA -->
-            <div class="flex flex-wrap gap-4">
-              <a
-                :href="`https://wa.me/${config.public.whatsappNumber.replace(/\s/g, '')}`"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 px-4 py-3 rounded-lg font-semibold transition-all duration-200 hover:shadow-lg hover:scale-105"
-              >
-                <ChatBubbleLeftRightIcon class="w-5 h-5" />
-                <span>WhatsApp</span>
-              </a>
-              
-              <a
-                :href="`tel:${config.public.phone.replace(/\s/g, '')}`"
-                class="inline-flex items-center gap-2 bg-asp-blue-700 hover:bg-asp-blue-600 px-4 py-3 rounded-lg font-semibold transition-all duration-200 hover:shadow-lg hover:scale-105"
-              >
-                <PhoneIcon class="w-5 h-5" />
-                <span>Appeler</span>
-              </a>
-            </div>
-          </div>
-
-          <!-- Services -->
+  <footer class="bg-asp-black text-white py-16 w-full">
+    <div class="w-full px-4 sm:px-6 lg:px-8">
+      <div class="max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+          <!-- À propos -->
           <div>
-            <h4 class="text-xl font-semibold mb-6 text-asp-white">Nos Services</h4>
+            <img 
+              src="/Logo-ASP-Service-sans fond.png" 
+              alt="ASP Services Gabon" 
+              class="h-16 w-auto mb-4" 
+              @error="handleLogoError"
+            >
+            <p class="text-gray-400 leading-relaxed text-sm">
+              Votre partenaire de confiance en signalétique, impression grand format et marquage au sol à Libreville depuis 28 ans.
+            </p>
+          </div>
+          
+          <!-- Navigation -->
+          <div>
+            <h4 class="text-lg font-bold mb-4 text-white">Navigation</h4>
             <ul class="space-y-3">
-              <li v-for="service in services" :key="service">
-                <NuxtLink 
-                  to="/services" 
-                  class="text-asp-gray-400 hover:text-asp-blue-500 transition-colors duration-200"
-                >
-                  {{ service }}
+              <li>
+                <NuxtLink to="/" class="text-gray-400 hover:text-yellow-400 transition-colors duration-200 text-sm cursor-pointer">
+                  Accueil
+                </NuxtLink>
+              </li>
+              <li>
+                <NuxtLink to="/services" class="text-gray-400 hover:text-yellow-400 transition-colors duration-200 text-sm cursor-pointer">
+                  Services
+                </NuxtLink>
+              </li>
+              <li>
+                <NuxtLink to="/a-propos" class="text-gray-400 hover:text-yellow-400 transition-colors duration-200 text-sm cursor-pointer">
+                  À Propos
+                </NuxtLink>
+              </li>
+              <li>
+                <NuxtLink to="/realisations" class="text-gray-400 hover:text-yellow-400 transition-colors duration-200 text-sm cursor-pointer">
+                  Réalisations
+                </NuxtLink>
+              </li>
+              <li>
+                <NuxtLink to="/contact" class="text-gray-400 hover:text-yellow-400 transition-colors duration-200 text-sm cursor-pointer">
+                  Contact
                 </NuxtLink>
               </li>
             </ul>
           </div>
 
-          <!-- Contact Info -->
+          <!-- Contact -->
           <div>
-            <h4 class="text-xl font-semibold mb-6 text-asp-white">Contact</h4>
-            <div class="space-y-4">
-              <!-- Address -->
-              <div class="flex items-start gap-3">
-                <MapPinIcon class="w-5 h-5 text-asp-blue-500 flex-shrink-0 mt-1" />
-                <div>
-                  <p class="text-asp-gray-400 leading-relaxed">
-                    {{ config.public.address }}
-                  </p>
+            <h4 class="text-lg font-bold mb-4 text-white">Contact</h4>
+            <div class="space-y-3">
+              <div class="flex items-start gap-3 text-sm">
+                <Phone class="w-5 h-5 text-yellow-400 flex-shrink-0 mt-0.5" />
+                <div class="text-gray-400">
+                  <p>+241 07 86 31 98</p>
+                  <p>+241 01 74 63 17</p>
                 </div>
               </div>
-
-              <!-- Phone -->
-              <div class="flex items-center gap-3">
-                <PhoneIcon class="w-5 h-5 text-asp-blue-500 flex-shrink-0" />
-                <a 
-                  :href="`tel:${config.public.phone.replace(/\s/g, '')}`"
-                  class="text-asp-gray-400 hover:text-asp-blue-500 transition-colors duration-200"
-                >
-                  {{ config.public.phone }}
-                </a>
+              <div class="flex items-start gap-3 text-sm">
+                <Mail class="w-5 h-5 text-yellow-400 flex-shrink-0 mt-0.5" />
+                <p class="text-gray-400">aspservicesgabon@gmail.com</p>
               </div>
-
-              <!-- Email -->
-              <div class="flex items-center gap-3">
-                <EnvelopeIcon class="w-5 h-5 text-asp-blue-500 flex-shrink-0" />
-                <a 
-                  :href="`mailto:${config.public.email}`"
-                  class="text-asp-gray-400 hover:text-asp-blue-500 transition-colors duration-200 break-all"
-                >
-                  {{ config.public.email }}
-                </a>
+              <div class="flex items-start gap-3 text-sm">
+                <MapPin class="w-5 h-5 text-yellow-400 flex-shrink-0 mt-0.5" />
+                <p class="text-gray-400">Libreville, Likouala en face de l'église Hebron</p>
               </div>
+            </div>
+          </div>
 
-              <!-- Hours -->
-              <div class="flex items-start gap-3">
-                <ClockIcon class="w-5 h-5 text-asp-blue-500 flex-shrink-0 mt-1" />
-                <div class="text-asp-gray-400 text-sm">
-                  <p>Lun - Ven : 8h - 17h</p>
-                  <p>Samedi : 9h - 13h</p>
-                  <p>Dimanche : Fermé</p>
-                </div>
+          <!-- Horaires -->
+          <div>
+            <h4 class="text-lg font-bold mb-4 text-white">Horaires</h4>
+            <div class="space-y-2 text-sm text-gray-400">
+              <div class="flex justify-between">
+                <span>Lundi - Vendredi</span>
+                <span class="text-yellow-400">8h - 17h</span>
+              </div>
+              <div class="flex justify-between">
+                <span>Samedi</span>
+                <span class="text-yellow-400">9h - 13h</span>
+              </div>
+              <div class="flex justify-between">
+                <span>Dimanche</span>
+                <span class="text-red-400">Fermé</span>
               </div>
             </div>
           </div>
         </div>
-      </Container>
-    </div>
 
-    <!-- Bottom Bar -->
-    <div class="border-t border-asp-gray-800 py-6">
-      <Container>
-        <div class="flex flex-col md:flex-row justify-between items-center gap-4">
-          <div class="flex flex-wrap items-center gap-4 text-sm text-asp-gray-400">
-            <p>&copy; {{ new Date().getFullYear() }} ASP Services Gabon. Tous droits réservés.</p>
-          </div>
-          
-          <div class="flex items-center gap-6">
-            <NuxtLink 
-              to="/contact" 
-              class="text-sm text-asp-gray-400 hover:text-asp-blue-500 transition-colors duration-200"
-            >
-              Devis Gratuit
-            </NuxtLink>
-            <a 
-              :href="config.public.googleMapsUrl"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="text-sm text-asp-gray-400 hover:text-asp-blue-500 transition-colors duration-200"
-            >
-              Nous Trouver
-            </a>
+        <!-- Bottom bar -->
+        <div class="border-t border-gray-800 mt-12 pt-8">
+          <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-400">
+            <p>&copy; 2025 ASP Services Gabon. Tous droits réservés.</p>
+            <div class="flex gap-6">
+              <a href="#" class="hover:text-yellow-400 transition-colors duration-200 cursor-pointer">Mentions légales</a>
+              <a href="#" class="hover:text-yellow-400 transition-colors duration-200 cursor-pointer">Politique de confidentialité</a>
+            </div>
           </div>
         </div>
-      </Container>
+      </div>
     </div>
   </footer>
 </template>
 
 <script setup lang="ts">
 import {
-  ChatBubbleLeftRightIcon,
-  PhoneIcon,
-  EnvelopeIcon,
-  MapPinIcon,
-  ClockIcon
-} from '@heroicons/vue/24/outline'
+  Phone,
+  Mail,
+  MapPin
+} from 'lucide-vue-next'
 
-const config = useRuntimeConfig()
-
-const services = [
-  'Signalétique',
-  'Marquage au Sol',
-  'Impression Grand Format',
-  'Consommables Xerox',
-  'Impression T-shirts'
-]
-
-const handleImageError = (event: Event) => {
+const handleLogoError = (event: Event) => {
   const img = event.target as HTMLImageElement
-  img.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60"%3E%3Crect fill="%23ddd" width="200" height="60"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="14" fill="%23999"%3EASP Services%3C/text%3E%3C/svg%3E'
+  img.src = '/logo.png' // Fallback to the original logo
 }
 </script>

@@ -61,7 +61,7 @@
 
         <!-- Empty State -->
         <div v-if="filteredPortfolio.length === 0" class="text-center py-16">
-          <PhotoIcon class="w-16 h-16 text-asp-gray-400 mx-auto mb-4" />
+          <ImageIcon class="w-16 h-16 text-asp-gray-400 mx-auto mb-4" />
           <p class="text-body-lg text-muted">
             Aucune réalisation dans cette catégorie pour le moment.
           </p>
@@ -97,7 +97,7 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { PhotoIcon } from '@heroicons/vue/24/outline'
+import { Image as ImageIcon } from 'lucide-vue-next'
 
 useHead({
   title: 'Nos Réalisations - ASP Services Gabon',
@@ -235,7 +235,7 @@ const closeModal = () => {
 <style scoped>
 .gallery-enter-active,
 .gallery-leave-active {
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 }
 
 .gallery-enter-from {
@@ -249,6 +249,6 @@ const closeModal = () => {
 }
 
 .gallery-move {
-  transition: transform 0.3s ease;
+  transition: transform 0.2s ease;
 }
 </style>

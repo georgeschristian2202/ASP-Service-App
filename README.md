@@ -28,8 +28,30 @@ pnpm install
 ## 🛠️ Développement
 
 ```bash
-# Lancer le serveur de développement sur http://localhost:3000
+# Lancer le serveur de développement sur http://localhost:3001
 npm run dev
+```
+
+### ⚠️ Problème Rolldown sur Windows
+
+Si vous obtenez une erreur "Cannot find native binding @rolldown/binding-win32-x64-msvc", utilisez les **scripts automatisés** :
+
+```powershell
+# Réparer le projet (nettoie et réinstalle tout)
+.\fix-rolldown.ps1
+
+# Ajouter une dépendance (résout automatiquement Rolldown)
+.\add-package.ps1 nom-du-package
+```
+
+**Documentation complète** : Voir `GUIDE-ROLLDOWN.md` et `SCRIPTS-AUTOMATISES.md`
+
+**Commandes npm disponibles** :
+```bash
+npm run clean        # Nettoyer uniquement
+npm run reinstall    # Nettoyer + réinstaller
+npm run dev:fix      # Nettoyer + réinstaller + démarrer
+npm run safe-install # Installation sécurisée
 ```
 
 ## 🏗️ Build
@@ -88,8 +110,43 @@ Le design system complet est documenté dans `design-system/MASTER.md`.
 
 - **Téléphone** : +241 07 86 31 98
 - **WhatsApp** : +241 07 86 31 98
-- **Email** : aspservicesgabon@gmail.com
-- **Adresse** : Libreville, Rue Agondjo Okawé, Villa 716 (BP 1840)
+- **Email** : andih12003@yahoo.fr
+- **Adresse** : Libreville, Likouala en face de l'église Hebron
+
+## 📧 Configuration EmailJS
+
+Le site utilise **EmailJS** pour l'envoi automatique des demandes de devis par email.
+
+### 🚀 Démarrage rapide (5 minutes)
+
+1. Ouvrez **`GUIDE-RAPIDE-EMAILJS.md`** pour les instructions pas à pas
+2. Créez un compte sur [EmailJS](https://www.emailjs.com)
+3. Configurez votre service Yahoo
+4. Créez le template email
+5. Remplissez le fichier `.env` avec vos clés
+
+### 📚 Documentation disponible
+
+| Fichier | Description |
+|---------|-------------|
+| `GUIDE-RAPIDE-EMAILJS.md` | Guide rapide pour démarrer en 5 min |
+| `EMAILJS-SETUP.md` | Guide complet avec toutes les étapes |
+| `TEMPLATES-EMAILJS.txt` | Templates à copier-coller |
+| `ACCES-EMAILJS.md` | Informations d'accès et configuration |
+| `RECAP-EMAILJS.md` | Récapitulatif visuel |
+
+### 🔑 Clés nécessaires
+
+Créez un fichier `.env` à la racine avec :
+
+```env
+NUXT_PUBLIC_EMAILJS_SERVICE_ID=votre_service_id
+NUXT_PUBLIC_EMAILJS_TEMPLATE_ID=votre_template_id
+NUXT_PUBLIC_EMAILJS_PUBLIC_KEY=votre_public_key
+NUXT_PUBLIC_SITE_URL=https://aspservices.ga
+```
+
+Voir `.env.example` pour un modèle.
 
 ## 🔧 Configuration
 

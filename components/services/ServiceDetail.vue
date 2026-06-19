@@ -37,7 +37,7 @@
       <!-- Features List -->
       <div class="space-y-3 bg-asp-gray-100 rounded-xl p-6">
         <h3 class="font-semibold text-asp-black mb-4 flex items-center gap-2">
-          <CheckCircleIcon class="w-5 h-5 text-asp-blue-700" />
+          <CheckCircle class="w-5 h-5 text-asp-blue-700" />
           Ce que nous proposons
         </h3>
         <ul class="space-y-3">
@@ -46,7 +46,7 @@
             :key="index"
             class="flex items-start gap-3"
           >
-            <CheckIcon class="w-5 h-5 text-asp-blue-700 flex-shrink-0 mt-0.5" />
+            <Check class="w-5 h-5 text-asp-blue-700 flex-shrink-0 mt-0.5" />
             <span class="text-asp-gray-600">{{ feature }}</span>
           </li>
         </ul>
@@ -55,7 +55,7 @@
       <!-- Applications/Use Cases -->
       <div v-if="useCases[service.id]" class="bg-asp-blue-50 rounded-xl p-6">
         <h3 class="font-semibold text-asp-black mb-3 flex items-center gap-2">
-          <LightBulbIcon class="w-5 h-5 text-asp-blue-700" />
+          <Lightbulb class="w-5 h-5 text-asp-blue-700" />
           Applications courantes
         </h3>
         <div class="flex flex-wrap gap-2">
@@ -77,7 +77,7 @@
           target="_blank"
           rel="noopener noreferrer"
         >
-          <ChatBubbleLeftRightIcon class="w-5 h-5" />
+          <MessageCircle class="w-5 h-5" />
           Demander un devis
         </Button>
 
@@ -85,7 +85,7 @@
           variant="ghost"
           to="/realisations"
         >
-          <PhotoIcon class="w-5 h-5" />
+          <ImageIcon class="w-5 h-5" />
           Voir nos réalisations
         </Button>
       </div>
@@ -97,17 +97,17 @@
 import { computed } from 'vue'
 import type { Service } from '~/composables/useServices'
 import {
-  CheckCircleIcon,
-  CheckIcon,
-  LightBulbIcon,
-  ChatBubbleLeftRightIcon,
-  PhotoIcon,
-  PaintBrushIcon,
-  PrinterIcon,
+  CheckCircle,
+  Check,
+  Lightbulb,
+  MessageCircle,
+  Image as ImageIcon,
+  Paintbrush,
+  Printer,
   MapIcon,
-  ShoppingBagIcon,
-  CubeIcon
-} from '@heroicons/vue/24/outline'
+  ShoppingBag,
+  Box
+} from 'lucide-vue-next'
 
 interface Props {
   service: Service
@@ -121,17 +121,17 @@ const props = withDefaults(defineProps<Props>(), {
 const config = useRuntimeConfig()
 
 const iconMap: Record<string, any> = {
-  'paint': PaintBrushIcon,
-  'printer': PrinterIcon,
+  'paint': Paintbrush,
+  'printer': Printer,
   'map': MapIcon,
-  'shopping': ShoppingBagIcon,
-  'cube': CubeIcon
+  'shopping': ShoppingBag,
+  'cube': Box
 }
 
 const iconComponent = computed(() => {
   return props.service.icon && iconMap[props.service.icon] 
     ? iconMap[props.service.icon] 
-    : CubeIcon
+    : Box
 })
 
 const placeholderImage = computed(() => {

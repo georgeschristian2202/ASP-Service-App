@@ -23,7 +23,7 @@
             class="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-asp-white/90 backdrop-blur-sm flex items-center justify-center text-asp-gray-800 hover:bg-asp-white hover:text-asp-blue-700 transition-all duration-200 cursor-pointer shadow-asp-md"
             aria-label="Fermer"
           >
-            <XMarkIcon class="w-6 h-6" />
+            <X class="w-6 h-6" />
           </button>
 
           <div class="grid grid-cols-1 lg:grid-cols-2">
@@ -58,7 +58,7 @@
                 <!-- Project Details -->
                 <div class="space-y-4 pt-4">
                   <div v-if="item.client" class="flex items-start gap-3">
-                    <BuildingOfficeIcon class="w-5 h-5 text-asp-blue-700 flex-shrink-0 mt-0.5" />
+                    <Building2 class="w-5 h-5 text-asp-blue-700 flex-shrink-0 mt-0.5" />
                     <div>
                       <p class="text-sm font-semibold text-asp-gray-800">Client</p>
                       <p class="text-asp-gray-600">{{ item.client }}</p>
@@ -66,7 +66,7 @@
                   </div>
 
                   <div v-if="item.date" class="flex items-start gap-3">
-                    <CalendarIcon class="w-5 h-5 text-asp-blue-700 flex-shrink-0 mt-0.5" />
+                    <Calendar class="w-5 h-5 text-asp-blue-700 flex-shrink-0 mt-0.5" />
                     <div>
                       <p class="text-sm font-semibold text-asp-gray-800">Année</p>
                       <p class="text-asp-gray-600">{{ item.date }}</p>
@@ -74,7 +74,7 @@
                   </div>
 
                   <div class="flex items-start gap-3">
-                    <CheckCircleIcon class="w-5 h-5 text-asp-blue-700 flex-shrink-0 mt-0.5" />
+                    <CheckCircle class="w-5 h-5 text-asp-blue-700 flex-shrink-0 mt-0.5" />
                     <div>
                       <p class="text-sm font-semibold text-asp-gray-800">Statut</p>
                       <p class="text-green-600">Projet terminé</p>
@@ -92,7 +92,7 @@
                   rel="noopener noreferrer"
                   class="flex-1"
                 >
-                  <ChatBubbleLeftRightIcon class="w-5 h-5" />
+                  <MessageCircle class="w-5 h-5" />
                   Projet similaire ?
                 </Button>
 
@@ -101,7 +101,7 @@
                   to="/services"
                   class="flex-1"
                 >
-                  <CubeIcon class="w-5 h-5" />
+                  <Box class="w-5 h-5" />
                   Nos services
                 </Button>
               </div>
@@ -115,13 +115,13 @@
 
 <script setup lang="ts">
 import {
-  XMarkIcon,
-  BuildingOfficeIcon,
-  CalendarIcon,
-  CheckCircleIcon,
-  ChatBubbleLeftRightIcon,
-  CubeIcon
-} from '@heroicons/vue/24/outline'
+  X,
+  Building2,
+  Calendar,
+  CheckCircle,
+  MessageCircle,
+  Box
+} from 'lucide-vue-next'
 
 interface PortfolioItem {
   id: number
@@ -138,7 +138,7 @@ interface Props {
 }
 
 defineProps<Props>()
-defineEmits(['close'])
+const emit = defineEmits(['close'])
 
 const config = useRuntimeConfig()
 
@@ -171,6 +171,4 @@ onMounted(() => {
     window.removeEventListener('keydown', handleEscape)
   })
 })
-
-const emit = defineEmits(['close'])
 </script>

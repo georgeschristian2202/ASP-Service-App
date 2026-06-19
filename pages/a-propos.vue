@@ -50,17 +50,17 @@
             <div class="flex flex-wrap gap-6 pt-4">
               <div class="flex items-center gap-3">
                 <div class="w-12 h-12 rounded-full bg-asp-blue-100 flex items-center justify-center">
-                  <BuildingOfficeIcon class="w-6 h-6 text-asp-blue-700" />
+                  <Building2 class="w-6 h-6 text-asp-blue-700" />
                 </div>
                 <div>
                   <p class="font-semibold text-asp-black">Basés à Libreville</p>
-                  <p class="text-sm text-asp-gray-600">Rue Agondjo Okawé</p>
+                  <p class="text-sm text-asp-gray-600">Likouala en face de l'église Hebron</p>
                 </div>
               </div>
 
               <div class="flex items-center gap-3">
                 <div class="w-12 h-12 rounded-full bg-asp-blue-100 flex items-center justify-center">
-                  <UsersIcon class="w-6 h-6 text-asp-blue-700" />
+                  <Users class="w-6 h-6 text-asp-blue-700" />
                 </div>
                 <div>
                   <p class="font-semibold text-asp-black">782+ Clients</p>
@@ -148,7 +148,7 @@
                     :key="index"
                     class="flex items-center gap-2 text-sm text-asp-gray-600"
                   >
-                    <CheckIcon class="w-4 h-4 text-asp-blue-700 flex-shrink-0" />
+                    <Check class="w-4 h-4 text-asp-blue-700 flex-shrink-0" />
                     <span>{{ feature }}</span>
                   </li>
                 </ul>
@@ -206,7 +206,7 @@
 
             <div class="space-y-4">
               <div class="flex items-start gap-4 p-4 bg-asp-gray-100 rounded-lg">
-                <MapPinIcon class="w-6 h-6 text-asp-blue-700 flex-shrink-0" />
+                <MapPin class="w-6 h-6 text-asp-blue-700 flex-shrink-0" />
                 <div>
                   <p class="font-semibold text-asp-black mb-1">Adresse</p>
                   <p class="text-asp-gray-600">{{ config.public.address }}</p>
@@ -214,7 +214,7 @@
               </div>
 
               <div class="flex items-start gap-4 p-4 bg-asp-gray-100 rounded-lg">
-                <ClockIcon class="w-6 h-6 text-asp-blue-700 flex-shrink-0" />
+                <Clock class="w-6 h-6 text-asp-blue-700 flex-shrink-0" />
                 <div>
                   <p class="font-semibold text-asp-black mb-2">Horaires</p>
                   <div class="space-y-1 text-sm text-asp-gray-600">
@@ -266,21 +266,21 @@
 
 <script setup lang="ts">
 import {
-  BuildingOfficeIcon,
-  UsersIcon,
-  CheckIcon,
-  MapPinIcon,
-  ClockIcon,
+  Building2,
+  Users,
+  Check,
+  MapPin,
+  Clock,
   MapIcon,
-  SparklesIcon,
-  HandThumbUpIcon,
-  ShieldCheckIcon,
-  WrenchScrewdriverIcon,
-  PrinterIcon,
-  PaintBrushIcon,
-  CubeIcon,
-  ShoppingBagIcon
-} from '@heroicons/vue/24/outline'
+  Sparkles,
+  ThumbsUp,
+  ShieldCheck,
+  Wrench,
+  Printer,
+  Paintbrush,
+  Box,
+  ShoppingBag
+} from 'lucide-vue-next'
 
 const config = useRuntimeConfig()
 
@@ -296,17 +296,17 @@ useHead({
 
 const values = [
   {
-    icon: SparklesIcon,
+    icon: Sparkles,
     title: 'Qualité',
     description: 'Nous utilisons des matériaux de première qualité et des techniques éprouvées pour garantir la durabilité et l\'esthétique de chaque réalisation.'
   },
   {
-    icon: HandThumbUpIcon,
+    icon: ThumbsUp,
     title: 'Satisfaction Client',
     description: 'Votre satisfaction est notre priorité. Nous vous accompagnons de la conception à la livraison pour un résultat qui dépasse vos attentes.'
   },
   {
-    icon: ShieldCheckIcon,
+    icon: ShieldCheck,
     title: 'Fiabilité',
     description: 'Respect des délais, engagement sur les prix annoncés et garantie sur nos prestations. Une relation de confiance durable avec nos clients.'
   }
@@ -316,7 +316,7 @@ const equipmentList = [
   {
     name: 'Traceur MUTOH',
     description: 'Impression grand format haute définition',
-    icon: PrinterIcon,
+    icon: Printer,
     features: [
       'Impression jusqu\'à 1,6m de largeur',
       'Résolution ultra HD',
@@ -326,7 +326,7 @@ const equipmentList = [
   {
     name: 'Imprimantes Xerox',
     description: 'Matériel professionnel pour tous vos besoins',
-    icon: CubeIcon,
+    icon: Box,
     features: [
       'Qualité d\'impression optimale',
       'Consommables d\'origine',
@@ -336,7 +336,7 @@ const equipmentList = [
   {
     name: 'Atelier de Signalétique',
     description: 'Fabrication sur mesure de panneaux',
-    icon: PaintBrushIcon,
+    icon: Paintbrush,
     features: [
       'Découpe de précision',
       'Assemblage professionnel',
@@ -346,7 +346,7 @@ const equipmentList = [
   {
     name: 'Équipement Marquage',
     description: 'Matériel spécialisé pour marquage au sol',
-    icon: WrenchScrewdriverIcon,
+    icon: Wrench,
     features: [
       'Peintures professionnelles',
       'Traçage de précision',
@@ -356,11 +356,11 @@ const equipmentList = [
 ]
 
 const serviceAreas = [
-  { title: 'Signalétique', subtitle: 'Panneaux & Enseignes', icon: PaintBrushIcon },
+  { title: 'Signalétique', subtitle: 'Panneaux & Enseignes', icon: Paintbrush },
   { title: 'Marquage', subtitle: 'Sol & Parking', icon: MapIcon },
-  { title: 'Impression', subtitle: 'Grand Format', icon: PrinterIcon },
-  { title: 'Xerox', subtitle: 'Consommables', icon: ShoppingBagIcon },
-  { title: 'Textile', subtitle: 'T-shirts', icon: CubeIcon }
+  { title: 'Impression', subtitle: 'Grand Format', icon: Printer },
+  { title: 'Xerox', subtitle: 'Consommables', icon: ShoppingBag },
+  { title: 'Textile', subtitle: 'T-shirts', icon: Box }
 ]
 
 const handleImageError = (event: Event) => {

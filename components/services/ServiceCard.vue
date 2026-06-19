@@ -22,7 +22,7 @@
           :key="index"
           class="flex items-start gap-2 text-sm text-asp-gray-600"
         >
-          <CheckCircleIcon class="w-5 h-5 text-asp-blue-700 flex-shrink-0 mt-0.5" />
+          <CheckCircle class="w-5 h-5 text-asp-blue-700 flex-shrink-0 mt-0.5" />
           <span>{{ feature }}</span>
         </li>
       </ul>
@@ -37,7 +37,7 @@
           rel="noopener noreferrer"
         >
           Demander un devis
-          <ArrowRightIcon class="w-4 h-4" />
+          <ArrowRight class="w-4 h-4" />
         </Button>
       </div>
     </div>
@@ -47,14 +47,14 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { 
-  CheckCircleIcon,
-  ArrowRightIcon,
-  PaintBrushIcon,
-  PrinterIcon,
+  CheckCircle,
+  ArrowRight,
+  Paintbrush,
+  Printer,
   MapIcon,
-  ShoppingBagIcon,
-  CubeIcon
-} from '@heroicons/vue/24/outline'
+  ShoppingBag,
+  Box
+} from 'lucide-vue-next'
 
 interface Props {
   title: string
@@ -67,14 +67,14 @@ const props = defineProps<Props>()
 const config = useRuntimeConfig()
 
 const iconMap: Record<string, any> = {
-  'paint': PaintBrushIcon,
-  'printer': PrinterIcon,
+  'paint': Paintbrush,
+  'printer': Printer,
   'map': MapIcon,
-  'shopping': ShoppingBagIcon,
-  'cube': CubeIcon
+  'shopping': ShoppingBag,
+  'cube': Box
 }
 
 const iconComponent = computed(() => {
-  return props.icon && iconMap[props.icon] ? iconMap[props.icon] : CubeIcon
+  return props.icon && iconMap[props.icon] ? iconMap[props.icon] : Box
 })
 </script>

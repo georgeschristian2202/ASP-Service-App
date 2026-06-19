@@ -19,7 +19,7 @@
         <div class="space-y-6 animate-fade-in">
           <!-- Tagline -->
           <div class="inline-flex items-center gap-2 px-4 py-2 bg-asp-blue-500/90 backdrop-blur-sm text-asp-white rounded-full text-sm font-medium animate-slide-down">
-            <SparklesIcon class="w-4 h-4" />
+            <Sparkles class="w-4 h-4" />
             <span>Leader de l'industrie graphique au Gabon</span>
           </div>
 
@@ -44,7 +44,7 @@
               target="_blank"
               rel="noopener noreferrer"
             >
-              <ChatBubbleLeftRightIcon class="w-5 h-5" />
+              <MessageCircle class="w-5 h-5" />
               Devis Gratuit WhatsApp
             </Button>
 
@@ -55,22 +55,22 @@
               class="!text-asp-white !border-asp-white hover:!bg-asp-white hover:!text-asp-blue-900"
             >
               Découvrir nos services
-              <ArrowRightIcon class="w-5 h-5" />
+              <ArrowRight class="w-5 h-5" />
             </Button>
           </div>
 
           <!-- Trust Indicators -->
           <div class="flex flex-wrap items-center gap-8 pt-8 text-asp-white/80 animate-fade-in animation-delay-600">
             <div class="flex items-center gap-2">
-              <CheckBadgeIcon class="w-6 h-6 text-asp-blue-500" />
+              <BadgeCheck class="w-6 h-6 text-asp-blue-500" />
               <span class="text-sm">Qualité garantie</span>
             </div>
             <div class="flex items-center gap-2">
-              <ClockIcon class="w-6 h-6 text-asp-blue-500" />
+              <Clock class="w-6 h-6 text-asp-blue-500" />
               <span class="text-sm">Délais respectés</span>
             </div>
             <div class="flex items-center gap-2">
-              <StarIcon class="w-6 h-6 text-asp-blue-500" />
+              <Star class="w-6 h-6 text-asp-blue-500" />
               <span class="text-sm">Plusieurs années d'expérience</span>
             </div>
           </div>
@@ -80,21 +80,21 @@
 
     <!-- Scroll Indicator -->
     <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-      <ChevronDownIcon class="w-8 h-8 text-asp-white/60" />
+      <ChevronDown class="w-8 h-8 text-asp-white/60" />
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
 import {
-  ChatBubbleLeftRightIcon,
-  ArrowRightIcon,
-  CheckBadgeIcon,
-  ClockIcon,
-  StarIcon,
-  SparklesIcon,
-  ChevronDownIcon
-} from '@heroicons/vue/24/outline'
+  MessageCircle,
+  ArrowRight,
+  BadgeCheck,
+  Clock,
+  Star,
+  Sparkles,
+  ChevronDown
+} from 'lucide-vue-next'
 
 const config = useRuntimeConfig()
 

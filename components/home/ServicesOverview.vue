@@ -32,7 +32,7 @@
           to="/services"
         >
           Voir tous nos services
-          <ArrowRightIcon class="w-5 h-5" />
+          <ArrowRight class="w-5 h-5" />
         </Button>
       </div>
     </Container>
@@ -40,7 +40,7 @@
 </template>
 
 <script setup lang="ts">
-import { ArrowRightIcon } from '@heroicons/vue/24/outline'
+import { ArrowRight } from 'lucide-vue-next'
 
 const { services } = useServices()
 

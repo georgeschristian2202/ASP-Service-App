@@ -1,65 +1,7 @@
 <template>
-  <div class="bg-white m-0 p-0">
+  <div class="bg-white">
     <!-- Hero Section avec carousel -->
-    <section class="relative min-h-screen bg-gradient-to-br from-asp-blue-900 to-asp-blue-700 m-0">
-      <!-- Navigation overlay pour hero -->
-      <div class="fixed top-0 left-0 right-0 z-50 m-0">
-        <nav class="bg-white/95 backdrop-blur-sm shadow-lg">
-          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20">
-              <!-- Logo uniquement -->
-              <div class="flex items-center">
-                <img 
-                  src="/logo.png" 
-                  alt="ASP Services Gabon" 
-                  class="h-14 w-auto"
-                  @error="handleImageError"
-                >
-              </div>
-
-              <!-- Menu navigation Desktop -->
-              <div class="hidden md:flex items-center space-x-6">
-                <NuxtLink to="/" class="nav-link text-asp-blue-700 font-semibold">Accueil</NuxtLink>
-                <NuxtLink to="/services" class="nav-link">Services</NuxtLink>
-                <NuxtLink to="/a-propos" class="nav-link">À Propos</NuxtLink>
-                <NuxtLink to="/realisations" class="nav-link">Réalisations</NuxtLink>
-                <NuxtLink to="/contact" class="nav-link">Contact</NuxtLink>
-              </div>
-
-              <!-- WhatsApp Button Desktop -->
-              <div class="hidden md:flex items-center gap-3">
-                <a
-                  href="tel:+241078631098"
-                  class="text-gray-700 hover:text-asp-blue-600 transition-colors flex items-center gap-2 cursor-pointer"
-                >
-                  <Phone class="w-5 h-5" />
-                  <span class="text-sm font-medium">07 86 31 98</span>
-                </a>
-              </div>
-
-              <!-- Mobile Menu Button -->
-              <button 
-                @click="mobileMenuOpen = !mobileMenuOpen"
-                class="md:hidden text-gray-700 hover:text-asp-blue-600 cursor-pointer"
-              >
-                <Menu v-if="!mobileMenuOpen" class="w-6 h-6" />
-                <X v-else class="w-6 h-6" />
-              </button>
-            </div>
-
-            <!-- Mobile Menu -->
-            <div v-if="mobileMenuOpen" class="md:hidden pb-4 pt-2">
-              <div class="flex flex-col space-y-3">
-                <NuxtLink to="/" class="nav-link-mobile text-asp-blue-700 font-semibold">Accueil</NuxtLink>
-                <NuxtLink to="/services" class="nav-link-mobile">Services</NuxtLink>
-                <NuxtLink to="/a-propos" class="nav-link-mobile">À Propos</NuxtLink>
-                <NuxtLink to="/realisations" class="nav-link-mobile">Réalisations</NuxtLink>
-                <NuxtLink to="/contact" class="nav-link-mobile">Contact</NuxtLink>
-              </div>
-            </div>
-          </div>
-        </nav>
-      </div>
+    <section class="relative min-h-screen bg-gradient-to-br from-asp-blue-900 to-asp-blue-700 pt-20">
 
       <!-- Hero Content -->
       <div class="relative z-5 pt-28 pb-20 px-4 sm:px-6 lg:px-8">
@@ -109,7 +51,7 @@
 
               <div class="flex flex-col sm:flex-row gap-4">
                 <button
-                  @click="scrollToQuoteForm"
+                  @click="showQuoteModal = true"
                   class="bg-yellow-500 hover:bg-yellow-600 text-white px-8 py-4 rounded-lg font-semibold transition-colors duration-200 inline-flex items-center justify-center gap-2 cursor-pointer shadow-lg hover:shadow-xl"
                 >
                   <FileText class="w-5 h-5" />
@@ -202,9 +144,9 @@
           </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
           <!-- Service 1 -->
-          <div class="bg-white border border-asp-gray-200 rounded-xl p-8 hover:shadow-lg transition-all duration-200 hover:-translate-y-1 cursor-pointer">
+          <NuxtLink to="/services?service=signaletique" class="block bg-white border border-asp-gray-200 rounded-xl p-8 hover:shadow-lg transition-all duration-200 hover:-translate-y-1 cursor-pointer">
             <div class="text-asp-blue-600 mb-4">
               <Building class="w-12 h-12" />
             </div>
@@ -226,7 +168,7 @@
                 Plaques professionnelles
               </li>
             </ul>
-          </div>
+          </NuxtLink>
 
           <!-- Service 2 -->
           <div class="bg-white border border-asp-gray-200 rounded-xl p-8 hover:shadow-lg transition-all duration-200 hover:-translate-y-1 cursor-pointer">
@@ -352,211 +294,66 @@
               </li>
             </ul>
           </div>
+
+          <!-- Service 7 : Vente Imprimantes -->
+          <div class="bg-white border border-asp-gray-200 rounded-xl p-8 hover:shadow-lg transition-all duration-200 hover:-translate-y-1 cursor-pointer">
+            <div class="text-asp-blue-600 mb-4">
+              <Printer class="w-12 h-12" />
+            </div>
+            <h3 class="text-xl font-bold text-asp-black mb-3">Vente Imprimantes Xerox</h3>
+            <p class="text-asp-gray-600 mb-4">
+              Imprimantes multifonctions professionnelles Xerox neuves avec garantie constructeur.
+            </p>
+            <ul class="text-sm text-asp-gray-600 space-y-1">
+              <li class="flex items-center gap-2">
+                <Check class="w-4 h-4 text-green-600" />
+                Xerox C8045 / C8145
+              </li>
+              <li class="flex items-center gap-2">
+                <Check class="w-4 h-4 text-green-600" />
+                Xerox C60 Production
+              </li>
+              <li class="flex items-center gap-2">
+                <Check class="w-4 h-4 text-green-600" />
+                Installation & Formation
+              </li>
+            </ul>
+          </div>
+
+          <!-- Service 8 : Location Imprimantes -->
+          <div class="bg-white border border-asp-gray-200 rounded-xl p-8 hover:shadow-lg transition-all duration-200 hover:-translate-y-1 cursor-pointer">
+            <div class="text-asp-blue-600 mb-4">
+              <Package class="w-12 h-12" />
+            </div>
+            <h3 class="text-xl font-bold text-asp-black mb-3">Location Imprimantes Xerox</h3>
+            <p class="text-asp-gray-600 mb-4">
+              Solutions de location flexibles pour entreprises et particuliers avec maintenance incluse.
+            </p>
+            <ul class="text-sm text-asp-gray-600 space-y-1">
+              <li class="flex items-center gap-2">
+                <Check class="w-4 h-4 text-green-600" />
+                Formules entreprise
+              </li>
+              <li class="flex items-center gap-2">
+                <Check class="w-4 h-4 text-green-600" />
+                Formules particulier
+              </li>
+              <li class="flex items-center gap-2">
+                <Check class="w-4 h-4 text-green-600" />
+                Maintenance & Assistance
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Modal Formulaire de Devis -->
+    <!-- Ancienne Modal (désactivée - remplacée par QuoteModal component) -->
+    <!--
     <Teleport to="body">
-      <Transition name="modal">
-        <div
-          v-if="showQuoteModal"
-          class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm"
-          @click.self="showQuoteModal = false"
-        >
-          <div class="bg-white rounded-2xl shadow-2xl max-w-3xl w-full max-h-[90vh] overflow-hidden">
-            <!-- Header Modal avec gradient -->
-            <div class="sticky top-0 bg-gradient-to-r from-asp-blue-900 to-asp-blue-700 px-8 py-6 flex items-center justify-between rounded-t-2xl">
-              <div>
-                <h2 class="text-3xl font-bold text-white mb-1">Demandez Votre Devis Gratuit</h2>
-                <p class="text-blue-100 text-sm">Réponse sous 24h • Service professionnel garanti</p>
-              </div>
-              <button
-                @click="showQuoteModal = false"
-                class="text-white/80 hover:text-white transition-colors cursor-pointer p-2 hover:bg-white/10 rounded-lg"
-              >
-                <X class="w-6 h-6" />
-              </button>
-            </div>
-
-            <!-- Contenu Modal -->
-            <div class="p-8 overflow-y-auto max-h-[calc(90vh-100px)]">
-              <!-- Avantages rapides -->
-              <div class="grid grid-cols-3 gap-4 mb-8 p-4 bg-blue-50 rounded-xl border border-blue-100">
-                <div class="flex items-center gap-2">
-                  <CheckCircle2 class="w-5 h-5 text-green-600 flex-shrink-0" />
-                  <span class="text-sm font-medium text-asp-gray-800">Devis gratuit</span>
-                </div>
-                <div class="flex items-center gap-2">
-                  <CheckCircle2 class="w-5 h-5 text-green-600 flex-shrink-0" />
-                  <span class="text-sm font-medium text-asp-gray-800">Réponse 24h</span>
-                </div>
-                <div class="flex items-center gap-2">
-                  <CheckCircle2 class="w-5 h-5 text-green-600 flex-shrink-0" />
-                  <span class="text-sm font-medium text-asp-gray-800">Sans engagement</span>
-                </div>
-              </div>
-
-              <form @submit.prevent="submitQuoteForm" class="space-y-6">
-                <!-- Informations personnelles -->
-                <div class="space-y-4">
-                  <h3 class="text-lg font-semibold text-asp-blue-900 flex items-center gap-2">
-                    <User class="w-5 h-5" />
-                    Vos informations
-                  </h3>
-                  
-                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <!-- Nom complet -->
-                    <div>
-                      <label class="block text-sm font-semibold text-asp-gray-800 mb-2">
-                        Nom complet <span class="text-red-500">*</span>
-                      </label>
-                      <input 
-                        v-model="quoteForm.name"
-                        type="text" 
-                        required
-                        class="w-full px-4 py-3 border-2 border-asp-gray-200 rounded-lg focus:ring-2 focus:ring-asp-blue-500 focus:border-asp-blue-500 transition-all duration-200"
-                        placeholder="Jean Dupont"
-                      />
-                    </div>
-
-                    <!-- Téléphone -->
-                    <div>
-                      <label class="block text-sm font-semibold text-asp-gray-800 mb-2">
-                        Téléphone <span class="text-red-500">*</span>
-                      </label>
-                      <input 
-                        v-model="quoteForm.phone"
-                        type="tel" 
-                        required
-                        class="w-full px-4 py-3 border-2 border-asp-gray-200 rounded-lg focus:ring-2 focus:ring-asp-blue-500 focus:border-asp-blue-500 transition-all duration-200"
-                        placeholder="+241 07 XX XX XX XX"
-                      />
-                    </div>
-                  </div>
-
-                  <!-- Email -->
-                  <div>
-                    <label class="block text-sm font-semibold text-asp-gray-800 mb-2">
-                      Email <span class="text-red-500">*</span>
-                    </label>
-                    <input 
-                      v-model="quoteForm.email"
-                      type="email" 
-                      required
-                      class="w-full px-4 py-3 border-2 border-asp-gray-200 rounded-lg focus:ring-2 focus:ring-asp-blue-500 focus:border-asp-blue-500 transition-all duration-200"
-                      placeholder="jean.dupont@email.com"
-                    />
-                  </div>
-                </div>
-
-                <div class="border-t border-gray-200 pt-6"></div>
-
-                <!-- Détails du projet -->
-                <div class="space-y-4">
-                  <h3 class="text-lg font-semibold text-asp-blue-900 flex items-center gap-2">
-                    <Briefcase class="w-5 h-5" />
-                    Votre projet
-                  </h3>
-
-                  <!-- Service -->
-                  <div>
-                    <label class="block text-sm font-semibold text-asp-gray-800 mb-3">
-                      Service souhaité <span class="text-red-500">*</span>
-                    </label>
-                    <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
-                      <label
-                        v-for="service in services"
-                        :key="service.value"
-                        class="relative cursor-pointer"
-                      >
-                        <input
-                          type="radio"
-                          v-model="quoteForm.service"
-                          :value="service.value"
-                          required
-                          class="peer sr-only"
-                        />
-                        <div class="p-4 border-2 border-asp-gray-200 rounded-lg transition-all duration-200 hover:border-asp-blue-300 peer-checked:border-asp-blue-600 peer-checked:bg-blue-50 peer-checked:shadow-md">
-                          <component :is="service.icon" class="w-6 h-6 text-asp-blue-600 mb-2" />
-                          <p class="text-sm font-semibold text-asp-gray-800">{{ service.label }}</p>
-                        </div>
-                      </label>
-                    </div>
-                  </div>
-
-                  <!-- Description -->
-                  <div>
-                    <label class="block text-sm font-semibold text-asp-gray-800 mb-2">
-                      Description de votre projet <span class="text-red-500">*</span>
-                    </label>
-                    <textarea 
-                      v-model="quoteForm.description"
-                      rows="4"
-                      required
-                      class="w-full px-4 py-3 border-2 border-asp-gray-200 rounded-lg focus:ring-2 focus:ring-asp-blue-500 focus:border-asp-blue-500 transition-all duration-200 resize-none"
-                      placeholder="Décrivez votre projet : dimensions, quantités, matériaux souhaités, délais..."
-                    ></textarea>
-                    <p class="text-xs text-asp-gray-600 mt-1">Plus votre description est détaillée, plus notre devis sera précis</p>
-                  </div>
-                </div>
-
-                <!-- Boutons -->
-                <div class="space-y-3 pt-4">
-                  <button 
-                    type="submit"
-                    :disabled="isSubmitting"
-                    class="w-full bg-gradient-to-r from-asp-blue-700 to-asp-blue-600 hover:from-asp-blue-800 hover:to-asp-blue-700 disabled:from-gray-400 disabled:to-gray-400 text-white py-4 rounded-lg font-semibold transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer shadow-lg hover:shadow-xl disabled:cursor-not-allowed"
-                  >
-                    <FileText v-if="!isSubmitting" class="w-5 h-5" />
-                    <span v-if="isSubmitting" class="flex items-center gap-2">
-                      <svg class="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                      </svg>
-                      Envoi en cours...
-                    </span>
-                    <span v-else>Envoyer ma demande de devis</span>
-                  </button>
-
-                  <p class="text-xs text-asp-gray-600 text-center flex items-center justify-center gap-1">
-                    <ShieldCheck class="w-4 h-4" />
-                    Vos données sont sécurisées et ne seront jamais partagées
-                  </p>
-                </div>
-              </form>
-
-              <!-- Message de succès -->
-              <Transition name="fade">
-                <div v-if="quoteSubmitted" class="mt-6 p-5 bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-500 rounded-xl shadow-lg">
-                  <div class="flex items-start gap-4">
-                    <div class="flex-shrink-0 w-12 h-12 bg-green-500 rounded-full flex items-center justify-center">
-                      <CheckCircle2 class="w-7 h-7 text-white" />
-                    </div>
-                    <div class="flex-1">
-                      <p class="font-bold text-green-900 text-lg mb-1">Demande envoyée avec succès !</p>
-                      <p class="text-sm text-green-800 mb-3">
-                        Merci pour votre confiance. Notre équipe va étudier votre demande et vous contacter sous 24h avec un devis personnalisé.
-                      </p>
-                      <div class="flex items-center gap-4 text-sm">
-                        <a
-                          href="https://wa.me/241078631098"
-                          target="_blank"
-                          class="inline-flex items-center gap-2 text-green-700 hover:text-green-900 font-medium"
-                        >
-                          <Phone class="w-4 h-4" />
-                          WhatsApp: 07 86 31 98
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </Transition>
-            </div>
-          </div>
-        </div>
-      </Transition>
+      ...
     </Teleport>
+    -->
 
     <!-- Notre Processus -->
     <section class="py-20 bg-asp-blue-900">
@@ -1005,105 +802,6 @@
         </div>
       </div>
     </section>
-    <footer class="bg-asp-black text-white py-16 w-full">
-      <div class="w-full px-4 sm:px-6 lg:px-8">
-        <div class="max-w-7xl mx-auto">
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-            <!-- À propos -->
-            <div>
-              <img src="/Logo-ASP-Service-sans fond.png" alt="ASP Services Gabon" class="h-16 w-auto mb-4" @error="handleLogoError">
-              <p class="text-gray-400 leading-relaxed text-sm">
-                Votre partenaire de confiance en signalétique, impression grand format et marquage au sol à Libreville depuis 28 ans.
-              </p>
-            </div>
-            
-            <!-- Navigation -->
-            <div>
-              <h4 class="text-lg font-bold mb-4 text-white">Navigation</h4>
-              <ul class="space-y-3">
-                <li>
-                  <NuxtLink to="/" class="text-gray-400 hover:text-yellow-400 transition-colors duration-200 text-sm">
-                    Accueil
-                  </NuxtLink>
-                </li>
-                <li>
-                  <NuxtLink to="/services" class="text-gray-400 hover:text-yellow-400 transition-colors duration-200 text-sm">
-                    Services
-                  </NuxtLink>
-                </li>
-                <li>
-                  <NuxtLink to="/a-propos" class="text-gray-400 hover:text-yellow-400 transition-colors duration-200 text-sm">
-                    À Propos
-                  </NuxtLink>
-                </li>
-                <li>
-                  <NuxtLink to="/realisations" class="text-gray-400 hover:text-yellow-400 transition-colors duration-200 text-sm">
-                    Réalisations
-                  </NuxtLink>
-                </li>
-                <li>
-                  <NuxtLink to="/contact" class="text-gray-400 hover:text-yellow-400 transition-colors duration-200 text-sm">
-                    Contact
-                  </NuxtLink>
-                </li>
-              </ul>
-            </div>
-
-            <!-- Contact -->
-            <div>
-              <h4 class="text-lg font-bold mb-4 text-white">Contact</h4>
-              <div class="space-y-3">
-                <div class="flex items-start gap-3 text-sm">
-                  <Phone class="w-5 h-5 text-yellow-400 flex-shrink-0 mt-0.5" />
-                  <div class="text-gray-400">
-                    <p>+241 07 86 31 98</p>
-                    <p>+241 01 74 63 17</p>
-                  </div>
-                </div>
-                <div class="flex items-start gap-3 text-sm">
-                  <Mail class="w-5 h-5 text-yellow-400 flex-shrink-0 mt-0.5" />
-                  <p class="text-gray-400">aspservicesgabon@gmail.com</p>
-                </div>
-                <div class="flex items-start gap-3 text-sm">
-                  <MapPin class="w-5 h-5 text-yellow-400 flex-shrink-0 mt-0.5" />
-                  <p class="text-gray-400">Libreville, Rue Agondjo Okawé</p>
-                </div>
-              </div>
-            </div>
-
-            <!-- Horaires -->
-            <div>
-              <h4 class="text-lg font-bold mb-4 text-white">Horaires</h4>
-              <div class="space-y-2 text-sm text-gray-400">
-                <div class="flex justify-between">
-                  <span>Lundi - Vendredi</span>
-                  <span class="text-yellow-400">8h - 17h</span>
-                </div>
-                <div class="flex justify-between">
-                  <span>Samedi</span>
-                  <span class="text-yellow-400">9h - 13h</span>
-                </div>
-                <div class="flex justify-between">
-                  <span>Dimanche</span>
-                  <span class="text-red-400">Fermé</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Bottom bar -->
-          <div class="border-t border-gray-800 mt-12 pt-8">
-            <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-400">
-              <p>&copy; 2025 ASP Services Gabon. Tous droits réservés.</p>
-              <div class="flex gap-6">
-                <a href="#" class="hover:text-yellow-400 transition-colors duration-200">Mentions légales</a>
-                <a href="#" class="hover:text-yellow-400 transition-colors duration-200">Politique de confidentialité</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </footer>
 
     <!-- Bouton Scroll to Top -->
     <Transition name="fade">
@@ -1118,11 +816,15 @@
         </svg>
       </button>
     </Transition>
+
+    <!-- Nouvelle Modal Améliorée -->
+    <QuoteModal v-model="showQuoteModal" />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onMounted } from 'vue'
+import { ref, reactive, onMounted, watch } from 'vue'
+import QuoteModal from '~/components/home/QuoteModal.vue'
 import {
   MessageCircle,
   Phone,
@@ -1138,8 +840,6 @@ import {
   ChevronLeft,
   ChevronRight,
   CheckCircle2,
-  Menu,
-  X,
   FileText,
   Shield,
   Clock,
@@ -1160,8 +860,13 @@ useHead({
   ]
 })
 
-// Mobile menu state
-const mobileMenuOpen = ref(false)
+// Quote modal state
+const showQuoteModal = ref(false)
+
+// Watch pour déboguer
+watch(showQuoteModal, (newVal) => {
+  console.log('showQuoteModal changed to:', newVal)
+})
 
 // Services list for modal
 const services = [
@@ -1170,7 +875,9 @@ const services = [
   { value: 'impression-grand-format', label: 'Impression Grand Format', icon: Printer },
   { value: 'consommables-xerox', label: 'Consommables Xerox', icon: Package },
   { value: 'impression-tshirts', label: 'Impression T-shirts', icon: Shirt },
-  { value: 'badges-cartes', label: 'Badges & Cartes', icon: CreditCard }
+  { value: 'badges-cartes', label: 'Badges & Cartes', icon: CreditCard },
+  { value: 'vente-imprimantes', label: 'Vente Imprimantes Xerox', icon: Printer },
+  { value: 'location-imprimantes', label: 'Location Imprimantes Xerox', icon: Package }
 ]
 
 // Scroll to top button
@@ -1185,8 +892,7 @@ const rotatingText = ref(rotatingTexts[0])
 const isTextVisible = ref(true)
 let rotatingIndex = 0
 
-// Quote form state
-const showQuoteModal = ref(false)
+// Quote form state (déjà déclaré plus haut)
 const quoteForm = ref({
   name: '',
   phone: '',
@@ -1327,6 +1033,13 @@ const prevTestimonial = () => {
 
 // Auto-play carousel
 onMounted(() => {
+  // Scroll detection for scroll to top button
+  const handleScroll = () => {
+    showScrollTop.value = window.scrollY > 300
+  }
+  window.addEventListener('scroll', handleScroll)
+  
+  // Carousel auto-play
   setInterval(() => {
     nextSlide()
   }, 5000) // Change slide every 5 seconds
@@ -1343,13 +1056,6 @@ onMounted(() => {
       isTextVisible.value = true
     }, 500) // 500ms = durée de la transition CSS
   }, 3000) // Change text every 3 seconds
-  
-  // Scroll detection for "scroll to top" button
-  const handleScroll = () => {
-    showScrollTop.value = window.scrollY > 300
-  }
-  
-  window.addEventListener('scroll', handleScroll)
   
   // Responsive testimonials per view (not used for infinite scroll but kept for future)
   const updateTestimonialsPerView = () => {
@@ -1413,19 +1119,9 @@ onMounted(() => {
   }
 })
 
-const handleImageError = (event: Event) => {
-  const img = event.target as HTMLImageElement
-  img.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200"%3E%3Crect fill="%23ddd" width="400" height="200"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" font-family="Arial" font-size="16" fill="%23999"%3EASP Services%3C/text%3E%3C/svg%3E'
-}
-
 const handleProjectImageError = (event: Event) => {
   const img = event.target as HTMLImageElement
   img.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600"%3E%3Crect fill="%231E3A8A" width="800" height="600"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" font-family="Arial" font-size="24" fill="%23fff"%3EProjekt ASP%3C/text%3E%3C/svg%3E'
-}
-
-const handleLogoError = (event: Event) => {
-  const img = event.target as HTMLImageElement
-  img.src = '/logo.png' // Fallback to the original logo
 }
 
 const openProjectModal = (project: any) => {

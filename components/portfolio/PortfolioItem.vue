@@ -12,11 +12,11 @@
       >
       
       <!-- Overlay -->
-      <div class="absolute inset-0 bg-gradient-to-t from-asp-blue-900 via-asp-blue-900/50 to-transparent opacity-60 group-hover:opacity-90 transition-opacity duration-300"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-asp-blue-900 via-asp-blue-900/50 to-transparent opacity-60 group-hover:opacity-90 transition-opacity duration-200"></div>
       
       <!-- Content -->
       <div class="absolute inset-0 flex flex-col justify-end p-6 text-asp-white">
-        <div class="transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+        <div class="transform translate-y-2 group-hover:translate-y-0 transition-transform duration-200">
           <!-- Category Badge -->
           <span class="inline-block px-3 py-1 bg-asp-blue-500 rounded-full text-xs font-semibold mb-3">
             {{ getCategoryName(item.category) }}
@@ -28,28 +28,28 @@
           </h3>
           
           <!-- Description (hidden by default, shown on hover) -->
-          <p class="text-sm text-asp-gray-400 line-clamp-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <p class="text-sm text-asp-gray-400 line-clamp-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
             {{ item.description }}
           </p>
           
           <!-- View More Link -->
-          <div class="flex items-center gap-2 mt-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <div class="flex items-center gap-2 mt-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
             <span class="text-sm font-medium">Voir le projet</span>
-            <ArrowRightIcon class="w-4 h-4" />
+            <ArrowRight class="w-4 h-4" />
           </div>
         </div>
       </div>
       
       <!-- Zoom Icon -->
-      <div class="absolute top-4 right-4 w-10 h-10 rounded-full bg-asp-white/90 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-        <MagnifyingGlassPlusIcon class="w-5 h-5 text-asp-blue-700" />
+      <div class="absolute top-4 right-4 w-10 h-10 rounded-full bg-asp-white/90 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+        <ZoomIn class="w-5 h-5 text-asp-blue-700" />
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ArrowRightIcon, MagnifyingGlassPlusIcon } from '@heroicons/vue/24/outline'
+import { ArrowRight, ZoomIn } from 'lucide-vue-next'
 
 interface PortfolioItem {
   id: number

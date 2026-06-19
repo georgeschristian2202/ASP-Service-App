@@ -107,7 +107,7 @@ asp-services-website/
 
 #### Informations Entreprise
 - **Nom**: ASP Services Gabon
-- **Adresse**: Libreville, Rue Agondjo Okawé, Villa 716 (BP 1840)
+- **Adresse**: Libreville, Likouala en face de l'église Hebron
 - **Téléphone**: +241 07 86 31 98
 - **WhatsApp**: +241 07 86 31 98
 - **Email**: aspservicesgabon@gmail.com
@@ -325,7 +325,7 @@ http://localhost:3000
 ## 👥 Contact & Support
 
 **ASP Services Gabon**
-- 📍 Libreville, Rue Agondjo Okawé, Villa 716 (BP 1840)
+- 📍 Libreville, Likouala en face de l'église Hebron
 - 📞 +241 07 86 31 98
 - 💬 WhatsApp: +241 07 86 31 98
 - 📧 aspservicesgabon@gmail.com

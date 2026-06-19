@@ -399,7 +399,7 @@ full: 9999px (pills, avatars)
 **Elements**:
 - Contact form (name, email, phone, message, service type)
 - Contact information card (address, phone, WhatsApp, email)
-- Google Maps embed (Rue Agondjo Okawé, Villa 716, Libreville)
+- Google Maps embed (Likouala en face de l'église Hebron, Libreville)
 - Business hours
 - Social media links (if available)
 

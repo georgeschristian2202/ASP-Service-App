@@ -1,31 +1,35 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
-  
-  devtools: { enabled: false },  // Désactivé pour éviter l'erreur rolldown sur Windows
 
-  // Configuration du serveur de développement
+  devtools: { enabled: false },
+
   devServer: {
     port: 3001,
     host: 'localhost'
   },
 
-  // Modules essentiels seulement
   modules: [
     '@nuxtjs/tailwindcss',
     '@vueuse/nuxt'
   ],
 
-  // App configuration
+  components: [
+    {
+      path: '~/components',
+      pathPrefix: false,
+    }
+  ],
+
   app: {
     head: {
       charset: 'utf-8',
       viewport: 'width=device-width, initial-scale=1',
       title: 'ASP Services Gabon - Signalétique, Impression & Marquage au Sol',
       meta: [
-        { 
-          name: 'description', 
-          content: 'ASP Services Gabon : votre partenaire en signalétique, impression grand format, marquage au sol et consommables Xerox à Libreville. Devis rapide sur WhatsApp.' 
+        {
+          name: 'description',
+          content: 'ASP Services Gabon : votre partenaire en signalétique, impression grand format, marquage au sol et consommables Xerox à Libreville. Devis rapide sur WhatsApp.'
         }
       ],
       link: [
@@ -34,20 +38,22 @@ export default defineNuxtConfig({
     }
   },
 
-  // CSS configuration
   css: [
     '~/assets/css/main.css'
   ],
 
-  // Runtime config
   runtimeConfig: {
     public: {
       siteUrl: process.env.NUXT_PUBLIC_SITE_URL || 'https://aspservices.ga',
       whatsappNumber: '+241078631098',
-      email: 'aspservicesgabon@gmail.com',
+      email: 'andih12003@yahoo.fr',
       phone: '+241 07 86 31 98',
-      address: 'Libreville, Rue Agondjo Okawé, Villa 716 (BP 1840)',
-      googleMapsUrl: 'https://maps.google.com/?q=Libreville,Rue+Agondjo+Okawe,Villa+716'
+      address: 'Libreville, Likouala en face de l\'église Hebron',
+      googleMapsUrl: 'https://www.google.com/maps/search/?api=1&query=Libreville+Likouala+église+Hebron',
+      // EmailJS Configuration
+      emailjsServiceId: process.env.NUXT_PUBLIC_EMAILJS_SERVICE_ID || '',
+      emailjsTemplateId: process.env.NUXT_PUBLIC_EMAILJS_TEMPLATE_ID || '',
+      emailjsPublicKey: process.env.NUXT_PUBLIC_EMAILJS_PUBLIC_KEY || ''
     }
   }
 })

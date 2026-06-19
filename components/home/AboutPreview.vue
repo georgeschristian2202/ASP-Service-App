@@ -61,7 +61,7 @@
           <div class="grid grid-cols-2 gap-4 pt-4">
             <div class="flex items-start gap-3">
               <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-asp-blue-100 flex items-center justify-center">
-                <WrenchScrewdriverIcon class="w-5 h-5 text-asp-blue-700" />
+                <Wrench class="w-5 h-5 text-asp-blue-700" />
               </div>
               <div>
                 <p class="font-semibold text-asp-black text-sm">Équipement Pro</p>
@@ -71,7 +71,7 @@
 
             <div class="flex items-start gap-3">
               <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-asp-blue-100 flex items-center justify-center">
-                <UsersIcon class="w-5 h-5 text-asp-blue-700" />
+                <Users class="w-5 h-5 text-asp-blue-700" />
               </div>
               <div>
                 <p class="font-semibold text-asp-black text-sm">Équipe Experte</p>
@@ -81,7 +81,7 @@
 
             <div class="flex items-start gap-3">
               <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-asp-blue-100 flex items-center justify-center">
-                <ClockIcon class="w-5 h-5 text-asp-blue-700" />
+                <Clock class="w-5 h-5 text-asp-blue-700" />
               </div>
               <div>
                 <p class="font-semibold text-asp-black text-sm">Réactivité</p>
@@ -91,7 +91,7 @@
 
             <div class="flex items-start gap-3">
               <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-asp-blue-100 flex items-center justify-center">
-                <CheckBadgeIcon class="w-5 h-5 text-asp-blue-700" />
+                <BadgeCheck class="w-5 h-5 text-asp-blue-700" />
               </div>
               <div>
                 <p class="font-semibold text-asp-black text-sm">Qualité</p>
@@ -107,7 +107,7 @@
               to="/a-propos"
             >
               En savoir plus sur nous
-              <ArrowRightIcon class="w-5 h-5" />
+              <ArrowRight class="w-5 h-5" />
             </Button>
           </div>
         </div>
@@ -118,12 +118,12 @@
 
 <script setup lang="ts">
 import {
-  WrenchScrewdriverIcon,
-  UsersIcon,
-  ClockIcon,
-  CheckBadgeIcon,
-  ArrowRightIcon
-} from '@heroicons/vue/24/outline'
+  Wrench,
+  Users,
+  Clock,
+  BadgeCheck,
+  ArrowRight
+} from 'lucide-vue-next'
 
 const handleImageError = (event: Event) => {
   const img = event.target as HTMLImageElement

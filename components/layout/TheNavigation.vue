@@ -2,15 +2,15 @@
   <nav 
     :class="[
       'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
-      scrolled ? 'bg-asp-white/95 backdrop-blur-md shadow-asp-md' : 'bg-asp-white'
+      scrolled ? 'bg-asp-white/95 backdrop-blur-md shadow-lg' : 'bg-asp-white shadow-md'
     ]"
   >
-    <Container>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-20">
         <!-- Logo -->
         <NuxtLink 
           to="/" 
-          class="flex items-center gap-3 focus:outline-none focus:ring-2 focus:ring-asp-blue-500 rounded-lg"
+          class="flex items-center focus:outline-none focus:ring-2 focus:ring-asp-blue-500 rounded-lg"
         >
           <img 
             src="/logo.png" 
@@ -18,9 +18,6 @@
             class="h-12 w-auto"
             @error="handleImageError"
           >
-          <span class="hidden sm:block text-xl font-bold text-asp-blue-900">
-            ASP Services
-          </span>
         </NuxtLink>
 
         <!-- Desktop Navigation -->
@@ -47,26 +44,24 @@
 
         <!-- CTA Button & Mobile Menu -->
         <div class="flex items-center gap-4">
-          <!-- WhatsApp CTA Button -->
+          <!-- Phone CTA Button -->
           <a
-            :href="`https://wa.me/${config.public.whatsappNumber.replace(/\s/g, '')}`"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="hidden md:flex items-center gap-2 bg-green-600 hover:bg-green-700 text-asp-white px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:shadow-lg hover:scale-105"
+            href="tel:+241078631098"
+            class="hidden md:flex items-center gap-2 bg-asp-blue-700 hover:bg-asp-blue-800 text-white px-5 py-2.5 rounded-lg font-medium transition-all duration-200 hover:shadow-lg cursor-pointer"
           >
-            <ChatBubbleLeftRightIcon class="w-5 h-5" />
-            <span>WhatsApp</span>
+            <Phone class="w-5 h-5" />
+            <span>07 86 31 98</span>
           </a>
 
           <!-- Mobile menu button -->
           <button
             @click="toggleMobileMenu"
-            class="lg:hidden p-2 rounded-lg text-asp-gray-700 hover:text-asp-blue-700 hover:bg-asp-gray-100 transition-colors"
+            class="lg:hidden p-2 rounded-lg text-asp-gray-700 hover:text-asp-blue-700 hover:bg-asp-gray-100 transition-colors cursor-pointer"
             :aria-expanded="mobileMenuOpen"
             aria-label="Menu de navigation"
           >
-            <Bars3Icon v-if="!mobileMenuOpen" class="w-6 h-6" />
-            <XMarkIcon v-else class="w-6 h-6" />
+            <Menu v-if="!mobileMenuOpen" class="w-6 h-6" />
+            <X v-else class="w-6 h-6" />
           </button>
         </div>
       </div>
@@ -100,31 +95,29 @@
               {{ item.name }}
             </NuxtLink>
             
-            <!-- Mobile WhatsApp Button -->
+            <!-- Mobile Phone Button -->
             <a
-              :href="`https://wa.me/${config.public.whatsappNumber.replace(/\s/g, '')}`"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-asp-white px-4 py-3 rounded-lg font-medium transition-colors mt-4"
+              href="tel:+241078631098"
+              class="flex items-center justify-center gap-2 bg-asp-blue-700 hover:bg-asp-blue-800 text-white px-4 py-3 rounded-lg font-medium transition-colors mt-4 cursor-pointer"
               @click="closeMobileMenu"
             >
-              <ChatBubbleLeftRightIcon class="w-5 h-5" />
-              <span>Contactez-nous sur WhatsApp</span>
+              <Phone class="w-5 h-5" />
+              <span>07 86 31 98</span>
             </a>
           </div>
         </div>
       </Transition>
-    </Container>
+    </div>
   </nav>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, watch } from 'vue'
 import { 
-  ChatBubbleLeftRightIcon, 
-  Bars3Icon, 
-  XMarkIcon 
-} from '@heroicons/vue/24/outline'
+  Phone, 
+  Menu, 
+  X 
+} from 'lucide-vue-next'
 
 const config = useRuntimeConfig()
 const route = useRoute()
