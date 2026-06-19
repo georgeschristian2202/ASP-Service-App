@@ -1,0 +1,65 @@
+========================================
+  COMMANDES À COPIER-COLLER
+========================================
+
+1. OUVRIR POWERSHELL DANS LE DOSSIER DU PROJET
+
+2. COLLER CES COMMANDES (UNE PAR UNE) :
+
+# Nettoyage complet
+Remove-Item -Recurse -Force .\node_modules, .\package-lock.json, .\.nuxt, .\.output -ErrorAction SilentlyContinue
+
+# Vider le cache
+npm cache clean --force
+
+# Réinstaller (ATTENDRE 2-3 MINUTES)
+npm install
+
+# Démarrer le serveur
+npm run dev
+
+
+========================================
+  RÉSULTAT ATTENDU
+========================================
+
+✔ Vite server built in XXXms
+✔ Nitro built in XXX ms
+
+  ➜ Local:   http://localhost:3001/
+
+
+========================================
+  TESTER LE FORMULAIRE
+========================================
+
+1. Ouvrir : http://localhost:3001/contact
+2. Remplir le formulaire de test
+3. Cliquer "Envoyer le message"
+4. Vérifier email dans : andih12003@yahoo.fr
+
+
+========================================
+  SI ERREUR ROLLDOWN
+========================================
+
+Option 1 (automatique) :
+.\fix-rolldown.ps1
+
+Option 2 (manuelle) :
+npm install --legacy-peer-deps
+
+
+========================================
+  TOUT EST DÉJÀ CONFIGURÉ !
+========================================
+
+✅ EmailJS configuré avec vos clés
+✅ Email changé à andih12003@yahoo.fr
+✅ Formulaire de contact prêt
+✅ Template HTML professionnel
+✅ Scripts automatisés créés
+
+========================================
+
+BON COURAGE ! 🚀

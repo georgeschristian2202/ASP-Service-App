@@ -21,7 +21,7 @@ export const useEmailJS = () => {
       )
       return response
     } catch (error) {
-      console error('EmailJS Error:', error)
+      console.error('EmailJS Error:', error)
       throw error
     }
   }
