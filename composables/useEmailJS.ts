@@ -6,16 +6,22 @@ export const useEmailJS = () => {
   /**
    * Envoie un email via EmailJS
    * @param templateParams - Paramètres du template
-   * @param templateType - Type de template: 'contact' ou 'quote'
+   * @param templateType - Type de template: 'contact' | 'quote' | 'quote-client'
    */
-  const sendEmail = async (templateParams: Record<string, any>, templateType: 'contact' | 'quote' = 'contact') => {
+  const sendEmail = async (templateParams: Record<string, any>, templateType: 'contact' | 'quote' | 'quote-client' = 'contact') => {
     const serviceId = config.public.emailjsServiceId as string
     const publicKey = config.public.emailjsPublicKey as string
     
     // Sélectionner le bon template ID selon le type
-    const templateId = templateType === 'quote' 
-      ? config.public.emailjsTemplateIdQuote as string
-      : config.public.emailjsTemplateId as string
+    let templateId: string
+    
+    if (templateType === 'quote') {
+      templateId = config.public.emailjsTemplateIdQuote as string
+    } else if (templateType === 'quote-client') {
+      templateId = config.public.emailjsTemplateIdQuoteClient as string
+    } else {
+      templateId = config.public.emailjsTemplateId as string
+    }
 
     if (!serviceId || !templateId || !publicKey) {
       throw new Error('EmailJS configuration is missing. Please check your .env file.')

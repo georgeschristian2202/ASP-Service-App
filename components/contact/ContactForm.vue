@@ -115,48 +115,6 @@
         WhatsApp Direct
       </Button>
     </div>
-
-    <!-- Success Message -->
-    <Transition
-      enter-active-class="transition-all duration-200 ease-out"
-      enter-from-class="opacity-0 scale-95"
-      enter-to-class="opacity-100 scale-100"
-      leave-active-class="transition-all duration-200 ease-in"
-      leave-from-class="opacity-100 scale-100"
-      leave-to-class="opacity-0 scale-95"
-    >
-      <div
-        v-if="showSuccess"
-        class="p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg flex items-start gap-3"
-      >
-        <CheckCircle class="w-6 h-6 flex-shrink-0" />
-        <div>
-          <p class="font-semibold">Message envoyé avec succès !</p>
-          <p class="text-sm mt-1">Nous vous répondrons dans les plus brefs délais.</p>
-        </div>
-      </div>
-    </Transition>
-
-    <!-- Error Message -->
-    <Transition
-      enter-active-class="transition-all duration-200 ease-out"
-      enter-from-class="opacity-0 scale-95"
-      enter-to-class="opacity-100 scale-100"
-      leave-active-class="transition-all duration-200 ease-in"
-      leave-from-class="opacity-100 scale-100"
-      leave-to-class="opacity-0 scale-95"
-    >
-      <div
-        v-if="showError"
-        class="p-4 bg-asp-red-100 border border-asp-red-500 text-asp-red-600 rounded-lg flex items-start gap-3"
-      >
-        <AlertCircle class="w-6 h-6 flex-shrink-0" />
-        <div>
-          <p class="font-semibold">Erreur lors de l'envoi</p>
-          <p class="text-sm mt-1">Veuillez réessayer ou nous contacter via WhatsApp.</p>
-        </div>
-      </div>
-    </Transition>
   </form>
 </template>
 
@@ -164,9 +122,7 @@
 import { ref, reactive } from 'vue'
 import { 
   Send,
-  MessageCircle,
-  CheckCircle,
-  AlertCircle
+  MessageCircle
 } from 'lucide-vue-next'
 
 const config = useRuntimeConfig()
@@ -188,8 +144,6 @@ const errors = reactive({
 })
 
 const isSubmitting = ref(false)
-const showSuccess = ref(false)
-const showError = ref(false)
 
 const encodeWhatsAppMessage = () => {
   if (!formData.name && !formData.message) {
@@ -258,6 +212,7 @@ const validateForm = (): boolean => {
 }
 
 const { sendEmail } = useEmailJS()
+const { showSuccess: alertSuccess, showError: alertError } = useAlert()
 
 const handleSubmit = async () => {
   if (!validateForm()) {
@@ -265,8 +220,6 @@ const handleSubmit = async () => {
   }
 
   isSubmitting.value = true
-  showSuccess.value = false
-  showError.value = false
 
   try {
     // Préparer les paramètres pour EmailJS
@@ -280,7 +233,7 @@ const handleSubmit = async () => {
     }
 
     const templateParams = {
-      to_email: 'georgeschristian2202@gmail.com',
+      to_email: 'georgesrapontchombo22@gmail.com',
       from_name: formData.name,
       from_email: formData.email,
       client_phone: formData.phone,
@@ -297,26 +250,24 @@ const handleSubmit = async () => {
     // Envoyer l'email via EmailJS
     await sendEmail(templateParams)
 
-    // Success
-    showSuccess.value = true
+    // Success alert
+    alertSuccess(
+      'Message envoyé avec succès !',
+      'Merci pour votre message. Nous vous répondrons dans les plus brefs délais.',
+      25000
+    )
     
     // Reset form
     Object.keys(formData).forEach(key => {
       formData[key as keyof typeof formData] = ''
     })
-
-    // Hide success message after 5 seconds
-    setTimeout(() => {
-      showSuccess.value = false
-    }, 5000)
   } catch (error) {
     console.error('Error sending email:', error)
-    showError.value = true
-    
-    // Hide error message after 5 seconds
-    setTimeout(() => {
-      showError.value = false
-    }, 5000)
+    alertError(
+      'Erreur lors de l\'envoi',
+      'Une erreur est survenue. Veuillez réessayer ou nous contacter via WhatsApp.',
+      25000
+    )
   } finally {
     isSubmitting.value = false
   }

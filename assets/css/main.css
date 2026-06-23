@@ -2,6 +2,148 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Custom Alert Styles */
+.asp-alert {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  min-width: 400px;
+  max-width: 500px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  transform: translateX(calc(100% + 40px));
+  transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  overflow: hidden;
+}
+
+.asp-alert-show {
+  transform: translateX(0);
+}
+
+.asp-alert-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 24px;
+  position: relative;
+}
+
+.asp-alert-icon {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.asp-alert-success .asp-alert-icon {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+.asp-alert-error .asp-alert-icon {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.asp-alert-text {
+  flex: 1;
+  padding-top: 4px;
+}
+
+.asp-alert-text h3 {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+  color: #1e293b;
+}
+
+.asp-alert-text p {
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0;
+  color: #64748b;
+}
+
+.asp-alert-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  color: #94a3b8;
+  transition: color 0.2s;
+  border-radius: 6px;
+}
+
+.asp-alert-close:hover {
+  color: #64748b;
+  background: #f1f5f9;
+}
+
+.asp-alert-timer {
+  height: 4px;
+  background: linear-gradient(to right, #3b82f6, #2563eb);
+  transform-origin: left;
+  animation: asp-alert-timer 20000ms linear;
+}
+
+.asp-alert-success .asp-alert-timer {
+  background: linear-gradient(to right, #22c55e, #16a34a);
+}
+
+.asp-alert-error .asp-alert-timer {
+  background: linear-gradient(to right, #ef4444, #dc2626);
+}
+
+@keyframes asp-alert-timer {
+  from {
+    transform: scaleX(1);
+  }
+  to {
+    transform: scaleX(0);
+  }
+}
+
+/* Mobile responsive */
+@media (max-width: 640px) {
+  .asp-alert {
+    top: 10px;
+    right: 10px;
+    left: 10px;
+    min-width: auto;
+    max-width: none;
+  }
+  
+  .asp-alert-content {
+    padding: 20px;
+  }
+  
+  .asp-alert-icon {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .asp-alert-icon svg {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .asp-alert-text h3 {
+    font-size: 16px;
+  }
+  
+  .asp-alert-text p {
+    font-size: 13px;
+  }
+}
+
 @layer base {
   /* Custom base styles for ASP Services */
   html {

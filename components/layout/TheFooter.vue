@@ -8,7 +8,8 @@
             <img 
               src="/Logo-ASP-Service-sans fond.png" 
               alt="ASP Services Gabon" 
-              class="h-16 w-auto mb-4" 
+              class="h-16 w-auto mb-4 bg-transparent" 
+              style="mix-blend-mode: lighten;"
               @error="handleLogoError"
             >
             <p class="text-gray-400 leading-relaxed text-sm">

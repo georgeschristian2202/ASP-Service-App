@@ -408,44 +408,77 @@ const submitForm = async () => {
       descriptions: formData.descriptions.filter(d => d.trim()).join('\n')
     }
     
+    // Envoyer l'email via EmailJS
     const { sendEmail } = useEmailJS()
+    const { showSuccess: alertSuccess, showError: alertError } = useAlert()
     
-    // Envoi 1 : Email à l'entreprise ASP Services
-    await sendEmail(
-      { ...emailData, to_email: 'georgeschristian2202@gmail.com' },
-      'quote'
-    )
+    let envoyeClient = false
     
-    // Envoi 2 : Email de confirmation au client
-    await sendEmail(
-      { ...emailData, to_email: formData.email },
-      'quote'
-    )
-    
-    // Show success message
-    submitted.value = true
-    isSubmitting.value = false
-    
-    // Reset form after 5 seconds
-    setTimeout(() => {
-      submitted.value = false
-      closeModal()
-      // Reset form
-      Object.assign(formData, {
-        clientType: 'particulier',
-        nomClient: '',
-        nomEntreprise: '',
-        telephone: '',
-        email: '',
-        nif: '',
-        boitePostale: '',
-        service: '',
-        descriptions: ['']
-      })
-    }, 5000)
+    try {
+      // Envoi 1 : Email à l'entreprise ASP Services (PRIORITAIRE)
+      // Utilise le template "Nouvelle demande de devis" (pour l'entreprise)
+      await sendEmail(
+        { ...emailData, to_email: 'georgesrapontchombo22@gmail.com' },
+        'quote'
+      )
+      
+      // Envoi 2 : Email de confirmation au client (NON BLOQUANT)
+      // Utilise le template "Confirmation de votre demande" (pour le client)
+      try {
+        await sendEmail(
+          { ...emailData, to_email: formData.email },
+          'quote-client'
+        )
+        envoyeClient = true
+      } catch (clientError) {
+        console.warn('Impossible d\'envoyer au client, mais la demande est bien reçue par ASP Services:', clientError)
+        // On continue quand même, l'essentiel est que l'entreprise ait reçu
+      }
+      
+      // Show success alert
+      const messageSuccess = envoyeClient
+        ? `Merci ${formData.clientType === 'entreprise' ? formData.nomEntreprise : formData.nomClient} ! Vous recevrez un email de confirmation et notre équipe vous contactera sous 24h.`
+        : `Merci ${formData.clientType === 'entreprise' ? formData.nomEntreprise : formData.nomClient} ! Notre équipe a bien reçu votre demande et vous contactera sous 24h.`
+      
+      alertSuccess(
+        'Demande envoyée avec succès !',
+        messageSuccess,
+        25000
+      )
+      
+      // Reset form after 2 seconds
+      setTimeout(() => {
+        closeModal()
+        // Reset form
+        Object.assign(formData, {
+          clientType: 'particulier',
+          nomClient: '',
+          nomEntreprise: '',
+          telephone: '',
+          email: '',
+          nif: '',
+          boitePostale: '',
+          service: '',
+          descriptions: ['']
+        })
+      }, 2000)
+    } catch (error) {
+      console.error('Erreur lors de l\'envoi du devis:', error)
+      alertError(
+        'Erreur lors de l\'envoi',
+        'Une erreur est survenue. Veuillez réessayer ou nous contacter directement.',
+        25000
+      )
+    } finally {
+      isSubmitting.value = false
+    }
   } catch (error) {
     console.error('Erreur lors de l\'envoi du devis:', error)
-    alert('Erreur lors de l\'envoi du devis. Veuillez réessayer ou nous contacter directement.')
+    alertError(
+      'Erreur lors de l\'envoi',
+      'Une erreur est survenue. Veuillez réessayer ou nous contacter directement.',
+      25000
+    )
     isSubmitting.value = false
   }
 }

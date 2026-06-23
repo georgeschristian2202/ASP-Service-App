@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { 
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+      line-height: 1.6; 
+      color: #1e293b;
+      background: #f1f5f9;
+      margin: 0;
+      padding: 20px;
+    }
+    .container { 
+      max-width: 600px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    .header { 
+      background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+      color: white;
+      padding: 40px 30px;
+      text-align: center;
+    }
+    .header h1 { 
+      margin: 0 0 10px 0;
+      font-size: 28px;
+      font-weight: 700;
+    }
+    .header p { 
+      margin: 0;
+      opacity: 0.95;
+      font-size: 16px;
+    }
+    .content { 
+      padding: 30px;
+    }
+    .info-box { 
+      margin: 12px 0;
+      padding: 16px;
+      background: #f8fafc;
+      border-left: 4px solid #3b82f6;
+      border-radius: 6px;
+    }
+    .info-label { 
+      font-weight: 600;
+      color: #1e3a8a;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+    .info-value { 
+      color: #334155;
+      font-size: 16px;
+    }
+    .description-box { 
+      background: #fef3c7;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 20px 0;
+      border: 2px solid #fbbf24;
+    }
+    .description-box h3 { 
+      color: #92400e;
+      margin: 0 0 12px 0;
+      font-size: 18px;
+      font-weight: 600;
+    }
+    .description-box pre { 
+      white-space: pre-wrap;
+      font-family: inherit;
+      margin: 0;
+      color: #451a03;
+      line-height: 1.8;
+      font-size: 15px;
+    }
+    .footer { 
+      background: #f1f5f9;
+      padding: 30px;
+      text-align: center;
+      color: #64748b;
+      font-size: 14px;
+      border-top: 1px solid #e2e8f0;
+    }
+    .footer p { 
+      margin: 8px 0;
+    }
+    .footer strong { 
+      color: #1e293b;
+      font-size: 16px;
+    }
+    .footer a { 
+      color: #3b82f6;
+      text-decoration: none;
+    }
+    .footer a:hover { 
+      text-decoration: underline;
+    }
+    .divider {
+      height: 1px;
+      background: #e2e8f0;
+      margin: 20px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <h1>📋 Demande de Devis</h1>
+      <p>ASP Services Gabon</p>
+    </div>
+    
+    <!-- Content -->
+    <div class="content">
+      <!-- Type de client -->
+      <div class="info-box">
+        <div class="info-label">Type de client</div>
+        <div class="info-value">{{client_type}}</div>
+      </div>
+      
+      <!-- Nom de l'entreprise -->
+      <div class="info-box">
+        <div class="info-label">Nom de l'entreprise</div>
+        <div class="info-value">{{nom_entreprise}}</div>
+      </div>
+      
+      <!-- Nom du contact -->
+      <div class="info-box">
+        <div class="info-label">Nom du contact</div>
+        <div class="info-value">{{nom_client}}</div>
+      </div>
+      
+      <!-- Email -->
+      <div class="info-box">
+        <div class="info-label">📧 Email</div>
+        <div class="info-value">
+          <a href="mailto:{{email}}" style="color: #3b82f6;">{{email}}</a>
+        </div>
+      </div>
+      
+      <!-- Téléphone -->
+      <div class="info-box">
+        <div class="info-label">📱 Téléphone</div>
+        <div class="info-value">
+          <a href="tel:{{telephone}}" style="color: #3b82f6;">{{telephone}}</a>
+        </div>
+      </div>
+      
+      <!-- NIF -->
+      <div class="info-box">
+        <div class="info-label">NIF</div>
+        <div class="info-value">{{nif}}</div>
+      </div>
+      
+      <!-- Boîte Postale -->
+      <div class="info-box">
+        <div class="info-label">Boîte Postale</div>
+        <div class="info-value">{{boite_postale}}</div>
+      </div>
+      
+      <div class="divider"></div>
+      
+      <!-- Service demandé -->
+      <div class="info-box" style="background: #dbeafe; border-left-color: #1e40af;">
+        <div class="info-label" style="color: #1e40af;">🛠️ Service demandé</div>
+        <div class="info-value" style="font-size: 18px; font-weight: 600; color: #1e40af;">{{service}}</div>
+      </div>
+      
+      <!-- Description du projet -->
+      <div class="description-box">
+        <h3>📝 Description du projet</h3>
+        <pre>{{descriptions}}</pre>
+      </div>
+    </div>
+    
+    <!-- Footer -->
+    <div class="footer">
+      <p><strong>ASP Services Gabon</strong></p>
+      <p>📍 Libreville, Likouala en face de l'église Hebron</p>
+      <p>📞 <a href="tel:+241778631098">+241 77 86 31 98</a></p>
+      <p>💬 <a href="https://wa.me/241778631098">WhatsApp : +241 77 86 31 98</a></p>
+      <p>📧 <a href="mailto:georgeschristian2202@gmail.com">georgeschristian2202@gmail.com</a></p>
+    </div>
+  </div>
+</body>
+</html>

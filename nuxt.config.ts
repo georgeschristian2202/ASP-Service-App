@@ -54,6 +54,7 @@ export default defineNuxtConfig({
       emailjsServiceId: process.env.NUXT_PUBLIC_EMAILJS_SERVICE_ID || '',
       emailjsTemplateId: process.env.NUXT_PUBLIC_EMAILJS_TEMPLATE_ID || '',
       emailjsTemplateIdQuote: process.env.NUXT_PUBLIC_EMAILJS_TEMPLATE_ID_QUOTE || '',
+      emailjsTemplateIdQuoteClient: process.env.NUXT_PUBLIC_EMAILJS_TEMPLATE_ID_QUOTE_CLIENT || '',
       emailjsPublicKey: process.env.NUXT_PUBLIC_EMAILJS_PUBLIC_KEY || ''
     }
   }
