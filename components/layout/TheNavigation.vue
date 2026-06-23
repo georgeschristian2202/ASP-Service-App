@@ -46,7 +46,7 @@
         <div class="flex items-center gap-4">
           <!-- Phone CTA Button -->
           <a
-            href="tel:+241078631098"
+            href="tel:+241778631098"
             class="hidden md:flex items-center gap-2 bg-asp-blue-700 hover:bg-asp-blue-800 text-white px-5 py-2.5 rounded-lg font-medium transition-all duration-200 hover:shadow-lg cursor-pointer"
           >
             <Phone class="w-5 h-5" />
@@ -97,7 +97,7 @@
             
             <!-- Mobile Phone Button -->
             <a
-              href="tel:+241078631098"
+              href="tel:+241778631098"
               class="flex items-center justify-center gap-2 bg-asp-blue-700 hover:bg-asp-blue-800 text-white px-4 py-3 rounded-lg font-medium transition-colors mt-4 cursor-pointer"
               @click="closeMobileMenu"
             >

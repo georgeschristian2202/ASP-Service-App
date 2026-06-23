@@ -286,7 +286,7 @@
                     </p>
                     <div class="flex items-center gap-4 text-sm">
                       <a
-                        href="https://wa.me/241078631098"
+                        href="https://wa.me/241778631098"
                         target="_blank"
                         class="inline-flex items-center gap-2 text-green-700 hover:text-green-900 font-medium cursor-pointer"
                       >
@@ -306,7 +306,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, watch } from 'vue'
+import { ref, reactive, watch, onUnmounted } from 'vue'
 import {
   X,
   CheckCircle2,
@@ -333,6 +333,7 @@ import {
 // Props
 const props = defineProps<{
   modelValue: boolean
+  preselectedService?: string
 }>()
 
 // Emits
@@ -390,37 +391,85 @@ const closeModal = () => {
 const submitForm = async () => {
   isSubmitting.value = true
   
-  // Simulate API call
-  await new Promise(resolve => setTimeout(resolve, 2000))
-  
-  // Show success message
-  submitted.value = true
-  isSubmitting.value = false
-  
-  // Reset form after 5 seconds
-  setTimeout(() => {
-    submitted.value = false
-    closeModal()
-    // Reset form
-    Object.assign(formData, {
-      clientType: 'particulier',
-      nomClient: '',
-      nomEntreprise: '',
-      telephone: '',
-      email: '',
-      nif: '',
-      boitePostale: '',
-      service: '',
-      descriptions: ['']
-    })
-  }, 5000)
+  try {
+    // Préparer les données pour EmailJS
+    const serviceName = services.find(s => s.value === formData.service)?.label || formData.service
+    
+    const emailData = {
+      type_demande: 'Demande de Devis',
+      client_type: formData.clientType === 'entreprise' ? 'Entreprise' : 'Particulier',
+      nom_client: formData.nomClient,
+      nom_entreprise: formData.nomEntreprise || 'N/A',
+      telephone: formData.telephone,
+      email: formData.email,
+      nif: formData.nif || 'N/A',
+      boite_postale: formData.boitePostale || 'N/A',
+      service: serviceName,
+      descriptions: formData.descriptions.filter(d => d.trim()).join('\n')
+    }
+    
+    const { sendEmail } = useEmailJS()
+    
+    // Envoi 1 : Email à l'entreprise ASP Services
+    await sendEmail(
+      { ...emailData, to_email: 'georgeschristian2202@gmail.com' },
+      'quote'
+    )
+    
+    // Envoi 2 : Email de confirmation au client
+    await sendEmail(
+      { ...emailData, to_email: formData.email },
+      'quote'
+    )
+    
+    // Show success message
+    submitted.value = true
+    isSubmitting.value = false
+    
+    // Reset form after 5 seconds
+    setTimeout(() => {
+      submitted.value = false
+      closeModal()
+      // Reset form
+      Object.assign(formData, {
+        clientType: 'particulier',
+        nomClient: '',
+        nomEntreprise: '',
+        telephone: '',
+        email: '',
+        nif: '',
+        boitePostale: '',
+        service: '',
+        descriptions: ['']
+      })
+    }, 5000)
+  } catch (error) {
+    console.error('Erreur lors de l\'envoi du devis:', error)
+    alert('Erreur lors de l\'envoi du devis. Veuillez réessayer ou nous contacter directement.')
+    isSubmitting.value = false
+  }
 }
 
 // Watch modelValue to reset submitted state
 watch(() => props.modelValue, (newVal) => {
   if (newVal) {
     submitted.value = false
+    // Bloquer le scroll du body quand le modal s'ouvre
+    document.body.style.overflow = 'hidden'
+    
+    // Pré-sélectionner le service si fourni
+    if (props.preselectedService) {
+      formData.service = props.preselectedService
+    }
+  } else {
+    // Réactiver le scroll du body quand le modal se ferme
+    document.body.style.overflow = 'auto'
   }
+})
+
+// Nettoyer le scroll au démontage du composant
+onUnmounted(() => {
+  document.body.style.overflow = 'auto'
 })
 </script>
 

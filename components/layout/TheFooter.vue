@@ -55,7 +55,7 @@
               <div class="flex items-start gap-3 text-sm">
                 <Phone class="w-5 h-5 text-yellow-400 flex-shrink-0 mt-0.5" />
                 <div class="text-gray-400">
-                  <p>+241 07 86 31 98</p>
+                  <p>+241 77 86 31 98</p>
                   <p>+241 01 74 63 17</p>
                 </div>
               </div>

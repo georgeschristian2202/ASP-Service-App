@@ -45,14 +45,15 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       siteUrl: process.env.NUXT_PUBLIC_SITE_URL || 'https://aspservices.ga',
-      whatsappNumber: '+241078631098',
-      email: 'andih12003@yahoo.fr',
-      phone: '+241 07 86 31 98',
+      whatsappNumber: '+241778631098',
+      email: 'georgeschristian2202@gmail.com',
+      phone: '+241 77 86 31 98',
       address: 'Libreville, Likouala en face de l\'église Hebron',
       googleMapsUrl: 'https://www.google.com/maps/search/?api=1&query=Libreville+Likouala+église+Hebron',
       // EmailJS Configuration
       emailjsServiceId: process.env.NUXT_PUBLIC_EMAILJS_SERVICE_ID || '',
       emailjsTemplateId: process.env.NUXT_PUBLIC_EMAILJS_TEMPLATE_ID || '',
+      emailjsTemplateIdQuote: process.env.NUXT_PUBLIC_EMAILJS_TEMPLATE_ID_QUOTE || '',
       emailjsPublicKey: process.env.NUXT_PUBLIC_EMAILJS_PUBLIC_KEY || ''
     }
   }

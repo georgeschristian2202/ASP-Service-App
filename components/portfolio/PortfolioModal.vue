@@ -9,14 +9,15 @@
       leave-to-class="opacity-0"
     >
       <div 
-        class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-asp-black/90 backdrop-blur-sm"
+        class="fixed inset-0 z-50 overflow-y-auto bg-asp-black/90 backdrop-blur-sm"
         @click="$emit('close')"
       >
-        <!-- Modal Content -->
-        <div 
-          class="relative max-w-6xl w-full bg-asp-white rounded-2xl shadow-asp-2xl overflow-hidden animate-scale-in"
-          @click.stop
-        >
+        <!-- Modal Content - Centré mais scrollable -->
+        <div class="min-h-full flex items-center justify-center p-4 py-8">
+          <div 
+            class="relative max-w-6xl w-full bg-asp-white rounded-2xl shadow-asp-2xl overflow-hidden animate-scale-in"
+            @click.stop
+          >
           <!-- Close Button -->
           <button
             @click="$emit('close')"
@@ -26,9 +27,9 @@
             <X class="w-6 h-6" />
           </button>
 
-          <div class="grid grid-cols-1 lg:grid-cols-2">
+          <div class="grid grid-cols-1 lg:grid-cols-2 max-h-[90vh]">
             <!-- Image Side -->
-            <div class="relative bg-asp-gray-900 aspect-4-3 lg:aspect-auto lg:min-h-[600px]">
+            <div class="relative bg-asp-gray-900 aspect-video lg:aspect-auto lg:h-full">
               <img
                 :src="item.image"
                 :alt="item.title"
@@ -38,7 +39,7 @@
             </div>
 
             <!-- Content Side -->
-            <div class="p-8 lg:p-12 flex flex-col justify-between">
+            <div class="p-6 lg:p-12 flex flex-col justify-between overflow-y-auto">
               <div class="space-y-6">
                 <!-- Category Badge -->
                 <span class="inline-block px-4 py-2 bg-asp-blue-100 text-asp-blue-700 rounded-full text-sm font-semibold">
@@ -98,7 +99,7 @@
 
                 <Button
                   variant="ghost"
-                  to="/services"
+                  @click="navigateToServices"
                   class="flex-1"
                 >
                   <Box class="w-5 h-5" />
@@ -107,6 +108,8 @@
               </div>
             </div>
           </div>
+          </div>
+        <!-- Fin du wrapper scrollable -->
         </div>
       </div>
     </Transition>
@@ -158,8 +161,18 @@ const handleImageError = (event: Event) => {
   img.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600"%3E%3Crect fill="%231E293B" width="800" height="600"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="24" fill="%2394A3B8"%3EImage du projet%3C/text%3E%3C/svg%3E'
 }
 
+const navigateToServices = () => {
+  // Fermer le modal d'abord pour réactiver le scroll
+  emit('close')
+  // Naviguer vers la page services
+  navigateTo('/services')
+}
+
 // Close modal on Escape key
 onMounted(() => {
+  // Bloquer le scroll du body
+  document.body.style.overflow = 'hidden'
+  
   const handleEscape = (e: KeyboardEvent) => {
     if (e.key === 'Escape') {
       emit('close')
@@ -168,6 +181,8 @@ onMounted(() => {
   window.addEventListener('keydown', handleEscape)
   
   onUnmounted(() => {
+    // Réactiver le scroll du body
+    document.body.style.overflow = 'auto'
     window.removeEventListener('keydown', handleEscape)
   })
 })

@@ -32,6 +32,7 @@
             :key="service.id"
             :service="service"
             :reversed="index % 2 === 1"
+            @request-quote="handleRequestQuote"
           />
         </div>
       </Container>
@@ -69,13 +70,26 @@
 
     <!-- CTA Section -->
     <CallToAction />
+
+    <!-- Quote Modal -->
+    <QuoteModal v-model="showQuoteModal" :preselected-service="selectedService" />
   </div>
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
 import { BadgeCheck, Clock, Wrench, DollarSign } from 'lucide-vue-next'
 
 const { services } = useServices()
+
+// Modal de devis
+const showQuoteModal = ref(false)
+const selectedService = ref('')
+
+const handleRequestQuote = (serviceId: string) => {
+  selectedService.value = serviceId
+  showQuoteModal.value = true
+}
 
 useHead({
   title: 'Nos Services - ASP Services Gabon',

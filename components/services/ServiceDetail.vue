@@ -73,9 +73,7 @@
       <div class="flex flex-col sm:flex-row gap-4 pt-4">
         <Button
           variant="primary"
-          :href="`https://wa.me/${config.public.whatsappNumber.replace(/\s/g, '')}?text=Bonjour, je souhaite obtenir un devis pour ${service.title}`"
-          target="_blank"
-          rel="noopener noreferrer"
+          @click="$emit('request-quote', service.id)"
         >
           <MessageCircle class="w-5 h-5" />
           Demander un devis
@@ -117,6 +115,10 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
   reversed: false
 })
+
+defineEmits<{
+  'request-quote': [serviceId: string]
+}>()
 
 const config = useRuntimeConfig()
 

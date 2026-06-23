@@ -280,7 +280,7 @@ const handleSubmit = async () => {
     }
 
     const templateParams = {
-      to_email: 'andih12003@yahoo.fr',
+      to_email: 'georgeschristian2202@gmail.com',
       from_name: formData.name,
       from_email: formData.email,
       client_phone: formData.phone,

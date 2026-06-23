@@ -108,8 +108,8 @@ Le design system complet est documenté dans `design-system/MASTER.md`.
 
 ## 📞 Informations de Contact
 
-- **Téléphone** : +241 07 86 31 98
-- **WhatsApp** : +241 07 86 31 98
+- **Téléphone** : +241 77 86 31 98
+- **WhatsApp** : +241 77 86 31 98
 - **Email** : andih12003@yahoo.fr
 - **Adresse** : Libreville, Likouala en face de l'église Hebron
 
