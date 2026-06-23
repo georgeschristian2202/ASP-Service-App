@@ -9,18 +9,24 @@ export const useEmailJS = () => {
    * @param templateType - Type de template: 'contact' | 'quote' | 'quote-client'
    */
   const sendEmail = async (templateParams: Record<string, any>, templateType: 'contact' | 'quote' | 'quote-client' = 'contact') => {
-    const serviceId = config.public.emailjsServiceId as string
-    const publicKey = config.public.emailjsPublicKey as string
-    
-    // Sélectionner le bon template ID selon le type
+    let serviceId: string
     let templateId: string
+    let publicKey: string
     
-    if (templateType === 'quote') {
-      templateId = config.public.emailjsTemplateIdQuote as string
-    } else if (templateType === 'quote-client') {
+    if (templateType === 'quote-client') {
+      // Compte EmailJS séparé pour la confirmation client
+      serviceId = config.public.emailjsServiceIdClient as string
       templateId = config.public.emailjsTemplateIdQuoteClient as string
+      publicKey = config.public.emailjsPublicKeyClient as string
     } else {
-      templateId = config.public.emailjsTemplateId as string
+      // Compte EmailJS principal pour contact et devis entreprise
+      serviceId = config.public.emailjsServiceId as string
+      publicKey = config.public.emailjsPublicKey as string
+      
+        templateId = config.public.emailjsTemplateIdQuote as string
+      } else {
+        templateId = config.public.emailjsTemplateId as string
+      }
     }
 
     if (!serviceId || !templateId || !publicKey) {
