@@ -14,6 +14,16 @@ export default defineNuxtConfig({
     '@vueuse/nuxt'
   ],
 
+  experimental: {
+    appManifest: false
+  },
+
+  nitro: {
+    experimental: {
+      appManifest: false
+    }
+  },
+
   components: [
     {
       path: '~/components',

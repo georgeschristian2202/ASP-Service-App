@@ -32,7 +32,7 @@ export const useServices = () => {
         'Design personnalisé selon votre charte',
         'Garantie 2 ans sur les enseignes'
       ],
-      image: '/images/services/signaletique-main.jpg',
+      image: '/images/services/affiche-fabrication-des-panneaux-signaletiques-ferroviaires et routiers.jpg',
       gallery: [
         '/images/portfolio/1000959172.jpg',
         '/images/portfolio/1000959173.jpg',
@@ -59,7 +59,7 @@ export const useServices = () => {
         'Séchage rapide (2-4h)',
         'Conformité aux normes de sécurité'
       ],
-      image: '/images/services/marquage-main.jpg',
+      image: '/images/services/affiche-fabrication-des-panneaux-signaletiques-ferroviaires et routiers.jpg',
       gallery: [
         '/images/portfolio/1000959175.jpg',
         '/images/portfolio/1000959176.jpg'
@@ -85,7 +85,7 @@ export const useServices = () => {
         'Livraison express disponible',
         'Installation possible sur site'
       ],
-      image: '/images/services/impression-main.jpg',
+      image: '/images/services/affiche-fabrication-des-panneaux-signaletiques-ferroviaires et routiers.jpg',
       gallery: [
         '/images/portfolio/1000959177.jpg',
         '/images/portfolio/1000959178.jpg'
@@ -111,7 +111,7 @@ export const useServices = () => {
         'Stock permanent disponible',
         'Support technique inclus'
       ],
-      image: '/images/services/xerox-main.jpg',
+      image: '/images/services/affiche-vente-consomable-xerox.jpg',
       gallery: []
     },
     {
@@ -134,7 +134,7 @@ export const useServices = () => {
         'Devis gratuit selon quantité',
         'Délai rapide (3-5 jours)'
       ],
-      image: '/images/services/tshirts-main.jpg',
+      image: '/images/services/Affiche-impression-tee-shirts.jpg',
       gallery: []
     },
     {
@@ -157,7 +157,7 @@ export const useServices = () => {
         'Tarifs dégressifs sur quantité',
         'Design graphique inclus'
       ],
-      image: '/images/services/badges-main.jpg',
+      image: '/images/services/xerox.jpg',
       gallery: []
     },
     {
@@ -180,7 +180,7 @@ export const useServices = () => {
         'Maintenance préventive possible',
         'Financement disponible pour entreprises'
       ],
-      image: '/images/services/vente-imprimantes-main.jpg',
+      image: '/images/services/affiche-vente-imprimante.jpg',
       gallery: []
     },
     {
@@ -203,7 +203,7 @@ export const useServices = () => {
         'Parc multiéquipements géré',
         'Service technique réactif'
       ],
-      image: '/images/services/location-imprimantes-main.jpg',
+      image: '/images/services/Afifche-location-imprmantes-et maintenances-xerox.jpg',
       gallery: []
     }
   ]

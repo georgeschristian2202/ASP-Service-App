@@ -28,10 +28,20 @@
           </button>
 
           <div class="grid grid-cols-1 lg:grid-cols-2 max-h-[90vh]">
-            <!-- Image Side -->
+            <!-- Image/Video Side -->
             <div class="relative bg-asp-gray-900 aspect-video lg:aspect-auto lg:h-full">
+              <!-- Video -->
+              <video
+                v-if="item.type === 'video'"
+                :src="item.media"
+                class="w-full h-full object-cover"
+                controls
+                autoplay
+              />
+              <!-- Image -->
               <img
-                :src="item.image"
+                v-else
+                :src="item.media"
                 :alt="item.title"
                 class="w-full h-full object-cover"
                 @error="handleImageError"
@@ -131,7 +141,8 @@ interface PortfolioItem {
   title: string
   category: string
   description: string
-  image: string
+  media: string
+  type: 'image' | 'video'
   client?: string
   date?: string
 }
@@ -146,10 +157,10 @@ const emit = defineEmits(['close'])
 const config = useRuntimeConfig()
 
 const categoryNames: Record<string, string> = {
-  'signaletique': 'Signalétique',
-  'marquage': 'Marquage au Sol',
-  'impression': 'Impression',
-  'textile': 'Textile'
+  'actualites': 'Actualités',
+  'machine-xerox': 'Machines Xerox',
+  'panneau': 'Panneaux Publicitaires',
+  'toner': 'Toners Xerox'
 }
 
 const getCategoryName = (category: string): string => {
