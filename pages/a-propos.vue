@@ -290,7 +290,24 @@ useHead({
     {
       name: 'description',
       content: 'Découvrez ASP Services Gabon, spécialiste en signalétique, impression et marquage au sol à Libreville. Équipement professionnel et expertise locale depuis plusieurs années.'
-    }
+    },
+    {
+      name: 'keywords',
+      content: 'ASP Services Gabon, entreprise signalétique Libreville, histoire ASP Services, expertise impression Gabon, équipement MUTOH Gabon, partenaire Xerox Gabon'
+    },
+    { property: 'og:title', content: 'À Propos - ASP Services Gabon' },
+    { property: 'og:description', content: 'Spécialiste en signalétique, impression et marquage au sol à Libreville, Gabon. Équipement professionnel MUTOH et expertise locale.' },
+    { property: 'og:url', content: 'https://aspservices.ga/a-propos' },
+    { property: 'og:type', content: 'website' },
+    { property: 'og:image', content: 'https://aspservices.ga/images/about/company.jpg' },
+    { property: 'og:image:alt', content: 'ASP Services Gabon - Notre entreprise à Libreville' },
+    { name: 'twitter:card', content: 'summary_large_image' },
+    { name: 'twitter:title', content: 'À Propos - ASP Services Gabon' },
+    { name: 'twitter:description', content: 'Spécialiste signalétique et impression à Libreville, Gabon. Expertise locale et équipement professionnel.' },
+    { name: 'twitter:image', content: 'https://aspservices.ga/images/about/company.jpg' }
+  ],
+  link: [
+    { rel: 'canonical', href: 'https://aspservices.ga/a-propos' }
   ]
 })
 

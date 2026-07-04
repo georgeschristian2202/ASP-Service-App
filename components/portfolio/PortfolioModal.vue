@@ -98,7 +98,7 @@
               <div class="flex flex-col sm:flex-row gap-4 pt-8 border-t border-asp-gray-200">
                 <Button
                   variant="primary"
-                  :href="`https://wa.me/${config.public.whatsappNumber.replace(/\s/g, '')}?text=Bonjour, j'ai vu votre réalisation '${item.title}' et je souhaite en savoir plus`"
+                  :href="`whatsapp://send?phone=${config.public.whatsappNumber}&text=Bonjour, j'ai vu votre réalisation '${item.title}' et je souhaite en savoir plus`"
                   target="_blank"
                   rel="noopener noreferrer"
                   class="flex-1"

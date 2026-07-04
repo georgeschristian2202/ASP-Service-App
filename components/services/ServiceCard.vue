@@ -32,7 +32,7 @@
         <Button
           variant="ghost"
           size="sm"
-          :href="`https://wa.me/${config.public.whatsappNumber.replace(/\s/g, '')}?text=Bonjour, je souhaite en savoir plus sur ${title}`"
+          :href="`whatsapp://send?phone=${config.public.whatsappNumber}&text=Bonjour, je souhaite en savoir plus sur ${title}`"
           target="_blank"
           rel="noopener noreferrer"
         >

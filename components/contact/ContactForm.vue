@@ -106,7 +106,7 @@
 
       <Button
         variant="secondary"
-        :href="`https://wa.me/${config.public.whatsappNumber.replace(/\s/g, '')}?text=${encodeWhatsAppMessage()}`"
+        :href="`whatsapp://send?phone=${config.public.whatsappNumber}&text=${encodeWhatsAppMessage()}`"
         target="_blank"
         rel="noopener noreferrer"
         class="flex-1"

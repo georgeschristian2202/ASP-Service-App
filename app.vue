@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="min-h-screen bg-asp-white">
     <NuxtLayout>
-      <NuxtPage />
+      <NuxtPage :transition="{ name: 'page', mode: 'out-in' }" />
     </NuxtLayout>
   </div>
 </template>

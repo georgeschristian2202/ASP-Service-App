@@ -97,7 +97,24 @@ useHead({
     {
       name: 'description',
       content: 'Découvrez nos services : signalétique professionnelle, marquage au sol, impression grand format, consommables Xerox et impression textile à Libreville, Likouala.'
-    }
+    },
+    {
+      name: 'keywords',
+      content: 'services signalétique Libreville, marquage au sol Gabon, impression grand format Libreville, panneaux publicitaires Gabon, Xerox Libreville, impression textile Gabon, fabrication panneaux'
+    },
+    { property: 'og:title', content: 'Nos Services - ASP Services Gabon' },
+    { property: 'og:description', content: 'Signalétique professionnelle, marquage au sol, impression grand format, consommables Xerox et impression textile à Libreville, Gabon.' },
+    { property: 'og:url', content: 'https://aspservices.ga/services' },
+    { property: 'og:type', content: 'website' },
+    { property: 'og:image', content: 'https://aspservices.ga/images/services/affiche-fabrication-des-panneaux-signaletiques-ferroviaires et routiers.jpg' },
+    { property: 'og:image:alt', content: 'Services de signalétique et impression - ASP Services Gabon' },
+    { name: 'twitter:card', content: 'summary_large_image' },
+    { name: 'twitter:title', content: 'Nos Services - ASP Services Gabon' },
+    { name: 'twitter:description', content: 'Signalétique, marquage au sol, impression grand format et Xerox à Libreville, Gabon.' },
+    { name: 'twitter:image', content: 'https://aspservices.ga/images/hero/hero-background.jpg' }
+  ],
+  link: [
+    { rel: 'canonical', href: 'https://aspservices.ga/services' }
   ]
 })
 

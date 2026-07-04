@@ -17,7 +17,7 @@
             <Button
               variant="secondary"
               size="lg"
-              :href="`https://wa.me/${config.public.whatsappNumber.replace(/\s/g, '')}?text=Bonjour ASP Services, je souhaite obtenir un devis gratuit`"
+              :href="`whatsapp://send?phone=${config.public.whatsappNumber}&text=Bonjour ASP Services, je souhaite obtenir un devis gratuit`"
               target="_blank"
               rel="noopener noreferrer"
             >

@@ -56,6 +56,7 @@
     <!-- Portfolio Grid -->
     <section class="section-padding bg-asp-gray-50">
       <Container>
+        <p class="text-center text-asp-gray-500 text-sm mb-8 reveal">{{ filteredPortfolio.length }} réalisation{{ filteredPortfolio.length > 1 ? 's' : '' }}</p>
         <TransitionGroup
           name="gallery"
           tag="div"
@@ -181,7 +182,24 @@ useHead({
     {
       name: 'description',
       content: 'Découvrez notre portfolio de réalisations en signalétique, marquage au sol et impression grand format à Libreville. Projets professionnels pour entreprises et administrations.'
-    }
+    },
+    {
+      name: 'keywords',
+      content: 'portfolio signalétique Gabon, réalisations impression Libreville, projets panneaux publicitaires Gabon, marquage au sol réalisations, galerie ASP Services, exemples signalétique Libreville'
+    },
+    { property: 'og:title', content: 'Nos Réalisations - ASP Services Gabon' },
+    { property: 'og:description', content: 'Portfolio de réalisations en signalétique, marquage au sol et impression grand format à Libreville, Gabon. Projets pour entreprises et administrations.' },
+    { property: 'og:url', content: 'https://aspservices.ga/realisations' },
+    { property: 'og:type', content: 'website' },
+    { property: 'og:image', content: 'https://aspservices.ga/images/portfolio/Panneau-publicitaire/Panneau-1.jpg' },
+    { property: 'og:image:alt', content: 'Réalisations ASP Services Gabon - Signalétique et Impression' },
+    { name: 'twitter:card', content: 'summary_large_image' },
+    { name: 'twitter:title', content: 'Nos Réalisations - ASP Services Gabon' },
+    { name: 'twitter:description', content: 'Portfolio signalétique, panneaux publicitaires et impression grand format à Libreville, Gabon.' },
+    { name: 'twitter:image', content: 'https://aspservices.ga/images/portfolio/Panneau-publicitaire/Panneau-1.jpg' }
+  ],
+  link: [
+    { rel: 'canonical', href: 'https://aspservices.ga/realisations' }
   ]
 })
 

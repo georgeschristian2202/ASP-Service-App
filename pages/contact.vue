@@ -37,7 +37,7 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
           <!-- WhatsApp Card -->
           <a
-            :href="`https://wa.me/${config.public.whatsappNumber.replace(/\s/g, '')}`"
+            :href="`whatsapp://send?phone=${config.public.whatsappNumber}`"
             target="_blank"
             rel="noopener noreferrer"
             class="group cursor-pointer"
@@ -258,7 +258,24 @@ useHead({
     {
       name: 'description',
       content: 'Contactez ASP Services Gabon pour vos projets de signalétique et impression à Libreville. Devis gratuit par WhatsApp, téléphone ou email. Likouala en face de l\'église Hebron.'
-    }
+    },
+    {
+      name: 'keywords',
+      content: 'contact ASP Services Gabon, devis signalétique Libreville, WhatsApp ASP Gabon, téléphone impression Libreville, adresse Likouala Libreville, devis gratuit'
+    },
+    { property: 'og:title', content: 'Contact - ASP Services Gabon' },
+    { property: 'og:description', content: 'Contactez ASP Services pour un devis gratuit. Signalétique, impression et marquage au sol à Libreville, Gabon. Disponible sur WhatsApp.' },
+    { property: 'og:url', content: 'https://aspservices.ga/contact' },
+    { property: 'og:type', content: 'website' },
+    { property: 'og:image', content: 'https://aspservices.ga/images/hero/hero-background.jpg' },
+    { property: 'og:image:alt', content: 'Contactez ASP Services Gabon - Libreville' },
+    { name: 'twitter:card', content: 'summary_large_image' },
+    { name: 'twitter:title', content: 'Contact - ASP Services Gabon' },
+    { name: 'twitter:description', content: 'Devis gratuit par WhatsApp pour vos projets de signalétique et impression à Libreville, Gabon.' },
+    { name: 'twitter:image', content: 'https://aspservices.ga/images/hero/hero-background.jpg' }
+  ],
+  link: [
+    { rel: 'canonical', href: 'https://aspservices.ga/contact' }
   ]
 })
 

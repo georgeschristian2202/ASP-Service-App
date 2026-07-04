@@ -286,7 +286,7 @@
                     </p>
                     <div class="flex items-center gap-4 text-sm">
                       <a
-                        href="https://wa.me/241778631098"
+                        href="whatsapp://send?phone=24177863198"
                         target="_blank"
                         class="inline-flex items-center gap-2 text-green-700 hover:text-green-900 font-medium cursor-pointer"
                       >

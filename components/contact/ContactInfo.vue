@@ -55,7 +55,7 @@
 
           <!-- WhatsApp -->
           <a
-            :href="`https://wa.me/${config.public.whatsappNumber.replace(/\s/g, '')}`"
+            :href="`whatsapp://send?phone=${config.public.whatsappNumber}`"
             target="_blank"
             rel="noopener noreferrer"
             class="flex items-start gap-4 p-4 rounded-lg bg-green-100 hover:bg-green-200 transition-colors duration-200 cursor-pointer group"

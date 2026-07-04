@@ -40,7 +40,7 @@
             <Button
               variant="secondary"
               size="lg"
-              :href="`https://wa.me/${config.public.whatsappNumber.replace(/\s/g, '')}?text=Bonjour, je souhaite obtenir un devis`"
+              :href="`whatsapp://send?phone=${config.public.whatsappNumber}&text=Bonjour, je souhaite obtenir un devis`"
               target="_blank"
               rel="noopener noreferrer"
             >

@@ -137,7 +137,7 @@
     <!-- Services Section -->
     <section class="py-12 bg-white">
       <div class="max-w-7xl mx-auto px-4">
-        <div class="text-center mb-16">
+        <div class="text-center mb-16 reveal">
           <h2 class="text-4xl font-bold text-asp-black mb-4">Nos Services</h2>
           <p class="text-xl text-asp-gray-600 max-w-2xl mx-auto">
             Solutions complètes pour tous vos besoins en signalétique et impression
@@ -146,7 +146,7 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
           <!-- Service 1 -->
-          <NuxtLink to="/services?service=signaletique" class="block bg-white border border-asp-gray-200 rounded-xl p-8 hover:shadow-lg transition-all duration-200 hover:-translate-y-1 cursor-pointer">
+          <NuxtLink to="/services?service=signaletique" class="block bg-white border border-asp-gray-200 rounded-xl p-8 hover:shadow-lg transition-all duration-200 hover:-translate-y-1 cursor-pointer reveal reveal-delay-1">
             <div class="text-asp-blue-600 mb-4">
               <Building class="w-12 h-12" />
             </div>
@@ -171,7 +171,7 @@
           </NuxtLink>
 
           <!-- Service 2 -->
-          <div class="bg-white border border-asp-gray-200 rounded-xl p-8 hover:shadow-lg transition-all duration-200 hover:-translate-y-1 cursor-pointer">
+          <div class="bg-white border border-asp-gray-200 rounded-xl p-8 hover:shadow-lg transition-all duration-200 hover:-translate-y-1 cursor-pointer reveal">
             <div class="text-asp-blue-600 mb-4">
               <Car class="w-12 h-12" />
             </div>
@@ -196,7 +196,7 @@
           </div>
 
           <!-- Service 3 -->
-          <div class="bg-white border border-asp-gray-200 rounded-xl p-8 hover:shadow-lg transition-all duration-200 hover:-translate-y-1 cursor-pointer">
+          <div class="bg-white border border-asp-gray-200 rounded-xl p-8 hover:shadow-lg transition-all duration-200 hover:-translate-y-1 cursor-pointer reveal">
             <div class="text-asp-blue-600 mb-4">
               <Printer class="w-12 h-12" />
             </div>
@@ -221,7 +221,7 @@
           </div>
 
           <!-- Service 4 -->
-          <div class="bg-white border border-asp-gray-200 rounded-xl p-8 hover:shadow-lg transition-all duration-200 hover:-translate-y-1 cursor-pointer">
+          <div class="bg-white border border-asp-gray-200 rounded-xl p-8 hover:shadow-lg transition-all duration-200 hover:-translate-y-1 cursor-pointer reveal">
             <div class="text-asp-blue-600 mb-4">
               <Package class="w-12 h-12" />
             </div>
@@ -246,7 +246,7 @@
           </div>
 
           <!-- Service 5 -->
-          <div class="bg-white border border-asp-gray-200 rounded-xl p-8 hover:shadow-lg transition-all duration-200 hover:-translate-y-1 cursor-pointer">
+          <div class="bg-white border border-asp-gray-200 rounded-xl p-8 hover:shadow-lg transition-all duration-200 hover:-translate-y-1 cursor-pointer reveal">
             <div class="text-asp-blue-600 mb-4">
               <Shirt class="w-12 h-12" />
             </div>
@@ -271,7 +271,7 @@
           </div>
 
           <!-- Service 6 -->
-          <div class="bg-white border border-asp-gray-200 rounded-xl p-8 hover:shadow-lg transition-all duration-200 hover:-translate-y-1 cursor-pointer">
+          <div class="bg-white border border-asp-gray-200 rounded-xl p-8 hover:shadow-lg transition-all duration-200 hover:-translate-y-1 cursor-pointer reveal">
             <div class="text-asp-blue-600 mb-4">
               <CreditCard class="w-12 h-12" />
             </div>
@@ -296,7 +296,7 @@
           </div>
 
           <!-- Service 7 : Vente Imprimantes -->
-          <div class="bg-white border border-asp-gray-200 rounded-xl p-8 hover:shadow-lg transition-all duration-200 hover:-translate-y-1 cursor-pointer">
+          <div class="bg-white border border-asp-gray-200 rounded-xl p-8 hover:shadow-lg transition-all duration-200 hover:-translate-y-1 cursor-pointer reveal">
             <div class="text-asp-blue-600 mb-4">
               <Printer class="w-12 h-12" />
             </div>
@@ -321,7 +321,7 @@
           </div>
 
           <!-- Service 8 : Location Imprimantes -->
-          <div class="bg-white border border-asp-gray-200 rounded-xl p-8 hover:shadow-lg transition-all duration-200 hover:-translate-y-1 cursor-pointer">
+          <div class="bg-white border border-asp-gray-200 rounded-xl p-8 hover:shadow-lg transition-all duration-200 hover:-translate-y-1 cursor-pointer reveal">
             <div class="text-asp-blue-600 mb-4">
               <Package class="w-12 h-12" />
             </div>
@@ -358,7 +358,7 @@
     <!-- Notre Processus -->
     <section class="py-20 bg-asp-blue-900">
       <div class="max-w-7xl mx-auto px-4">
-        <div class="text-center mb-16">
+        <div class="text-center mb-16 reveal">
           <h2 class="text-4xl font-bold text-white mb-4">Notre Processus de Travail</h2>
           <p class="text-xl text-blue-100 max-w-2xl mx-auto">
             Un processus simple et transparent en 4 étapes pour votre tranquillité d'esprit
@@ -367,7 +367,7 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative">
           <!-- Étape 1 : Contact -->
-          <div class="relative">
+          <div class="relative reveal reveal-delay-1">
             <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-200 border-2 border-gray-100 hover:border-asp-blue-300 cursor-pointer">
               <div class="w-16 h-16 bg-asp-blue-600 text-white rounded-full flex items-center justify-center text-3xl font-bold mb-6 mx-auto">
                 1
@@ -384,7 +384,7 @@
           </div>
 
           <!-- Étape 2 : Devis -->
-          <div class="relative">
+          <div class="relative reveal reveal-delay-2">
             <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-200 border-2 border-gray-100 hover:border-yellow-300 cursor-pointer">
               <div class="w-16 h-16 bg-yellow-500 text-white rounded-full flex items-center justify-center text-3xl font-bold mb-6 mx-auto">
                 2
@@ -401,7 +401,7 @@
           </div>
 
           <!-- Étape 3 : Réalisation -->
-          <div class="relative">
+          <div class="relative reveal reveal-delay-3">
             <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-200 border-2 border-gray-100 hover:border-asp-blue-300 cursor-pointer">
               <div class="w-16 h-16 bg-asp-blue-600 text-white rounded-full flex items-center justify-center text-3xl font-bold mb-6 mx-auto">
                 3
@@ -418,7 +418,7 @@
           </div>
 
           <!-- Étape 4 : Livraison -->
-          <div class="relative">
+          <div class="relative reveal reveal-delay-4">
             <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-200 border-2 border-gray-100 hover:border-yellow-300 cursor-pointer">
               <div class="w-16 h-16 bg-yellow-500 text-white rounded-full flex items-center justify-center text-3xl font-bold mb-6 mx-auto">
                 4
@@ -447,7 +447,7 @@
     <!-- FAQ Section -->
     <section class="py-20 bg-gradient-to-br from-gray-50 to-white">
       <div class="max-w-4xl mx-auto px-4">
-        <div class="text-center mb-16">
+        <div class="text-center mb-16 reveal">
           <h2 class="text-4xl font-bold text-asp-black mb-4">Questions Fréquentes</h2>
           <p class="text-xl text-asp-gray-600">
             Tout ce que vous devez savoir sur nos services
@@ -803,21 +803,7 @@
       </div>
     </section>
 
-    <!-- Bouton Scroll to Top -->
-    <Transition name="fade">
-      <button
-        v-if="showScrollTop"
-        @click="scrollToTop"
-        class="fixed bottom-8 right-8 bg-asp-blue-600 hover:bg-asp-blue-700 text-white p-4 rounded-full shadow-2xl transition-all duration-300 hover:scale-110 z-40 cursor-pointer"
-        aria-label="Retour en haut"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
-        </svg>
-      </button>
-    </Transition>
-
-    <!-- Nouvelle Modal Améliorée -->
+    <!-- Modal Devis -->
     <QuoteModal v-model="showQuoteModal" />
   </div>
 </template>
@@ -856,6 +842,69 @@ useHead({
     {
       name: 'description',
       content: 'ASP Services Gabon : votre expert en signalétique professionnelle, marquage au sol, impression grand format et consommables Xerox à Libreville. Devis gratuit sur WhatsApp.'
+    },
+    {
+      name: 'keywords',
+      content: 'signalétique Gabon, impression grand format Libreville, marquage au sol Gabon, panneaux publicitaires Libreville, consommables Xerox Gabon, ASP Services Gabon, signalétique professionnelle Libreville, impression textile Gabon'
+    },
+    { property: 'og:title', content: 'ASP Services Gabon - Signalétique, Impression & Marquage au Sol' },
+    { property: 'og:description', content: 'Votre expert en signalétique professionnelle, marquage au sol, impression grand format et consommables Xerox à Libreville, Gabon. Devis gratuit sur WhatsApp.' },
+    { property: 'og:url', content: 'https://aspservices.ga/' },
+    { property: 'og:type', content: 'website' },
+    { property: 'og:image', content: 'https://aspservices.ga/images/hero/hero-background.jpg' },
+    { property: 'og:image:width', content: '1200' },
+    { property: 'og:image:height', content: '630' },
+    { property: 'og:image:alt', content: 'ASP Services Gabon - Signalétique et Impression à Libreville' },
+    { property: 'og:locale', content: 'fr_GA' },
+    { property: 'og:site_name', content: 'ASP Services Gabon' },
+    { name: 'twitter:card', content: 'summary_large_image' },
+    { name: 'twitter:title', content: 'ASP Services Gabon - Signalétique, Impression & Marquage au Sol' },
+    { name: 'twitter:description', content: 'Expert signalétique, marquage au sol, impression grand format et Xerox à Libreville, Gabon.' },
+    { name: 'twitter:image', content: 'https://aspservices.ga/images/hero/hero-background.jpg' }
+  ],
+  link: [
+    { rel: 'canonical', href: 'https://aspservices.ga/' }
+  ],
+  script: [
+    {
+      type: 'application/ld+json',
+      innerHTML: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'LocalBusiness',
+        name: 'ASP Services Gabon',
+        description: 'Expert en signalétique professionnelle, impression grand format, marquage au sol et consommables Xerox à Libreville, Gabon.',
+        url: 'https://aspservices.ga',
+        telephone: '+24177863198',
+        email: 'georgeschristian2202@gmail.com',
+        address: {
+          '@type': 'PostalAddress',
+          streetAddress: 'Likouala, en face de l\'église Hebron',
+          addressLocality: 'Libreville',
+          addressCountry: 'GA'
+        },
+        image: 'https://aspservices.ga/images/hero/hero-background.jpg',
+        logo: 'https://aspservices.ga/logo.png',
+        priceRange: '$$',
+        openingHoursSpecification: [
+          {
+            '@type': 'OpeningHoursSpecification',
+            dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+            opens: '08:00',
+            closes: '18:00'
+          }
+        ],
+        hasOfferCatalog: {
+          '@type': 'OfferCatalog',
+          name: 'Services ASP Gabon',
+          itemListElement: [
+            { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Signalétique professionnelle' } },
+            { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Marquage au sol' } },
+            { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Impression grand format' } },
+            { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Consommables Xerox' } },
+            { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Impression textile' } }
+          ]
+        }
+      })
     }
   ]
 })
@@ -879,9 +928,6 @@ const services = [
   { value: 'vente-imprimantes', label: 'Vente Imprimantes Xerox', icon: Printer },
   { value: 'location-imprimantes', label: 'Location Imprimantes Xerox', icon: Package }
 ]
-
-// Scroll to top button
-const showScrollTop = ref(false)
 
 // FAQ state
 const openFaq = ref<number | null>(null)
@@ -907,34 +953,34 @@ const quoteSubmitted = ref(false)
 const currentSlide = ref(0)
 const projects = ref([
   {
-    title: 'Signalétique Entreprise Moderne',
-    description: 'Panneaux directionnels et identification pour entreprise à Libreville',
+    title: 'Panneaux Publicitaires',
+    description: 'Fabrication et pose de panneaux publicitaires grand format à Libreville',
     location: 'Libreville Centre',
-    image: '/images/portfolio/1000959172.jpg'
+    image: '/images/portfolio/Panneau-publicitaire/Panneau-1.jpg'
   },
   {
-    title: 'Marquage Parking Commercial',
-    description: 'Traçage complet de parking 200 places avec signalisation',
-    location: 'Centre Commercial',
-    image: '/images/portfolio/1000959173.jpg'
+    title: 'Signalétique Routière PK4',
+    description: 'Installation de panneaux de signalisation routière après Sovog',
+    location: 'PK4 - Libreville',
+    image: '/images/portfolio/Panneau-publicitaire/Panneau-Pk4 apres sovog-1.jpg'
   },
   {
-    title: 'Bâche Publicitaire 6x3m',
-    description: 'Impression haute qualité pour campagne marketing',
-    location: 'Boulevard Triomphal',
-    image: '/images/portfolio/1000959174.jpg'
-  },
-  {
-    title: 'T-shirts Événementiels',
-    description: '200 t-shirts personnalisés pour événement d\'entreprise',
-    location: 'Hôtel Intercontinental',
-    image: '/images/portfolio/1000959175.jpg'
-  },
-  {
-    title: 'Panneaux Sécurité Industriels',
-    description: 'Signalisation sécurité conforme aux normes',
+    title: 'Panneaux Directionnels',
+    description: 'Signalétique directionnelle professionnelle sur mesure',
     location: 'Zone Industrielle Owendo',
-    image: '/images/portfolio/1000959176.jpg'
+    image: '/images/portfolio/Panneau-publicitaire/Panneau-2.jpg'
+  },
+  {
+    title: 'Machines Xerox',
+    description: 'Vente et location d\'imprimantes Xerox professionnelles',
+    location: 'Libreville',
+    image: '/images/portfolio/Machine xerox/xerox-3.jpg'
+  },
+  {
+    title: 'Réalisations Récentes',
+    description: 'Pose et installation de panneaux publicitaires extérieurs',
+    location: 'Libreville',
+    image: '/images/portfolio/Panneau-publicitaire/Panneau-3.jpg'
   }
 ])
 
@@ -1033,12 +1079,6 @@ const prevTestimonial = () => {
 
 // Auto-play carousel
 onMounted(() => {
-  // Scroll detection for scroll to top button
-  const handleScroll = () => {
-    showScrollTop.value = window.scrollY > 300
-  }
-  window.addEventListener('scroll', handleScroll)
-  
   // Carousel auto-play
   setInterval(() => {
     nextSlide()
@@ -1137,14 +1177,6 @@ const toggleFaq = (index: number) => {
 // Scroll to quote form (now opens modal)
 const scrollToQuoteForm = () => {
   showQuoteModal.value = true
-}
-
-// Scroll to top function with smooth animation
-const scrollToTop = () => {
-  window.scrollTo({
-    top: 0,
-    behavior: 'smooth'
-  })
 }
 
 // Submit quote form and generate PDF
