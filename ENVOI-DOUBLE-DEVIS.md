@@ -4,7 +4,7 @@
 
 ### 1. **Changement de l'email de l'entreprise**
 Ancien email : `andih12003@yahoo.fr`  
-Nouvel email : **`georgeschristian2202@gmail.com`**
+Nouvel email : **`aspservicesgabon@gmail.com`**
 
 ### 2. **Système d'envoi double pour les devis**
 
@@ -12,7 +12,7 @@ Quand un client remplit le **formulaire de demande de devis**, le système envoi
 
 | Email | Destinataire | Contenu |
 |-------|-------------|---------|
-| **Email 1** | `georgeschristian2202@gmail.com` (ASP Services) | Détails complets de la demande |
+| **Email 1** | `aspservicesgabon@gmail.com` (ASP Services) | Détails complets de la demande |
 | **Email 2** | Email du client (saisi dans le formulaire) | Copie de confirmation pour le client |
 
 ---
@@ -40,8 +40,8 @@ Email à ASP         Email au client
 
 | Fichier | Modification |
 |---------|--------------|
-| `nuxt.config.ts` | Email entreprise → `georgeschristian2202@gmail.com` |
-| `components/contact/ContactForm.vue` | Email entreprise → `georgeschristian2202@gmail.com` |
+| `nuxt.config.ts` | Email entreprise → `aspservicesgabon@gmail.com` |
+| `components/contact/ContactForm.vue` | Email entreprise → `aspservicesgabon@gmail.com` |
 | `components/home/QuoteModal.vue` | **Envoi double** : entreprise + client |
 | `CONFIGURATION-DEVIS-EMAILJS.md` | Footer du template mis à jour |
 
@@ -50,7 +50,7 @@ Email à ASP         Email au client
 ## 🎯 Comportement actuel
 
 ### **Formulaire de Contact** (`/contact`)
-- ✉️ **1 email envoyé** → `georgeschristian2202@gmail.com`
+- ✉️ **1 email envoyé** → `aspservicesgabon@gmail.com`
 - Utilisé pour : Questions générales, informations
 
 ### **Formulaire de Devis** (Modal page d'accueil)

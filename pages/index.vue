@@ -875,7 +875,7 @@ useHead({
         description: 'Expert en signalétique professionnelle, impression grand format, marquage au sol et consommables Xerox à Libreville, Gabon.',
         url: 'https://aspservices.ga',
         telephone: '+24177863198',
-        email: 'georgeschristian2202@gmail.com',
+        email: 'aspservicesgabon@gmail.com',
         address: {
           '@type': 'PostalAddress',
           streetAddress: 'Likouala, en face de l\'église Hebron',
@@ -953,16 +953,28 @@ const quoteSubmitted = ref(false)
 const currentSlide = ref(0)
 const projects = ref([
   {
-    title: 'Panneaux Publicitaires',
-    description: 'Fabrication et pose de panneaux publicitaires grand format à Libreville',
-    location: 'Libreville Centre',
-    image: '/images/portfolio/Panneau-publicitaire/Panneau-1.jpg'
+    title: 'Lanyards Personnalisés OMP',
+    description: 'Cordons porte-badge OMP imprimés en bleu et vert, logo sérigraphié haute qualité',
+    location: 'Libreville',
+    image: '/images/portfolio/Panneau-publicitaire/IMG-20260709-WA0204.jpg'
   },
   {
-    title: 'Signalétique Routière PK4',
-    description: 'Installation de panneaux de signalisation routière après Sovog',
-    location: 'PK4 - Libreville',
+    title: 'Signalétique au Passage à Niveau PK4',
+    description: 'Pose de panneaux stop et signalisation sur mât métallique au passage à niveau PK4 — voie SETRAG',
+    location: 'PK4 après Sovog - Libreville',
     image: '/images/portfolio/Panneau-publicitaire/Panneau-Pk4 apres sovog-1.jpg'
+  },
+  {
+    title: 'Badges & Cartes de Visite',
+    description: 'Badges professionnels et cartes de visite pour SETRAG, GSE, OMP',
+    location: 'Libreville',
+    image: '/images/portfolio/carte & badge/badge-setrag-1.jpg'
+  },
+  {
+    title: 'Vêtements Personnalisés',
+    description: 'T-shirts, casquettes et ensembles brodés aux couleurs ASP Services',
+    location: 'Libreville',
+    image: '/images/portfolio/imprimerie/ensemble-asp-1.jpg'
   },
   {
     title: 'Panneaux Directionnels',
@@ -975,12 +987,6 @@ const projects = ref([
     description: 'Vente et location d\'imprimantes Xerox professionnelles',
     location: 'Libreville',
     image: '/images/portfolio/Machine xerox/xerox-3.jpg'
-  },
-  {
-    title: 'Réalisations Récentes',
-    description: 'Pose et installation de panneaux publicitaires extérieurs',
-    location: 'Libreville',
-    image: '/images/portfolio/Panneau-publicitaire/Panneau-3.jpg'
   }
 ])
 

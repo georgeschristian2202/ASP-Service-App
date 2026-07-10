@@ -74,7 +74,7 @@ export default defineNuxtConfig({
     public: {
       siteUrl: process.env.NUXT_PUBLIC_SITE_URL || 'https://aspservices.ga',
       whatsappNumber: '24177863198',
-      email: 'georgeschristian2202@gmail.com',
+      email: 'aspservicesgabon@gmail.com',
       phone: '+241 77 86 31 98',
       address: 'Libreville, Likouala en face de l\'église Hebron',
       googleMapsUrl: 'https://www.google.com/maps/search/?api=1&query=Libreville+Likouala+église+Hebron',

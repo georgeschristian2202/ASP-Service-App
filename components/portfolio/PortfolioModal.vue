@@ -8,26 +8,28 @@
       leave-from-class="opacity-100"
       leave-to-class="opacity-0"
     >
-      <div 
+      <div
         class="fixed inset-0 z-50 overflow-y-auto bg-asp-black/90 backdrop-blur-sm"
         @click="$emit('close')"
       >
-        <!-- Modal Content - Centré mais scrollable -->
-        <div class="min-h-full flex items-center justify-center p-4 py-8">
-          <div 
+        <!-- Modal Content -->
+        <div class="min-h-full flex items-start sm:items-center justify-center p-3 sm:p-4 sm:py-8">
+          <div
             class="relative max-w-6xl w-full bg-asp-white rounded-2xl shadow-asp-2xl overflow-hidden animate-scale-in"
             @click.stop
           >
           <!-- Close Button -->
           <button
             @click="$emit('close')"
-            class="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-asp-white/90 backdrop-blur-sm flex items-center justify-center text-asp-gray-800 hover:bg-asp-white hover:text-asp-blue-700 transition-all duration-200 cursor-pointer shadow-asp-md"
+            class="absolute top-3 right-3 sm:top-4 sm:right-4 z-10 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-asp-white/90 backdrop-blur-sm flex items-center justify-center text-asp-gray-800 hover:bg-asp-white hover:text-asp-blue-700 transition-all duration-200 cursor-pointer shadow-asp-md"
             aria-label="Fermer"
           >
-            <X class="w-6 h-6" />
+            <X class="w-5 h-5 sm:w-6 sm:h-6" />
           </button>
 
-          <div class="grid grid-cols-1 lg:grid-cols-2 max-h-[90vh]">
+          <!-- Sur mobile/tablette: 1 colonne, hauteur naturelle, l'overlay scrolle -->
+          <!-- Sur desktop: 2 colonnes, max-h 90vh, le contenu scrolle en interne -->
+          <div class="grid grid-cols-1 lg:grid-cols-2 lg:max-h-[90vh]">
             <!-- Image/Video Side -->
             <div class="relative bg-asp-gray-900 aspect-video lg:aspect-auto lg:h-full">
               <!-- Video -->
@@ -49,53 +51,53 @@
             </div>
 
             <!-- Content Side -->
-            <div class="p-6 lg:p-12 flex flex-col justify-between overflow-y-auto">
-              <div class="space-y-6">
+            <div class="p-5 sm:p-6 lg:p-12 flex flex-col justify-between lg:overflow-y-auto">
+              <div class="space-y-4 sm:space-y-6">
                 <!-- Category Badge -->
-                <span class="inline-block px-4 py-2 bg-asp-blue-100 text-asp-blue-700 rounded-full text-sm font-semibold">
+                <span class="inline-block px-3 py-1.5 sm:px-4 sm:py-2 bg-asp-blue-100 text-asp-blue-700 rounded-full text-xs sm:text-sm font-semibold">
                   {{ getCategoryName(item.category) }}
                 </span>
 
                 <!-- Title -->
-                <h2 class="heading-2 text-asp-black">
+                <h2 class="text-xl sm:text-2xl lg:text-3xl font-bold text-asp-black leading-tight">
                   {{ item.title }}
                 </h2>
 
                 <!-- Description -->
-                <p class="text-body-lg text-muted leading-relaxed">
+                <p class="text-sm sm:text-base text-muted leading-relaxed">
                   {{ item.description }}
                 </p>
 
                 <!-- Project Details -->
-                <div class="space-y-4 pt-4">
+                <div class="space-y-3 pt-2">
                   <div v-if="item.client" class="flex items-start gap-3">
-                    <Building2 class="w-5 h-5 text-asp-blue-700 flex-shrink-0 mt-0.5" />
+                    <Building2 class="w-4 h-4 sm:w-5 sm:h-5 text-asp-blue-700 flex-shrink-0 mt-0.5" />
                     <div>
-                      <p class="text-sm font-semibold text-asp-gray-800">Client</p>
-                      <p class="text-asp-gray-600">{{ item.client }}</p>
+                      <p class="text-xs sm:text-sm font-semibold text-asp-gray-800">Client</p>
+                      <p class="text-sm text-asp-gray-600">{{ item.client }}</p>
                     </div>
                   </div>
 
                   <div v-if="item.date" class="flex items-start gap-3">
-                    <Calendar class="w-5 h-5 text-asp-blue-700 flex-shrink-0 mt-0.5" />
+                    <Calendar class="w-4 h-4 sm:w-5 sm:h-5 text-asp-blue-700 flex-shrink-0 mt-0.5" />
                     <div>
-                      <p class="text-sm font-semibold text-asp-gray-800">Année</p>
-                      <p class="text-asp-gray-600">{{ item.date }}</p>
+                      <p class="text-xs sm:text-sm font-semibold text-asp-gray-800">Année</p>
+                      <p class="text-sm text-asp-gray-600">{{ item.date }}</p>
                     </div>
                   </div>
 
                   <div class="flex items-start gap-3">
-                    <CheckCircle class="w-5 h-5 text-asp-blue-700 flex-shrink-0 mt-0.5" />
+                    <CheckCircle class="w-4 h-4 sm:w-5 sm:h-5 text-asp-blue-700 flex-shrink-0 mt-0.5" />
                     <div>
-                      <p class="text-sm font-semibold text-asp-gray-800">Statut</p>
-                      <p class="text-green-600">Projet terminé</p>
+                      <p class="text-xs sm:text-sm font-semibold text-asp-gray-800">Statut</p>
+                      <p class="text-sm text-green-600">Projet terminé</p>
                     </div>
                   </div>
                 </div>
               </div>
 
               <!-- CTA Buttons -->
-              <div class="flex flex-col sm:flex-row gap-4 pt-8 border-t border-asp-gray-200">
+              <div class="flex flex-col sm:flex-row gap-3 pt-5 sm:pt-8 mt-5 sm:mt-0 border-t border-asp-gray-200">
                 <Button
                   variant="primary"
                   :href="`whatsapp://send?phone=${config.public.whatsappNumber}&text=Bonjour, j'ai vu votre réalisation '${item.title}' et je souhaite en savoir plus`"
@@ -160,7 +162,9 @@ const categoryNames: Record<string, string> = {
   'actualites': 'Actualités',
   'machine-xerox': 'Machines Xerox',
   'panneau': 'Panneaux Publicitaires',
-  'toner': 'Toners Xerox'
+  'toner': 'Toners Xerox',
+  'carte-badge': 'Cartes & Badges',
+  'imprimerie': 'Imprimerie & Textile'
 }
 
 const getCategoryName = (category: string): string => {

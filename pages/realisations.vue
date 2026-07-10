@@ -77,8 +77,8 @@
                 class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 muted
                 loop
-                @mouseenter="(e) => e.target.play()"
-                @mouseleave="(e) => { e.target.pause(); e.target.currentTime = 0; }"
+                @mouseenter="(e: MouseEvent) => (e.target as HTMLVideoElement).play()"
+                @mouseleave="(e: MouseEvent) => { const v = e.target as HTMLVideoElement; v.pause(); v.currentTime = 0; }"
               />
               
               <!-- Image -->
@@ -173,8 +173,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, h } from 'vue'
-import { Image as ImageIcon, LayoutGrid, Newspaper, Printer, Megaphone, Droplet } from 'lucide-vue-next'
+import { ref, computed } from 'vue'
+import { Image as ImageIcon, LayoutGrid, Newspaper, Printer, Megaphone, Droplet, CreditCard, Shirt } from 'lucide-vue-next'
 
 useHead({
   title: 'Nos Réalisations - ASP Services Gabon',
@@ -219,96 +219,104 @@ const selectedItem = ref<PortfolioItem | null>(null)
 
 const categories = [
   { id: 'all', name: 'Tous les Projets', icon: LayoutGrid },
-  { id: 'actualites', name: 'Actualités', icon: Newspaper },
-  { id: 'machine-xerox', name: 'Machines Xerox', icon: Printer },
   { id: 'panneau', name: 'Panneaux Publicitaires', icon: Megaphone },
-  { id: 'toner', name: 'Toners Xerox', icon: Droplet }
+  { id: 'carte-badge', name: 'Cartes & Badges', icon: CreditCard },
+  { id: 'imprimerie', name: 'Imprimerie & Textile', icon: Shirt },
+  { id: 'machine-xerox', name: 'Machines Xerox', icon: Printer },
+  { id: 'toner', name: 'Toners Xerox', icon: Droplet },
+  { id: 'actualites', name: 'Actualités', icon: Newspaper }
 ]
 
 const portfolio: PortfolioItem[] = [
   // Actualités
   {
     id: 1,
-    title: 'Actualité ASP Services - Communication Externe',
+    title: 'Signalétique Ferroviaire — STOP 150m (Vue 1)',
     category: 'actualites',
-    description: 'Supports de communication et actualités des projets ASP Services pour nos clients et partenaires.',
+    description: 'Panneau triangulaire d\'avertissement passage à niveau (locomotive + STOP 150m) posé en bord de route latérite — projet SETRAG.',
     media: '/images/portfolio/actualités/actualités-1.jpg',
     type: 'image',
+    client: 'SETRAG',
     date: '2025'
   },
   {
     id: 2,
-    title: 'Actualité ASP Services - Projet Marketing',
+    title: 'Signalétique Ferroviaire — STOP 150m (Vue 2)',
     category: 'actualites',
-    description: 'Campagne de communication visuelle pour promouvoir nos services auprès des entreprises.',
+    description: 'Second angle du panneau d\'avertissement ferroviaire installé en zone rurale — visibilité optimale depuis la route.',
     media: '/images/portfolio/actualités/actualités-2.jpg',
     type: 'image',
+    client: 'SETRAG',
     date: '2025'
   },
   {
     id: 3,
-    title: 'Actualité ASP Services - Innovation',
+    title: 'Signalétique Ferroviaire — STOP 150m (Vue 3)',
     category: 'actualites',
-    description: 'Présentation de nos nouvelles solutions et innovations dans le domaine de l\'impression.',
+    description: 'Panneau STOP 150m avec ruban de balisage de chantier, en cours de finalisation sur site.',
     media: '/images/portfolio/actualités/actualités-3.jpg',
     type: 'image',
+    client: 'SETRAG',
     date: '2025'
   },
   {
     id: 4,
-    title: 'Actualité ASP Services - Partenariat',
+    title: 'Pose Signalétique SETRAG — Équipe en Action',
     category: 'actualites',
-    description: 'Communication autour de nos partenariats stratégiques avec Xerox et autres acteurs majeurs.',
+    description: 'Équipe ASP Services en combinaison de sécurité lors de la pose des panneaux STOP 150m, avec cônes et ruban de balisage sur route.',
     media: '/images/portfolio/actualités/actualités-4.jpg',
     type: 'image',
+    client: 'SETRAG',
     date: '2025'
   },
   {
     id: 5,
-    title: 'Actualité ASP Services - Services',
+    title: 'Passage à Niveau Sans Barrière — STOP + Croix (Vue 1)',
     category: 'actualites',
-    description: 'Mise en avant de notre gamme complète de services professionnels.',
+    description: 'Ensemble STOP octogonal + croix de Saint-André fraîchement installé en zone forestière — passage à niveau sans barrière, pied ancré au mortier.',
     media: '/images/portfolio/actualités/actualités-5.jpg',
     type: 'image',
+    client: 'SETRAG',
     date: '2025'
   },
   {
     id: 6,
-    title: 'Actualité ASP Services - Excellence',
+    title: 'Passage à Niveau Sans Barrière — STOP + Croix (Vue 2)',
     category: 'actualites',
-    description: 'Communication sur notre engagement qualité et notre expertise reconnue.',
+    description: 'Vue complémentaire de l\'installation STOP + croix de Saint-André, structure métallique galvanisée solidement scellée.',
     media: '/images/portfolio/actualités/actualités-6.jpg',
     type: 'image',
+    client: 'SETRAG',
     date: '2025'
   },
   {
     id: 7,
-    title: 'Panneau Publicitaire PK4 Après Sovog - Vue 1',
+    title: 'Signalétique PK4 Après Sovog — Dos des Panneaux',
     category: 'actualites',
-    description: 'Installation de panneau publicitaire stratégique au PK4 après Sovog, excellente visibilité.',
+    description: 'Face arrière des panneaux de signalisation installés au passage à niveau PK4, avec train de wagons-citernes SETRAG en arrière-plan.',
     media: '/images/portfolio/actualités/Panneau-Pk4 apres sovog-1.jpg',
     type: 'image',
-    client: 'Client commercial',
+    client: 'SETRAG',
     date: '2025'
   },
   {
     id: 8,
-    title: 'Panneau Publicitaire PK4 Après Sovog - Vue 2',
+    title: 'Chantier Signalétique PK4 — Vue Terrain',
     category: 'actualites',
-    description: 'Vue détaillée du panneau publicitaire, design professionnel et impactant.',
+    description: 'Vue d\'ensemble du chantier de pose de signalétique ferroviaire au PK4 après Sovog — voie ferrée SETRAG visible.',
     media: '/images/portfolio/actualités/Panneau-Pk4 apres sovog-2.jpg',
     type: 'image',
-    client: 'Client commercial',
+    client: 'SETRAG',
     date: '2025'
   },
   {
     id: 9,
-    title: 'Panneau Publicitaire PK4 Après Sovog - Vue 3',
+    title: 'Signalétique PK4 — Résultat Finalisé',
     category: 'actualites',
-    description: 'Installation finalisée avec éclairage optimal pour visibilité jour et nuit.',
+    description: 'Installation terminée au passage à niveau PK4 — panneaux de signalisation routière conformes aux normes de sécurité ferroviaire.',
     media: '/images/portfolio/actualités/Panneau-Pk4 apres sovog-3.jpg',
     type: 'image',
-    client: 'Client commercial',
+    client: 'SETRAG',
     date: '2025'
   },
 
@@ -705,6 +713,232 @@ const portfolio: PortfolioItem[] = [
     media: '/images/portfolio/tonner-xerox/toner-original-xerox-ASP Services-6.webp',
     type: 'image',
     date: '2024'
+  },
+
+  // Nouveaux panneaux
+  {
+    id: 50,
+    title: 'Lanyards Personnalisés OMP',
+    category: 'carte-badge',
+    description: 'Cordons porte-badge OMP sérigraphiés en bleu et vert avec logo, finition clip métal résistant.',
+    media: '/images/portfolio/Panneau-publicitaire/IMG-20260709-WA0204.jpg',
+    type: 'image',
+    client: 'OMP',
+    date: '2026'
+  },
+  {
+    id: 51,
+    title: 'Panneau Publicitaire Variante Design',
+    category: 'panneau',
+    description: 'Variante de design sur panneau grand format, visuel percutant pour axe passant.',
+    media: '/images/portfolio/Panneau-publicitaire/panneau-3 (2).jpg',
+    type: 'image',
+    date: '2025'
+  },
+  {
+    id: 52,
+    title: 'Vidéo Réalisation Panneau 1',
+    category: 'panneau',
+    description: 'Reportage vidéo de la réalisation et pose d\'un panneau publicitaire.',
+    media: '/images/portfolio/Panneau-publicitaire/panneau-1.mp4',
+    type: 'video',
+    date: '2025'
+  },
+  {
+    id: 53,
+    title: 'Vidéo Réalisation Panneau 1.1',
+    category: 'panneau',
+    description: 'Suite de la réalisation panneau — phases de montage et assemblage.',
+    media: '/images/portfolio/Panneau-publicitaire/panneau-1.1.mp4',
+    type: 'video',
+    date: '2025'
+  },
+  {
+    id: 54,
+    title: 'Vidéo Réalisation Panneau 2',
+    category: 'panneau',
+    description: 'Deuxième reportage vidéo sur l\'installation d\'un panneau publicitaire.',
+    media: '/images/portfolio/Panneau-publicitaire/panneau-2.mp4',
+    type: 'video',
+    date: '2025'
+  },
+  {
+    id: 55,
+    title: 'Panneau d\'Arrêt - Vidéo 1',
+    category: 'panneau',
+    description: 'Réalisation et installation de panneau d\'arrêt conforme aux normes routières.',
+    media: '/images/portfolio/Panneau-publicitaire/panneau-arret-1.mp4',
+    type: 'video',
+    date: '2025'
+  },
+  {
+    id: 56,
+    title: 'Panneau d\'Arrêt - Vidéo 2',
+    category: 'panneau',
+    description: 'Suite de l\'installation de panneaux d\'arrêt sur site.',
+    media: '/images/portfolio/Panneau-publicitaire/panneau-arret-2.mp4',
+    type: 'video',
+    date: '2025'
+  },
+  {
+    id: 57,
+    title: 'Panneau Stop - Installation',
+    category: 'panneau',
+    description: 'Pose et installation de panneau stop, signalétique routière professionnelle.',
+    media: '/images/portfolio/Panneau-publicitaire/panneau-stop-1.mp4',
+    type: 'video',
+    date: '2025'
+  },
+
+  // Cartes & Badges
+  {
+    id: 58,
+    title: 'Badges Professionnels - Collection',
+    category: 'carte-badge',
+    description: 'Badges professionnels personnalisés avec photo, nom et logo entreprise. Impression haute résolution.',
+    media: '/images/portfolio/carte & badge/badge-1.jpg',
+    type: 'image',
+    date: '2025'
+  },
+  {
+    id: 59,
+    title: 'Badges d\'Identification Entreprise',
+    category: 'carte-badge',
+    description: 'Badges d\'accès et d\'identification pour entreprise, sécurisés et durables.',
+    media: '/images/portfolio/carte & badge/badge-2.jpg',
+    type: 'image',
+    date: '2025'
+  },
+  {
+    id: 60,
+    title: 'Réalisation Badges - Vidéo',
+    category: 'carte-badge',
+    description: 'Présentation vidéo de notre gamme de badges personnalisés pour entreprises.',
+    media: '/images/portfolio/carte & badge/badge-3.mp4',
+    type: 'video',
+    date: '2025'
+  },
+  {
+    id: 61,
+    title: 'Badge ASP Services',
+    category: 'carte-badge',
+    description: 'Badge officiel ASP Services, design professionnel avec logo et informations d\'identification.',
+    media: '/images/portfolio/carte & badge/badge-asp1.jpg',
+    type: 'image',
+    client: 'ASP Services',
+    date: '2025'
+  },
+  {
+    id: 62,
+    title: 'Badge GSE',
+    category: 'carte-badge',
+    description: 'Badge d\'identification pour le personnel GSE, finition premium avec porte-badge.',
+    media: '/images/portfolio/carte & badge/badge-gse-1.jpg',
+    type: 'image',
+    client: 'GSE',
+    date: '2025'
+  },
+  {
+    id: 63,
+    title: 'Badge OMP',
+    category: 'carte-badge',
+    description: 'Badge professionnel OMP — impression couleur, plastification résistante.',
+    media: '/images/portfolio/carte & badge/badge-omp-1.jpg',
+    type: 'image',
+    client: 'OMP',
+    date: '2025'
+  },
+  {
+    id: 64,
+    title: 'Carte d\'Accès SETRAG à Puce',
+    category: 'carte-badge',
+    description: 'Carte d\'identification SETRAG à puce électronique — conception graphique avec logo Société d\'Exploitation du Transgabonais.',
+    media: '/images/portfolio/carte & badge/badge-setrag-1.jpg',
+    type: 'image',
+    client: 'SETRAG',
+    date: '2025'
+  },
+  {
+    id: 65,
+    title: 'Carte de Visite GSE',
+    category: 'carte-badge',
+    description: 'Carte de visite professionnelle GSE, papier épais 350g, finition vernis sélectif.',
+    media: '/images/portfolio/carte & badge/carte-de-visite-gse-1.jpg',
+    type: 'image',
+    client: 'GSE',
+    date: '2025'
+  },
+  {
+    id: 66,
+    title: 'Carte de Visite OMP',
+    category: 'carte-badge',
+    description: 'Carte de visite OMP avec design élégant, impression recto-verso.',
+    media: '/images/portfolio/carte & badge/carte-de-visite-omp-1.jpg',
+    type: 'image',
+    client: 'OMP',
+    date: '2025'
+  },
+  {
+    id: 67,
+    title: 'Carte de Visite SETRAG',
+    category: 'carte-badge',
+    description: 'Carte de visite SETRAG, identité visuelle respectée, qualité professionnelle.',
+    media: '/images/portfolio/carte & badge/carte-de-visite-setrag-1.jpg',
+    type: 'image',
+    client: 'SETRAG',
+    date: '2025'
+  },
+  {
+    id: 68,
+    title: 'Logo OMP - Création Graphique',
+    category: 'carte-badge',
+    description: 'Création et impression du logo OMP sur supports de communication.',
+    media: '/images/portfolio/carte & badge/logo-omp-1.jpg',
+    type: 'image',
+    client: 'OMP',
+    date: '2025'
+  },
+
+  // Imprimerie & Textile
+  {
+    id: 69,
+    title: 'Casquette Personnalisée ASP Services',
+    category: 'imprimerie',
+    description: 'Casquette brodée avec logo ASP Services, textile de qualité pour équipe et événements.',
+    media: '/images/portfolio/imprimerie/cascette-asp-1.jpg',
+    type: 'image',
+    client: 'ASP Services',
+    date: '2025'
+  },
+  {
+    id: 70,
+    title: 'Combinaison de Travail ASP Services',
+    category: 'imprimerie',
+    description: 'Combinaison bicolore orange/bleu marine avec logo ASP Services brodé, bandes réfléchissantes pour sécurité sur chantier.',
+    media: '/images/portfolio/imprimerie/ensemble-asp-1.jpg',
+    type: 'image',
+    client: 'ASP Services',
+    date: '2025'
+  },
+  {
+    id: 71,
+    title: 'T-Shirt Personnalisé ASP Services - Modèle 1',
+    category: 'imprimerie',
+    description: 'T-shirt avec impression sérigraphiée du logo ASP Services, coton premium respirant.',
+    media: '/images/portfolio/imprimerie/teet-short-asp-1.jpg',
+    type: 'image',
+    client: 'ASP Services',
+    date: '2025'
+  },
+  {
+    id: 72,
+    title: 'T-Shirt Personnalisé ASP Services - Modèle 2',
+    category: 'imprimerie',
+    description: 'Deuxième variante de t-shirt personnalisé, déclinaison couleur pour distinction d\'équipe.',
+    media: '/images/portfolio/imprimerie/teet-short-asp-2.jpg',
+    type: 'image',
+    client: 'ASP Services',
+    date: '2025'
   }
 ]
 
