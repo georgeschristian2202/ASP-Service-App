@@ -115,7 +115,7 @@
                   class="flex-1"
                 >
                   <Box class="w-5 h-5" />
-                  Nos services
+                  Voir ce service
                 </Button>
               </div>
             </div>
@@ -153,7 +153,7 @@ interface Props {
   item: PortfolioItem
 }
 
-defineProps<Props>()
+const props = defineProps<Props>()
 const emit = defineEmits(['close'])
 
 const config = useRuntimeConfig()
@@ -176,11 +176,19 @@ const handleImageError = (event: Event) => {
   img.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600"%3E%3Crect fill="%231E293B" width="800" height="600"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="24" fill="%2394A3B8"%3EImage du projet%3C/text%3E%3C/svg%3E'
 }
 
+const categoryToService: Record<string, string> = {
+  'panneau':      'signaletique',
+  'actualites':   'signaletique',
+  'carte-badge':  'badges-cartes',
+  'imprimerie':   'impression-tshirts',
+  'machine-xerox':'vente-imprimantes',
+  'toner':        'consommables-xerox'
+}
+
 const navigateToServices = () => {
-  // Fermer le modal d'abord pour réactiver le scroll
   emit('close')
-  // Naviguer vers la page services
-  navigateTo('/services')
+  const serviceId = categoryToService[props.item.category] || ''
+  navigateTo(`/services${serviceId ? '#' + serviceId : ''}`)
 }
 
 // Close modal on Escape key

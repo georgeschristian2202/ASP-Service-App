@@ -1,6 +1,7 @@
 <template>
-  <div 
-    class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
+  <div
+    :id="service.id"
+    class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center scroll-mt-28"
     :class="{ 'lg:flex-row-reverse': reversed }"
   >
     <!-- Image Side -->
