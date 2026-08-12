@@ -8,7 +8,7 @@
             À Propos d'ASP Services
           </h1>
           <p class="text-body-lg text-asp-gray-400">
-            Votre partenaire de confiance en signalétique, impression et marquage au sol depuis plusieurs années à Libreville.
+            ASP : trois initiales, une histoire, une identité depuis 1998
           </p>
         </div>
       </Container>
@@ -21,88 +21,387 @@
       </div>
     </section>
 
-    <!-- Company Story -->
+    <!-- Notre Histoire -->
     <section class="section-padding bg-asp-white">
       <Container>
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <!-- Contenu -->
           <div class="space-y-6">
             <div>
               <span class="inline-block px-4 py-2 bg-asp-blue-100 text-asp-blue-700 rounded-full text-sm font-semibold mb-4">
                 Notre Histoire
               </span>
               <h2 class="heading-2 text-asp-black mb-4">
-                Expertise Locale, Qualité Internationale
+                L'origine d'une ambition
               </h2>
             </div>
 
             <p class="text-body-lg text-muted leading-relaxed">
-              ASP Services Gabon s'est imposée comme un acteur majeur de l'industrie graphique au Gabon. 
-              Spécialisés dans la signalétique professionnelle, le marquage au sol et l'impression grand format, 
-              nous accompagnons entreprises, administrations et commerces dans la réalisation de leurs projets visuels.
+              Fondée en <strong>1998 par Andy Simon Pierre</strong>, ASP Services est née d'une ambition : 
+              mettre l'expertise en <strong>management, en industrie graphique et en communication</strong> au service 
+              des entreprises et des institutions.
             </p>
 
             <p class="text-asp-gray-600 leading-relaxed">
-              Notre engagement envers la qualité et la satisfaction client nous a permis de bâtir une réputation 
-              solide à Libreville et dans tout le Gabon. Nous combinons savoir-faire artisanal et technologies 
-              de pointe pour offrir des solutions adaptées à chaque besoin.
+              Le nom <strong>ASP</strong> trouve son origine dans les initiales de son fondateur. 
+              Depuis ses débuts, cette identité accompagne une volonté constante de développer un savoir-faire 
+              solide dans les métiers de la communication et de la création visuelle.
             </p>
 
-            <div class="flex flex-wrap gap-6 pt-4">
-              <div class="flex items-center gap-3">
-                <div class="w-12 h-12 rounded-full bg-asp-blue-100 flex items-center justify-center">
-                  <Building2 class="w-6 h-6 text-asp-blue-700" />
-                </div>
-                <div>
-                  <p class="font-semibold text-asp-black">Basés à Libreville</p>
-                  <p class="text-sm text-asp-gray-600">Likouala en face de l'église Hebron</p>
-                </div>
-              </div>
+            <p class="text-asp-gray-600 leading-relaxed">
+              Au fil des années, ASP Services a développé son expertise dans la 
+              <strong>communication imprimée, l'identité graphique, l'imprimerie, la sérigraphie, 
+              la signalisation et la signalétique</strong>.
+            </p>
 
-              <div class="flex items-center gap-3">
-                <div class="w-12 h-12 rounded-full bg-asp-blue-100 flex items-center justify-center">
-                  <Users class="w-6 h-6 text-asp-blue-700" />
-                </div>
-                <div>
-                  <p class="font-semibold text-asp-black">782+ Clients</p>
-                  <p class="text-sm text-asp-gray-600">Satisfaits</p>
-                </div>
-              </div>
+            <div class="pt-4">
+              <button
+                @click="showFullHistory = !showFullHistory"
+                class="inline-flex items-center gap-2 text-asp-blue-700 font-semibold hover:text-asp-blue-600 transition-colors cursor-pointer"
+              >
+                <span>{{ showFullHistory ? 'Masquer' : 'Voir notre histoire complète' }}</span>
+                <ChevronRight :class="['w-5 h-5 transition-transform duration-200', showFullHistory ? 'rotate-90' : '']" />
+              </button>
             </div>
           </div>
 
+          <!-- Image -->
           <div class="relative">
             <img
-              src="/images/about/company.jpg"
-              alt="ASP Services Gabon - Entreprise"
+              src="/images/about/histoire.png"
+              alt="ASP Services - Notre histoire depuis 1998"
               class="w-full h-[500px] object-cover rounded-2xl shadow-asp-2xl"
               @error="handleImageError"
             >
           </div>
         </div>
+
+        <!-- Histoire complète (extensible) -->
+        <Transition
+          enter-active-class="transition-all duration-300 ease-out"
+          enter-from-class="opacity-0 -translate-y-4"
+          enter-to-class="opacity-100 translate-y-0"
+          leave-active-class="transition-all duration-200 ease-in"
+          leave-from-class="opacity-100 translate-y-0"
+          leave-to-class="opacity-0 -translate-y-4"
+        >
+          <div v-if="showFullHistory" class="mt-16">
+            <div class="max-w-4xl mx-auto">
+              <div class="space-y-12">
+                <!-- Timeline -->
+                <div class="relative">
+                  <!-- Ligne verticale -->
+                  <div class="absolute left-4 top-0 bottom-0 w-0.5 bg-asp-blue-200"></div>
+
+                  <!-- Événements -->
+                  <div class="space-y-8">
+                    <!-- 1998 -->
+                    <div class="relative pl-12">
+                      <div class="absolute left-0 w-8 h-8 bg-asp-blue-700 rounded-full flex items-center justify-center">
+                        <div class="w-3 h-3 bg-white rounded-full"></div>
+                      </div>
+                      <div class="bg-white p-6 rounded-xl shadow-md">
+                        <h3 class="text-xl font-bold text-asp-black mb-3">1998 — La naissance d'ASP</h3>
+                        <p class="text-asp-gray-700 mb-3">
+                          En <strong>1998</strong>, <strong>Andy Simon Pierre</strong> donne naissance à ASP Services, 
+                          avec la volonté de créer une structure spécialisée dans le <strong>management, l'industrie graphique 
+                          et la communication</strong>.
+                        </p>
+                        <p class="text-asp-gray-700">
+                          Dès sa création, l'entreprise porte une identité directement liée à son fondateur : <strong>ASP</strong>, 
+                          les initiales de <strong>Andy Simon Pierre</strong>. Ces trois lettres deviennent progressivement le symbole 
+                          d'une entreprise qui construit son parcours autour de la créativité, du savoir-faire et de la qualité de ses réalisations.
+                        </p>
+                      </div>
+                    </div>
+
+                    <!-- Premières années -->
+                    <div class="relative pl-12">
+                      <div class="absolute left-0 w-8 h-8 bg-asp-blue-700 rounded-full flex items-center justify-center">
+                        <div class="w-3 h-3 bg-white rounded-full"></div>
+                      </div>
+                      <div class="bg-white p-6 rounded-xl shadow-md">
+                        <h3 class="text-xl font-bold text-asp-black mb-3">Les premières années — Construire le savoir-faire</h3>
+                        <p class="text-asp-gray-700 mb-3">
+                          Dès ses premières années d'activité, ASP Services participe à la <strong>Foire de 1998</strong>, 
+                          une expérience qui contribue au développement de son savoir-faire et à son immersion dans différents projets 
+                          liés à la communication et à l'industrie graphique.
+                        </p>
+                        <p class="text-asp-gray-700">
+                          L'entreprise commence alors à développer ses compétences dans la conception et la réalisation de supports 
+                          de communication, tout en établissant progressivement son identité dans le secteur.
+                        </p>
+                      </div>
+                    </div>
+
+                    <!-- Années 2000 -->
+                    <div class="relative pl-12">
+                      <div class="absolute left-0 w-8 h-8 bg-asp-blue-700 rounded-full flex items-center justify-center">
+                        <div class="w-3 h-3 bg-white rounded-full"></div>
+                      </div>
+                      <div class="bg-white p-6 rounded-xl shadow-md">
+                        <h3 class="text-xl font-bold text-asp-black mb-3">Les années 2000 — La communication au cœur de notre développement</h3>
+                        <p class="text-asp-gray-700 mb-3">
+                          Au début des années 2000, ASP Services renforce son activité dans la <strong>communication imprimée</strong>.
+                        </p>
+                        <p class="text-asp-gray-700 mb-3">
+                          Parmi les réalisations de cette période figurent notamment des <strong>sachets destinés aux pharmacies</strong>, 
+                          utilisés comme supports de campagnes de sensibilisation, dont certains portaient le message 
+                          <strong>« Oui à la vie, non au SIDA »</strong>.
+                        </p>
+                        <p class="text-asp-gray-700">
+                          Ces réalisations témoignent de la capacité de l'entreprise à transformer des besoins de communication 
+                          en supports visuels concrets et adaptés à leur public.
+                        </p>
+                      </div>
+                    </div>
+
+                    <!-- 2012-2013 -->
+                    <div class="relative pl-12">
+                      <div class="absolute left-0 w-8 h-8 bg-asp-blue-700 rounded-full flex items-center justify-center">
+                        <div class="w-3 h-3 bg-white rounded-full"></div>
+                      </div>
+                      <div class="bg-white p-6 rounded-xl shadow-md">
+                        <h3 class="text-xl font-bold text-asp-black mb-3">2012–2013 — L'identité graphique</h3>
+                        <p class="text-asp-gray-700 mb-3">
+                          En <strong>2012–2013</strong>, ASP Services franchit une nouvelle étape en développant son expertise dans la 
+                          <strong>conception d'identités graphiques</strong>.
+                        </p>
+                        <p class="text-asp-gray-700 mb-3">
+                          L'entreprise accompagne notamment une société patrimoniale dans la création de son identité graphique. 
+                          Cette expérience renforce son positionnement dans le domaine de la communication visuelle.
+                        </p>
+                        <p class="text-asp-gray-700">
+                          Cette période est également marquée par l'obtention d'un <strong>brevet auprès de l'OAPI</strong>, 
+                          constituant une étape importante dans la reconnaissance et la protection des créations développées par l'entreprise.
+                        </p>
+                      </div>
+                    </div>
+
+                    <!-- Diversification -->
+                    <div class="relative pl-12">
+                      <div class="absolute left-0 w-8 h-8 bg-asp-blue-700 rounded-full flex items-center justify-center">
+                        <div class="w-3 h-3 bg-white rounded-full"></div>
+                      </div>
+                      <div class="bg-white p-6 rounded-xl shadow-md">
+                        <h3 class="text-xl font-bold text-asp-black mb-3">De la communication à la signalétique</h3>
+                        <p class="text-asp-gray-700 mb-4">
+                          Au fil de son évolution, ASP Services élargit progressivement son champ d'expertise.
+                        </p>
+                        <p class="text-asp-gray-700 mb-3">
+                          L'entreprise développe notamment ses compétences dans :
+                        </p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                          <div class="flex items-start gap-2 text-sm text-asp-gray-700">
+                            <Check class="w-5 h-5 text-asp-blue-700 flex-shrink-0 mt-0.5" />
+                            <span>la communication institutionnelle ;</span>
+                          </div>
+                          <div class="flex items-start gap-2 text-sm text-asp-gray-700">
+                            <Check class="w-5 h-5 text-asp-blue-700 flex-shrink-0 mt-0.5" />
+                            <span>l'imprimerie ;</span>
+                          </div>
+                          <div class="flex items-start gap-2 text-sm text-asp-gray-700">
+                            <Check class="w-5 h-5 text-asp-blue-700 flex-shrink-0 mt-0.5" />
+                            <span>la sérigraphie ;</span>
+                          </div>
+                          <div class="flex items-start gap-2 text-sm text-asp-gray-700">
+                            <Check class="w-5 h-5 text-asp-blue-700 flex-shrink-0 mt-0.5" />
+                            <span>la signalisation ;</span>
+                          </div>
+                          <div class="flex items-start gap-2 text-sm text-asp-gray-700">
+                            <Check class="w-5 h-5 text-asp-blue-700 flex-shrink-0 mt-0.5" />
+                            <span>la signalétique ;</span>
+                          </div>
+                          <div class="flex items-start gap-2 text-sm text-asp-gray-700">
+                            <Check class="w-5 h-5 text-asp-blue-700 flex-shrink-0 mt-0.5" />
+                            <span>la conception de panneaux intérieurs ;</span>
+                          </div>
+                          <div class="flex items-start gap-2 text-sm text-asp-gray-700 md:col-span-2">
+                            <Check class="w-5 h-5 text-asp-blue-700 flex-shrink-0 mt-0.5" />
+                            <span>les supports de circulation et d'orientation.</span>
+                          </div>
+                        </div>
+                        <p class="text-asp-gray-700 mt-4">
+                          Cette diversification permet à ASP Services de proposer une approche plus complète de la communication visuelle, 
+                          allant de la conception graphique jusqu'à la réalisation et à l'installation de supports.
+                        </p>
+                      </div>
+                    </div>
+
+                    <!-- Aujourd'hui -->
+                    <div class="relative pl-12">
+                      <div class="absolute left-0 w-8 h-8 bg-asp-orange-700 rounded-full flex items-center justify-center">
+                        <div class="w-3 h-3 bg-white rounded-full"></div>
+                      </div>
+                      <div class="bg-gradient-to-br from-asp-blue-50 to-asp-orange-50 p-6 rounded-xl shadow-md border-2 border-asp-blue-100">
+                        <h3 class="text-xl font-bold text-asp-black mb-3">Aujourd'hui — Une histoire qui continue</h3>
+                        <p class="text-asp-gray-700 mb-3">
+                          Près de trois décennies après sa création, ASP Services poursuit son développement en s'appuyant 
+                          sur l'expérience acquise depuis <strong>1998</strong>.
+                        </p>
+                        <p class="text-asp-gray-700 mb-3">
+                          Notre parcours repose sur une conviction simple : <strong>une communication efficace doit être pensée, 
+                          conçue et réalisée avec rigueur.</strong>
+                        </p>
+                        <p class="text-asp-gray-700 mb-4">
+                          Aujourd'hui, ASP Services continue d'accompagner ses clients dans leurs projets de 
+                          <strong>communication visuelle, d'impression, de signalisation et de signalétique</strong>, 
+                          avec la volonté de proposer des solutions professionnelles, pertinentes et durables.
+                        </p>
+                        <p class="text-xl font-bold text-asp-blue-700">
+                          ASP : trois initiales, une histoire, une identité.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Transition>
       </Container>
     </section>
 
-    <!-- Mission & Values -->
+    <!-- Mission & Vision (2 colonnes) -->
     <section class="section-padding bg-asp-gray-100">
+      <Container>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <!-- Mission -->
+          <div class="bg-white rounded-2xl shadow-lg p-8">
+            <div class="flex items-start gap-4 mb-6">
+              <div class="w-12 h-12 rounded-xl bg-asp-blue-100 flex items-center justify-center flex-shrink-0">
+                <Target class="w-6 h-6 text-asp-blue-700" />
+              </div>
+              <div>
+                <h2 class="text-2xl font-bold text-asp-black mb-2">Notre Mission</h2>
+                <p class="text-sm text-asp-gray-600">Servir notre clientèle dans les règles de l'art</p>
+              </div>
+            </div>
+
+            <p class="text-asp-gray-700 leading-relaxed mb-4">
+              Concevoir et réaliser des solutions de communication et de signalétique 
+              <strong>fiables, efficaces et adaptées</strong> aux besoins de chaque client.
+            </p>
+
+            <p class="text-asp-gray-700 leading-relaxed mb-6">
+              De la signalisation routière à la signalisation ferroviaire, nous accompagnons nos clients avec 
+              <strong>professionnalisme, rigueur et exigence</strong>.
+            </p>
+
+            <button
+              @click="showMission = !showMission"
+              class="inline-flex items-center gap-2 text-asp-blue-700 font-semibold hover:text-asp-blue-600 transition-colors cursor-pointer"
+            >
+              <span>{{ showMission ? 'Masquer' : 'En savoir plus' }}</span>
+              <ChevronRight :class="['w-5 h-5 transition-transform duration-200', showMission ? 'rotate-90' : '']" />
+            </button>
+
+            <Transition
+              enter-active-class="transition-all duration-300"
+              enter-from-class="opacity-0 max-h-0"
+              enter-to-class="opacity-100 max-h-96"
+              leave-active-class="transition-all duration-200"
+              leave-from-class="opacity-100 max-h-96"
+              leave-to-class="opacity-0 max-h-0"
+            >
+              <div v-if="showMission" class="mt-6 overflow-hidden">
+                <div class="pt-6 border-t border-asp-gray-200">
+                  <p class="text-asp-gray-700 leading-relaxed mb-4">
+                    Depuis sa création, Aspect Service développe son savoir-faire dans la communication par objet, 
+                    la signalisation, la signalétique, le management et l'imprimerie.
+                  </p>
+                  <div class="bg-asp-blue-50 p-4 rounded-lg">
+                    <p class="text-sm font-semibold text-asp-blue-700">Notre engagement</p>
+                    <p class="text-sm text-asp-gray-700 mt-1">
+                      Comprendre les besoins, maîtriser chaque étape et apporter des solutions à la hauteur des attentes.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </Transition>
+          </div>
+
+          <!-- Vision -->
+          <div class="bg-white rounded-2xl shadow-lg p-8">
+            <div class="flex items-start gap-4 mb-6">
+              <div class="w-12 h-12 rounded-xl bg-asp-orange-100 flex items-center justify-center flex-shrink-0">
+                <Telescope class="w-6 h-6 text-asp-orange-700" />
+              </div>
+              <div>
+                <h2 class="text-2xl font-bold text-asp-black mb-2">Notre Vision</h2>
+                <p class="text-sm text-asp-gray-600">Horizon 2030</p>
+              </div>
+            </div>
+
+            <p class="text-asp-gray-700 leading-relaxed mb-4">
+              Devenir une <strong>référence en Afrique centrale</strong> dans l'industrie de la signalétique, 
+              de la signalisation et du management.
+            </p>
+
+            <p class="text-asp-gray-700 leading-relaxed mb-6">
+              Étendre notre présence dans l'espace <strong>CEMAC</strong> : Cameroun, Congo, 
+              Guinée équatoriale, République centrafricaine.
+            </p>
+
+            <button
+              @click="showVision = !showVision"
+              class="inline-flex items-center gap-2 text-asp-orange-700 font-semibold hover:text-asp-orange-600 transition-colors cursor-pointer"
+            >
+              <span>{{ showVision ? 'Masquer' : 'En savoir plus' }}</span>
+              <ChevronRight :class="['w-5 h-5 transition-transform duration-200', showVision ? 'rotate-90' : '']" />
+            </button>
+
+            <Transition
+              enter-active-class="transition-all duration-300"
+              enter-from-class="opacity-0 max-h-0"
+              enter-to-class="opacity-100 max-h-96"
+              leave-active-class="transition-all duration-200"
+              leave-from-class="opacity-100 max-h-96"
+              leave-to-class="opacity-0 max-h-0"
+            >
+              <div v-if="showVision" class="mt-6 overflow-hidden">
+                <div class="pt-6 border-t border-asp-gray-200">
+                  <p class="text-asp-gray-700 leading-relaxed mb-4">
+                    À l'horizon 2030, nous ambitionnons de développer progressivement notre présence régionale 
+                    en nous appuyant sur notre expérience et notre capacité à proposer des solutions adaptées.
+                  </p>
+                  <div class="bg-asp-orange-50 p-4 rounded-lg">
+                    <p class="text-sm font-semibold text-asp-orange-700">Notre ambition</p>
+                    <p class="text-sm text-asp-gray-700 mt-1">
+                      Construire une présence régionale forte et devenir une référence en Afrique centrale.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </Transition>
+          </div>
+        </div>
+      </Container>
+    </section>
+
+    <!-- Nos Valeurs -->
+    <section class="section-padding bg-asp-white">
       <Container>
         <div class="max-w-3xl mx-auto text-center mb-16">
           <h2 class="heading-2 text-asp-black mb-4">
-            Notre Mission & Nos Valeurs
+            Nos Valeurs
           </h2>
           <p class="text-body-lg text-muted">
-            Ce qui guide notre action au quotidien
+            Les principes qui orientent notre action au quotidien
           </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <Card v-for="value in values" :key="value.title">
             <div class="space-y-4">
-              <div class="w-14 h-14 rounded-xl bg-asp-blue-700 flex items-center justify-center">
-                <component :is="value.icon" class="w-7 h-7 text-asp-white" />
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-asp-blue-100 flex items-center justify-center flex-shrink-0">
+                  <Check class="w-5 h-5 text-asp-blue-700" />
+                </div>
+                <h3 class="text-xl font-semibold text-asp-black">
+                  {{ value.title }}
+                </h3>
               </div>
-              <h3 class="text-xl font-semibold text-asp-black">
-                {{ value.title }}
-              </h3>
               <p class="text-asp-gray-600 leading-relaxed">
                 {{ value.description }}
               </p>
@@ -113,7 +412,7 @@
     </section>
 
     <!-- Equipment & Expertise -->
-    <section class="section-padding bg-asp-white">
+    <section class="section-padding bg-asp-gray-100">
       <Container>
         <div class="max-w-3xl mx-auto text-center mb-16">
           <h2 class="heading-2 text-asp-black mb-4">
@@ -159,32 +458,6 @@
       </Container>
     </section>
 
-    <!-- Service Areas -->
-    <section class="section-padding bg-asp-blue-900 text-asp-white">
-      <Container>
-        <div class="max-w-3xl mx-auto text-center mb-16">
-          <h2 class="heading-2 mb-4">
-            Nos Domaines d'Activité
-          </h2>
-          <p class="text-body-lg text-asp-gray-400">
-            Une gamme complète de services pour répondre à tous vos besoins
-          </p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
-          <div 
-            v-for="area in serviceAreas"
-            :key="area.title"
-            class="bg-asp-blue-700/50 backdrop-blur-sm rounded-xl p-6 text-center hover:bg-asp-blue-700 transition-colors duration-200 cursor-pointer"
-          >
-            <component :is="area.icon" class="w-12 h-12 mx-auto mb-4 text-asp-blue-500" />
-            <h3 class="font-semibold mb-2">{{ area.title }}</h3>
-            <p class="text-sm text-asp-gray-400">{{ area.subtitle }}</p>
-          </div>
-        </div>
-      </Container>
-    </section>
-
     <!-- Location -->
     <section class="section-padding bg-asp-white">
       <Container>
@@ -200,8 +473,7 @@
             </div>
 
             <p class="text-body-lg text-muted">
-              Notre atelier est situé au cœur de Libreville, facilement accessible pour tous vos projets 
-              de signalétique et d'impression.
+              Notre atelier est situé au cœur de Libreville, facilement accessible pour tous vos projets.
             </p>
 
             <div class="space-y-4">
@@ -265,67 +537,61 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
 import {
-  Building2,
-  Users,
   Check,
+  ChevronRight,
+  Target,
+  Telescope,
   MapPin,
   Clock,
   MapIcon,
-  Sparkles,
-  ThumbsUp,
-  ShieldCheck,
-  Wrench,
   Printer,
   Paintbrush,
   Box,
-  ShoppingBag
+  Wrench
 } from 'lucide-vue-next'
 
 const config = useRuntimeConfig()
 
+const showFullHistory = ref(false)
+const showMission = ref(false)
+const showVision = ref(false)
+
 useHead({
-  title: 'À Propos - ASP Services Gabon',
+  title: 'À Propos - ASP Services | Notre Histoire depuis 1998',
   meta: [
     {
       name: 'description',
-      content: 'Découvrez ASP Services Gabon, spécialiste en signalétique, impression et marquage au sol à Libreville. Équipement professionnel et expertise locale depuis plusieurs années.'
-    },
-    {
-      name: 'keywords',
-      content: 'ASP Services Gabon, entreprise signalétique Libreville, histoire ASP Services, expertise impression Gabon, équipement MUTOH Gabon, partenaire Xerox Gabon'
-    },
-    { property: 'og:title', content: 'À Propos - ASP Services Gabon' },
-    { property: 'og:description', content: 'Spécialiste en signalétique, impression et marquage au sol à Libreville, Gabon. Équipement professionnel MUTOH et expertise locale.' },
-    { property: 'og:url', content: 'https://aspservices.ga/a-propos' },
-    { property: 'og:type', content: 'website' },
-    { property: 'og:image', content: 'https://aspservices.ga/images/about/company.jpg' },
-    { property: 'og:image:alt', content: 'ASP Services Gabon - Notre entreprise à Libreville' },
-    { name: 'twitter:card', content: 'summary_large_image' },
-    { name: 'twitter:title', content: 'À Propos - ASP Services Gabon' },
-    { name: 'twitter:description', content: 'Spécialiste signalétique et impression à Libreville, Gabon. Expertise locale et équipement professionnel.' },
-    { name: 'twitter:image', content: 'https://aspservices.ga/images/about/company.jpg' }
-  ],
-  link: [
-    { rel: 'canonical', href: 'https://aspservices.ga/a-propos' }
+      content: 'Découvrez ASP Services, fondée en 1998 par Andy Simon Pierre. Expert en signalétique, communication et management à Libreville, Gabon.'
+    }
   ]
 })
 
 const values = [
   {
-    icon: Sparkles,
-    title: 'Qualité',
-    description: 'Nous utilisons des matériaux de première qualité et des techniques éprouvées pour garantir la durabilité et l\'esthétique de chaque réalisation.'
+    title: 'Excellence opérationnelle',
+    description: 'Qualité et efficacité dans chaque réalisation. Respect des exigences techniques pour des résultats fiables et durables.'
   },
   {
-    icon: ThumbsUp,
-    title: 'Satisfaction Client',
-    description: 'Votre satisfaction est notre priorité. Nous vous accompagnons de la conception à la livraison pour un résultat qui dépasse vos attentes.'
+    title: 'Réactivité',
+    description: 'Capacité à répondre rapidement aux besoins. Comprendre, décider et agir dans les meilleurs délais.'
   },
   {
-    icon: ShieldCheck,
-    title: 'Fiabilité',
-    description: 'Respect des délais, engagement sur les prix annoncés et garantie sur nos prestations. Une relation de confiance durable avec nos clients.'
+    title: 'Accompagnement',
+    description: 'Comprendre les besoins et accompagner chaque client à chaque étape de son projet.'
+  },
+  {
+    title: 'Esprit d\'équipe',
+    description: 'Collaboration et complémentarité des compétences pour construire ensemble des solutions performantes.'
+  },
+  {
+    title: 'Transmission des compétences',
+    description: 'Partage des connaissances pour renforcer nos équipes et préparer les générations futures.'
+  },
+  {
+    title: 'Intégrité',
+    description: 'Honnêteté, transparence et respect des engagements. Relations fondées sur la confiance.'
   }
 ]
 
@@ -372,16 +638,8 @@ const equipmentList = [
   }
 ]
 
-const serviceAreas = [
-  { title: 'Signalétique', subtitle: 'Panneaux & Enseignes', icon: Paintbrush },
-  { title: 'Marquage', subtitle: 'Sol & Parking', icon: MapIcon },
-  { title: 'Impression', subtitle: 'Grand Format', icon: Printer },
-  { title: 'Xerox', subtitle: 'Consommables', icon: ShoppingBag },
-  { title: 'Textile', subtitle: 'T-shirts', icon: Box }
-]
-
 const handleImageError = (event: Event) => {
   const img = event.target as HTMLImageElement
-  img.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600"%3E%3Crect fill="%23F1F5F9" width="800" height="600"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="24" fill="%2394A3B8"%3EASP Services Gabon%3C/text%3E%3C/svg%3E'
+  img.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600"%3E%3Crect fill="%23F1F5F9" width="800" height="600"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="24" fill="%2394A3B8"%3EASP Services%3C/text%3E%3C/svg%3E'
 }
 </script>
