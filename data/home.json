@@ -1,0 +1,100 @@
+{
+  "hero": {
+    "title": "Votre Partenaire en Signalétique et Impression",
+    "titleHighlights": ["Signalétique", "Impression"],
+    "subtitle": "De la conception à la réalisation, ASP Services vous accompagne dans tous vos projets de signalétique, marquage au sol et impression grand format à Libreville.",
+    "backgroundImage": "/images/hero/hero-background.jpg",
+    "cta": {
+      "primary": {
+        "text": "Devis Gratuit WhatsApp",
+        "type": "whatsapp"
+      },
+      "secondary": {
+        "text": "Découvrir nos services",
+        "link": "/services"
+      }
+    },
+    "trustIndicators": [
+      {
+        "icon": "BadgeCheck",
+        "text": "Qualité garantie"
+      },
+      {
+        "icon": "Clock",
+        "text": "Délais respectés"
+      },
+      {
+        "icon": "Star",
+        "text": "Plusieurs années d'expérience"
+      }
+    ]
+  },
+  "aboutPreview": {
+    "badge": "Qui sommes-nous ?",
+    "title": "Expertise et Qualité au Service de Vos Projets",
+    "description": "Basée à Libreville, ASP Services Gabon est votre partenaire de confiance dans l'industrie graphique et le management visuel depuis plusieurs années.",
+    "content": [
+      "Nous combinons expertise technique et créativité pour offrir des solutions sur mesure en signalétique, marquage au sol, et impression grand format. Notre équipement de pointe, incluant un traceur MUTOH et des imprimantes Xerox professionnelles, nous permet de garantir une qualité irréprochable.",
+      "De la conception à la pose, nous accompagnons entreprises, administrations et commerces dans la réalisation de leurs projets visuels."
+    ],
+    "image": "/images/about/workshop.jpg",
+    "features": [
+      {
+        "icon": "Wrench",
+        "title": "Équipement Pro",
+        "description": "Traceur MUTOH, Xerox"
+      },
+      {
+        "icon": "Users",
+        "title": "Équipe Experte",
+        "description": "Savoir-faire local"
+      },
+      {
+        "icon": "Clock",
+        "title": "Réactivité",
+        "description": "Devis sous 24h"
+      },
+      {
+        "icon": "BadgeCheck",
+        "title": "Qualité",
+        "description": "Garantie satisfait"
+      }
+    ],
+    "stats": [
+      {
+        "value": "782+",
+        "label": "Clients satisfaits"
+      },
+      {
+        "value": "15+",
+        "label": "Années d'expertise"
+      }
+    ]
+  },
+  "portfolioHighlight": {
+    "title": "Nos Réalisations",
+    "description": "Découvrez un aperçu de nos projets récents en signalétique, marquage au sol et impression. Chaque réalisation témoigne de notre engagement envers la qualité et la satisfaction client.",
+    "featured": [
+      {
+        "title": "Signalétique Entreprise",
+        "category": "Panneaux & Enseignes",
+        "image": "/attachments/1000959172.jpg"
+      },
+      {
+        "title": "Marquage Parking",
+        "category": "Marquage au Sol",
+        "image": "/attachments/1000959173.jpg"
+      },
+      {
+        "title": "Impression Grand Format",
+        "category": "Bâches & Banderoles",
+        "image": "/attachments/1000959174.jpg"
+      },
+      {
+        "title": "Impression Textile",
+        "category": "T-shirts Personnalisés",
+        "image": "/attachments/1000959175.jpg"
+      }
+    ]
+  }
+}

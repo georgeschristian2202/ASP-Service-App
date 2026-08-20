@@ -76,8 +76,18 @@ export default defineNuxtConfig({
       whatsappNumber: '24177863198',
       email: 'aspservicesgabon@gmail.com',
       phone: '+241 77 86 31 98',
-      address: 'Libreville, Likouala en face de l\'église Hebron',
-      googleMapsUrl: 'https://www.google.com/maps/search/?api=1&query=Libreville+Likouala+église+Hebron',
+      address: 'Libreville, Likouala en face de l\'Église Prophétique Hébron',
+      googleMapsUrl: 'https://www.google.com/maps/search/?api=1&query=Église+Prophétique+Hébron+Libreville+Gabon',
+      // GPS Coordinates for precise map centering
+      // Point de repère : Église Prophétique Hébron (ASP Services est en face)
+      // Pour affiner : obtenir les coordonnées GPS exactes de l'atelier
+      // Voir OBTENIR-COORDONNEES-GPS.md pour la procédure
+      mapLatitude: undefined, // À définir avec les coordonnées exactes
+      mapLongitude: undefined, // À définir avec les coordonnées exactes
+      mapZoom: 17, // Zoom level (17 = rue, 18 = bâtiment)
+      // ImageKit Configuration
+      imagekitUrlEndpoint: process.env.NUXT_PUBLIC_IMAGEKIT_URL_ENDPOINT || '',
+      imagekitPublicKey: process.env.NUXT_PUBLIC_IMAGEKIT_PUBLIC_KEY || '',
       // EmailJS Configuration
       emailjsServiceId: process.env.NUXT_PUBLIC_EMAILJS_SERVICE_ID || '',
       emailjsTemplateId: process.env.NUXT_PUBLIC_EMAILJS_TEMPLATE_ID || '',

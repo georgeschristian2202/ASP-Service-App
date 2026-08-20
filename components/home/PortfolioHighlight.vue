@@ -20,12 +20,18 @@
           class="card-image group"
         >
           <div class="relative aspect-4-3 overflow-hidden bg-asp-gray-800">
-            <img
+            <OptimizedImage
               :src="item.image"
               :alt="item.title"
+              :width="800"
+              :height="600"
+              :quality="85"
+              format="webp"
+              crop="maintain_ratio"
+              focus="center"
               class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
               @error="handleImageError"
-            >
+            />
             <!-- Overlay on hover -->
             <div class="absolute inset-0 bg-asp-blue-900/0 group-hover:bg-asp-blue-900/80 transition-all duration-300 flex items-center justify-center">
               <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-center p-4">

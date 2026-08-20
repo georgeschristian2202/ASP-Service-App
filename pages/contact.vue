@@ -150,48 +150,13 @@
         </div>
 
         <!-- Map Embed -->
-        <div class="relative rounded-2xl overflow-hidden shadow-asp-2xl">
-          <div class="aspect-video bg-asp-gray-200 relative">
-            <!-- Google Maps Placeholder -->
-            <a
-              :href="config.public.googleMapsUrl"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="block w-full h-full group cursor-pointer"
-            >
-              <div class="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-br from-asp-blue-100 to-asp-blue-50 group-hover:from-asp-blue-200 group-hover:to-asp-blue-100 transition-all duration-200">
-                <MapIcon class="w-20 h-20 text-asp-blue-700 mb-4 group-hover:scale-110 transition-transform duration-200" />
-                <p class="text-xl font-semibold text-asp-blue-900 mb-2">
-                  Voir sur Google Maps
-                </p>
-                <p class="text-asp-gray-600 max-w-md text-center px-4">
-                  {{ config.public.address }}
-                </p>
-              </div>
-            </a>
-
-            <!-- Address Overlay Card -->
-            <div class="absolute bottom-6 left-6 right-6 md:right-auto md:max-w-md">
-              <Card class="backdrop-blur-sm bg-asp-white/95">
-                <div class="space-y-3">
-                  <div class="flex items-start gap-3">
-                    <MapPin class="w-5 h-5 text-asp-blue-700 flex-shrink-0 mt-0.5" />
-                    <div>
-                      <p class="font-semibold text-asp-black text-sm mb-1">Adresse</p>
-                      <p class="text-asp-gray-600 text-sm">{{ config.public.address }}</p>
-                    </div>
-                  </div>
-
-                  <div class="border-t border-asp-gray-200 pt-3">
-                    <div class="flex items-center gap-2 text-sm text-asp-gray-600">
-                      <Clock class="w-4 h-4 text-asp-blue-700" />
-                      <span>Lun-Ven: 8h-17h • Sam: 9h-13h</span>
-                    </div>
-                  </div>
-                </div>
-              </Card>
-            </div>
-          </div>
+        <div class="aspect-video">
+          <GoogleMapEmbed
+            :address="config.public.address"
+            query="Église+Prophétique+Hébron+Libreville+Gabon"
+            :show-overlay="true"
+            :show-hours="true"
+          />
         </div>
 
         <!-- Direction Button -->
@@ -257,7 +222,7 @@ useHead({
   meta: [
     {
       name: 'description',
-      content: 'Contactez ASP Services Gabon pour vos projets de signalétique et impression à Libreville. Devis gratuit par WhatsApp, téléphone ou email. Likouala en face de l\'église Hebron.'
+      content: 'Contactez ASP Services Gabon pour vos projets de signalétique et impression à Libreville. Devis gratuit par WhatsApp, téléphone ou email. Likouala en face de l\'Église Prophétique Hébron.'
     },
     {
       name: 'keywords',

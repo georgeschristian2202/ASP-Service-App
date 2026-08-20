@@ -41,13 +41,19 @@
                 autoplay
               />
               <!-- Image -->
-              <img
+              <OptimizedImage
                 v-else
                 :src="item.media"
                 :alt="item.title"
+                :width="1600"
+                :height="1200"
+                :quality="90"
+                format="webp"
+                :use-picture="true"
+                crop="maintain_ratio"
                 class="w-full h-full object-cover"
                 @error="handleImageError"
-              >
+              />
             </div>
 
             <!-- Content Side -->

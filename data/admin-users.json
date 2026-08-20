@@ -1,0 +1,14 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "username": "admin",
+      "passwordHash": "$2a$10$rZqN8vGXJGKL9YJ5xJ8pXOqZYqJ5xJ8pXOqZYqJ5xJ8pXOqZYqJ5x",
+      "email": "aspservicesgabon@gmail.com",
+      "role": "admin",
+      "createdAt": "2026-08-19T00:00:00.000Z"
+    }
+  ],
+  "_note": "Le mot de passe par défaut est: admin123 - CHANGEZ-LE après la première connexion !",
+  "_security": "Les mots de passe sont hashés avec bcrypt pour la sécurité"
+}

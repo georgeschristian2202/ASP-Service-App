@@ -1,0 +1,17 @@
+{
+  "items": [],
+  "_note": "Ce fichier contient toutes les réalisations du portfolio",
+  "_structure": {
+    "id": "Identifiant unique (UUID ou timestamp)",
+    "title": "Titre de la réalisation",
+    "category": "Catégorie (Signalétique, Impression, Marquage, etc.)",
+    "description": "Description détaillée du projet",
+    "imageUrl": "URL de l'image depuis ImageKit",
+    "imagePath": "Chemin de l'image dans ImageKit",
+    "tags": ["Array de tags pour filtrage"],
+    "featured": "Boolean - afficher sur la page d'accueil",
+    "orderIndex": "Ordre d'affichage (nombre)",
+    "createdAt": "Date de création ISO",
+    "updatedAt": "Date de dernière modification ISO"
+  }
+}

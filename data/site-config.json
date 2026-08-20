@@ -1,0 +1,29 @@
+{
+  "company": {
+    "name": "ASP Services Gabon",
+    "tagline": "Industrie Graphique et Management",
+    "logo": "/logo.png",
+    "phone": "+241 77 86 31 98",
+    "whatsapp": "24177863198",
+    "email": "aspservicesgabon@gmail.com",
+    "address": "Libreville, Likouala en face de l'église Hebron",
+    "mapLatitude": null,
+    "mapLongitude": null,
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=Libreville+Likouala+église+Hebron",
+    "hours": {
+      "weekdays": "Lundi - Vendredi : 8h - 17h",
+      "saturday": "Samedi : 9h - 13h",
+      "sunday": "Dimanche : Fermé"
+    }
+  },
+  "seo": {
+    "defaultTitle": "ASP Services Gabon - Signalétique, Impression & Marquage au Sol",
+    "defaultDescription": "ASP Services Gabon : votre partenaire en signalétique, impression grand format, marquage au sol et consommables Xerox à Libreville.",
+    "keywords": "signalétique Gabon, impression Libreville, marquage au sol, ASP Services"
+  },
+  "social": {
+    "facebook": "",
+    "instagram": "",
+    "linkedin": ""
+  }
+}

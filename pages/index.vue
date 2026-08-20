@@ -697,67 +697,9 @@
       </div>
     </section>
 
-    <!-- Témoignages Clients -->
-    <section class="py-20 bg-white overflow-hidden w-full">
-      <div class="max-w-7xl mx-auto px-4 mb-12">
-        <div class="text-center">
-          <h2 class="text-4xl font-bold text-asp-black mb-4">Ce Que Disent Nos Clients</h2>
-          <p class="text-xl text-asp-gray-600">
-            Leur satisfaction fait notre fierté et notre motivation quotidienne
-          </p>
-        </div>
-      </div>
+    <!-- Nos Partenaires -->
+ <PartnersSection />
 
-      <!-- Infinite Scroll Carousel -->
-      <div class="relative w-full">
-        <div class="testimonials-track flex gap-6">
-          <!-- Premier set de témoignages -->
-          <div
-            v-for="(testimonial, index) in [...testimonials, ...testimonials]"
-            :key="`testimonial-${index}`"
-            class="testimonial-card flex-shrink-0 w-96"
-          >
-            <div class="bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-100 h-full">
-              <!-- Étoiles -->
-              <div class="flex items-center gap-1 mb-4">
-                <Star v-for="i in 5" :key="i" class="w-5 h-5 text-yellow-400 fill-yellow-400" />
-              </div>
-              
-              <!-- Témoignage -->
-              <p class="text-asp-gray-700 mb-6 leading-relaxed italic">
-                "{{ testimonial.text }}"
-              </p>
-              
-              <!-- Auteur -->
-              <div class="flex items-center gap-3">
-                <div 
-                  class="w-12 h-12 rounded-full flex items-center justify-center"
-                  :class="testimonial.color"
-                >
-                  <span class="font-bold text-lg" :class="testimonial.textColor">{{ testimonial.initials }}</span>
-                </div>
-                <div>
-                  <p class="font-bold text-asp-black">{{ testimonial.name }}</p>
-                  <p class="text-sm text-asp-gray-500">{{ testimonial.role }}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Note moyenne -->
-      <div class="mt-12 text-center">
-        <div class="inline-block bg-gradient-to-r from-yellow-50 to-orange-50 rounded-2xl px-8 py-6 border-2 border-yellow-200">
-          <div class="flex items-center gap-3 justify-center mb-2">
-            <Star class="w-6 h-6 text-yellow-400 fill-yellow-400" />
-            <span class="text-4xl font-bold text-asp-black">4.9</span>
-            <span class="text-2xl text-asp-gray-600">/5</span>
-          </div>
-          <p class="text-asp-gray-600">Basé sur plus de 150 avis clients</p>
-        </div>
-      </div>
-    </section>
 
     <!-- Chiffres Clés -->
     <section ref="statsSection" class="py-20 bg-asp-blue-600">
@@ -811,6 +753,7 @@
 <script setup lang="ts">
 import { ref, reactive, onMounted, watch } from 'vue'
 import QuoteModal from '~/components/home/QuoteModal.vue'
+import PartnersSection from '~/components/home/PartnersSection.vue'
 import {
   MessageCircle,
   Phone,
@@ -878,7 +821,7 @@ useHead({
         email: 'aspservicesgabon@gmail.com',
         address: {
           '@type': 'PostalAddress',
-          streetAddress: 'Likouala, en face de l\'église Hebron',
+          streetAddress: 'Likouala, en face de l\'Église Prophétique Hébron',
           addressLocality: 'Libreville',
           addressCountry: 'GA'
         },
@@ -1012,57 +955,8 @@ const statsTargets = {
 
 let statsAnimated = false
 
-const testimonials = ref([
-  {
-    text: "Excellent travail ! L'équipe d'ASP Services a réalisé toute notre signalétique d'entreprise. Résultat impeccable et livraison dans les temps. Je recommande vivement leurs services.",
-    name: "Marie-Claire Ondo",
-    role: "Directrice, Hôtel Le Meridien",
-    initials: "MC",
-    color: "bg-asp-blue-100",
-    textColor: "text-asp-blue-600"
-  },
-  {
-    text: "Professionnels et à l'écoute. Nous avons fait appel à ASP pour le marquage au sol de notre parking. Travail soigné et prix très compétitif. Merci à toute l'équipe !",
-    name: "Jean-Baptiste Mouele",
-    role: "Gérant, Centre Commercial Mbolo",
-    initials: "JB",
-    color: "bg-green-100",
-    textColor: "text-green-600"
-  },
-  {
-    text: "Une équipe réactive et professionnelle. Impression de 200 t-shirts pour notre événement avec un rendu exceptionnel. Respect des délais et qualité au rendez-vous !",
-    name: "Ange Nzamba",
-    role: "Organisatrice Événementiel",
-    initials: "AN",
-    color: "bg-purple-100",
-    textColor: "text-purple-600"
-  },
-  {
-    text: "Service impeccable pour l'impression de nos bâches publicitaires. Couleurs vives et finition professionnelle. ASP Services est devenu notre partenaire de confiance.",
-    name: "Paul Essono",
-    role: "Directeur Marketing, Gabon Telecom",
-    initials: "PE",
-    color: "bg-orange-100",
-    textColor: "text-orange-600"
-  },
-  {
-    text: "Nous avons équipé toute notre entreprise avec leurs consommables Xerox. Prix compétitifs et livraison rapide. Un service après-vente au top !",
-    name: "Sylvie Moundounga",
-    role: "Responsable Achats, BGFIBank",
-    initials: "SM",
-    color: "bg-pink-100",
-    textColor: "text-pink-600"
-  },
-  {
-    text: "La création de nos badges et cartes de visite a été parfaite. Design moderne et qualité premium. Je recommande sans hésitation pour tous vos besoins graphiques.",
-    name: "David Obiang",
-    role: "CEO, StartUp Lab Gabon",
-    initials: "DO",
-    color: "bg-indigo-100",
-    textColor: "text-indigo-600"
-  }
-])
-
+// Partners data (remplace testimonials)
+const { partners } = usePartners()
 // Carousel functions
 const nextSlide = () => {
   currentSlide.value = (currentSlide.value + 1) % projects.value.length

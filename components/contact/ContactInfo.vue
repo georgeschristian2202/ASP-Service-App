@@ -99,22 +99,15 @@
       </div>
     </Card>
 
-    <!-- Google Maps (if URL available) -->
-    <Card padding="none" v-if="config.public.googleMapsUrl">
-      <a
-        :href="config.public.googleMapsUrl"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="block relative h-64 bg-asp-gray-200 rounded-xl overflow-hidden group cursor-pointer"
-      >
-        <div class="absolute inset-0 flex items-center justify-center bg-asp-blue-900/10 group-hover:bg-asp-blue-900/20 transition-colors duration-200">
-          <div class="text-center">
-            <MapIcon class="w-12 h-12 text-asp-blue-700 mx-auto mb-2" />
-            <p class="text-asp-blue-700 font-semibold">Voir sur Google Maps</p>
-          </div>
-        </div>
-      </a>
-    </Card>
+    <!-- Google Maps Embed -->
+    <div v-if="config.public.googleMapsUrl" class="h-64">
+      <GoogleMapEmbed
+        :address="config.public.address"
+        query="Église+Prophétique+Hébron+Libreville+Gabon"
+        :show-overlay="false"
+        :show-hours="false"
+      />
+    </div>
   </div>
 </template>
 
@@ -124,8 +117,7 @@ import {
   Phone,
   Mail,
   MessageCircle,
-  Clock,
-  MapIcon
+  Clock
 } from 'lucide-vue-next'
 
 const config = useRuntimeConfig()

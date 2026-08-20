@@ -66,7 +66,7 @@
               </div>
               <div class="flex items-start gap-3 text-sm">
                 <MapPin class="w-5 h-5 text-yellow-400 flex-shrink-0 mt-0.5" />
-                <p class="text-gray-400">Libreville, Likouala en face de l'église Hebron</p>
+                <p class="text-gray-400">Libreville, Likouala en face de l'Église Prophétique Hébron</p>
               </div>
             </div>
           </div>

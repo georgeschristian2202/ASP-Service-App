@@ -2,12 +2,17 @@
   <section class="relative h-screen min-h-[600px] flex items-center">
     <!-- Background Image with Overlay -->
     <div class="absolute inset-0 z-0">
-      <img
-        src="/images/hero-background.jpg"
+      <OptimizedImage
+        src="/images/hero/hero-background.jpg"
         alt="ASP Services - Signalétique et Impression"
+        :width="1920"
+        :height="1080"
+        :quality="75"
+        format="webp"
+        loading="eager"
         class="w-full h-full object-cover"
         @error="handleImageError"
-      >
+      />
       <!-- Dark overlay for text legibility -->
       <div class="overlay-gradient"></div>
     </div>

@@ -4,12 +4,17 @@
     @click="$emit('click')"
   >
     <div class="relative aspect-4-3 overflow-hidden bg-asp-gray-800">
-      <img
+      <OptimizedImage
         :src="item.image"
         :alt="item.title"
+        :width="800"
+        :height="600"
+        :quality="85"
+        format="webp"
+        crop="maintain_ratio"
         class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
         @error="handleImageError"
-      >
+      />
       
       <!-- Overlay -->
       <div class="absolute inset-0 bg-gradient-to-t from-asp-blue-900 via-asp-blue-900/50 to-transparent opacity-60 group-hover:opacity-90 transition-opacity duration-200"></div>

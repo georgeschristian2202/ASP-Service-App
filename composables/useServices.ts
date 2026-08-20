@@ -85,7 +85,7 @@ export const useServices = () => {
         'Livraison express disponible',
         'Installation possible sur site'
       ],
-      image: '/images/services/affiche-fabrication-des-panneaux-signaletiques-ferroviaires et routiers.jpg',
+      image: '/images/services/affiche_impression_grand_format.jpg',
       gallery: [
         '/images/portfolio/1000959177.jpg',
         '/images/portfolio/1000959178.jpg'
@@ -157,7 +157,7 @@ export const useServices = () => {
         'Tarifs dégressifs sur quantité',
         'Design graphique inclus'
       ],
-      image: '/images/services/xerox.jpg',
+      image: '/images/services/affiche_badge.jpg',
       gallery: []
     },
     {

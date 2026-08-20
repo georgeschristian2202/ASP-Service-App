@@ -67,12 +67,16 @@
 
           <!-- Image -->
           <div class="relative">
-            <img
+            <OptimizedImage
               src="/images/about/histoire.png"
               alt="ASP Services - Notre histoire depuis 1998"
+              :width="1200"
+              :height="800"
+              :quality="90"
+              format="webp"
               class="w-full h-[500px] object-cover rounded-2xl shadow-asp-2xl"
               @error="handleImageError"
-            >
+            />
           </div>
         </div>
 
@@ -512,20 +516,13 @@
             </div>
           </div>
 
-          <div class="relative h-[500px] rounded-2xl overflow-hidden shadow-asp-2xl">
-            <a
-              :href="config.public.googleMapsUrl"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="block w-full h-full bg-asp-gray-200 group cursor-pointer"
-            >
-              <div class="absolute inset-0 flex items-center justify-center bg-asp-blue-900/20 group-hover:bg-asp-blue-900/30 transition-colors duration-200">
-                <div class="text-center">
-                  <MapIcon class="w-16 h-16 text-asp-blue-700 mx-auto mb-4" />
-                  <p class="text-asp-blue-700 font-semibold text-lg">Cliquez pour voir la carte</p>
-                </div>
-              </div>
-            </a>
+          <div class="relative h-[500px]">
+            <GoogleMapEmbed
+              :address="config.public.address"
+              query="Église+Prophétique+Hébron+Libreville+Gabon"
+              :show-overlay="false"
+              :show-hours="false"
+            />
           </div>
         </div>
       </Container>

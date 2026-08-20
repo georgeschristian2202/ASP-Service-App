@@ -5,12 +5,16 @@
         <!-- Image Side -->
         <div class="relative">
           <div class="relative rounded-2xl overflow-hidden shadow-asp-2xl">
-            <img
+            <OptimizedImage
               src="/images/about/workshop.jpg"
               alt="Atelier ASP Services Gabon"
+              :width="1200"
+              :height="800"
+              :quality="85"
+              format="webp"
               class="w-full h-[500px] object-cover"
               @error="handleImageError"
-            >
+            />
           </div>
 
           <!-- Floating Stats Card -->

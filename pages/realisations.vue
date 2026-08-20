@@ -82,10 +82,18 @@
               />
               
               <!-- Image -->
-              <img
+              <OptimizedImage
                 v-else
                 :src="item.media"
                 :alt="item.title"
+                :width="800"
+                :height="600"
+                :quality="85"
+                format="webp"
+                :responsive="true"
+                :responsive-widths="[400, 800, 1200]"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                crop="maintain_ratio"
                 class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 loading="lazy"
               />

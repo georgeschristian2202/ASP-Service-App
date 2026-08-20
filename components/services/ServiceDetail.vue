@@ -8,11 +8,24 @@
     <div :class="{ 'lg:order-2': reversed, 'lg:order-1': !reversed }">
       <div class="relative rounded-2xl overflow-hidden shadow-asp-xl">
         <div class="aspect-4-3 bg-asp-gray-200">
-          <img
-            :src="service.image || placeholderImage"
+          <OptimizedImage
+            v-if="service.image"
+            :src="service.image"
             :alt="service.title"
+            :width="800"
+            :height="600"
+            :quality="85"
+            format="auto"
+            crop="maintain_ratio"
+            focus="center"
             class="w-full h-full object-cover"
             @error="handleImageError"
+          />
+          <img
+            v-else
+            :src="placeholderImage"
+            :alt="service.title"
+            class="w-full h-full object-cover"
           >
         </div>
       </div>
