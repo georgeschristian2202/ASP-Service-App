@@ -34,6 +34,7 @@
     <!-- Onglets -->
     <div class="flex border-b border-gray-200">
       <button
+        type="button"
         @click="activeTab = 'upload'"
         :class="[
           'px-4 py-2 text-sm font-medium transition-colors',
@@ -45,6 +46,7 @@
         📤 Upload
       </button>
       <button
+        type="button"
         @click="activeTab = 'url'"
         :class="[
           'px-4 py-2 text-sm font-medium transition-colors',
@@ -70,6 +72,7 @@
         />
         
         <button
+          type="button"
           @click="triggerFileInput"
           :disabled="isUploading"
           class="w-full px-4 py-3 bg-asp-blue-700 hover:bg-asp-blue-800 text-white rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
@@ -95,6 +98,7 @@
         />
         
         <button
+          type="button"
           @click="handleUrlSubmit"
           :disabled="!urlInput || isUploading"
           class="w-full px-4 py-3 bg-asp-blue-700 hover:bg-asp-blue-800 text-white rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
@@ -125,6 +129,7 @@
           class="flex-1 px-3 py-2 text-sm bg-gray-50 border border-gray-200 rounded-lg"
         />
         <button
+          type="button"
           @click="copyToClipboard"
           class="px-3 py-2 bg-white border border-gray-300 hover:bg-gray-50 rounded-lg transition-colors"
           title="Copier"

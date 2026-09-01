@@ -40,23 +40,36 @@ export const usePortfolio = () => {
         query.limit = filters.limit.toString()
       }
 
+      console.log('🔍 usePortfolio.fetchList - Requête API avec query:', query)
+
       const { data, error } = await useFetch('/api/portfolio/list', {
-        query
+        query,
+        // Désactiver le cache pour forcer le rechargement
+        key: `portfolio-list-${Date.now()}`,
+        server: false
+      })
+
+      console.log('📦 usePortfolio.fetchList - Réponse API:', { 
+        hasData: !!data.value, 
+        hasError: !!error.value,
+        itemsCount: data.value?.items?.length 
       })
 
       if (error.value) {
+        console.error('❌ usePortfolio.fetchList - Erreur API:', error.value)
         throw new Error(error.value.statusMessage || 'Erreur de chargement')
       }
 
       if (data.value?.success) {
         items.value = data.value.items
         categories.value = data.value.categories || []
+        console.log('✅ usePortfolio.fetchList - Items chargés:', items.value.length)
         return { success: true, items: data.value.items }
       }
 
       throw new Error('Erreur lors de la récupération des réalisations')
     } catch (error: any) {
-      console.error('Fetch list error:', error)
+      console.error('❌ usePortfolio.fetchList - Exception:', error)
       return {
         success: false,
         error: error.message || 'Erreur lors de la récupération des réalisations'

@@ -112,7 +112,7 @@
           <!-- Options -->
           <Card>
             <div class="p-6 space-y-4">
-              <!-- Featured -->
+              <!-- Mise en vedette -->
               <label class="flex items-center gap-3 cursor-pointer">
                 <input
                   v-model="formData.featured"
@@ -120,8 +120,8 @@
                   class="w-5 h-5 text-asp-blue-700 border-gray-300 rounded focus:ring-asp-blue-500"
                 />
                 <div>
-                  <p class="text-sm font-medium text-asp-black">Featured</p>
-                  <p class="text-xs text-asp-gray-500">Afficher sur la page d'accueil</p>
+                  <p class="text-sm font-medium text-asp-black">Mise en vedette</p>
+                  <p class="text-xs text-asp-gray-500">Afficher en priorité et sur la page d'accueil</p>
                 </div>
               </label>
 

@@ -821,7 +821,7 @@ useHead({
         email: 'aspservicesgabon@gmail.com',
         address: {
           '@type': 'PostalAddress',
-          streetAddress: 'Likouala, en face de l\'Église Prophétique Hébron',
+          streetAddress: 'Likouala, en face de l\'Assemblées de Dieu du Gabon - Église de Likouala',
           addressLocality: 'Libreville',
           addressCountry: 'GA'
         },

@@ -54,12 +54,12 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  address: 'Libreville, Likouala en face de l\'Église Prophétique Hébron',
-  query: 'Église+Prophétique+Hébron+Libreville+Gabon',
-  // Utilisation de la recherche ciblée sur l'Église Prophétique Hébron
-  // ASP Services est en face de cette église
-  latitude: undefined,
-  longitude: undefined,
+  address: 'Libreville, Likouala en face de l\'Assemblées de Dieu du Gabon - Église de Likouala',
+  query: 'Assemblées de Dieu du Gabon - Église de Likouala, Libreville',
+  // Coordonnées GPS de Libreville, quartier Likouala
+  // ASP Services est situé en face de l'Assemblées de Dieu - Église de Likouala
+  latitude: 0.3901,
+  longitude: 9.4544,
   zoom: 17,
   showOverlay: true,
   showHours: true
@@ -69,11 +69,12 @@ const props = withDefaults(defineProps<Props>(), {
 const mapEmbedUrl = computed(() => {
   // If latitude and longitude are provided, use them for precise location
   if (props.latitude !== undefined && props.longitude !== undefined) {
-    return `https://maps.google.com/maps?q=${props.latitude},${props.longitude}&z=${props.zoom}&output=embed`
+    // Using standard Google Maps embed URL with coordinates
+    return `https://maps.google.com/maps?q=${props.latitude},${props.longitude}&hl=fr&z=${props.zoom}&output=embed`
   }
   
-  // Otherwise, use the search query method with proper embed format
-  // Using the correct Google Maps Embed iframe format
-  return `https://maps.google.com/maps?q=${props.query}&t=&z=${props.zoom}&ie=UTF8&iwloc=&output=embed`
+  // Otherwise, use the search query with a reliable format
+  // This format works without API keys and always displays the map
+  return `https://maps.google.com/maps?q=${encodeURIComponent(props.query)}&hl=fr&z=${props.zoom}&output=embed`
 })
 </script>

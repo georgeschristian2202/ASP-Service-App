@@ -153,7 +153,10 @@
         <div class="aspect-video">
           <GoogleMapEmbed
             :address="config.public.address"
-            query="Église+Prophétique+Hébron+Libreville+Gabon"
+            query="Assemblées de Dieu du Gabon - Église de Likouala, Libreville"
+            :latitude="0.3901"
+            :longitude="9.4544"
+            :zoom="17"
             :show-overlay="true"
             :show-hours="true"
           />
@@ -222,7 +225,7 @@ useHead({
   meta: [
     {
       name: 'description',
-      content: 'Contactez ASP Services Gabon pour vos projets de signalétique et impression à Libreville. Devis gratuit par WhatsApp, téléphone ou email. Likouala en face de l\'Église Prophétique Hébron.'
+      content: 'Contactez ASP Services Gabon pour vos projets de signalétique et impression à Libreville. Devis gratuit par WhatsApp, téléphone ou email. Likouala en face de l\'Assemblées de Dieu du Gabon - Église de Likouala.'
     },
     {
       name: 'keywords',

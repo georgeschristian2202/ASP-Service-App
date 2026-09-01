@@ -53,10 +53,24 @@
       </Container>
     </section>
 
-    <!-- Portfolio Grid -->
-    <section class="section-padding bg-asp-gray-50">
+    <!-- Loading State -->
+    <section v-if="isLoading" class="section-padding bg-asp-gray-50">
       <Container>
-        <p class="text-center text-asp-gray-500 text-sm mb-8 reveal">{{ filteredPortfolio.length }} réalisation{{ filteredPortfolio.length > 1 ? 's' : '' }}</p>
+        <div class="flex justify-center items-center py-16">
+          <div class="text-center">
+            <svg class="animate-spin h-12 w-12 text-asp-blue-700 mx-auto mb-4" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <p class="text-asp-gray-600">Chargement des réalisations...</p>
+          </div>
+        </div>
+      </Container>
+    </section>
+
+    <!-- Portfolio Grid -->
+    <section v-else class="section-padding bg-asp-gray-50">
+      <Container>
         <TransitionGroup
           name="gallery"
           tag="div"
@@ -70,20 +84,8 @@
           >
             <!-- Media Container -->
             <div class="relative aspect-[4/3] overflow-hidden bg-asp-gray-900">
-              <!-- Video -->
-              <video
-                v-if="item.type === 'video'"
-                :src="item.media"
-                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                muted
-                loop
-                @mouseenter="(e: MouseEvent) => (e.target as HTMLVideoElement).play()"
-                @mouseleave="(e: MouseEvent) => { const v = e.target as HTMLVideoElement; v.pause(); v.currentTime = 0; }"
-              />
-              
               <!-- Image -->
               <OptimizedImage
-                v-else
                 :src="item.media"
                 :alt="item.title"
                 :width="800"
@@ -98,19 +100,10 @@
                 loading="lazy"
               />
 
-              <!-- Play Icon for Videos -->
-              <div v-if="item.type === 'video'" class="absolute inset-0 flex items-center justify-center pointer-events-none">
-                <div class="w-16 h-16 rounded-full bg-asp-blue-700 flex items-center justify-center shadow-xl">
-                  <svg class="w-8 h-8 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M8 5v14l11-7z"/>
-                  </svg>
-                </div>
-              </div>
-
               <!-- Category Badge -->
               <div class="absolute top-4 left-4">
                 <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-asp-blue-700 text-white shadow-lg">
-                  {{ getCategoryLabel(item.category) }}
+                  {{ item.categoryLabel }}
                 </span>
               </div>
 
@@ -126,26 +119,34 @@
               <p class="text-asp-gray-700 text-sm mb-4 line-clamp-2">
                 {{ item.description }}
               </p>
-              <div class="flex items-center justify-between text-sm">
-                <span v-if="item.client" class="text-asp-gray-600 flex items-center gap-1.5">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                  </svg>
-                  {{ item.client }}
+              
+              <!-- Tags -->
+              <div v-if="item.tags && item.tags.length > 0" class="flex flex-wrap gap-1 mb-3">
+                <span
+                  v-for="tag in item.tags.slice(0, 3)"
+                  :key="tag"
+                  class="inline-block px-2 py-0.5 bg-gray-100 text-gray-700 text-xs rounded"
+                >
+                  {{ tag }}
                 </span>
-                <span v-if="item.date" class="text-asp-gray-500 flex items-center gap-1.5">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                  </svg>
-                  {{ item.date }}
+                <span v-if="item.tags.length > 3" class="inline-block px-2 py-0.5 text-gray-500 text-xs">
+                  +{{ item.tags.length - 3 }}
                 </span>
+              </div>
+
+              <!-- Date -->
+              <div v-if="item.date" class="flex items-center gap-1.5 text-sm text-asp-gray-500">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                </svg>
+                {{ formatDate(item.date) }}
               </div>
             </div>
           </article>
         </TransitionGroup>
 
         <!-- Empty State -->
-        <div v-if="filteredPortfolio.length === 0" class="text-center py-16">
+        <div v-if="filteredPortfolio.length === 0 && !isLoading" class="text-center py-16">
           <ImageIcon class="w-16 h-16 text-asp-gray-400 mx-auto mb-4" />
           <p class="text-body-lg text-muted">
             Aucune réalisation dans cette catégorie pour le moment.
@@ -181,7 +182,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { Image as ImageIcon, LayoutGrid, Newspaper, Printer, Megaphone, Droplet, CreditCard, Shirt } from 'lucide-vue-next'
 
 useHead({
@@ -211,19 +212,42 @@ useHead({
   ]
 })
 
-interface PortfolioItem {
-  id: number
+// Interface pour les items du portfolio (format affiché)
+interface PortfolioDisplayItem {
+  id: string
   title: string
   category: string
+  categoryLabel: string
   description: string
   media: string
   type: 'image' | 'video'
-  client?: string
-  date?: string
+  tags?: string[]
+  date: string
+}
+
+// Mapping des catégories : API (français) → IDs page publique (minuscules)
+const categoryMapping: Record<string, string> = {
+  'Actualités': 'actualites',
+  'Signalétique': 'actualites', // Signalétique = Actualités
+  'Panneaux Publicitaires': 'panneau',
+  'Machines Xerox': 'machine-xerox',
+  'Toners Xerox': 'toner',
+  'Cartes & Badges': 'carte-badge',
+  'Imprimerie & Textile': 'imprimerie'
+}
+
+// Reverse mapping pour affichage
+const categoryLabelMapping: Record<string, string> = {
+  'actualites': 'Actualités',
+  'panneau': 'Panneaux Publicitaires',
+  'machine-xerox': 'Machines Xerox',
+  'toner': 'Toners Xerox',
+  'carte-badge': 'Cartes & Badges',
+  'imprimerie': 'Imprimerie & Textile'
 }
 
 const selectedCategory = ref<string>('all')
-const selectedItem = ref<PortfolioItem | null>(null)
+const selectedItem = ref<PortfolioDisplayItem | null>(null)
 
 const categories = [
   { id: 'all', name: 'Tous les Projets', icon: LayoutGrid },
@@ -235,792 +259,92 @@ const categories = [
   { id: 'actualites', name: 'Actualités', icon: Newspaper }
 ]
 
-const portfolio: PortfolioItem[] = [
-  // Actualités
-  {
-    id: 1,
-    title: 'Signalétique Ferroviaire — STOP 150m (Vue 1)',
-    category: 'actualites',
-    description: 'Panneau triangulaire d\'avertissement passage à niveau (locomotive + STOP 150m) posé en bord de route latérite — projet SETRAG.',
-    media: '/images/portfolio/actualités/actualités-1.jpg',
-    type: 'image',
-    client: 'SETRAG',
-    date: '2025'
-  },
-  {
-    id: 2,
-    title: 'Signalétique Ferroviaire — STOP 150m (Vue 2)',
-    category: 'actualites',
-    description: 'Second angle du panneau d\'avertissement ferroviaire installé en zone rurale — visibilité optimale depuis la route.',
-    media: '/images/portfolio/actualités/actualités-2.jpg',
-    type: 'image',
-    client: 'SETRAG',
-    date: '2025'
-  },
-  {
-    id: 3,
-    title: 'Signalétique Ferroviaire — STOP 150m (Vue 3)',
-    category: 'actualites',
-    description: 'Panneau STOP 150m avec ruban de balisage de chantier, en cours de finalisation sur site.',
-    media: '/images/portfolio/actualités/actualités-3.jpg',
-    type: 'image',
-    client: 'SETRAG',
-    date: '2025'
-  },
-  {
-    id: 4,
-    title: 'Pose Signalétique SETRAG — Équipe en Action',
-    category: 'actualites',
-    description: 'Équipe ASP Services en combinaison de sécurité lors de la pose des panneaux STOP 150m, avec cônes et ruban de balisage sur route.',
-    media: '/images/portfolio/actualités/actualités-4.jpg',
-    type: 'image',
-    client: 'SETRAG',
-    date: '2025'
-  },
-  {
-    id: 5,
-    title: 'Passage à Niveau Sans Barrière — STOP + Croix (Vue 1)',
-    category: 'actualites',
-    description: 'Ensemble STOP octogonal + croix de Saint-André fraîchement installé en zone forestière — passage à niveau sans barrière, pied ancré au mortier.',
-    media: '/images/portfolio/actualités/actualités-5.jpg',
-    type: 'image',
-    client: 'SETRAG',
-    date: '2025'
-  },
-  {
-    id: 6,
-    title: 'Passage à Niveau Sans Barrière — STOP + Croix (Vue 2)',
-    category: 'actualites',
-    description: 'Vue complémentaire de l\'installation STOP + croix de Saint-André, structure métallique galvanisée solidement scellée.',
-    media: '/images/portfolio/actualités/actualités-6.jpg',
-    type: 'image',
-    client: 'SETRAG',
-    date: '2025'
-  },
-  {
-    id: 7,
-    title: 'Signalétique PK4 Après Sovog — Dos des Panneaux',
-    category: 'actualites',
-    description: 'Face arrière des panneaux de signalisation installés au passage à niveau PK4, avec train de wagons-citernes SETRAG en arrière-plan.',
-    media: '/images/portfolio/actualités/Panneau-Pk4 apres sovog-1.jpg',
-    type: 'image',
-    client: 'SETRAG',
-    date: '2025'
-  },
-  {
-    id: 8,
-    title: 'Chantier Signalétique PK4 — Vue Terrain',
-    category: 'actualites',
-    description: 'Vue d\'ensemble du chantier de pose de signalétique ferroviaire au PK4 après Sovog — voie ferrée SETRAG visible.',
-    media: '/images/portfolio/actualités/Panneau-Pk4 apres sovog-2.jpg',
-    type: 'image',
-    client: 'SETRAG',
-    date: '2025'
-  },
-  {
-    id: 9,
-    title: 'Signalétique PK4 — Résultat Finalisé',
-    category: 'actualites',
-    description: 'Installation terminée au passage à niveau PK4 — panneaux de signalisation routière conformes aux normes de sécurité ferroviaire.',
-    media: '/images/portfolio/actualités/Panneau-Pk4 apres sovog-3.jpg',
-    type: 'image',
-    client: 'SETRAG',
-    date: '2025'
-  },
+// Utiliser le composable usePortfolio pour charger depuis l'API
+const { items, isLoading, fetchList } = usePortfolio()
 
-  // Machines Xerox
-  {
-    id: 10,
-    title: 'Photocopieur Professionnel Xerox - Haute Performance',
-    category: 'machine-xerox',
-    description: 'Machine Xerox haute performance pour impression, copie et numérisation professionnelle. Idéale pour bureaux et entreprises.',
-    media: '/images/portfolio/Machine xerox/xerox-1.webp',
-    type: 'image',
-    client: 'Entreprise cliente',
-    date: '2025'
-  },
-  {
-    id: 11,
-    title: 'Imprimante Multifonction Xerox - Bureau',
-    category: 'machine-xerox',
-    description: 'Solution d\'impression complète avec fonctions scan, copie et fax intégrées.',
-    media: '/images/portfolio/Machine xerox/Xerox-2.jpg',
-    type: 'image',
-    client: 'PME',
-    date: '2025'
-  },
-  {
-    id: 12,
-    title: 'Xerox WorkCentre - Production',
-    category: 'machine-xerox',
-    description: 'Machine de production Xerox pour volumes élevés, qualité professionnelle garantie.',
-    media: '/images/portfolio/Machine xerox/xerox-3.jpg',
-    type: 'image',
-    client: 'Centre d\'impression',
-    date: '2025'
-  },
-  {
-    id: 13,
-    title: 'Xerox VersaLink - Technologie Connectée',
-    category: 'machine-xerox',
-    description: 'Imprimante connectée avec interface tactile intuitive et fonctions cloud.',
-    media: '/images/portfolio/Machine xerox/xerox-4.webp',
-    type: 'image',
-    client: 'Bureau moderne',
-    date: '2025'
-  },
-  {
-    id: 14,
-    title: 'Xerox AltaLink - Performance Pro',
-    category: 'machine-xerox',
-    description: 'Solution d\'impression professionnelle avec sécurité renforcée et productivité maximale.',
-    media: '/images/portfolio/Machine xerox/xerox-5.webp',
-    type: 'image',
-    client: 'Grande entreprise',
-    date: '2025'
-  },
-  {
-    id: 15,
-    title: 'Xerox ColorQube - Impression Couleur',
-    category: 'machine-xerox',
-    description: 'Technologie d\'impression couleur économique avec encres solides Xerox.',
-    media: '/images/portfolio/Machine xerox/xerox-6.webp',
-    type: 'image',
-    client: 'Agence créative',
-    date: '2025'
-  },
-  {
-    id: 16,
-    title: 'Xerox PrimeLink - Production Couleur',
-    category: 'machine-xerox',
-    description: 'Presse numérique couleur pour production professionnelle de haute qualité.',
-    media: '/images/portfolio/Machine xerox/xerox-7.jpg',
-    type: 'image',
-    client: 'Imprimerie',
-    date: '2024'
-  },
-  {
-    id: 17,
-    title: 'Xerox Phaser - Compact et Efficace',
-    category: 'machine-xerox',
-    description: 'Imprimante compacte pour petits bureaux, performance et fiabilité Xerox.',
-    media: '/images/portfolio/Machine xerox/xerox-8.webp',
-    type: 'image',
-    client: 'TPE',
-    date: '2024'
-  },
-
-  // Panneaux Publicitaires
-  {
-    id: 18,
-    title: 'Panneau Publicitaire Extérieur Premium',
-    category: 'panneau',
-    description: 'Panneau publicitaire grand format avec structure métallique renforcée, résistant aux intempéries.',
-    media: '/images/portfolio/Panneau-publicitaire/panneau-.jpg',
-    type: 'image',
-    client: 'Marque nationale',
-    date: '2025'
-  },
-  {
-    id: 19,
-    title: 'Enseigne Commerciale Lumineuse',
-    category: 'panneau',
-    description: 'Panneau lumineux double face pour boutique en centre-ville, excellente visibilité nocturne.',
-    media: '/images/portfolio/Panneau-publicitaire/Panneau-1.jpg',
-    type: 'image',
-    client: 'Commerce de détail',
-    date: '2025'
-  },
-  {
-    id: 20,
-    title: 'Panneau Directionnel Entreprise',
-    category: 'panneau',
-    description: 'Signalétique directionnelle professionnelle pour complexe d\'entreprises.',
-    media: '/images/portfolio/Panneau-publicitaire/Panneau-2.jpg',
-    type: 'image',
-    client: 'Zone industrielle',
-    date: '2025'
-  },
-  {
-    id: 21,
-    title: 'Billboard Publicitaire Route Nationale',
-    category: 'panneau',
-    description: 'Grand panneau publicitaire stratégiquement placé sur axe routier principal.',
-    media: '/images/portfolio/Panneau-publicitaire/Panneau-3.jpg',
-    type: 'image',
-    client: 'Campagne publicitaire',
-    date: '2025'
-  },
-  {
-    id: 22,
-    title: 'Panneau Promotionnel Centre Commercial',
-    category: 'panneau',
-    description: 'Affichage promotionnel attractif pour galerie marchande, design impactant.',
-    media: '/images/portfolio/Panneau-publicitaire/Panneau-4.jpg',
-    type: 'image',
-    client: 'Centre commercial',
-    date: '2025'
-  },
-  {
-    id: 23,
-    title: 'Enseigne Façade Magasin',
-    category: 'panneau',
-    description: 'Enseigne de façade élégante avec lettres découpées et éclairage LED intégré.',
-    media: '/images/portfolio/Panneau-publicitaire/Panneau-5.jpg',
-    type: 'image',
-    client: 'Boutique haut de gamme',
-    date: '2025'
-  },
-  {
-    id: 24,
-    title: 'Panneau Événementiel Temporaire',
-    category: 'panneau',
-    description: 'Support publicitaire modulaire pour événements et salons professionnels.',
-    media: '/images/portfolio/Panneau-publicitaire/Panneau-6.jpg',
-    type: 'image',
-    client: 'Organisateur d\'événements',
-    date: '2025'
-  },
-  {
-    id: 25,
-    title: 'Signalétique Parking Entreprise',
-    category: 'panneau',
-    description: 'Panneaux de signalisation et information pour parking d\'entreprise.',
-    media: '/images/portfolio/Panneau-publicitaire/Panneau-7.jpg',
-    type: 'image',
-    client: 'Société tertiaire',
-    date: '2025'
-  },
-  {
-    id: 26,
-    title: 'Panneau Publicitaire Aérien Illuminé',
-    category: 'panneau',
-    description: 'Installation en hauteur avec éclairage professionnel pour visibilité maximale.',
-    media: '/images/portfolio/Panneau-publicitaire/Panneau-8.jpg',
-    type: 'image',
-    client: 'Marque internationale',
-    date: '2025'
-  },
-  {
-    id: 27,
-    title: 'Totem Publicitaire Multi-Enseignes',
-    category: 'panneau',
-    description: 'Totem directionnel avec plusieurs enseignes pour zone commerciale.',
-    media: '/images/portfolio/Panneau-publicitaire/Panneau-9.jpg',
-    type: 'image',
-    client: 'Zone d\'activités',
-    date: '2025'
-  },
-  {
-    id: 28,
-    title: 'Panneau d\'Affichage Urbain',
-    category: 'panneau',
-    description: 'Support d\'affichage urbain design, intégration harmonieuse dans l\'environnement.',
-    media: '/images/portfolio/Panneau-publicitaire/Panneau-10.jpg',
-    type: 'image',
-    client: 'Municipalité',
-    date: '2024'
-  },
-  {
-    id: 29,
-    title: 'Enseigne Néon Moderne',
-    category: 'panneau',
-    description: 'Enseigne néon LED moderne, effet lumineux attractif pour commerce nocturne.',
-    media: '/images/portfolio/Panneau-publicitaire/Panneau-11.jpg',
-    type: 'image',
-    client: 'Restaurant',
-    date: '2024'
-  },
-  {
-    id: 30,
-    title: 'Panneau Directionnel Autoroutier',
-    category: 'panneau',
-    description: 'Signalétique autoroutière professionnelle, conformité aux normes de sécurité.',
-    media: '/images/portfolio/Panneau-publicitaire/Panneau-12.jpg',
-    type: 'image',
-    client: 'Infrastructures routières',
-    date: '2024'
-  },
-  {
-    id: 31,
-    title: 'Panneau Promotionnel Immobilier',
-    category: 'panneau',
-    description: 'Panneau de promotion immobilière avec visuel percutant et informations détaillées.',
-    media: '/images/portfolio/Panneau-publicitaire/Panneau-13.jpg',
-    type: 'image',
-    client: 'Promoteur immobilier',
-    date: '2024'
-  },
-  {
-    id: 32,
-    title: 'Enseigne Boutique Prestige',
-    category: 'panneau',
-    description: 'Enseigne haut de gamme avec finitions luxueuses, lettres en relief doré.',
-    media: '/images/portfolio/Panneau-publicitaire/Panneau-14.jpg',
-    type: 'image',
-    client: 'Boutique de luxe',
-    date: '2024'
-  },
-  {
-    id: 33,
-    title: 'Panneau Publicitaire Rétroéclairé',
-    category: 'panneau',
-    description: 'Caisson lumineux avec impression haute résolution, visibilité 24/7.',
-    media: '/images/portfolio/Panneau-publicitaire/Panneau-15.jpg',
-    type: 'image',
-    client: 'Réseau de distribution',
-    date: '2024'
-  },
-  {
-    id: 34,
-    title: 'Signalétique Sécurité Industrielle',
-    category: 'panneau',
-    description: 'Panneaux de sécurité conformes aux normes pour site industriel.',
-    media: '/images/portfolio/Panneau-publicitaire/Panneau-16.jpg',
-    type: 'image',
-    client: 'Site industriel',
-    date: '2024'
-  },
-  {
-    id: 35,
-    title: 'Panneau Publicitaire Monumental',
-    category: 'panneau',
-    description: 'Structure publicitaire de très grande dimension pour campagne d\'envergure.',
-    media: '/images/portfolio/Panneau-publicitaire/Panneau-17.jpg',
-    type: 'image',
-    client: 'Multinationale',
-    date: '2024'
-  },
-  {
-    id: 36,
-    title: 'Installation Panneau PK4 - Vue 1',
-    category: 'panneau',
-    description: 'Installation professionnelle de panneau publicitaire au PK4 après Sovog.',
-    media: '/images/portfolio/Panneau-publicitaire/Panneau-Pk4 apres sovog-1.jpg',
-    type: 'image',
-    client: 'Client commercial',
-    date: '2025'
-  },
-  {
-    id: 37,
-    title: 'Installation Panneau PK4 - Vue 2',
-    category: 'panneau',
-    description: 'Détails de l\'installation et qualité de finition du panneau PK4.',
-    media: '/images/portfolio/Panneau-publicitaire/Panneau-Pk4 apres sovog-2.jpg',
-    type: 'image',
-    client: 'Client commercial',
-    date: '2025'
-  },
-  {
-    id: 38,
-    title: 'Installation Panneau PK4 - Vue 3',
-    category: 'panneau',
-    description: 'Vue d\'ensemble de l\'installation finalisée avec environnement.',
-    media: '/images/portfolio/Panneau-publicitaire/Panneau-Pk4 apres sovog-3.jpg',
-    type: 'image',
-    client: 'Client commercial',
-    date: '2025'
-  },
-  {
-    id: 39,
-    title: 'Vidéo Installation Panneau - Partie 1',
-    category: 'panneau',
-    description: 'Timelapse de l\'installation d\'un panneau publicitaire, du montage à la finition.',
-    media: '/images/portfolio/Panneau-publicitaire/réalisation-panneau-1.mp4',
-    type: 'video',
-    date: '2025'
-  },
-  {
-    id: 40,
-    title: 'Vidéo Installation Panneau - Partie 2',
-    category: 'panneau',
-    description: 'Suite de l\'installation avec mise en place de la structure métallique.',
-    media: '/images/portfolio/Panneau-publicitaire/réalisation-panneau-2.mp4',
-    type: 'video',
-    date: '2025'
-  },
-  {
-    id: 41,
-    title: 'Vidéo Installation Panneau - Partie 3',
-    category: 'panneau',
-    description: 'Pose de la bâche imprimée et ajustements finaux.',
-    media: '/images/portfolio/Panneau-publicitaire/réalisation-panneau-3.mp4',
-    type: 'video',
-    date: '2025'
-  },
-  {
-    id: 42,
-    title: 'Vidéo Installation Panneau - Partie 4',
-    category: 'panneau',
-    description: 'Installation de l\'éclairage et tests de visibilité nocturne.',
-    media: '/images/portfolio/Panneau-publicitaire/réalisation-panneau-4.mp4',
-    type: 'video',
-    date: '2025'
-  },
-  {
-    id: 43,
-    title: 'Vidéo Installation Panneau - Partie 5',
-    category: 'panneau',
-    description: 'Résultat final et présentation du panneau installé en situation.',
-    media: '/images/portfolio/Panneau-publicitaire/réalisation-panneau-5.mp4',
-    type: 'video',
-    date: '2025'
-  },
-
-  // Toners Xerox
-  {
-    id: 44,
-    title: 'Toner Original Xerox - Gamme Complète',
-    category: 'toner',
-    description: 'Toners d\'origine Xerox, qualité supérieure pour impressions professionnelles durables.',
-    media: '/images/portfolio/tonner-xerox/toner-original-xerox-ASP Services.jpg',
-    type: 'image',
-    date: '2025'
-  },
-  {
-    id: 45,
-    title: 'Cartouche Toner Xerox Haute Capacité',
-    category: 'toner',
-    description: 'Toner haute capacité pour volumes d\'impression importants, économique et fiable.',
-    media: '/images/portfolio/tonner-xerox/toner-original-xerox-ASP Services-2.webp',
-    type: 'image',
-    date: '2025'
-  },
-  {
-    id: 46,
-    title: 'Toner Couleur Xerox CMJN',
-    category: 'toner',
-    description: 'Kit complet de toners couleur Cyan, Magenta, Jaune et Noir pour impressions éclatantes.',
-    media: '/images/portfolio/tonner-xerox/toner-original-xerox-ASP Services-3.jpg',
-    type: 'image',
-    date: '2025'
-  },
-  {
-    id: 47,
-    title: 'Toner Xerox WorkCentre',
-    category: 'toner',
-    description: 'Toner spécifique pour gamme WorkCentre, compatibilité garantie et performance optimale.',
-    media: '/images/portfolio/tonner-xerox/toner-original-xerox-ASP Services-4.jpg',
-    type: 'image',
-    date: '2025'
-  },
-  {
-    id: 48,
-    title: 'Toner Xerox VersaLink',
-    category: 'toner',
-    description: 'Cartouches de toner pour imprimantes VersaLink, technologie d\'impression avancée.',
-    media: '/images/portfolio/tonner-xerox/toner-original-xerox-ASP Services-5.webp',
-    type: 'image',
-    date: '2025'
-  },
-  {
-    id: 49,
-    title: 'Toner Xerox PrimeLink',
-    category: 'toner',
-    description: 'Toners pour presses numériques PrimeLink, qualité professionnelle pour production.',
-    media: '/images/portfolio/tonner-xerox/toner-original-xerox-ASP Services-6.webp',
-    type: 'image',
-    date: '2024'
-  },
-
-  // Nouveaux panneaux
-  {
-    id: 50,
-    title: 'Lanyards Personnalisés OMP',
-    category: 'carte-badge',
-    description: 'Cordons porte-badge OMP sérigraphiés en bleu et vert avec logo, finition clip métal résistant.',
-    media: '/images/portfolio/Panneau-publicitaire/IMG-20260709-WA0204.jpg',
-    type: 'image',
-    client: 'OMP',
-    date: '2026'
-  },
-  {
-    id: 51,
-    title: 'Panneau Publicitaire Variante Design',
-    category: 'panneau',
-    description: 'Variante de design sur panneau grand format, visuel percutant pour axe passant.',
-    media: '/images/portfolio/Panneau-publicitaire/panneau-3 (2).jpg',
-    type: 'image',
-    date: '2025'
-  },
-  {
-    id: 52,
-    title: 'Vidéo Réalisation Panneau 1',
-    category: 'panneau',
-    description: 'Reportage vidéo de la réalisation et pose d\'un panneau publicitaire.',
-    media: '/images/portfolio/Panneau-publicitaire/panneau-1.mp4',
-    type: 'video',
-    date: '2025'
-  },
-  {
-    id: 53,
-    title: 'Vidéo Réalisation Panneau 1.1',
-    category: 'panneau',
-    description: 'Suite de la réalisation panneau — phases de montage et assemblage.',
-    media: '/images/portfolio/Panneau-publicitaire/panneau-1.1.mp4',
-    type: 'video',
-    date: '2025'
-  },
-  {
-    id: 54,
-    title: 'Vidéo Réalisation Panneau 2',
-    category: 'panneau',
-    description: 'Deuxième reportage vidéo sur l\'installation d\'un panneau publicitaire.',
-    media: '/images/portfolio/Panneau-publicitaire/panneau-2.mp4',
-    type: 'video',
-    date: '2025'
-  },
-  {
-    id: 55,
-    title: 'Panneau d\'Arrêt - Vidéo 1',
-    category: 'panneau',
-    description: 'Réalisation et installation de panneau d\'arrêt conforme aux normes routières.',
-    media: '/images/portfolio/Panneau-publicitaire/panneau-arret-1.mp4',
-    type: 'video',
-    date: '2025'
-  },
-  {
-    id: 56,
-    title: 'Panneau d\'Arrêt - Vidéo 2',
-    category: 'panneau',
-    description: 'Suite de l\'installation de panneaux d\'arrêt sur site.',
-    media: '/images/portfolio/Panneau-publicitaire/panneau-arret-2.mp4',
-    type: 'video',
-    date: '2025'
-  },
-  {
-    id: 57,
-    title: 'Panneau Stop - Installation',
-    category: 'panneau',
-    description: 'Pose et installation de panneau stop, signalétique routière professionnelle.',
-    media: '/images/portfolio/Panneau-publicitaire/panneau-stop-1.mp4',
-    type: 'video',
-    date: '2025'
-  },
-
-  // Cartes & Badges
-  {
-    id: 58,
-    title: 'Badges Professionnels - Collection',
-    category: 'carte-badge',
-    description: 'Badges professionnels personnalisés avec photo, nom et logo entreprise. Impression haute résolution.',
-    media: '/images/portfolio/carte & badge/badge-1.jpg',
-    type: 'image',
-    date: '2025'
-  },
-  {
-    id: 59,
-    title: 'Badges d\'Identification Entreprise',
-    category: 'carte-badge',
-    description: 'Badges d\'accès et d\'identification pour entreprise, sécurisés et durables.',
-    media: '/images/portfolio/carte & badge/badge-2.jpg',
-    type: 'image',
-    date: '2025'
-  },
-  {
-    id: 60,
-    title: 'Réalisation Badges - Vidéo',
-    category: 'carte-badge',
-    description: 'Présentation vidéo de notre gamme de badges personnalisés pour entreprises.',
-    media: '/images/portfolio/carte & badge/badge-3.mp4',
-    type: 'video',
-    date: '2025'
-  },
-  {
-    id: 61,
-    title: 'Badge ASP Services',
-    category: 'carte-badge',
-    description: 'Badge officiel ASP Services, design professionnel avec logo et informations d\'identification.',
-    media: '/images/portfolio/carte & badge/badge-asp1.jpg',
-    type: 'image',
-    client: 'ASP Services',
-    date: '2025'
-  },
-  {
-    id: 62,
-    title: 'Badge GSE',
-    category: 'carte-badge',
-    description: 'Badge d\'identification pour le personnel GSE, finition premium avec porte-badge.',
-    media: '/images/portfolio/carte & badge/badge-gse-1.jpg',
-    type: 'image',
-    client: 'GSE',
-    date: '2025'
-  },
-  {
-    id: 63,
-    title: 'Badge OMP',
-    category: 'carte-badge',
-    description: 'Badge professionnel OMP — impression couleur, plastification résistante.',
-    media: '/images/portfolio/carte & badge/badge-omp-1.jpg',
-    type: 'image',
-    client: 'OMP',
-    date: '2025'
-  },
-  {
-    id: 64,
-    title: 'Carte d\'Accès SETRAG à Puce',
-    category: 'carte-badge',
-    description: 'Carte d\'identification SETRAG à puce électronique — conception graphique avec logo Société d\'Exploitation du Transgabonais.',
-    media: '/images/portfolio/carte & badge/badge-setrag-1.jpg',
-    type: 'image',
-    client: 'SETRAG',
-    date: '2025'
-  },
-  {
-    id: 65,
-    title: 'Carte de Visite GSE',
-    category: 'carte-badge',
-    description: 'Carte de visite professionnelle GSE, papier épais 350g, finition vernis sélectif.',
-    media: '/images/portfolio/carte & badge/carte-de-visite-gse-1.jpg',
-    type: 'image',
-    client: 'GSE',
-    date: '2025'
-  },
-  {
-    id: 66,
-    title: 'Carte de Visite OMP',
-    category: 'carte-badge',
-    description: 'Carte de visite OMP avec design élégant, impression recto-verso.',
-    media: '/images/portfolio/carte & badge/carte-de-visite-omp-1.jpg',
-    type: 'image',
-    client: 'OMP',
-    date: '2025'
-  },
-  {
-    id: 67,
-    title: 'Carte de Visite SETRAG',
-    category: 'carte-badge',
-    description: 'Carte de visite SETRAG, identité visuelle respectée, qualité professionnelle.',
-    media: '/images/portfolio/carte & badge/carte-de-visite-setrag-1.jpg',
-    type: 'image',
-    client: 'SETRAG',
-    date: '2025'
-  },
-  {
-    id: 68,
-    title: 'Logo OMP - Création Graphique',
-    category: 'carte-badge',
-    description: 'Création et impression du logo OMP sur supports de communication.',
-    media: '/images/portfolio/carte & badge/logo-omp-1.jpg',
-    type: 'image',
-    client: 'OMP',
-    date: '2025'
-  },
-
-  // Imprimerie & Textile
-  {
-    id: 69,
-    title: 'Casquette Personnalisée ASP Services',
-    category: 'imprimerie',
-    description: 'Casquette brodée avec logo ASP Services, textile de qualité pour équipe et événements.',
-    media: '/images/portfolio/imprimerie/cascette-asp-1.jpg',
-    type: 'image',
-    client: 'ASP Services',
-    date: '2025'
-  },
-  {
-    id: 70,
-    title: 'Combinaison de Travail ASP Services',
-    category: 'imprimerie',
-    description: 'Combinaison bicolore orange/bleu marine avec logo ASP Services brodé, bandes réfléchissantes pour sécurité sur chantier.',
-    media: '/images/portfolio/imprimerie/ensemble-asp-1.jpg',
-    type: 'image',
-    client: 'ASP Services',
-    date: '2025'
-  },
-  {
-    id: 71,
-    title: 'T-Shirt Personnalisé ASP Services - Modèle 1',
-    category: 'imprimerie',
-    description: 'T-shirt avec impression sérigraphiée du logo ASP Services, coton premium respirant.',
-    media: '/images/portfolio/imprimerie/teet-short-asp-1.jpg',
-    type: 'image',
-    client: 'ASP Services',
-    date: '2025'
-  },
-  {
-    id: 72,
-    title: 'T-Shirt Personnalisé ASP Services - Modèle 2',
-    category: 'imprimerie',
-    description: 'Deuxième variante de t-shirt personnalisé, déclinaison couleur pour distinction d\'équipe.',
-    media: '/images/portfolio/imprimerie/teet-short-asp-2.jpg',
-    type: 'image',
-    client: 'ASP Services',
-    date: '2025'
-  }
-]
-
-const stats = [
-  { value: '500+', label: 'Projets réalisés' },
-  { value: '782+', label: 'Clients satisfaits' },
-  { value: '15+', label: 'Années d\'expérience' },
-  { value: '100%', label: 'Qualité garantie' }
-]
-
-const filteredPortfolio = computed(() => {
-  if (selectedCategory.value === 'all') {
-    return portfolio
-  }
-  return portfolio.filter(item => item.category === selectedCategory.value)
+// Charger les réalisations au montage du composant
+onMounted(async () => {
+  console.log('🔍 Chargement des réalisations...')
+  await fetchList()
+  console.log('✅ Réalisations chargées:', items.value.length)
+  console.log('📊 Items:', items.value)
 })
 
-const getCategoryLabel = (categoryId: string): string => {
-  const category = categories.find(cat => cat.id === categoryId)
-  return category ? category.name : categoryId
-}
+// Convertir les items de l'API au format attendu par la page
+const portfolioItems = computed<PortfolioDisplayItem[]>(() => {
+  return items.value.map(item => {
+    // Convertir la catégorie de l'API (français) vers l'ID (minuscules)
+    const categoryId = categoryMapping[item.category] || item.category.toLowerCase()
+    
+    return {
+      id: item.id,
+      title: item.title,
+      category: categoryId,
+      categoryLabel: categoryLabelMapping[categoryId] || item.category,
+      description: item.description,
+      media: item.imageUrl || item.imagePath, // Utiliser imageUrl en priorité
+      type: 'image' as const, // Pour l'instant, toutes les réalisations sont des images
+      tags: item.tags || [],
+      date: item.createdAt
+    }
+  })
+})
 
-const openModal = (item: PortfolioItem) => {
+// Filtrer par catégorie sélectionnée
+const filteredPortfolio = computed(() => {
+  if (selectedCategory.value === 'all') {
+    return portfolioItems.value
+  }
+  return portfolioItems.value.filter(item => item.category === selectedCategory.value)
+})
+
+// Statistiques calculées
+const stats = computed(() => {
+  const total = portfolioItems.value.length
+  const categoriesCount = new Set(portfolioItems.value.map(item => item.category)).size
+  const featuredCount = items.value.filter(item => item.featured).length
+  
+  return [
+    { label: 'Réalisations', value: total },
+    { label: 'Catégories', value: categoriesCount },
+    { label: 'En vedette', value: featuredCount },
+    { label: 'Années d\'expérience', value: '10+' }
+  ]
+})
+
+// Fonction pour ouvrir le modal
+const openModal = (item: PortfolioDisplayItem) => {
   selectedItem.value = item
-  document.body.style.overflow = 'hidden'
 }
 
+// Fonction pour fermer le modal
 const closeModal = () => {
   selectedItem.value = null
-  document.body.style.overflow = 'auto'
+}
+
+// Fonction pour formater la date
+const formatDate = (dateString: string) => {
+  const date = new Date(dateString)
+  return date.toLocaleDateString('fr-FR', { 
+    year: 'numeric', 
+    month: 'long'
+  })
 }
 </script>
 
 <style scoped>
 .gallery-enter-active,
 .gallery-leave-active {
-  transition: all 0.3s ease;
+  transition: all 0.5s ease;
 }
 
 .gallery-enter-from {
   opacity: 0;
-  transform: scale(0.95) translateY(10px);
+  transform: translateY(30px);
 }
 
 .gallery-leave-to {
   opacity: 0;
-  transform: scale(0.95);
-}
-
-.gallery-move {
-  transition: transform 0.3s ease;
-}
-
-.modal-enter-active,
-.modal-leave-active {
-  transition: opacity 0.3s ease;
-}
-
-.modal-enter-from,
-.modal-leave-to {
-  opacity: 0;
-}
-
-.modal-enter-active .relative,
-.modal-leave-active .relative {
-  transition: all 0.3s ease;
-}
-
-.modal-enter-from .relative {
-  transform: scale(0.95) translateY(20px);
-}
-
-.modal-leave-to .relative {
-  transform: scale(0.95) translateY(-20px);
+  transform: scale(0.9);
 }
 </style>
-

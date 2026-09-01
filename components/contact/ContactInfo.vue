@@ -103,7 +103,10 @@
     <div v-if="config.public.googleMapsUrl" class="h-64">
       <GoogleMapEmbed
         :address="config.public.address"
-        query="Église+Prophétique+Hébron+Libreville+Gabon"
+        query="Assemblées de Dieu du Gabon - Église de Likouala, Libreville"
+        :latitude="0.3901"
+        :longitude="9.4544"
+        :zoom="17"
         :show-overlay="false"
         :show-hours="false"
       />

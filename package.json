@@ -20,6 +20,7 @@
     "@pinia/nuxt": "^0.5.1",
     "@vueuse/core": "^10.9.0",
     "@vueuse/nuxt": "^10.9.0",
+    "imagekit": "^6.0.0",
     "lucide-vue-next": "^0.451.0",
     "nuxt": "^3.11.1",
     "pinia": "^2.1.7",

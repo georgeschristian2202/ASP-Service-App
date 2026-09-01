@@ -71,15 +71,18 @@ export default defineNuxtConfig({
   ],
 
   runtimeConfig: {
+    // Server-only variables (Private Keys)
+    imagekitPrivateKey: process.env.NUXT_IMAGEKIT_PRIVATE_KEY || '',
+    
     public: {
       siteUrl: process.env.NUXT_PUBLIC_SITE_URL || 'https://aspservices.ga',
       whatsappNumber: '24177863198',
       email: 'aspservicesgabon@gmail.com',
       phone: '+241 77 86 31 98',
-      address: 'Libreville, Likouala en face de l\'Église Prophétique Hébron',
-      googleMapsUrl: 'https://www.google.com/maps/search/?api=1&query=Église+Prophétique+Hébron+Libreville+Gabon',
+      address: 'Libreville, Likouala en face de l\'Assemblées de Dieu du Gabon - Église de Likouala',
+      googleMapsUrl: 'https://www.google.com/maps/search/?api=1&query=Assemblées+de+Dieu+du+Gabon+Église+de+Likouala+Libreville',
       // GPS Coordinates for precise map centering
-      // Point de repère : Église Prophétique Hébron (ASP Services est en face)
+      // Point de repère : Assemblées de Dieu du Gabon - Église de Likouala (ASP Services est en face)
       // Pour affiner : obtenir les coordonnées GPS exactes de l'atelier
       // Voir OBTENIR-COORDONNEES-GPS.md pour la procédure
       mapLatitude: undefined, // À définir avec les coordonnées exactes
