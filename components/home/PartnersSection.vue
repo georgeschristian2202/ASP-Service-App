@@ -1,7 +1,11 @@
 <template>
   <!-- Nos Partenaires -->
-  <section class="py-20 bg-white overflow-hidden w-full">
-    <div class="max-w-7xl mx-auto px-4 mb-12">
+  <section class="py-20 bg-white overflow-hidden w-full relative">
+    <!-- Decorative Elements -->
+    <div class="absolute top-20 left-10 w-72 h-72 bg-blue-400/20 rounded-full blur-3xl animate-pulse"></div>
+    <div class="absolute bottom-20 right-10 w-80 h-80 bg-yellow-400/20 rounded-full blur-3xl animate-pulse" style="animation-delay: 1.5s;"></div>
+    
+    <div class="max-w-7xl mx-auto px-4 mb-12 relative z-10">
       <div class="text-center">
         <h2 class="text-4xl font-bold text-asp-black mb-4">Ils Nous Font Confiance</h2>
         <p class="text-xl text-asp-gray-600">
@@ -40,7 +44,7 @@
       <div class="inline-block bg-gradient-to-r from-asp-blue-50 to-blue-50 rounded-2xl px-8 py-6 border-2 border-asp-blue-200">
         <div class="flex items-center gap-3 justify-center mb-2">
           <Shield class="w-6 h-6 text-asp-blue-600" />
-          <span class="text-4xl font-bold text-asp-black">+150</span>
+          <span class="text-4xl font-bold text-asp-black">+100</span>
         </div>
         <p class="text-asp-gray-600">Entreprises et administrations partenaires</p>
       </div>
@@ -55,13 +59,13 @@ const { partners } = usePartners()
 </script>
 
 <style scoped>
-/* Animation de défilement infini */
+/* Animation de défilement infini - GAUCHE vers DROITE */
 @keyframes scroll {
   0% {
-    transform: translateX(0);
+    transform: translateX(-33.333%);
   }
   100% {
-    transform: translateX(-33.333%);
+    transform: translateX(0);
   }
 }
 

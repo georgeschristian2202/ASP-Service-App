@@ -1,21 +1,35 @@
 <template>
   <nav 
-    :class="[
-      'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
-      scrolled ? 'bg-asp-white/95 backdrop-blur-md shadow-lg' : 'bg-asp-white shadow-md'
-    ]"
+    class="fixed z-50 transition-all duration-700 ease-in-out"
+    :style="{
+      top: scrolled ? '0' : '16px',
+      left: scrolled ? '0' : '16px',
+      right: scrolled ? '0' : '16px',
+      backgroundColor: scrolled ? 'rgba(255, 255, 255, 0.95)' : 'rgba(255, 255, 255, 0.90)',
+      backdropFilter: scrolled ? 'blur(12px)' : 'blur(24px)',
+      boxShadow: scrolled 
+        ? '0 10px 15px -3px rgba(0, 0, 0, 0.1)' 
+        : '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+      borderRadius: scrolled ? '0' : '16px',
+      border: scrolled ? 'none' : '1px solid rgba(255, 255, 255, 0.2)',
+      transform: scrolled ? 'scale(1)' : 'scale(0.98)'
+    }"
   >
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-20">
         <!-- Logo -->
         <NuxtLink 
           to="/" 
-          class="flex items-center focus:outline-none focus:ring-2 focus:ring-asp-blue-500 rounded-lg"
+          class="flex items-center focus:outline-none focus:ring-2 focus:ring-asp-blue-500 rounded-lg logo-container"
         >
           <img 
-            src="/logo.png" 
+            ref="logoImg"
+            src="/Logo-ASP-Service-sans fond.png" 
             alt="ASP Services Gabon" 
-            class="h-12 w-auto"
+            :class="[
+              'w-auto transition-all duration-700 ease-in-out',
+              scrolled ? 'h-12' : 'h-14'
+            ]"
             @error="handleImageError"
           >
         </NuxtLink>
@@ -130,6 +144,9 @@ const navItems = [
   { name: 'Réalisations', path: '/realisations' },
   { name: 'Contact', path: '/contact' }
 ]
+
+// Logo ref for animation
+const logoImg = ref<HTMLImageElement | null>(null)
 
 // Mobile menu state
 const mobileMenuOpen = ref(false)

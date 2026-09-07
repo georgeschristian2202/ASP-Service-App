@@ -1,14 +1,14 @@
 <template>
   <div class="min-h-screen flex flex-col">
-    <!-- Barre de progression de lecture -->
+    <!-- Barre de progression de lecture - repositionnée -->
     <div
-      class="fixed top-0 left-0 h-[3px] bg-gradient-to-r from-yellow-400 to-asp-blue-500 z-[9999] transition-all duration-100 ease-out"
+      class="fixed top-0 left-0 h-[3px] bg-gradient-to-r from-yellow-400 to-asp-blue-500 z-[9999] transition-all duration-100 ease-out pointer-events-none"
       :style="{ width: scrollProgress + '%' }"
     />
 
     <TheNavigation />
 
-    <main class="flex-grow pt-20">
+    <main class="flex-grow">
       <slot />
     </main>
 
@@ -55,6 +55,9 @@
 
     <!-- Popup Promotionnel -->
     <PromoPopup />
+
+    <!-- Toast Notifications -->
+    <Toast />
   </div>
 </template>
 

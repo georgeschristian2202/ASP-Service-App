@@ -40,6 +40,18 @@
             </div>
 
             <form @submit.prevent="submitForm" class="space-y-6">
+              <!-- Global Validation Error -->
+              <Message 
+                v-if="hasErrors && showValidationError" 
+                severity="error" 
+                variant="filled"
+                :closable="true"
+                v-model="showValidationError"
+              >
+                <div class="font-semibold">Validation échouée</div>
+                <div class="text-sm mt-1">Veuillez corriger les erreurs ci-dessous</div>
+              </Message>
+
               <!-- Type de client -->
               <div class="space-y-4">
                 <h3 class="text-lg font-semibold text-asp-blue-900 flex items-center gap-2">
@@ -87,85 +99,139 @@
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <!-- Nom Entreprise (si entreprise) -->
-                  <div v-if="formData.clientType === 'entreprise'" class="md:col-span-2">
-                    <label class="block text-sm font-semibold text-asp-gray-800 mb-2">
-                      Nom de l'entreprise <span class="text-red-500">*</span>
-                    </label>
-                    <input 
-                      v-model="formData.nomEntreprise"
-                      type="text" 
-                      required
-                      class="w-full px-4 py-3 border-2 border-asp-gray-200 rounded-lg focus:ring-2 focus:ring-asp-blue-500 focus:border-asp-blue-500 transition-all duration-200"
-                      placeholder="ASP Services SARL"
-                    />
+                  <div v-if="formData.clientType === 'entreprise'" class="md:col-span-2 flex flex-col gap-1">
+                    <FloatLabel>
+                      <input 
+                        id="nomEntreprise"
+                        v-model="formData.nomEntreprise"
+                        type="text" 
+                        required
+                        :class="['w-full px-4 py-3 border-2 border-asp-gray-200 rounded-lg focus:ring-2 focus:ring-asp-blue-500 focus:border-asp-blue-500 transition-all duration-200', { 'border-red-500 focus:border-red-500 focus:ring-red-500': errors.nomEntreprise }]"
+                        placeholder=" "
+                        @blur="validateField('nomEntreprise')"
+                      />
+                      <label for="nomEntreprise">
+                        Nom de l'entreprise <span class="text-red-600">*</span>
+                      </label>
+                    </FloatLabel>
+                    <Message 
+                      v-if="errors.nomEntreprise" 
+                      severity="error" 
+                      variant="simple" 
+                      size="small"
+                    >
+                      {{ errors.nomEntreprise }}
+                    </Message>
                   </div>
 
                   <!-- Nom du client -->
-                  <div>
-                    <label class="block text-sm font-semibold text-asp-gray-800 mb-2">
-                      {{ formData.clientType === 'entreprise' ? 'Nom du contact' : 'Nom complet' }} <span class="text-red-500">*</span>
-                    </label>
-                    <input 
-                      v-model="formData.nomClient"
-                      type="text" 
-                      required
-                      class="w-full px-4 py-3 border-2 border-asp-gray-200 rounded-lg focus:ring-2 focus:ring-asp-blue-500 focus:border-asp-blue-500 transition-all duration-200"
-                      placeholder="Jean Dupont"
-                    />
+                  <div class="flex flex-col gap-1">
+                    <FloatLabel>
+                      <input 
+                        id="nomClient"
+                        v-model="formData.nomClient"
+                        type="text" 
+                        required
+                        :class="['w-full px-4 py-3 border-2 border-asp-gray-200 rounded-lg focus:ring-2 focus:ring-asp-blue-500 focus:border-asp-blue-500 transition-all duration-200', { 'border-red-500 focus:border-red-500 focus:ring-red-500': errors.nomClient }]"
+                        placeholder=" "
+                        @blur="validateField('nomClient')"
+                      />
+                      <label for="nomClient">
+                        {{ formData.clientType === 'entreprise' ? 'Nom du contact' : 'Nom complet' }} <span class="text-red-600">*</span>
+                      </label>
+                    </FloatLabel>
+                    <Message 
+                      v-if="errors.nomClient" 
+                      severity="error" 
+                      variant="simple" 
+                      size="small"
+                    >
+                      {{ errors.nomClient }}
+                    </Message>
                   </div>
 
                   <!-- Téléphone -->
-                  <div>
-                    <label class="block text-sm font-semibold text-asp-gray-800 mb-2">
-                      Téléphone <span class="text-red-500">*</span>
-                    </label>
-                    <input 
-                      v-model="formData.telephone"
-                      type="tel" 
-                      required
-                      class="w-full px-4 py-3 border-2 border-asp-gray-200 rounded-lg focus:ring-2 focus:ring-asp-blue-500 focus:border-asp-blue-500 transition-all duration-200"
-                      placeholder="+241 07 XX XX XX XX"
-                    />
+                  <div class="flex flex-col gap-1">
+                    <FloatLabel>
+                      <input 
+                        id="telephone"
+                        v-model="formData.telephone"
+                        type="tel" 
+                        required
+                        :class="['w-full px-4 py-3 border-2 border-asp-gray-200 rounded-lg focus:ring-2 focus:ring-asp-blue-500 focus:border-asp-blue-500 transition-all duration-200', { 'border-red-500 focus:border-red-500 focus:ring-red-500': errors.telephone }]"
+                        placeholder=" "
+                        @blur="validateField('telephone')"
+                      />
+                      <label for="telephone">
+                        Téléphone <span class="text-red-600">*</span>
+                      </label>
+                    </FloatLabel>
+                    <Message 
+                      v-if="errors.telephone" 
+                      severity="error" 
+                      variant="simple" 
+                      size="small"
+                    >
+                      {{ errors.telephone }}
+                    </Message>
                   </div>
 
                   <!-- Email -->
-                  <div>
-                    <label class="block text-sm font-semibold text-asp-gray-800 mb-2">
-                      Email <span class="text-red-500">*</span>
-                    </label>
-                    <input 
-                      v-model="formData.email"
-                      type="email" 
-                      required
-                      class="w-full px-4 py-3 border-2 border-asp-gray-200 rounded-lg focus:ring-2 focus:ring-asp-blue-500 focus:border-asp-blue-500 transition-all duration-200"
-                      placeholder="jean.dupont@email.com"
-                    />
+                  <div class="flex flex-col gap-1">
+                    <FloatLabel>
+                      <input 
+                        id="email"
+                        v-model="formData.email"
+                        type="email" 
+                        required
+                        :class="['w-full px-4 py-3 border-2 border-asp-gray-200 rounded-lg focus:ring-2 focus:ring-asp-blue-500 focus:border-asp-blue-500 transition-all duration-200', { 'border-red-500 focus:border-red-500 focus:ring-red-500': errors.email }]"
+                        placeholder=" "
+                        @blur="validateField('email')"
+                      />
+                      <label for="email">
+                        Email <span class="text-red-600">*</span>
+                      </label>
+                    </FloatLabel>
+                    <Message 
+                      v-if="errors.email" 
+                      severity="error" 
+                      variant="simple" 
+                      size="small"
+                    >
+                      {{ errors.email }}
+                    </Message>
                   </div>
 
                   <!-- NIF (si entreprise) -->
-                  <div v-if="formData.clientType === 'entreprise'">
-                    <label class="block text-sm font-semibold text-asp-gray-800 mb-2">
-                      NIF <span class="text-gray-400">(optionnel)</span>
-                    </label>
-                    <input 
-                      v-model="formData.nif"
-                      type="text"
-                      class="w-full px-4 py-3 border-2 border-asp-gray-200 rounded-lg focus:ring-2 focus:ring-asp-blue-500 focus:border-asp-blue-500 transition-all duration-200"
-                      placeholder="NIF123456789"
-                    />
+                  <div v-if="formData.clientType === 'entreprise'" class="flex flex-col gap-1">
+                    <FloatLabel>
+                      <input 
+                        id="nif"
+                        v-model="formData.nif"
+                        type="text"
+                        class="w-full px-4 py-3 border-2 border-asp-gray-200 rounded-lg focus:ring-2 focus:ring-asp-blue-500 focus:border-asp-blue-500 transition-all duration-200"
+                        placeholder=" "
+                      />
+                      <label for="nif">
+                        NIF <span class="text-gray-400">(optionnel)</span>
+                      </label>
+                    </FloatLabel>
                   </div>
 
                   <!-- Boîte Postale (si entreprise) -->
-                  <div v-if="formData.clientType === 'entreprise'">
-                    <label class="block text-sm font-semibold text-asp-gray-800 mb-2">
-                      Boîte Postale <span class="text-gray-400">(optionnel)</span>
-                    </label>
-                    <input 
-                      v-model="formData.boitePostale"
-                      type="text"
-                      class="w-full px-4 py-3 border-2 border-asp-gray-200 rounded-lg focus:ring-2 focus:ring-asp-blue-500 focus:border-asp-blue-500 transition-all duration-200"
-                      placeholder="BP 1840"
-                    />
+                  <div v-if="formData.clientType === 'entreprise'" class="flex flex-col gap-1">
+                    <FloatLabel>
+                      <input 
+                        id="boitePostale"
+                        v-model="formData.boitePostale"
+                        type="text"
+                        class="w-full px-4 py-3 border-2 border-asp-gray-200 rounded-lg focus:ring-2 focus:ring-asp-blue-500 focus:border-asp-blue-500 transition-all duration-200"
+                        placeholder=" "
+                      />
+                      <label for="boitePostale">
+                        Boîte Postale <span class="text-gray-400">(optionnel)</span>
+                      </label>
+                    </FloatLabel>
                   </div>
                 </div>
               </div>
@@ -191,13 +257,22 @@
                       :value="service.value"
                       required
                       class="peer sr-only"
+                      @change="validateField('service')"
                     />
-                    <div class="p-4 border-2 border-asp-gray-200 rounded-lg transition-all duration-200 hover:border-asp-blue-300 peer-checked:border-asp-blue-600 peer-checked:bg-blue-50 peer-checked:shadow-md">
+                    <div :class="['p-4 border-2 rounded-lg transition-all duration-200 hover:border-asp-blue-300 peer-checked:border-asp-blue-600 peer-checked:bg-blue-50 peer-checked:shadow-md', { 'border-red-500': errors.service, 'border-asp-gray-200': !errors.service }]">
                       <component :is="service.icon" class="w-6 h-6 text-asp-blue-600 mb-2" />
                       <p class="text-sm font-semibold text-asp-gray-800">{{ service.label }}</p>
                     </div>
                   </label>
                 </div>
+                <Message 
+                  v-if="errors.service" 
+                  severity="error" 
+                  variant="simple" 
+                  size="small"
+                >
+                  {{ errors.service }}
+                </Message>
               </div>
 
               <div class="border-t border-gray-200 pt-6"></div>
@@ -222,23 +297,40 @@
                 <div 
                   v-for="(desc, index) in formData.descriptions" 
                   :key="index"
-                  class="flex gap-2"
+                  class="flex flex-col gap-1"
                 >
-                  <input 
-                    v-model="formData.descriptions[index]"
-                    type="text"
-                    required
-                    class="flex-1 px-4 py-3 border-2 border-asp-gray-200 rounded-lg focus:ring-2 focus:ring-asp-blue-500 focus:border-asp-blue-500 transition-all duration-200"
-                    :placeholder="`Désignation ${index + 1} : ex. Impression bâche 3m x 2m`"
-                  />
-                  <button
-                    v-if="formData.descriptions.length > 1"
-                    type="button"
-                    @click="removeDescription(index)"
-                    class="p-3 text-red-600 hover:bg-red-50 rounded-lg transition-colors cursor-pointer"
+                  <div class="flex gap-2">
+                    <FloatLabel class="flex-1">
+                      <input 
+                        :id="`description-${index}`"
+                        v-model="formData.descriptions[index]"
+                        type="text"
+                        required
+                        :class="['w-full px-4 py-3 border-2 border-asp-gray-200 rounded-lg focus:ring-2 focus:ring-asp-blue-500 focus:border-asp-blue-500 transition-all duration-200', { 'border-red-500 focus:border-red-500 focus:ring-red-500': errors[`description-${index}`] }]"
+                        placeholder=" "
+                        @blur="validateField(`description-${index}` as any)"
+                      />
+                      <label :for="`description-${index}`">
+                        Désignation {{ index + 1 }} <span class="text-red-600">*</span>
+                      </label>
+                    </FloatLabel>
+                    <button
+                      v-if="formData.descriptions.length > 1"
+                      type="button"
+                      @click="removeDescription(index)"
+                      class="p-3 text-red-600 hover:bg-red-50 rounded-lg transition-colors cursor-pointer self-start mt-1"
+                    >
+                      <Trash2 class="w-5 h-5" />
+                    </button>
+                  </div>
+                  <Message 
+                    v-if="errors[`description-${index}`]" 
+                    severity="error" 
+                    variant="simple" 
+                    size="small"
                   >
-                    <Trash2 class="w-5 h-5" />
-                  </button>
+                    {{ errors[`description-${index}`] }}
+                  </Message>
                 </div>
 
                 <p class="text-xs text-asp-gray-600 flex items-start gap-1">
@@ -306,7 +398,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, watch, onUnmounted } from 'vue'
+import { ref, reactive, watch, onUnmounted, computed } from 'vue'
 import {
   X,
   CheckCircle2,
@@ -356,6 +448,7 @@ const services = [
 // Form state
 const isSubmitting = ref(false)
 const submitted = ref(false)
+const showValidationError = ref(false)
 
 // Form data
 const formData = reactive({
@@ -370,15 +463,130 @@ const formData = reactive({
   descriptions: ['']
 })
 
+// Errors state
+const errors = reactive<Record<string, string>>({
+  nomClient: '',
+  nomEntreprise: '',
+  telephone: '',
+  email: '',
+  service: '',
+  'description-0': ''
+})
+
+// Computed
+const hasErrors = computed(() => {
+  return Object.values(errors).some(error => error !== '')
+})
+
+// Validate field
+const validateField = (fieldName: keyof typeof formData | string) => {
+  // Reset error for this field
+  errors[fieldName] = ''
+
+  switch (fieldName) {
+    case 'nomClient':
+      if (!formData.nomClient.trim()) {
+        errors.nomClient = 'Le nom du contact est requis'
+      }
+      break
+
+    case 'nomEntreprise':
+      if (formData.clientType === 'entreprise' && !formData.nomEntreprise.trim()) {
+        errors.nomEntreprise = 'Le nom de l\'entreprise est requis'
+      }
+      break
+
+    case 'telephone':
+      if (!formData.telephone.trim()) {
+        errors.telephone = 'Le téléphone est requis'
+      }
+      break
+
+    case 'email':
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+      if (!formData.email.trim()) {
+        errors.email = 'L\'email est requis'
+      } else if (!emailRegex.test(formData.email)) {
+        errors.email = 'Email invalide'
+      }
+      break
+
+    case 'service':
+      if (!formData.service) {
+        errors.service = 'Veuillez sélectionner un service'
+      }
+      break
+
+    default:
+      // Validation des descriptions dynamiques
+      if (fieldName.startsWith('description-')) {
+        const index = parseInt(fieldName.split('-')[1])
+        if (!formData.descriptions[index] || !formData.descriptions[index].trim()) {
+          errors[fieldName] = `La désignation ${index + 1} est requise`
+        }
+      }
+      break
+  }
+}
+
+// Validate form
+const validateForm = (): boolean => {
+  // Reset all errors
+  Object.keys(errors).forEach(key => {
+    errors[key] = ''
+  })
+
+  // Validate required fields
+  validateField('nomClient')
+  if (formData.clientType === 'entreprise') {
+    validateField('nomEntreprise')
+  }
+  validateField('telephone')
+  validateField('email')
+  validateField('service')
+
+  // Validate descriptions
+  formData.descriptions.forEach((_, index) => {
+    validateField(`description-${index}`)
+  })
+
+  const isValid = !hasErrors.value
+
+  if (!isValid) {
+    showValidationError.value = true
+  }
+
+  return isValid
+}
+
 // Add description
 const addDescription = () => {
+  const newIndex = formData.descriptions.length
   formData.descriptions.push('')
+  errors[`description-${newIndex}`] = ''
 }
 
 // Remove description
 const removeDescription = (index: number) => {
   if (formData.descriptions.length > 1) {
     formData.descriptions.splice(index, 1)
+    delete errors[`description-${index}`]
+    
+    // Réorganiser les clés d'erreur
+    const newErrors: Record<string, string> = {}
+    Object.keys(errors).forEach(key => {
+      if (key.startsWith('description-')) {
+        const idx = parseInt(key.split('-')[1])
+        if (idx < index) {
+          newErrors[key] = errors[key]
+        } else if (idx > index) {
+          newErrors[`description-${idx - 1}`] = errors[key]
+        }
+      } else {
+        newErrors[key] = errors[key]
+      }
+    })
+    Object.assign(errors, newErrors)
   }
 }
 
@@ -389,7 +597,16 @@ const closeModal = () => {
 
 // Submit form
 const submitForm = async () => {
+  if (!validateForm()) {
+    return
+  }
+
+  // Reset validation error message
+  showValidationError.value = false
+
   isSubmitting.value = true
+  
+  const toast = useToast()
   
   try {
     // Préparer les données pour EmailJS
@@ -410,20 +627,17 @@ const submitForm = async () => {
     
     // Envoyer l'email via EmailJS
     const { sendEmail } = useEmailJS()
-    const { showSuccess: alertSuccess, showError: alertError } = useAlert()
     
     let envoyeClient = false
     
     try {
       // Envoi 1 : Email à l'entreprise ASP Services (PRIORITAIRE)
-      // Utilise le template "Nouvelle demande de devis" (pour l'entreprise)
       await sendEmail(
         { ...emailData, to_email: 'georgesrapontchombo22@gmail.com' },
         'quote'
       )
       
       // Envoi 2 : Email de confirmation au client (NON BLOQUANT)
-      // Utilise le template "Confirmation de votre demande" (pour le client)
       try {
         await sendEmail(
           { ...emailData, to_email: formData.email },
@@ -432,18 +646,17 @@ const submitForm = async () => {
         envoyeClient = true
       } catch (clientError) {
         console.warn('Impossible d\'envoyer au client, mais la demande est bien reçue par ASP Services:', clientError)
-        // On continue quand même, l'essentiel est que l'entreprise ait reçu
       }
       
-      // Show success alert
+      // Show success toast
       const messageSuccess = envoyeClient
-        ? `Merci ${formData.clientType === 'entreprise' ? formData.nomEntreprise : formData.nomClient} ! Vous recevrez un email de confirmation et notre équipe vous contactera sous 24h.`
-        : `Merci ${formData.clientType === 'entreprise' ? formData.nomEntreprise : formData.nomClient} ! Notre équipe a bien reçu votre demande et vous contactera sous 24h.`
+        ? 'Vous recevrez un email de confirmation et notre équipe vous contactera sous 24h.'
+        : 'Notre équipe a bien reçu votre demande et vous contactera sous 24h.'
       
-      alertSuccess(
+      toast.showSuccess(
         'Demande envoyée avec succès !',
         messageSuccess,
-        25000
+        5000
       )
       
       // Reset form after 2 seconds
@@ -461,24 +674,27 @@ const submitForm = async () => {
           service: '',
           descriptions: ['']
         })
+        // Reset errors
+        Object.keys(errors).forEach(key => {
+          errors[key] = ''
+        })
       }, 2000)
     } catch (error) {
       console.error('Erreur lors de l\'envoi du devis:', error)
-      alertError(
+      toast.showError(
         'Erreur lors de l\'envoi',
         'Une erreur est survenue. Veuillez réessayer ou nous contacter directement.',
-        25000
+        5000
       )
-    } finally {
-      isSubmitting.value = false
     }
   } catch (error) {
     console.error('Erreur lors de l\'envoi du devis:', error)
-    alertError(
+    toast.showError(
       'Erreur lors de l\'envoi',
       'Une erreur est survenue. Veuillez réessayer ou nous contacter directement.',
-      25000
+      5000
     )
+  } finally {
     isSubmitting.value = false
   }
 }

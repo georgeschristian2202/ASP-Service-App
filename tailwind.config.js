@@ -88,7 +88,8 @@ export default {
         'slide-down': 'slideDown 0.6s ease-out',
         'scale-in': 'scaleIn 0.3s ease-out',
         'whatsapp-ping': 'whatsappPing 2s ease-in-out infinite',
-        'wiggle': 'wiggle 0.6s ease-in-out'
+        'wiggle': 'wiggle 0.6s ease-in-out',
+        'pulse-slow': 'pulseSlow 4s ease-in-out infinite'
       },
       keyframes: {
         fadeIn: {
@@ -115,6 +116,10 @@ export default {
           '0%, 100%': { transform: 'rotate(0deg)' },
           '25%': { transform: 'rotate(-12deg)' },
           '75%': { transform: 'rotate(12deg)' }
+        },
+        pulseSlow: {
+          '0%, 100%': { opacity: '0.5', transform: 'scale(1)' },
+          '50%': { opacity: '0.8', transform: 'scale(1.05)' }
         }
       }
     }

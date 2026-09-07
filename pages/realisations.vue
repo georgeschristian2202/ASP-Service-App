@@ -1,13 +1,18 @@
 <template>
   <div>
     <!-- Page Header -->
-    <section class="relative bg-gradient-to-br from-asp-blue-900 via-asp-blue-700 to-asp-blue-900 text-asp-white py-20">
+    <section class="relative bg-gradient-to-br from-asp-blue-900 via-asp-blue-700 to-asp-blue-900 text-asp-white pt-32 pb-20 overflow-hidden">
+      <!-- Decorative floating shapes -->
+      <div class="absolute top-10 left-10 w-32 h-32 bg-asp-blue-500/30 rounded-full blur-3xl animate-pulse"></div>
+      <div class="absolute bottom-20 right-20 w-40 h-40 bg-purple-500/20 rounded-full blur-3xl animate-pulse"></div>
+      <div class="absolute top-1/2 left-1/3 w-24 h-24 bg-indigo-500/20 rounded-full blur-3xl animate-pulse"></div>
+
       <Container>
-        <div class="max-w-3xl mx-auto text-center">
-          <h1 class="heading-1 mb-6">
+        <div class="max-w-3xl mx-auto text-center relative z-10">
+          <h1 class="heading-1 mb-6 header-title opacity-0">
             Nos Réalisations
           </h1>
-          <p class="text-body-lg text-asp-gray-400">
+          <p class="text-body-lg text-asp-gray-400 header-description opacity-0">
             Découvrez notre portfolio de projets en signalétique, marquage au sol, impression grand format et plus encore. 
             Chaque réalisation témoigne de notre expertise et de notre engagement envers la qualité.
           </p>
@@ -23,19 +28,24 @@
     </section>
 
     <!-- Category Filter -->
-    <section class="py-12 bg-asp-white border-b border-asp-gray-200">
+    <section class="relative py-12 bg-asp-white border-b border-asp-gray-200 overflow-hidden">
+      <!-- Decorative shapes -->
+      <div class="absolute top-5 right-10 w-20 h-20 bg-asp-blue-500/10 rounded-full blur-2xl animate-pulse"></div>
+      <div class="absolute bottom-5 left-10 w-24 h-24 bg-purple-500/10 rounded-full blur-2xl animate-pulse"></div>
+
       <Container>
-        <div class="flex flex-wrap justify-center gap-3">
+        <div class="flex flex-wrap justify-center gap-3 relative z-10">
           <button
-            v-for="category in categories"
+            v-for="(category, index) in categories"
             :key="category.id"
             @click="selectedCategory = category.id"
             :class="[
-              'px-6 py-3 rounded-lg font-medium transition-all duration-200 cursor-pointer',
+              'category-filter opacity-0 px-6 py-3 rounded-lg font-medium transition-all duration-200 cursor-pointer',
               selectedCategory === category.id
                 ? 'bg-asp-blue-700 text-asp-white shadow-asp-md transform scale-105'
                 : 'bg-asp-gray-100 text-asp-gray-700 hover:bg-asp-gray-200 hover:shadow-md'
             ]"
+            :data-index="index"
           >
             <span class="flex items-center gap-2">
               <component :is="category.icon" class="w-5 h-5" />
@@ -69,18 +79,23 @@
     </section>
 
     <!-- Portfolio Grid -->
-    <section v-else class="section-padding bg-asp-gray-50">
+    <section v-else class="relative section-padding bg-asp-gray-50 overflow-hidden">
+      <!-- Decorative shapes -->
+      <div class="absolute top-20 left-20 w-32 h-32 bg-asp-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
+      <div class="absolute bottom-20 right-20 w-40 h-40 bg-purple-500/10 rounded-full blur-3xl animate-pulse"></div>
+      <div class="absolute top-1/2 right-1/3 w-28 h-28 bg-indigo-500/10 rounded-full blur-3xl animate-pulse"></div>
+
       <Container>
         <TransitionGroup
           name="gallery"
           tag="div"
-          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
+          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 relative z-10"
         >
           <article
             v-for="item in filteredPortfolio"
             :key="item.id"
             @click="openModal(item)"
-            class="group relative overflow-hidden rounded-2xl bg-white shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer"
+            class="portfolio-card opacity-0 group relative overflow-hidden rounded-2xl bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer hover:-translate-y-2"
           >
             <!-- Media Container -->
             <div class="relative aspect-[4/3] overflow-hidden bg-asp-gray-900">
@@ -152,10 +167,14 @@
     </section>
 
     <!-- Stats Section -->
-    <section class="section-padding bg-asp-blue-900 text-asp-white">
+    <section class="relative section-padding bg-asp-blue-900 text-asp-white overflow-hidden">
+      <!-- Decorative shapes -->
+      <div class="absolute top-10 right-10 w-32 h-32 bg-asp-blue-500/20 rounded-full blur-3xl animate-pulse"></div>
+      <div class="absolute bottom-10 left-10 w-40 h-40 bg-purple-500/20 rounded-full blur-3xl animate-pulse"></div>
+
       <Container>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-          <div v-for="stat in stats" :key="stat.label" class="text-center">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 relative z-10">
+          <div v-for="(stat, index) in stats" :key="stat.label" class="stat-item opacity-0 text-center" :data-index="index">
             <p class="text-4xl md:text-5xl font-bold text-asp-blue-500 mb-2">
               {{ stat.value }}
             </p>
@@ -205,6 +224,12 @@ useHead({
   ],
   link: [
     { rel: 'canonical', href: 'https://aspservices.ga/realisations' }
+  ],
+  script: [
+    {
+      src: 'https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js',
+      defer: true
+    }
   ]
 })
 
@@ -264,7 +289,112 @@ onMounted(async () => {
   await fetchList()
   console.log('✅ Réalisations chargées:', items.value.length)
   console.log('📊 Items:', items.value)
+
+  // Attendre que anime.js soit chargé
+  const checkAnime = setInterval(() => {
+    if (typeof window !== 'undefined' && (window as any).anime) {
+      clearInterval(checkAnime)
+      setupAnimations()
+    }
+  }, 100)
 })
+
+// Setup animations
+const setupAnimations = () => {
+  const anime = (window as any).anime
+
+  // 1. Header animations
+  anime({
+    targets: '.header-title',
+    opacity: [0, 1],
+    translateY: [30, 0],
+    duration: 1000,
+    easing: 'easeOutExpo'
+  })
+
+  anime({
+    targets: '.header-description',
+    opacity: [0, 1],
+    translateY: [30, 0],
+    duration: 1000,
+    delay: 200,
+    easing: 'easeOutExpo'
+  })
+
+  // 2. Category filters - stagger animation
+  anime({
+    targets: '.category-filter',
+    opacity: [0, 1],
+    translateY: [20, 0],
+    scale: [0.9, 1],
+    duration: 800,
+    delay: anime.stagger(80),
+    easing: 'easeOutExpo'
+  })
+
+  // 3. Portfolio cards - scroll animation avec IntersectionObserver
+  setupPortfolioCardsAnimation()
+
+  // 4. Stats - scroll animation
+  setupStatsAnimation()
+}
+
+// Animation des cartes portfolio au scroll
+const setupPortfolioCardsAnimation = () => {
+  const anime = (window as any).anime
+  const cards = document.querySelectorAll('.portfolio-card')
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          anime({
+            targets: entry.target,
+            opacity: [0, 1],
+            translateY: [50, 0],
+            scale: [0.95, 1],
+            duration: 800,
+            easing: 'easeOutExpo'
+          })
+          observer.unobserve(entry.target)
+        }
+      })
+    },
+    { threshold: 0.2 }
+  )
+
+  cards.forEach((card) => observer.observe(card))
+}
+
+// Animation des stats au scroll
+const setupStatsAnimation = () => {
+  const anime = (window as any).anime
+  const statsSection = document.querySelector('.stat-item')?.closest('section')
+
+  if (!statsSection) return
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          anime({
+            targets: '.stat-item',
+            opacity: [0, 1],
+            translateY: [30, 0],
+            scale: [0.9, 1],
+            duration: 800,
+            delay: anime.stagger(120),
+            easing: 'easeOutExpo'
+          })
+          observer.unobserve(entry.target)
+        }
+      })
+    },
+    { threshold: 0.3 }
+  )
+
+  observer.observe(statsSection)
+}
 
 // Convertir les items de l'API au format attendu par la page
 const portfolioItems = computed<PortfolioDisplayItem[]>(() => {

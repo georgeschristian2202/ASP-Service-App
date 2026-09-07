@@ -1,94 +1,156 @@
  <template>
   <form @submit.prevent="handleSubmit" class="space-y-6">
+    <!-- Global Validation Error -->
+    <Message 
+      v-if="hasErrors && showValidationError" 
+      severity="error" 
+      variant="filled"
+      :closable="true"
+      v-model="showValidationError"
+    >
+      <div class="font-semibold">Validation échouée</div>
+      <div class="text-sm mt-1">Veuillez corriger les erreurs ci-dessous</div>
+    </Message>
+
     <!-- Name -->
-    <div>
-      <label for="name" class="form-label">
-        Nom complet <span class="text-asp-blue-700">*</span>
-      </label>
-      <input
-        id="name"
-        v-model="formData.name"
-        type="text"
-        required
-        class="form-input"
-        placeholder="Votre nom"
-        :disabled="isSubmitting"
+    <div class="flex flex-col gap-1">
+      <FloatLabel>
+        <input
+          id="name"
+          v-model="formData.name"
+          type="text"
+          required
+          :class="['form-input', { 'border-red-500 focus:border-red-500 focus:ring-red-500': errors.name }]"
+          placeholder=" "
+          :disabled="isSubmitting"
+          @blur="validateField('name')"
+        >
+        <label for="name">
+          Nom complet <span class="text-red-600">*</span>
+        </label>
+      </FloatLabel>
+      <Message 
+        v-if="errors.name" 
+        severity="error" 
+        variant="simple" 
+        size="small"
       >
-      <p v-if="errors.name" class="form-error">{{ errors.name }}</p>
+        {{ errors.name }}
+      </Message>
     </div>
 
     <!-- Email -->
-    <div>
-      <label for="email" class="form-label">
-        Email <span class="text-asp-blue-700">*</span>
-      </label>
-      <input
-        id="email"
-        v-model="formData.email"
-        type="email"
-        required
-        class="form-input"
-        placeholder="votre.email@exemple.com"
-        :disabled="isSubmitting"
+    <div class="flex flex-col gap-1">
+      <FloatLabel>
+        <input
+          id="email"
+          v-model="formData.email"
+          type="email"
+          required
+          :class="['form-input', { 'border-red-500 focus:border-red-500 focus:ring-red-500': errors.email }]"
+          placeholder=" "
+          :disabled="isSubmitting"
+          @blur="validateField('email')"
+        >
+        <label for="email">
+          Email <span class="text-red-600">*</span>
+        </label>
+      </FloatLabel>
+      <Message 
+        v-if="errors.email" 
+        severity="error" 
+        variant="simple" 
+        size="small"
       >
-      <p v-if="errors.email" class="form-error">{{ errors.email }}</p>
+        {{ errors.email }}
+      </Message>
     </div>
 
     <!-- Phone -->
-    <div>
-      <label for="phone" class="form-label">
-        Téléphone <span class="text-asp-blue-700">*</span>
-      </label>
-      <input
-        id="phone"
-        v-model="formData.phone"
-        type="tel"
-        required
-        class="form-input"
-        placeholder="+241 XX XX XX XX"
-        :disabled="isSubmitting"
+    <div class="flex flex-col gap-1">
+      <FloatLabel>
+        <input
+          id="phone"
+          v-model="formData.phone"
+          type="tel"
+          required
+          :class="['form-input', { 'border-red-500 focus:border-red-500 focus:ring-red-500': errors.phone }]"
+          placeholder=" "
+          :disabled="isSubmitting"
+          @blur="validateField('phone')"
+        >
+        <label for="phone">
+          Téléphone <span class="text-red-600">*</span>
+        </label>
+      </FloatLabel>
+      <Message 
+        v-if="errors.phone" 
+        severity="error" 
+        variant="simple" 
+        size="small"
       >
-      <p v-if="errors.phone" class="form-error">{{ errors.phone }}</p>
+        {{ errors.phone }}
+      </Message>
     </div>
 
     <!-- Service Type -->
-    <div>
-      <label for="service" class="form-label">
-        Service souhaité <span class="text-asp-blue-700">*</span>
-      </label>
-      <select
-        id="service"
-        v-model="formData.service"
-        required
-        class="form-input cursor-pointer"
-        :disabled="isSubmitting"
+    <div class="flex flex-col gap-1">
+      <FloatLabel>
+        <select
+          id="service"
+          v-model="formData.service"
+          required
+          :class="['form-input cursor-pointer', { 'border-red-500 focus:border-red-500 focus:ring-red-500': errors.service }]"
+          :disabled="isSubmitting"
+          @blur="validateField('service')"
+        >
+          <option value="">Sélectionnez un service</option>
+          <option value="signaletique">Signalétique</option>
+          <option value="marquage">Marquage au sol</option>
+          <option value="impression">Impression grand format</option>
+          <option value="xerox">Consommables Xerox</option>
+          <option value="tshirts">Impression T-shirts</option>
+          <option value="autre">Autre</option>
+        </select>
+        <label for="service">
+          Service souhaité <span class="text-red-600">*</span>
+        </label>
+      </FloatLabel>
+      <Message 
+        v-if="errors.service" 
+        severity="error" 
+        variant="simple" 
+        size="small"
       >
-        <option value="">Sélectionnez un service</option>
-        <option value="signaletique">Signalétique</option>
-        <option value="marquage">Marquage au sol</option>
-        <option value="impression">Impression grand format</option>
-        <option value="xerox">Consommables Xerox</option>
-        <option value="tshirts">Impression T-shirts</option>
-        <option value="autre">Autre</option>
-      </select>
-      <p v-if="errors.service" class="form-error">{{ errors.service }}</p>
+        {{ errors.service }}
+      </Message>
     </div>
 
     <!-- Message -->
-    <div>
-      <label for="message" class="form-label">
-        Message <span class="text-asp-blue-700">*</span>
-      </label>
-      <textarea
-        id="message"
-        v-model="formData.message"
-        required
-        rows="5"
-        class="form-input resize-none"
-        placeholder="Décrivez votre projet en détail..."
-        :disabled="isSubmitting"
-      ></textarea>
-      <p v-if="errors.message" class="form-error">{{ errors.message }}</p>
+    <div class="flex flex-col gap-1">
+      <FloatLabel>
+        <textarea
+          id="message"
+          v-model="formData.message"
+          required
+          rows="5"
+          :class="['form-input resize-none', { 'border-red-500 focus:border-red-500 focus:ring-red-500': errors.message }]"
+          placeholder=" "
+          :disabled="isSubmitting"
+          @blur="validateField('message')"
+        ></textarea>
+        <label for="message">
+          Message <span class="text-red-600">*</span>
+        </label>
+      </FloatLabel>
+      <Message 
+        v-if="errors.message" 
+        severity="error" 
+        variant="simple" 
+        size="small"
+      >
+        {{ errors.message }}
+      </Message>
     </div>
 
     <!-- Submit Button -->
@@ -119,7 +181,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive } from 'vue'
+import { ref, reactive, computed } from 'vue'
 import { 
   Send,
   MessageCircle
@@ -144,6 +206,11 @@ const errors = reactive({
 })
 
 const isSubmitting = ref(false)
+const showValidationError = ref(false)
+
+const hasErrors = computed(() => {
+  return Object.values(errors).some(error => error !== '')
+})
 
 const encodeWhatsAppMessage = () => {
   if (!formData.name && !formData.message) {
@@ -163,6 +230,48 @@ ${formData.message || 'Je souhaite obtenir des informations sur vos services.'}`
   return encodeURIComponent(message)
 }
 
+const validateField = (fieldName: keyof typeof formData) => {
+  // Reset error for this field
+  errors[fieldName] = ''
+
+  switch (fieldName) {
+    case 'name':
+      if (!formData.name.trim()) {
+        errors.name = 'Le nom est requis'
+      }
+      break
+
+    case 'email':
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+      if (!formData.email.trim()) {
+        errors.email = 'L\'email est requis'
+      } else if (!emailRegex.test(formData.email)) {
+        errors.email = 'Email invalide'
+      }
+      break
+
+    case 'phone':
+      if (!formData.phone.trim()) {
+        errors.phone = 'Le téléphone est requis'
+      }
+      break
+
+    case 'service':
+      if (!formData.service) {
+        errors.service = 'Veuillez sélectionner un service'
+      }
+      break
+
+    case 'message':
+      if (!formData.message.trim()) {
+        errors.message = 'Le message est requis'
+      } else if (formData.message.trim().length < 10) {
+        errors.message = 'Le message doit contenir au moins 10 caractères'
+      }
+      break
+  }
+}
+
 const validateForm = (): boolean => {
   let isValid = true
 
@@ -171,53 +280,32 @@ const validateForm = (): boolean => {
     errors[key as keyof typeof errors] = ''
   })
 
-  // Name validation
-  if (!formData.name.trim()) {
-    errors.name = 'Le nom est requis'
-    isValid = false
-  }
+  // Validate all fields
+  ;(['name', 'email', 'phone', 'service', 'message'] as const).forEach(field => {
+    validateField(field)
+  })
 
-  // Email validation
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-  if (!formData.email.trim()) {
-    errors.email = 'L\'email est requis'
-    isValid = false
-  } else if (!emailRegex.test(formData.email)) {
-    errors.email = 'Email invalide'
-    isValid = false
-  }
+  // Check if any errors exist
+  isValid = !hasErrors.value
 
-  // Phone validation
-  if (!formData.phone.trim()) {
-    errors.phone = 'Le téléphone est requis'
-    isValid = false
-  }
-
-  // Service validation
-  if (!formData.service) {
-    errors.service = 'Veuillez sélectionner un service'
-    isValid = false
-  }
-
-  // Message validation
-  if (!formData.message.trim()) {
-    errors.message = 'Le message est requis'
-    isValid = false
-  } else if (formData.message.trim().length < 10) {
-    errors.message = 'Le message doit contenir au moins 10 caractères'
-    isValid = false
+  // Show global validation error if form is invalid
+  if (!isValid) {
+    showValidationError.value = true
   }
 
   return isValid
 }
 
 const { sendEmail } = useEmailJS()
-const { showSuccess: alertSuccess, showError: alertError } = useAlert()
+const toast = useToast()
 
 const handleSubmit = async () => {
   if (!validateForm()) {
     return
   }
+
+  // Reset validation error message
+  showValidationError.value = false
 
   isSubmitting.value = true
 
@@ -250,11 +338,11 @@ const handleSubmit = async () => {
     // Envoyer l'email via EmailJS
     await sendEmail(templateParams)
 
-    // Success alert
-    alertSuccess(
+    // Success toast
+    toast.showSuccess(
       'Message envoyé avec succès !',
       'Merci pour votre message. Nous vous répondrons dans les plus brefs délais.',
-      25000
+      5000
     )
     
     // Reset form
@@ -263,10 +351,10 @@ const handleSubmit = async () => {
     })
   } catch (error) {
     console.error('Error sending email:', error)
-    alertError(
+    toast.showError(
       'Erreur lors de l\'envoi',
       'Une erreur est survenue. Veuillez réessayer ou nous contacter via WhatsApp.',
-      25000
+      5000
     )
   } finally {
     isSubmitting.value = false

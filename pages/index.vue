@@ -2,17 +2,40 @@
   <div class="bg-white">
     <!-- Hero Section avec carousel -->
     <section 
-      class="relative min-h-screen bg-gradient-to-br from-asp-blue-900 to-asp-blue-700 pt-20"
+      class="relative min-h-[85vh] bg-gradient-to-br from-asp-blue-900 via-asp-blue-800 to-asp-blue-700 pt-20 flex items-center overflow-hidden"
       aria-label="Section principale - Services de signalétique"
     >
+      <!-- Decorative Background Pattern - Plus Visible -->
+      <div class="absolute inset-0">
+        <!-- Cercles de couleur avec blur -->
+        <div class="floating-circle floating-shape absolute top-10 left-10 w-96 h-96 bg-yellow-400/30 rounded-full blur-[120px] opacity-0"></div>
+        <div class="floating-circle floating-shape absolute bottom-10 right-10 w-[500px] h-[500px] bg-blue-300/30 rounded-full blur-[140px] opacity-0"></div>
+        <div class="floating-circle floating-shape absolute top-1/3 right-1/4 w-64 h-64 bg-purple-400/20 rounded-full blur-[100px] opacity-0"></div>
+        
+        <!-- Grille de points décorative -->
+        <div class="absolute inset-0 opacity-10">
+          <div class="grid-dots"></div>
+        </div>
+        
+        <!-- Cercles géométriques -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
+          <div class="w-[800px] h-[800px] border border-white/10 rounded-full animate-spin-very-slow"></div>
+          <div class="absolute inset-0 w-[600px] h-[600px] m-auto border border-white/10 rounded-full animate-spin-reverse-slow"></div>
+          <div class="absolute inset-0 w-[400px] h-[400px] m-auto border border-yellow-400/20 rounded-full animate-pulse-slow"></div>
+        </div>
+        
+        <!-- Formes géométriques flottantes -->
+        <div class="absolute top-20 right-20 w-20 h-20 border-2 border-white/30 rotate-45 animate-float"></div>
+        <div class="absolute bottom-40 left-40 w-16 h-16 bg-white/5 rounded-lg animate-float-delayed"></div>
+      </div>
 
       <!-- Hero Content -->
-      <div class="relative z-5 pt-32 pb-24 px-4 sm:px-6 lg:px-8 md:pt-40 md:pb-32">
+      <div class="relative z-5 py-12 px-4 sm:px-6 lg:px-8 w-full md:py-16">
         <div class="max-w-7xl mx-auto">
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 items-center">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <!-- Texte Hero -->
             <div class="text-white space-y-6">
-              <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-8 leading-tight"
+              <h1 class="hero-title text-4xl sm:text-5xl lg:text-6xl font-bold mb-8 leading-tight opacity-0"
                   role="heading"
                   aria-level="1">
                 Votre Expert en
@@ -27,22 +50,22 @@
                 </span>
               </h1>
               
-              <p class="text-lg sm:text-xl text-white/90 mb-10 leading-relaxed max-w-xl">
+              <p class="hero-description text-lg sm:text-xl text-white/90 mb-8 leading-relaxed max-w-xl opacity-0">
                 De la conception à la réalisation, ASP Services vous accompagne dans tous vos projets 
                 de signalétique, marquage au sol et impression grand format à Libreville.
               </p>
 
               <!-- Points clés -->
-              <div class="flex flex-wrap gap-6 mb-10" role="list" aria-label="Avantages ASP Services">
-                <div class="flex items-center gap-2" role="listitem">
+              <div class="flex flex-wrap gap-4 mb-8" role="list" aria-label="Avantages ASP Services">
+                <div class="hero-feature flex items-center gap-2 opacity-0" role="listitem">
                   <CheckCircle2 class="w-6 h-6 text-green-400" aria-hidden="true" />
                   <span class="text-sm sm:text-base">Devis gratuit 24h</span>
                 </div>
-                <div class="flex items-center gap-2" role="listitem">
+                <div class="hero-feature flex items-center gap-2 opacity-0" role="listitem">
                   <CheckCircle2 class="w-6 h-6 text-green-400" aria-hidden="true" />
                   <span class="text-sm sm:text-base">Équipement MUTOH</span>
                 </div>
-                <div class="flex items-center gap-2" role="listitem">
+                <div class="hero-feature flex items-center gap-2 opacity-0" role="listitem">
                   <CheckCircle2 class="w-6 h-6 text-green-400" aria-hidden="true" />
                   <span class="text-sm sm:text-base">Installation incluse</span>
                 </div>
@@ -51,7 +74,7 @@
               <div class="flex flex-col sm:flex-row gap-4">
                 <button
                   @click="showQuoteModal = true"
-                  class="bg-yellow-500 hover:bg-yellow-600 text-white px-8 py-4 rounded-lg font-semibold transition-all duration-200 inline-flex items-center justify-center gap-2 cursor-pointer shadow-lg hover:shadow-xl hover:scale-105 focus:outline-none focus:ring-4 focus:ring-yellow-300"
+                  class="hero-cta bg-yellow-500 hover:bg-yellow-600 text-white px-8 py-4 rounded-lg font-semibold transition-all duration-200 inline-flex items-center justify-center gap-2 cursor-pointer shadow-lg hover:shadow-xl hover:scale-105 focus:outline-none focus:ring-4 focus:ring-yellow-300 opacity-0"
                   aria-label="Obtenir un devis gratuit - Ouvre un formulaire de contact"
                   type="button"
                 >
@@ -62,18 +85,18 @@
             </div>
 
             <!-- Carousel des œuvres - Design Professionnel -->
-            <div class="relative" role="region" aria-label="Projets récents de ASP Services">
+            <div class="carousel-card relative opacity-0" role="region" aria-label="Projets récents de ASP Services">
               <div class="bg-gradient-to-br from-slate-900/95 to-slate-800/95 backdrop-blur-md rounded-2xl border border-white/10 overflow-hidden shadow-2xl">
                 <!-- Header -->
-                <div class="px-6 sm:px-8 pt-8 pb-6 border-b border-white/10">
-                  <h3 class="text-white text-2xl font-bold">Projets Récents</h3>
+                <div class="px-6 sm:px-8 pt-6 pb-4 border-b border-white/10">
+                  <h3 class="text-white text-xl font-bold">Projets Récents</h3>
                   <p class="text-slate-300 text-sm mt-1">Découvrez nos dernières réalisations</p>
                 </div>
                 
                 <!-- Carousel Container -->
                 <div class="relative" role="group" aria-roledescription="carousel" aria-label="Galerie de projets">
                   <!-- Main Image Display -->
-                  <div class="relative overflow-hidden" style="height: 420px;" aria-live="polite" aria-atomic="true">
+                  <div class="relative overflow-hidden" style="height: 320px;" aria-live="polite" aria-atomic="true">
                     <div 
                       class="flex transition-transform duration-700 ease-out h-full"
                       :style="{ transform: `translateX(-${currentSlide * 100}%)` }"
@@ -96,15 +119,15 @@
                         <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/60 to-transparent opacity-80"></div>
                         
                         <!-- Content Overlay -->
-                        <div class="absolute inset-0 flex flex-col justify-end p-6 sm:p-8">
+                        <div class="absolute inset-0 flex flex-col justify-end p-6">
                           <div class="transform transition-all duration-300 group-hover:translate-y-0 translate-y-2">
-                            <div class="inline-block px-3 py-1 bg-blue-500/90 backdrop-blur-sm rounded-full text-xs font-semibold text-white mb-3">
+                            <div class="inline-block px-3 py-1 bg-blue-500/90 backdrop-blur-sm rounded-full text-xs font-semibold text-white mb-2">
                               Projet #{{ index + 1 }}
                             </div>
-                            <h4 class="text-white text-2xl sm:text-3xl font-bold mb-2 leading-tight">
+                            <h4 class="text-white text-xl sm:text-2xl font-bold mb-1 leading-tight">
                               {{ project.title }}
                             </h4>
-                            <p class="text-slate-200 text-sm sm:text-base mb-3 line-clamp-2">
+                            <p class="text-slate-200 text-sm mb-2 line-clamp-2">
                               {{ project.description }}
                             </p>
                             <div class="flex items-center gap-2 text-slate-300">
@@ -139,14 +162,14 @@
                 </div>
 
                 <!-- Thumbnails Navigation -->
-                <div class="px-6 sm:px-8 py-6 bg-slate-900/50" role="tablist" aria-label="Sélection rapide des projets">
+                <div class="px-6 sm:px-8 py-4 bg-slate-900/50" role="tablist" aria-label="Sélection rapide des projets">
                   <div class="flex gap-3 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-transparent">
                     <button
                       v-for="(project, index) in projects"
                       :key="`thumb-${index}`"
                       @click="currentSlide = index"
                       :class="[
-                        'flex-shrink-0 w-20 h-20 sm:w-24 sm:h-24 rounded-lg overflow-hidden border-2 transition-all duration-300 cursor-pointer relative group',
+                        'flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 rounded-lg overflow-hidden border-2 transition-all duration-300 cursor-pointer relative group',
                         currentSlide === index 
                           ? 'border-blue-500 ring-2 ring-blue-500/50 scale-105' 
                           : 'border-white/20 hover:border-white/40 opacity-60 hover:opacity-100'
@@ -197,11 +220,15 @@
     </section>
 
     <!-- Services Section -->
-    <section class="py-20 bg-white" aria-labelledby="services-heading">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-20 reveal">
-          <h2 id="services-heading" class="text-4xl sm:text-5xl font-bold text-asp-black mb-6">Nos Services</h2>
-          <p class="text-xl sm:text-2xl text-asp-gray-600 max-w-3xl mx-auto leading-relaxed">
+    <section class="py-20 bg-gradient-to-br from-gray-50 via-white to-blue-50 relative overflow-hidden" aria-labelledby="services-heading">
+      <!-- Decorative Elements -->
+      <div class="absolute top-20 right-10 w-64 h-64 bg-blue-400/10 rounded-full blur-3xl"></div>
+      <div class="absolute bottom-20 left-10 w-96 h-96 bg-yellow-400/10 rounded-full blur-3xl"></div>
+      
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="text-center mb-20">
+          <h2 id="services-heading" class="services-title text-4xl sm:text-5xl font-bold text-asp-black mb-6 opacity-0">Nos Services</h2>
+          <p class="services-description text-xl sm:text-2xl text-asp-gray-600 max-w-3xl mx-auto leading-relaxed opacity-0">
             Solutions complètes pour tous vos besoins en signalétique et impression
           </p>
         </div>
@@ -210,220 +237,273 @@
           <!-- Service 1 -->
           <NuxtLink 
             to="/services?service=signaletique" 
-            class="block bg-white border border-asp-gray-200 rounded-xl p-8 hover:shadow-lg transition-all duration-200 hover:-translate-y-1 cursor-pointer reveal reveal-delay-1 focus:outline-none focus:ring-4 focus:ring-asp-blue-300"
+            class="service-card group block bg-white/80 backdrop-blur-sm border-2 border-asp-gray-200 rounded-2xl p-8 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer focus:outline-none focus:ring-4 focus:ring-asp-blue-300 hover:border-asp-blue-400 opacity-0 overflow-hidden relative"
             aria-label="En savoir plus sur nos services de signalétique"
           >
-            <div class="text-asp-blue-600 mb-6" aria-hidden="true">
-              <Building class="w-14 h-14" />
+            <!-- Gradient Overlay on Hover -->
+            <div class="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            
+            <div class="relative z-10">
+              <div class="text-asp-blue-600 mb-6 transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300" aria-hidden="true">
+                <Building class="w-16 h-16" />
+              </div>
+              <h3 class="text-xl font-bold text-asp-black mb-4 group-hover:text-asp-blue-600 transition-colors">Signalétique</h3>
+              <p class="text-asp-gray-600 mb-6 leading-relaxed">
+                Panneaux d'entreprise, enseignes lumineuses et signalisation directionnelle sur mesure.
+              </p>
+              <ul class="text-sm text-asp-gray-600 space-y-2" role="list">
+                <li class="flex items-center gap-3" role="listitem">
+                  <Check class="w-5 h-5 text-green-600 flex-shrink-0" aria-hidden="true" />
+                  Enseignes lumineuses
+                </li>
+                <li class="flex items-center gap-3" role="listitem">
+                  <Check class="w-5 h-5 text-green-600 flex-shrink-0" aria-hidden="true" />
+                  Panneaux directionnels
+                </li>
+                <li class="flex items-center gap-3" role="listitem">
+                  <Check class="w-5 h-5 text-green-600 flex-shrink-0" aria-hidden="true" />
+                  Plaques professionnelles
+                </li>
+              </ul>
             </div>
-            <h3 class="text-xl font-bold text-asp-black mb-4">Signalétique</h3>
-            <p class="text-asp-gray-600 mb-6 leading-relaxed">
-              Panneaux d'entreprise, enseignes lumineuses et signalisation directionnelle sur mesure.
-            </p>
-            <ul class="text-sm text-asp-gray-600 space-y-2" role="list">
-              <li class="flex items-center gap-3" role="listitem">
-                <Check class="w-5 h-5 text-green-600 flex-shrink-0" aria-hidden="true" />
-                Enseignes lumineuses
-              </li>
-              <li class="flex items-center gap-3" role="listitem">
-                <Check class="w-5 h-5 text-green-600 flex-shrink-0" aria-hidden="true" />
-                Panneaux directionnels
-              </li>
-              <li class="flex items-center gap-3" role="listitem">
-                <Check class="w-5 h-5 text-green-600 flex-shrink-0" aria-hidden="true" />
-                Plaques professionnelles
-              </li>
-            </ul>
           </NuxtLink>
 
           <!-- Service 2 -->
           <div 
-            class="bg-white border border-asp-gray-200 rounded-xl p-8 hover:shadow-lg transition-all duration-200 hover:-translate-y-1 cursor-pointer reveal focus-within:ring-4 focus-within:ring-asp-blue-300"
+            class="service-card group bg-white/80 backdrop-blur-sm border-2 border-asp-gray-200 rounded-2xl p-8 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer focus-within:ring-4 focus-within:ring-asp-blue-300 hover:border-asp-blue-400 opacity-0 overflow-hidden relative"
             tabindex="0"
             role="article"
             aria-labelledby="service-marquage"
           >
-            <div class="text-asp-blue-600 mb-6" aria-hidden="true">
-              <Car class="w-14 h-14" />
+            <div class="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            
+            <div class="relative z-10">
+              <div class="text-asp-blue-600 mb-6 transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300" aria-hidden="true">
+                <Car class="w-16 h-16" />
+              </div>
+              <h3 id="service-marquage" class="text-xl font-bold text-asp-black mb-4 group-hover:text-asp-blue-600 transition-colors">Marquage au Sol</h3>
+              <p class="text-asp-gray-600 mb-6 leading-relaxed">
+                Traçage professionnel pour parkings, zones industrielles et terrains de sport.
+              </p>
+              <ul class="text-sm text-asp-gray-600 space-y-2" role="list">
+                <li class="flex items-center gap-3" role="listitem">
+                  <Check class="w-5 h-5 text-green-600 flex-shrink-0" aria-hidden="true" />
+                  Parkings et stationnements
+                </li>
+                <li class="flex items-center gap-3" role="listitem">
+                  <Check class="w-5 h-5 text-green-600 flex-shrink-0" aria-hidden="true" />
+                  Zones industrielles
+                </li>
+                <li class="flex items-center gap-3" role="listitem">
+                  <Check class="w-5 h-5 text-green-600 flex-shrink-0" aria-hidden="true" />
+                  Terrains de sport
+                </li>
+              </ul>
             </div>
-            <h3 id="service-marquage" class="text-xl font-bold text-asp-black mb-4">Marquage au Sol</h3>
-            <p class="text-asp-gray-600 mb-6 leading-relaxed">
-              Traçage professionnel pour parkings, zones industrielles et terrains de sport.
-            </p>
-            <ul class="text-sm text-asp-gray-600 space-y-2" role="list">
-              <li class="flex items-center gap-3" role="listitem">
-                <Check class="w-5 h-5 text-green-600 flex-shrink-0" aria-hidden="true" />
-                Parkings et stationnements
-              </li>
-              <li class="flex items-center gap-3" role="listitem">
-                <Check class="w-5 h-5 text-green-600 flex-shrink-0" aria-hidden="true" />
-                Zones industrielles
-              </li>
-              <li class="flex items-center gap-3" role="listitem">
-                <Check class="w-5 h-5 text-green-600 flex-shrink-0" aria-hidden="true" />
-                Terrains de sport
-              </li>
-            </ul>
           </div>
 
           <!-- Service 3 -->
           <div 
-            class="bg-white border border-asp-gray-200 rounded-xl p-8 hover:shadow-lg transition-all duration-200 hover:-translate-y-1 cursor-pointer reveal focus-within:ring-4 focus-within:ring-asp-blue-300"
+            class="service-card group bg-white/80 backdrop-blur-sm border-2 border-asp-gray-200 rounded-2xl p-8 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer focus-within:ring-4 focus-within:ring-asp-blue-300 hover:border-asp-blue-400 opacity-0 overflow-hidden relative"
             tabindex="0"
             role="article"
             aria-labelledby="service-impression"
           >
-            <div class="text-asp-blue-600 mb-6" aria-hidden="true">
-              <Printer class="w-14 h-14" />
+            <div class="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            
+            <div class="relative z-10">
+              <div class="text-asp-blue-600 mb-6 transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300" aria-hidden="true">
+                <Printer class="w-16 h-16" />
+              </div>
+              <h3 id="service-impression" class="text-xl font-bold text-asp-black mb-4 group-hover:text-asp-blue-600 transition-colors">Impression Grand Format</h3>
+              <p class="text-asp-gray-600 mb-6 leading-relaxed">
+                Bâches, roll-up, affiches et stickers avec notre traceur MUTOH professionnel.
+              </p>
+              <ul class="text-sm text-asp-gray-600 space-y-2" role="list">
+                <li class="flex items-center gap-3" role="listitem">
+                  <Check class="w-5 h-5 text-green-600 flex-shrink-0" aria-hidden="true" />
+                  Bâches publicitaires
+                </li>
+                <li class="flex items-center gap-3" role="listitem">
+                  <Check class="w-5 h-5 text-green-600 flex-shrink-0" aria-hidden="true" />
+                  Roll-up et kakémonos
+                </li>
+                <li class="flex items-center gap-3" role="listitem">
+                  <Check class="w-5 h-5 text-green-600 flex-shrink-0" aria-hidden="true" />
+                  Stickers personnalisés
+                </li>
+              </ul>
             </div>
-            <h3 id="service-impression" class="text-xl font-bold text-asp-black mb-4">Impression Grand Format</h3>
-            <p class="text-asp-gray-600 mb-6 leading-relaxed">
-              Bâches, roll-up, affiches et stickers avec notre traceur MUTOH professionnel.
-            </p>
-            <ul class="text-sm text-asp-gray-600 space-y-2" role="list">
-              <li class="flex items-center gap-3" role="listitem">
-                <Check class="w-5 h-5 text-green-600 flex-shrink-0" aria-hidden="true" />
-                Bâches publicitaires
-              </li>
-              <li class="flex items-center gap-3" role="listitem">
-                <Check class="w-5 h-5 text-green-600 flex-shrink-0" aria-hidden="true" />
-                Roll-up et kakémonos
-              </li>
-              <li class="flex items-center gap-3" role="listitem">
-                <Check class="w-5 h-5 text-green-600 flex-shrink-0" aria-hidden="true" />
-                Stickers personnalisés
-              </li>
-            </ul>
           </div>
 
           <!-- Service 4 -->
           <div 
-            class="bg-white border border-asp-gray-200 rounded-xl p-8 hover:shadow-lg transition-all duration-200 hover:-translate-y-1 cursor-pointer reveal focus-within:ring-4 focus-within:ring-asp-blue-300"
+            class="service-card group bg-white/80 backdrop-blur-sm border-2 border-asp-gray-200 rounded-2xl p-8 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer focus-within:ring-4 focus-within:ring-asp-blue-300 hover:border-asp-blue-400 opacity-0 overflow-hidden relative"
             tabindex="0"
             role="article"
             aria-labelledby="service-xerox"
           >
-            <div class="text-asp-blue-600 mb-6" aria-hidden="true">
-              <Package class="w-14 h-14" />
+            <div class="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            
+            <div class="relative z-10">
+              <div class="text-asp-blue-600 mb-6 transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300" aria-hidden="true">
+                <Package class="w-16 h-16" />
+              </div>
+              <h3 id="service-xerox" class="text-xl font-bold text-asp-black mb-4 group-hover:text-asp-blue-600 transition-colors">Consommables Xerox</h3>
+              <p class="text-asp-gray-600 mb-6 leading-relaxed">
+                Toners, cartouches et pièces détachées d'origine pour vos équipements.
+              </p>
+              <ul class="text-sm text-asp-gray-600 space-y-2" role="list">
+                <li class="flex items-center gap-3" role="listitem">
+                  <Check class="w-5 h-5 text-green-600 flex-shrink-0" aria-hidden="true" />
+                  Toners d'origine
+                </li>
+                <li class="flex items-center gap-3" role="listitem">
+                  <Check class="w-5 h-5 text-green-600 flex-shrink-0" aria-hidden="true" />
+                  Kits de maintenance
+                </li>
+                <li class="flex items-center gap-3" role="listitem">
+                  <Check class="w-5 h-5 text-green-600 flex-shrink-0" aria-hidden="true" />
+                  Support technique
+                </li>
+              </ul>
             </div>
-            <h3 class="text-xl font-bold text-asp-black mb-3">Consommables Xerox</h3>
-            <p class="text-asp-gray-600 mb-4">
-              Toners, cartouches et pièces détachées d'origine pour vos équipements.
-            </p>
-            <ul class="text-sm text-asp-gray-600 space-y-1">
-              <li class="flex items-center gap-2">
-                <Check class="w-4 h-4 text-green-600" />
-                Toners d'origine
-              </li>
-              <li class="flex items-center gap-2">
-                <Check class="w-4 h-4 text-green-600" />
-                Kits de maintenance
-              </li>
-              <li class="flex items-center gap-2">
-                <Check class="w-4 h-4 text-green-600" />
-                Support technique
-              </li>
-            </ul>
           </div>
 
           <!-- Service 5 -->
-          <div class="bg-white border border-asp-gray-200 rounded-xl p-8 hover:shadow-lg transition-all duration-200 hover:-translate-y-1 cursor-pointer reveal">
-            <div class="text-asp-blue-600 mb-4">
-              <Shirt class="w-12 h-12" />
+          <div 
+            class="service-card group bg-white/80 backdrop-blur-sm border-2 border-asp-gray-200 rounded-2xl p-8 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer focus-within:ring-4 focus-within:ring-asp-blue-300 hover:border-asp-blue-400 opacity-0 overflow-hidden relative"
+            tabindex="0"
+            role="article"
+            aria-labelledby="service-tshirts"
+          >
+            <div class="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            
+            <div class="relative z-10">
+              <div class="text-asp-blue-600 mb-6 transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300" aria-hidden="true">
+                <Shirt class="w-16 h-16" />
+              </div>
+              <h3 id="service-tshirts" class="text-xl font-bold text-asp-black mb-4 group-hover:text-asp-blue-600 transition-colors">Impression T-shirts</h3>
+              <p class="text-asp-gray-600 mb-6 leading-relaxed">
+                Personnalisation textile pour entreprises, événements et associations.
+              </p>
+              <ul class="text-sm text-asp-gray-600 space-y-2" role="list">
+                <li class="flex items-center gap-3" role="listitem">
+                  <Check class="w-5 h-5 text-green-600 flex-shrink-0" aria-hidden="true" />
+                  Uniformes d'entreprise
+                </li>
+                <li class="flex items-center gap-3" role="listitem">
+                  <Check class="w-5 h-5 text-green-600 flex-shrink-0" aria-hidden="true" />
+                  Vêtements événementiels
+                </li>
+                <li class="flex items-center gap-3" role="listitem">
+                  <Check class="w-5 h-5 text-green-600 flex-shrink-0" aria-hidden="true" />
+                  Petites et grandes séries
+                </li>
+              </ul>
             </div>
-            <h3 class="text-xl font-bold text-asp-black mb-3">Impression T-shirts</h3>
-            <p class="text-asp-gray-600 mb-4">
-              Personnalisation textile pour entreprises, événements et associations.
-            </p>
-            <ul class="text-sm text-asp-gray-600 space-y-1">
-              <li class="flex items-center gap-2">
-                <Check class="w-4 h-4 text-green-600" />
-                Uniformes d'entreprise
-              </li>
-              <li class="flex items-center gap-2">
-                <Check class="w-4 h-4 text-green-600" />
-                Vêtements événementiels
-              </li>
-              <li class="flex items-center gap-2">
-                <Check class="w-4 h-4 text-green-600" />
-                Petites et grandes séries
-              </li>
-            </ul>
           </div>
 
           <!-- Service 6 -->
-          <div class="bg-white border border-asp-gray-200 rounded-xl p-8 hover:shadow-lg transition-all duration-200 hover:-translate-y-1 cursor-pointer reveal">
-            <div class="text-asp-blue-600 mb-4">
-              <CreditCard class="w-12 h-12" />
+          <div 
+            class="service-card group bg-white/80 backdrop-blur-sm border-2 border-asp-gray-200 rounded-2xl p-8 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer focus-within:ring-4 focus-within:ring-asp-blue-300 hover:border-asp-blue-400 opacity-0 overflow-hidden relative"
+            tabindex="0"
+            role="article"
+            aria-labelledby="service-badges"
+          >
+            <div class="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            
+            <div class="relative z-10">
+              <div class="text-asp-blue-600 mb-6 transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300" aria-hidden="true">
+                <CreditCard class="w-16 h-16" />
+              </div>
+              <h3 id="service-badges" class="text-xl font-bold text-asp-black mb-4 group-hover:text-asp-blue-600 transition-colors">Badges & Cartes</h3>
+              <p class="text-asp-gray-600 mb-6 leading-relaxed">
+                Badges professionnels, cartes de visite et cartes d'accès personnalisés.
+              </p>
+              <ul class="text-sm text-asp-gray-600 space-y-2" role="list">
+                <li class="flex items-center gap-3" role="listitem">
+                  <Check class="w-5 h-5 text-green-600 flex-shrink-0" aria-hidden="true" />
+                  Badges nominatifs
+                </li>
+                <li class="flex items-center gap-3" role="listitem">
+                  <Check class="w-5 h-5 text-green-600 flex-shrink-0" aria-hidden="true" />
+                  Cartes de visite premium
+                </li>
+                <li class="flex items-center gap-3" role="listitem">
+                  <Check class="w-5 h-5 text-green-600 flex-shrink-0" aria-hidden="true" />
+                  Cartes d'accès personnalisées
+                </li>
+              </ul>
             </div>
-            <h3 class="text-xl font-bold text-asp-black mb-3">Badges & Cartes</h3>
-            <p class="text-asp-gray-600 mb-4">
-              Badges professionnels, cartes de visite et cartes d'accès personnalisés.
-            </p>
-            <ul class="text-sm text-asp-gray-600 space-y-1">
-              <li class="flex items-center gap-2">
-                <Check class="w-4 h-4 text-green-600" />
-                Badges nominatifs
-              </li>
-              <li class="flex items-center gap-2">
-                <Check class="w-4 h-4 text-green-600" />
-                Cartes de visite premium
-              </li>
-              <li class="flex items-center gap-2">
-                <Check class="w-4 h-4 text-green-600" />
-                Cartes d'accès personnalisées
-              </li>
-            </ul>
           </div>
 
           <!-- Service 7 : Vente Imprimantes -->
-          <div class="bg-white border border-asp-gray-200 rounded-xl p-8 hover:shadow-lg transition-all duration-200 hover:-translate-y-1 cursor-pointer reveal">
-            <div class="text-asp-blue-600 mb-4">
-              <Printer class="w-12 h-12" />
+          <div 
+            class="service-card group bg-white/80 backdrop-blur-sm border-2 border-asp-gray-200 rounded-2xl p-8 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer focus-within:ring-4 focus-within:ring-asp-blue-300 hover:border-asp-blue-400 opacity-0 overflow-hidden relative"
+            tabindex="0"
+            role="article"
+            aria-labelledby="service-vente-imprimantes"
+          >
+            <div class="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            
+            <div class="relative z-10">
+              <div class="text-asp-blue-600 mb-6 transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300" aria-hidden="true">
+                <Printer class="w-16 h-16" />
+              </div>
+              <h3 id="service-vente-imprimantes" class="text-xl font-bold text-asp-black mb-4 group-hover:text-asp-blue-600 transition-colors">Vente Imprimantes Xerox</h3>
+              <p class="text-asp-gray-600 mb-6 leading-relaxed">
+                Imprimantes multifonctions professionnelles Xerox neuves avec garantie constructeur.
+              </p>
+              <ul class="text-sm text-asp-gray-600 space-y-2" role="list">
+                <li class="flex items-center gap-3" role="listitem">
+                  <Check class="w-5 h-5 text-green-600 flex-shrink-0" aria-hidden="true" />
+                  Xerox C8045 / C8145
+                </li>
+                <li class="flex items-center gap-3" role="listitem">
+                  <Check class="w-5 h-5 text-green-600 flex-shrink-0" aria-hidden="true" />
+                  Xerox C60 Production
+                </li>
+                <li class="flex items-center gap-3" role="listitem">
+                  <Check class="w-5 h-5 text-green-600 flex-shrink-0" aria-hidden="true" />
+                  Installation & Formation
+                </li>
+              </ul>
             </div>
-            <h3 class="text-xl font-bold text-asp-black mb-3">Vente Imprimantes Xerox</h3>
-            <p class="text-asp-gray-600 mb-4">
-              Imprimantes multifonctions professionnelles Xerox neuves avec garantie constructeur.
-            </p>
-            <ul class="text-sm text-asp-gray-600 space-y-1">
-              <li class="flex items-center gap-2">
-                <Check class="w-4 h-4 text-green-600" />
-                Xerox C8045 / C8145
-              </li>
-              <li class="flex items-center gap-2">
-                <Check class="w-4 h-4 text-green-600" />
-                Xerox C60 Production
-              </li>
-              <li class="flex items-center gap-2">
-                <Check class="w-4 h-4 text-green-600" />
-                Installation & Formation
-              </li>
-            </ul>
           </div>
 
           <!-- Service 8 : Location Imprimantes -->
-          <div class="bg-white border border-asp-gray-200 rounded-xl p-8 hover:shadow-lg transition-all duration-200 hover:-translate-y-1 cursor-pointer reveal">
-            <div class="text-asp-blue-600 mb-4">
-              <Package class="w-12 h-12" />
+          <div 
+            class="service-card group bg-white/80 backdrop-blur-sm border-2 border-asp-gray-200 rounded-2xl p-8 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer focus-within:ring-4 focus-within:ring-asp-blue-300 hover:border-asp-blue-400 opacity-0 overflow-hidden relative"
+            tabindex="0"
+            role="article"
+            aria-labelledby="service-location-imprimantes"
+          >
+            <div class="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            
+            <div class="relative z-10">
+              <div class="text-asp-blue-600 mb-6 transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300" aria-hidden="true">
+                <Package class="w-16 h-16" />
+              </div>
+              <h3 id="service-location-imprimantes" class="text-xl font-bold text-asp-black mb-4 group-hover:text-asp-blue-600 transition-colors">Location Imprimantes Xerox</h3>
+              <p class="text-asp-gray-600 mb-6 leading-relaxed">
+                Solutions de location flexibles pour entreprises et particuliers avec maintenance incluse.
+              </p>
+              <ul class="text-sm text-asp-gray-600 space-y-2" role="list">
+                <li class="flex items-center gap-3" role="listitem">
+                  <Check class="w-5 h-5 text-green-600 flex-shrink-0" aria-hidden="true" />
+                  Formules entreprise
+                </li>
+                <li class="flex items-center gap-3" role="listitem">
+                  <Check class="w-5 h-5 text-green-600 flex-shrink-0" aria-hidden="true" />
+                  Formules particulier
+                </li>
+                <li class="flex items-center gap-3" role="listitem">
+                  <Check class="w-5 h-5 text-green-600 flex-shrink-0" aria-hidden="true" />
+                  Maintenance & Assistance
+                </li>
+              </ul>
             </div>
-            <h3 class="text-xl font-bold text-asp-black mb-3">Location Imprimantes Xerox</h3>
-            <p class="text-asp-gray-600 mb-4">
-              Solutions de location flexibles pour entreprises et particuliers avec maintenance incluse.
-            </p>
-            <ul class="text-sm text-asp-gray-600 space-y-1">
-              <li class="flex items-center gap-2">
-                <Check class="w-4 h-4 text-green-600" />
-                Formules entreprise
-              </li>
-              <li class="flex items-center gap-2">
-                <Check class="w-4 h-4 text-green-600" />
-                Formules particulier
-              </li>
-              <li class="flex items-center gap-2">
-                <Check class="w-4 h-4 text-green-600" />
-                Maintenance & Assistance
-              </li>
-            </ul>
           </div>
         </div>
       </div>
@@ -437,8 +517,13 @@
     -->
 
     <!-- Notre Processus -->
-    <section class="py-24 bg-asp-blue-900" aria-labelledby="processus-heading">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section class="py-24 bg-asp-blue-900 relative overflow-hidden" aria-labelledby="processus-heading">
+      <!-- Decorative Elements -->
+      <div class="absolute top-10 right-10 w-80 h-80 bg-yellow-400/40 rounded-full blur-3xl animate-pulse"></div>
+      <div class="absolute bottom-10 left-10 w-96 h-96 bg-blue-500/30 rounded-full blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
+      <div class="absolute top-1/2 right-1/4 w-64 h-64 bg-yellow-300/30 rounded-full blur-3xl animate-pulse" style="animation-delay: 0.5s;"></div>
+      
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="text-center mb-20 reveal">
           <h2 id="processus-heading" class="text-4xl sm:text-5xl font-bold text-white mb-6">Notre Processus de Travail</h2>
           <p class="text-xl sm:text-2xl text-blue-100 max-w-3xl mx-auto leading-relaxed">
@@ -450,12 +535,12 @@
           <!-- Étape 1 : Contact -->
           <div class="relative reveal reveal-delay-1" role="listitem">
             <div 
-              class="bg-white rounded-2xl p-10 shadow-lg hover:shadow-xl transition-all duration-200 border-2 border-gray-100 hover:border-asp-blue-300 cursor-pointer focus-within:ring-4 focus-within:ring-asp-blue-300"
+              class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-200 border-2 border-gray-100 hover:border-asp-blue-300 cursor-pointer focus-within:ring-4 focus-within:ring-asp-blue-300 h-full flex flex-col"
               tabindex="0"
               role="article"
               aria-labelledby="etape-1"
             >
-              <div class="w-16 h-16 bg-asp-blue-600 text-white rounded-full flex items-center justify-center text-3xl font-bold mb-8 mx-auto" aria-hidden="true">
+              <div class="w-16 h-16 bg-asp-blue-600 text-white rounded-full flex items-center justify-center text-3xl font-bold mb-6 mx-auto" aria-hidden="true">
                 1
               </div>
               <h3 id="etape-1" class="text-xl font-bold text-asp-black mb-4 text-center">Contact</h3>
@@ -472,49 +557,59 @@
           <!-- Étape 2 : Devis -->
           <div class="relative reveal reveal-delay-2" role="listitem">
             <div 
-              class="bg-white rounded-2xl p-10 shadow-lg hover:shadow-xl transition-all duration-200 border-2 border-gray-100 hover:border-yellow-300 cursor-pointer focus-within:ring-4 focus-within:ring-yellow-300"
+              class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-200 border-2 border-gray-100 hover:border-yellow-300 cursor-pointer focus-within:ring-4 focus-within:ring-yellow-300 h-full flex flex-col"
               tabindex="0"
               role="article"
               aria-labelledby="etape-2"
             >
-              <div class="w-16 h-16 bg-yellow-500 text-white rounded-full flex items-center justify-center text-3xl font-bold mb-8 mx-auto" aria-hidden="true">
+              <div class="w-16 h-16 bg-yellow-500 text-white rounded-full flex items-center justify-center text-3xl font-bold mb-6 mx-auto" aria-hidden="true">
                 2
               </div>
-              <h3 class="text-xl font-bold text-asp-black mb-3 text-center">Devis</h3>
+              <h3 id="etape-2" class="text-xl font-bold text-asp-black mb-4 text-center">Devis</h3>
               <p class="text-asp-gray-600 text-center leading-relaxed">
                 Nous établissons un devis détaillé et gratuit sous 24h adapté à vos besoins
               </p>
             </div>
             <!-- Flèche pour desktop -->
-            <div class="hidden lg:flex absolute top-1/2 -right-4 transform -translate-y-1/2 z-10 items-center justify-center w-8 h-8 bg-asp-blue-900 rounded-full">
+            <div class="hidden lg:flex absolute top-1/2 -right-4 transform -translate-y-1/2 z-10 items-center justify-center w-8 h-8 bg-asp-blue-900 rounded-full" aria-hidden="true">
               <ChevronRight class="w-6 h-6 text-yellow-400" />
             </div>
           </div>
 
           <!-- Étape 3 : Réalisation -->
-          <div class="relative reveal reveal-delay-3">
-            <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-200 border-2 border-gray-100 hover:border-asp-blue-300 cursor-pointer">
-              <div class="w-16 h-16 bg-asp-blue-600 text-white rounded-full flex items-center justify-center text-3xl font-bold mb-6 mx-auto">
+          <div class="relative reveal reveal-delay-3" role="listitem">
+            <div 
+              class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-200 border-2 border-gray-100 hover:border-asp-blue-300 cursor-pointer focus-within:ring-4 focus-within:ring-asp-blue-300 h-full flex flex-col"
+              tabindex="0"
+              role="article"
+              aria-labelledby="etape-3"
+            >
+              <div class="w-16 h-16 bg-asp-blue-600 text-white rounded-full flex items-center justify-center text-3xl font-bold mb-6 mx-auto" aria-hidden="true">
                 3
               </div>
-              <h3 class="text-xl font-bold text-asp-black mb-3 text-center">Réalisation</h3>
+              <h3 id="etape-3" class="text-xl font-bold text-asp-black mb-4 text-center">Réalisation</h3>
               <p class="text-asp-gray-600 text-center leading-relaxed">
                 Notre équipe réalise votre projet avec soin et professionnalisme
               </p>
             </div>
             <!-- Flèche pour desktop -->
-            <div class="hidden lg:flex absolute top-1/2 -right-4 transform -translate-y-1/2 z-10 items-center justify-center w-8 h-8 bg-asp-blue-900 rounded-full">
+            <div class="hidden lg:flex absolute top-1/2 -right-4 transform -translate-y-1/2 z-10 items-center justify-center w-8 h-8 bg-asp-blue-900 rounded-full" aria-hidden="true">
               <ChevronRight class="w-6 h-6 text-yellow-400" />
             </div>
           </div>
 
           <!-- Étape 4 : Livraison -->
-          <div class="relative reveal reveal-delay-4">
-            <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-200 border-2 border-gray-100 hover:border-yellow-300 cursor-pointer">
-              <div class="w-16 h-16 bg-yellow-500 text-white rounded-full flex items-center justify-center text-3xl font-bold mb-6 mx-auto">
+          <div class="relative reveal reveal-delay-4" role="listitem">
+            <div 
+              class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-200 border-2 border-gray-100 hover:border-yellow-300 cursor-pointer focus-within:ring-4 focus-within:ring-yellow-300 h-full flex flex-col"
+              tabindex="0"
+              role="article"
+              aria-labelledby="etape-4"
+            >
+              <div class="w-16 h-16 bg-yellow-500 text-white rounded-full flex items-center justify-center text-3xl font-bold mb-6 mx-auto" aria-hidden="true">
                 4
               </div>
-              <h3 class="text-xl font-bold text-asp-black mb-3 text-center">Livraison</h3>
+              <h3 id="etape-4" class="text-xl font-bold text-asp-black mb-4 text-center">Livraison</h3>
               <p class="text-asp-gray-600 text-center leading-relaxed">
                 Installation et livraison dans les délais convenus, avec garantie qualité
               </p>
@@ -538,8 +633,12 @@
     </section>
 
     <!-- FAQ Section -->
-    <section class="py-24 bg-gradient-to-br from-gray-50 to-white" aria-labelledby="faq-heading">
-      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section class="py-24 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden" aria-labelledby="faq-heading">
+      <!-- Decorative Elements -->
+      <div class="absolute top-20 right-20 w-72 h-72 bg-blue-400/20 rounded-full blur-3xl animate-pulse"></div>
+      <div class="absolute bottom-20 left-20 w-80 h-80 bg-yellow-400/20 rounded-full blur-3xl animate-pulse" style="animation-delay: 1.5s;"></div>
+      
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="text-center mb-20 reveal">
           <h2 id="faq-heading" class="text-4xl sm:text-5xl font-bold text-asp-black mb-6">Questions Fréquentes</h2>
           <p class="text-xl sm:text-2xl text-asp-gray-600 leading-relaxed">
@@ -709,11 +808,15 @@
     </section>
 
     <!-- Pourquoi nous choisir -->
-    <section class="py-24 bg-white" aria-labelledby="avantages-heading">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section class="py-24 bg-gradient-to-br from-white via-blue-50/30 to-white relative overflow-hidden" aria-labelledby="avantages-heading">
+      <!-- Decorative Elements -->
+      <div class="absolute top-10 left-10 w-72 h-72 bg-blue-400/10 rounded-full blur-3xl"></div>
+      <div class="absolute bottom-10 right-10 w-96 h-96 bg-yellow-400/10 rounded-full blur-3xl"></div>
+      
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="text-center mb-20">
-          <h2 id="avantages-heading" class="text-4xl sm:text-5xl font-bold text-asp-black mb-6">Pourquoi Choisir ASP Services ?</h2>
-          <p class="text-xl sm:text-2xl text-asp-gray-600 max-w-3xl mx-auto leading-relaxed">
+          <h2 id="avantages-heading" class="avantages-title text-4xl sm:text-5xl font-bold text-asp-black mb-6 opacity-0">Pourquoi Choisir ASP Services ?</h2>
+          <p class="avantages-description text-xl sm:text-2xl text-asp-gray-600 max-w-3xl mx-auto leading-relaxed opacity-0">
             Notre engagement : votre satisfaction et la qualité de nos réalisations
           </p>
         </div>
@@ -721,82 +824,105 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-10 lg:gap-12" role="list">
           <!-- Garantie 1 : Qualité -->
           <div 
-            class="bg-gradient-to-br from-asp-blue-50 to-white rounded-2xl p-10 border-2 border-asp-blue-100 hover:border-asp-blue-300 transition-all duration-300 hover:shadow-lg focus-within:ring-4 focus-within:ring-asp-blue-300"
+            class="avantage-card group bg-white/80 backdrop-blur-sm rounded-2xl p-8 border-2 border-asp-blue-100 hover:border-asp-blue-400 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 focus-within:ring-4 focus-within:ring-asp-blue-300 opacity-0 overflow-hidden relative"
             tabindex="0"
             role="listitem"
             aria-labelledby="garantie-qualite"
           >
-            <div class="w-16 h-16 bg-asp-blue-600 rounded-xl flex items-center justify-center mb-8" aria-hidden="true">
-              <Shield class="w-9 h-9 text-white" />
+            <!-- Gradient Overlay on Hover -->
+            <div class="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            
+            <div class="relative z-10">
+              <div class="w-16 h-16 bg-asp-blue-600 rounded-xl flex items-center justify-center mb-6 transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300" aria-hidden="true">
+                <Shield class="w-9 h-9 text-white" />
+              </div>
+              <h3 id="garantie-qualite" class="text-2xl font-bold text-asp-black mb-5 group-hover:text-asp-blue-600 transition-colors">Garantie Qualité</h3>
+              <p class="text-asp-gray-600 leading-relaxed mb-6">
+                Nous utilisons uniquement des matériaux premium et des équipements professionnels de dernière génération pour garantir la durabilité de nos réalisations.
+              </p>
+              <ul class="space-y-3" role="list">
+                <li class="flex items-center gap-3 text-sm text-asp-gray-700" role="listitem">
+                  <Check class="w-5 h-5 text-asp-blue-600 flex-shrink-0" aria-hidden="true" />
+                  Matériaux certifiés
+                </li>
+                <li class="flex items-center gap-3 text-sm text-asp-gray-700" role="listitem">
+                  <Check class="w-5 h-5 text-asp-blue-600 flex-shrink-0" aria-hidden="true" />
+                  Équipement MUTOH professionnel
+                </li>
+                <li class="flex items-center gap-3 text-sm text-asp-gray-700" role="listitem">
+                  <Check class="w-5 h-5 text-asp-blue-600 flex-shrink-0" aria-hidden="true" />
+                  Garantie sur nos travaux
+                </li>
+              </ul>
             </div>
-            <h3 id="garantie-qualite" class="text-2xl font-bold text-asp-black mb-5">Garantie Qualité</h3>
-            <p class="text-asp-gray-600 leading-relaxed mb-6">
-              Nous utilisons uniquement des matériaux premium et des équipements professionnels de dernière génération pour garantir la durabilité de nos réalisations.
-            </p>
-            <ul class="space-y-3" role="list">
-              <li class="flex items-center gap-3 text-sm text-asp-gray-700" role="listitem">
-                <Check class="w-5 h-5 text-asp-blue-600 flex-shrink-0" aria-hidden="true" />
-                Matériaux certifiés
-              </li>
-              <li class="flex items-center gap-2 text-sm text-asp-gray-700">
-                <Check class="w-4 h-4 text-asp-blue-600 flex-shrink-0" />
-                Équipement MUTOH professionnel
-              </li>
-              <li class="flex items-center gap-2 text-sm text-asp-gray-700">
-                <Check class="w-4 h-4 text-asp-blue-600 flex-shrink-0" />
-                Garantie sur nos travaux
-              </li>
-            </ul>
           </div>
 
           <!-- Garantie 2 : Rapidité -->
-          <div class="bg-gradient-to-br from-asp-blue-50 to-white rounded-2xl p-8 border-2 border-asp-blue-100 hover:border-asp-blue-300 transition-all duration-300 hover:shadow-lg">
-            <div class="w-16 h-16 bg-asp-blue-600 rounded-xl flex items-center justify-center mb-6">
-              <Clock class="w-8 h-8 text-white" />
+          <div 
+            class="avantage-card group bg-white/80 backdrop-blur-sm rounded-2xl p-8 border-2 border-asp-blue-100 hover:border-asp-blue-400 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 focus-within:ring-4 focus-within:ring-asp-blue-300 opacity-0 overflow-hidden relative"
+            tabindex="0"
+            role="listitem"
+            aria-labelledby="garantie-rapidite"
+          >
+            <div class="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            
+            <div class="relative z-10">
+              <div class="w-16 h-16 bg-asp-blue-600 rounded-xl flex items-center justify-center mb-6 transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300" aria-hidden="true">
+                <Clock class="w-9 h-9 text-white" />
+              </div>
+              <h3 id="garantie-rapidite" class="text-2xl font-bold text-asp-black mb-5 group-hover:text-asp-blue-600 transition-colors">Rapidité d'Exécution</h3>
+              <p class="text-asp-gray-600 leading-relaxed mb-6">
+                Nous nous engageons à respecter les délais convenus. Votre temps est précieux, nous le savons et nous le respectons.
+              </p>
+              <ul class="space-y-3" role="list">
+                <li class="flex items-center gap-3 text-sm text-asp-gray-700" role="listitem">
+                  <Check class="w-5 h-5 text-asp-blue-600 flex-shrink-0" aria-hidden="true" />
+                  Devis sous 24h
+                </li>
+                <li class="flex items-center gap-3 text-sm text-asp-gray-700" role="listitem">
+                  <Check class="w-5 h-5 text-asp-blue-600 flex-shrink-0" aria-hidden="true" />
+                  Intervention rapide
+                </li>
+                <li class="flex items-center gap-3 text-sm text-asp-gray-700" role="listitem">
+                  <Check class="w-5 h-5 text-asp-blue-600 flex-shrink-0" aria-hidden="true" />
+                  Respect des délais
+                </li>
+              </ul>
             </div>
-            <h3 class="text-2xl font-bold text-asp-black mb-4">Rapidité d'Exécution</h3>
-            <p class="text-asp-gray-600 leading-relaxed mb-4">
-              Nous nous engageons à respecter les délais convenus. Votre temps est précieux, nous le savons et nous le respectons.
-            </p>
-            <ul class="space-y-2">
-              <li class="flex items-center gap-2 text-sm text-asp-gray-700">
-                <Check class="w-4 h-4 text-asp-blue-600 flex-shrink-0" />
-                Devis sous 24h
-              </li>
-              <li class="flex items-center gap-2 text-sm text-asp-gray-700">
-                <Check class="w-4 h-4 text-asp-blue-600 flex-shrink-0" />
-                Intervention rapide
-              </li>
-              <li class="flex items-center gap-2 text-sm text-asp-gray-700">
-                <Check class="w-4 h-4 text-asp-blue-600 flex-shrink-0" />
-                Respect des délais
-              </li>
-            </ul>
           </div>
 
           <!-- Garantie 3 : Professionnalisme -->
-          <div class="bg-gradient-to-br from-asp-blue-50 to-white rounded-2xl p-8 border-2 border-asp-blue-100 hover:border-asp-blue-300 transition-all duration-300 hover:shadow-lg">
-            <div class="w-16 h-16 bg-asp-blue-600 rounded-xl flex items-center justify-center mb-6">
-              <Award class="w-8 h-8 text-white" />
+          <div 
+            class="avantage-card group bg-white/80 backdrop-blur-sm rounded-2xl p-8 border-2 border-asp-blue-100 hover:border-asp-blue-400 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 focus-within:ring-4 focus-within:ring-asp-blue-300 opacity-0 overflow-hidden relative"
+            tabindex="0"
+            role="listitem"
+            aria-labelledby="garantie-pro"
+          >
+            <div class="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            
+            <div class="relative z-10">
+              <div class="w-16 h-16 bg-asp-blue-600 rounded-xl flex items-center justify-center mb-6 transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300" aria-hidden="true">
+                <Award class="w-9 h-9 text-white" />
+              </div>
+              <h3 id="garantie-pro" class="text-2xl font-bold text-asp-black mb-5 group-hover:text-asp-blue-600 transition-colors">Professionnalisme</h3>
+              <p class="text-asp-gray-600 leading-relaxed mb-6">
+                Une équipe expérimentée et passionnée, à votre écoute pour transformer vos idées en réalité avec expertise et créativité.
+              </p>
+              <ul class="space-y-3" role="list">
+                <li class="flex items-center gap-3 text-sm text-asp-gray-700" role="listitem">
+                  <Check class="w-5 h-5 text-asp-blue-600 flex-shrink-0" aria-hidden="true" />
+                  Équipe qualifiée
+                </li>
+                <li class="flex items-center gap-3 text-sm text-asp-gray-700" role="listitem">
+                  <Check class="w-5 h-5 text-asp-blue-600 flex-shrink-0" aria-hidden="true" />
+                  Conseil personnalisé
+                </li>
+                <li class="flex items-center gap-3 text-sm text-asp-gray-700" role="listitem">
+                  <Check class="w-5 h-5 text-asp-blue-600 flex-shrink-0" aria-hidden="true" />
+                  Suivi de projet
+                </li>
+              </ul>
             </div>
-            <h3 class="text-2xl font-bold text-asp-black mb-4">Professionnalisme</h3>
-            <p class="text-asp-gray-600 leading-relaxed mb-4">
-              Une équipe expérimentée et passionnée, à votre écoute pour transformer vos idées en réalité avec expertise et créativité.
-            </p>
-            <ul class="space-y-2">
-              <li class="flex items-center gap-2 text-sm text-asp-gray-700">
-                <Check class="w-4 h-4 text-asp-blue-600 flex-shrink-0" />
-                Équipe qualifiée
-              </li>
-              <li class="flex items-center gap-2 text-sm text-asp-gray-700">
-                <Check class="w-4 h-4 text-asp-blue-600 flex-shrink-0" />
-                Conseil personnalisé
-              </li>
-              <li class="flex items-center gap-2 text-sm text-asp-gray-700">
-                <Check class="w-4 h-4 text-asp-blue-600 flex-shrink-0" />
-                Suivi de projet
-              </li>
-            </ul>
           </div>
         </div>
       </div>
@@ -807,8 +933,13 @@
 
 
     <!-- Chiffres Clés -->
-    <section ref="statsSection" class="py-24 bg-asp-blue-600" aria-labelledby="stats-heading">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section ref="statsSection" class="py-24 bg-asp-blue-600 relative overflow-hidden" aria-labelledby="stats-heading">
+      <!-- Decorative Elements -->
+      <div class="absolute top-10 left-10 w-96 h-96 bg-yellow-400/30 rounded-full blur-3xl animate-pulse"></div>
+      <div class="absolute bottom-10 right-10 w-80 h-80 bg-blue-400/30 rounded-full blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-white/10 rounded-full blur-3xl animate-pulse" style="animation-delay: 0.5s;"></div>
+      
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="text-center mb-16">
           <h2 id="stats-heading" class="text-4xl sm:text-5xl font-bold text-white mb-6">ASP Services en Chiffres</h2>
           <p class="text-xl sm:text-2xl text-blue-100 leading-relaxed">Notre expertise en quelques chiffres</p>
@@ -1083,6 +1214,244 @@ const prevTestimonial = () => {
 
 // Auto-play carousel
 onMounted(() => {
+  // ✨ ANIME.JS via CDN (plus fiable pour Nuxt)
+  if (process.client) {
+    // Charger anime.js via CDN si pas déjà chargé
+    if (!(window as any).anime) {
+      const script = document.createElement('script')
+      script.src = 'https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js'
+      script.onload = () => {
+        console.log('✅ Anime.js chargé via CDN')
+        initAnimations()
+      }
+      script.onerror = () => {
+        console.error('❌ Erreur chargement anime.js')
+        showContentWithoutAnimations()
+      }
+      document.head.appendChild(script)
+    } else {
+      console.log('✅ Anime.js déjà disponible')
+      initAnimations()
+    }
+  }
+  
+  // Fonction pour initialiser les animations
+  function initAnimations() {
+    const anime = (window as any).anime
+    
+    if (typeof anime !== 'function') {
+      console.error('❌ anime n\'est pas une fonction')
+      showContentWithoutAnimations()
+      return
+    }
+    
+    setTimeout(() => {
+      console.log('🎬 Lancement des animations...')
+      
+      // 1. Hero Title
+      anime({
+        targets: '.hero-title',
+        opacity: [0, 1],
+        translateY: [50, 0],
+        duration: 1200,
+        easing: 'easeOutExpo',
+        delay: 300
+      })
+      
+      // 2. Hero Description
+      anime({
+        targets: '.hero-description',
+        opacity: [0, 1],
+        translateY: [30, 0],
+        duration: 1000,
+        easing: 'easeOutExpo',
+        delay: 600
+      })
+      
+      // 3. Hero Features (staggered)
+      anime({
+        targets: '.hero-feature',
+        opacity: [0, 1],
+        translateX: [-30, 0],
+        duration: 800,
+        easing: 'easeOutExpo',
+        delay: anime.stagger(100, { start: 900 })
+      })
+      
+      // 4. CTA Button
+      anime({
+        targets: '.hero-cta',
+        opacity: [0, 1],
+        scale: [0.8, 1],
+        duration: 1000,
+        easing: 'easeOutElastic(1, .8)',
+        delay: 1200
+      })
+      
+      // 5. Carousel Card
+      anime({
+        targets: '.carousel-card',
+        opacity: [0, 1],
+        translateX: [100, 0],
+        rotate: [5, 0],
+        duration: 1400,
+        easing: 'easeOutExpo',
+        delay: 800
+      })
+      
+      // 6. Floating Shapes
+      anime({
+        targets: '.floating-shape',
+        opacity: [0, 1],
+        scale: [0, 1],
+        duration: 2000,
+        easing: 'easeOutElastic(1, .6)',
+        delay: anime.stagger(200)
+      })
+      
+      // 7. Continuous Float
+      anime({
+        targets: '.floating-circle',
+        translateY: ['-20px', '20px'],
+        duration: 4000,
+        easing: 'easeInOutSine',
+        direction: 'alternate',
+        loop: true
+      })
+      
+      console.log('✨ Animations activées !')
+    }, 150)
+  }
+  
+  // Services Section Animations avec Intersection Observer
+  const setupServicesAnimations = () => {
+    if (!window.anime) {
+      console.warn('⚠️ anime.js non disponible pour les animations Services')
+      return
+    }
+    
+    const servicesObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          console.log('🎯 Section Services visible - lancement animations')
+          
+          // Animate Title
+          anime({
+            targets: '.services-title',
+            opacity: [0, 1],
+            translateY: [-40, 0],
+            duration: 1000,
+            easing: 'easeOutExpo'
+          })
+          
+          // Animate Description
+          anime({
+            targets: '.services-description',
+            opacity: [0, 1],
+            translateY: [-30, 0],
+            duration: 1000,
+            easing: 'easeOutExpo',
+            delay: 200
+          })
+          
+          // Animate Service Cards (staggered - one by one)
+          anime({
+            targets: '.service-card',
+            opacity: [0, 1],
+            translateY: [60, 0],
+            scale: [0.9, 1],
+            duration: 800,
+            easing: 'easeOutExpo',
+            delay: anime.stagger(120, { start: 400 }) // 120ms between each card
+          })
+          
+          // Disconnect observer after animation
+          servicesObserver.disconnect()
+        }
+      })
+    }, {
+      threshold: 0.2, // Trigger when 20% visible
+      rootMargin: '0px 0px -100px 0px' // Trigger 100px before entering viewport
+    })
+    
+    // Observe services title
+    const servicesTitle = document.querySelector('.services-title')
+    if (servicesTitle) {
+      servicesObserver.observe(servicesTitle)
+    }
+  }
+  
+  // Setup services animations after mount
+  setTimeout(() => {
+    setupServicesAnimations()
+    setupAvantagesAnimations()
+  }, 500)
+  
+  // Avantages Section Animations avec Intersection Observer
+  const setupAvantagesAnimations = () => {
+    if (!window.anime) {
+      console.warn('⚠️ anime.js non disponible pour les animations Avantages')
+      return
+    }
+    
+    const avantagesObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          console.log('🎯 Section Avantages visible - lancement animations')
+          
+          // Animate Title
+          anime({
+            targets: '.avantages-title',
+            opacity: [0, 1],
+            translateY: [-40, 0],
+            duration: 1000,
+            easing: 'easeOutExpo'
+          })
+          
+          // Animate Description
+          anime({
+            targets: '.avantages-description',
+            opacity: [0, 1],
+            translateY: [-30, 0],
+            duration: 1000,
+            easing: 'easeOutExpo',
+            delay: 200
+          })
+          
+          // Animate Avantage Cards (staggered)
+          anime({
+            targets: '.avantage-card',
+            opacity: [0, 1],
+            translateY: [60, 0],
+            scale: [0.9, 1],
+            duration: 800,
+            easing: 'easeOutExpo',
+            delay: anime.stagger(100, { start: 400 })
+          })
+          
+          // Disconnect observer after animation
+          avantagesObserver.disconnect()
+        }
+      })
+    }, {
+      threshold: 0.2,
+      rootMargin: '0px 0px -100px 0px'
+    })
+    
+    // Observe avantages title
+    const avantagesTitle = document.querySelector('.avantages-title')
+    if (avantagesTitle) {
+      avantagesObserver.observe(avantagesTitle)
+    }
+  }
+  
+  // Fallback : afficher sans animations
+  function showContentWithoutAnimations() {
+    document.querySelectorAll('.hero-title, .hero-description, .hero-feature, .hero-cta, .carousel-card, .floating-shape').forEach(el => {
+      (el as HTMLElement).style.opacity = '1'
+    })
+  }
+  
   // Carousel auto-play
   setInterval(() => {
     nextSlide()
@@ -1281,8 +1650,6 @@ const submitQuoteForm = async () => {
   }
 }
 
-/* Animation de flottement supprimée - design professionnel */
-
 /* Scrollbar personnalisée pour les thumbnails */
 .scrollbar-thin::-webkit-scrollbar {
   height: 4px;
@@ -1322,6 +1689,115 @@ const submitQuoteForm = async () => {
 
 .testimonial-card {
   min-width: 384px;
+}
+
+/* Animations pour les éléments décoratifs */
+@keyframes pulse-slow {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes pulse-slower {
+  0%, 100% {
+    opacity: 0.2;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes spin-very-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin-reverse-slow {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(45deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(45deg);
+  }
+}
+
+@keyframes float-delayed {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+@keyframes scroll-down {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 8s ease-in-out infinite;
+}
+
+.animate-pulse-slower {
+  animation: pulse-slower 10s ease-in-out infinite;
+}
+
+.animate-spin-very-slow {
+  animation: spin-very-slow 60s linear infinite;
+}
+
+.animate-spin-reverse-slow {
+  animation: spin-reverse-slow 45s linear infinite;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: float-delayed 7s ease-in-out infinite 2s;
+}
+
+.animate-scroll-down {
+  animation: scroll-down 2s ease-in-out infinite;
+}
+
+/* Grille de points décorative */
+.grid-dots {
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.15) 1px, transparent 1px);
+  background-size: 30px 30px;
 }
 </style>
 
