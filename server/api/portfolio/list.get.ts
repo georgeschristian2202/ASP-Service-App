@@ -3,9 +3,31 @@ import { join } from 'path'
 
 export default defineEventHandler(async (event) => {
   try {
-    // Lire le fichier portfolio.json
-    const portfolioFilePath = join(process.cwd(), 'data', 'portfolio.json')
-    const portfolioData = JSON.parse(readFileSync(portfolioFilePath, 'utf-8'))
+    // Méthode 1 : Essayer de lire depuis serverAssets (production Vercel)
+    let portfolioData
+    
+    try {
+      const assets = useStorage('assets:data')
+      const rawData = await assets.getItem('portfolio.json')
+      portfolioData = rawData ? JSON.parse(rawData as string) : null
+      console.log('✅ Portfolio chargé depuis serverAssets (Vercel)')
+    } catch (serverAssetsError) {
+      console.log('⚠️ serverAssets non disponible, essai fichier local...')
+      
+      // Méthode 2 : Fallback - Lire depuis le système de fichiers (développement local)
+      try {
+        const portfolioFilePath = join(process.cwd(), 'data', 'portfolio.json')
+        portfolioData = JSON.parse(readFileSync(portfolioFilePath, 'utf-8'))
+        console.log('✅ Portfolio chargé depuis fichier local')
+      } catch (fsError) {
+        console.error('❌ Erreur lecture fichier local:', fsError)
+        throw fsError
+      }
+    }
+
+    if (!portfolioData || !portfolioData.items) {
+      throw new Error('Portfolio data is empty or invalid')
+    }
 
     // Récupérer les paramètres de requête
     const query = getQuery(event)

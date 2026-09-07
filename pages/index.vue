@@ -1,131 +1,193 @@
 <template>
   <div class="bg-white">
     <!-- Hero Section avec carousel -->
-    <section class="relative min-h-screen bg-gradient-to-br from-asp-blue-900 to-asp-blue-700 pt-20">
+    <section 
+      class="relative min-h-screen bg-gradient-to-br from-asp-blue-900 to-asp-blue-700 pt-20"
+      aria-label="Section principale - Services de signalétique"
+    >
 
       <!-- Hero Content -->
-      <div class="relative z-5 pt-28 pb-20 px-4 sm:px-6 lg:px-8">
+      <div class="relative z-5 pt-32 pb-24 px-4 sm:px-6 lg:px-8 md:pt-40 md:pb-32">
         <div class="max-w-7xl mx-auto">
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 items-center">
             <!-- Texte Hero -->
-            <div class="text-white">
-              <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full mb-6 border border-white/20">
-                <Star class="w-4 h-4 text-yellow-400 fill-yellow-400" />
-                <span class="text-sm font-medium">Leader de l'industrie graphique au Gabon</span>
-              </div>
-              
-              <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+            <div class="text-white space-y-6">
+              <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-8 leading-tight"
+                  role="heading"
+                  aria-level="1">
                 Votre Expert en
                 <span class="text-yellow-400">Signalétique</span>
                 <br />
                 <span class="inline-block relative h-16 w-full min-w-[300px]">
-                  <span 
-                    class="text-blue-300 absolute left-0 whitespace-nowrap transition-opacity duration-500 ease-in-out"
-                    :class="{ 'opacity-100': isTextVisible, 'opacity-0': !isTextVisible }"
-                  >
-                    {{ rotatingText }}
-                  </span>
+                  <ScrambleText 
+                    :texts="rotatingTexts" 
+                    :interval="3500"
+                    class="absolute left-0"
+                  />
                 </span>
               </h1>
               
-              <p class="text-lg sm:text-xl text-white/90 mb-8 leading-relaxed max-w-xl">
+              <p class="text-lg sm:text-xl text-white/90 mb-10 leading-relaxed max-w-xl">
                 De la conception à la réalisation, ASP Services vous accompagne dans tous vos projets 
                 de signalétique, marquage au sol et impression grand format à Libreville.
               </p>
 
               <!-- Points clés -->
-              <div class="flex flex-wrap gap-4 mb-8">
-                <div class="flex items-center gap-2">
-                  <CheckCircle2 class="w-5 h-5 text-green-400" />
-                  <span class="text-sm">Devis gratuit 24h</span>
+              <div class="flex flex-wrap gap-6 mb-10" role="list" aria-label="Avantages ASP Services">
+                <div class="flex items-center gap-2" role="listitem">
+                  <CheckCircle2 class="w-6 h-6 text-green-400" aria-hidden="true" />
+                  <span class="text-sm sm:text-base">Devis gratuit 24h</span>
                 </div>
-                <div class="flex items-center gap-2">
-                  <CheckCircle2 class="w-5 h-5 text-green-400" />
-                  <span class="text-sm">Équipement MUTOH</span>
+                <div class="flex items-center gap-2" role="listitem">
+                  <CheckCircle2 class="w-6 h-6 text-green-400" aria-hidden="true" />
+                  <span class="text-sm sm:text-base">Équipement MUTOH</span>
                 </div>
-                <div class="flex items-center gap-2">
-                  <CheckCircle2 class="w-5 h-5 text-green-400" />
-                  <span class="text-sm">Installation incluse</span>
+                <div class="flex items-center gap-2" role="listitem">
+                  <CheckCircle2 class="w-6 h-6 text-green-400" aria-hidden="true" />
+                  <span class="text-sm sm:text-base">Installation incluse</span>
                 </div>
               </div>
 
               <div class="flex flex-col sm:flex-row gap-4">
                 <button
                   @click="showQuoteModal = true"
-                  class="bg-yellow-500 hover:bg-yellow-600 text-white px-8 py-4 rounded-lg font-semibold transition-colors duration-200 inline-flex items-center justify-center gap-2 cursor-pointer shadow-lg hover:shadow-xl"
+                  class="bg-yellow-500 hover:bg-yellow-600 text-white px-8 py-4 rounded-lg font-semibold transition-all duration-200 inline-flex items-center justify-center gap-2 cursor-pointer shadow-lg hover:shadow-xl hover:scale-105 focus:outline-none focus:ring-4 focus:ring-yellow-300"
+                  aria-label="Obtenir un devis gratuit - Ouvre un formulaire de contact"
+                  type="button"
                 >
-                  <FileText class="w-5 h-5" />
+                  <FileText class="w-5 h-5" aria-hidden="true" />
                   Obtenir un Devis Gratuit
                 </button>
               </div>
             </div>
 
-            <!-- Carousel des œuvres -->
-            <div class="relative animate-float">
-              <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border border-white/20">
-                <h3 class="text-white text-2xl font-bold mb-6 text-center">Projets Récents</h3>
+            <!-- Carousel des œuvres - Design Professionnel -->
+            <div class="relative" role="region" aria-label="Projets récents de ASP Services">
+              <div class="bg-gradient-to-br from-slate-900/95 to-slate-800/95 backdrop-blur-md rounded-2xl border border-white/10 overflow-hidden shadow-2xl">
+                <!-- Header -->
+                <div class="px-6 sm:px-8 pt-8 pb-6 border-b border-white/10">
+                  <h3 class="text-white text-2xl font-bold">Projets Récents</h3>
+                  <p class="text-slate-300 text-sm mt-1">Découvrez nos dernières réalisations</p>
+                </div>
                 
                 <!-- Carousel Container -->
-                <div class="relative overflow-hidden rounded-xl shadow-2xl">
-                  <div 
-                    class="flex transition-transform duration-500 ease-in-out"
-                    :style="{ transform: `translateX(-${currentSlide * 100}%)` }"
-                  >
-                    <div
-                      v-for="(project, index) in projects"
-                      :key="index"
-                      class="w-full flex-shrink-0"
+                <div class="relative" role="group" aria-roledescription="carousel" aria-label="Galerie de projets">
+                  <!-- Main Image Display -->
+                  <div class="relative overflow-hidden" style="height: 420px;" aria-live="polite" aria-atomic="true">
+                    <div 
+                      class="flex transition-transform duration-700 ease-out h-full"
+                      :style="{ transform: `translateX(-${currentSlide * 100}%)` }"
                     >
-                      <div class="relative group cursor-pointer" @click="openProjectModal(project)">
+                      <div
+                        v-for="(project, index) in projects"
+                        :key="index"
+                        class="w-full flex-shrink-0 h-full relative group"
+                      >
+                        <!-- Image -->
                         <img
                           :src="project.image"
-                          :alt="project.title"
-                          class="w-full h-80 object-cover rounded-lg"
+                          :alt="`${project.title} - ${project.description}`"
+                          class="w-full h-full object-cover"
                           @error="handleProjectImageError"
+                          loading="lazy"
                         >
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent rounded-lg flex items-end transition-opacity duration-300">
-                          <div class="p-6 text-white w-full">
-                            <h4 class="text-xl font-bold mb-2">{{ project.title }}</h4>
-                            <p class="text-sm text-white/90 mb-3">{{ project.description }}</p>
-                            <div class="flex items-center gap-2">
-                              <MapPin class="w-4 h-4 text-green-400" />
+                        
+                        <!-- Gradient Overlay -->
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/60 to-transparent opacity-80"></div>
+                        
+                        <!-- Content Overlay -->
+                        <div class="absolute inset-0 flex flex-col justify-end p-6 sm:p-8">
+                          <div class="transform transition-all duration-300 group-hover:translate-y-0 translate-y-2">
+                            <div class="inline-block px-3 py-1 bg-blue-500/90 backdrop-blur-sm rounded-full text-xs font-semibold text-white mb-3">
+                              Projet #{{ index + 1 }}
+                            </div>
+                            <h4 class="text-white text-2xl sm:text-3xl font-bold mb-2 leading-tight">
+                              {{ project.title }}
+                            </h4>
+                            <p class="text-slate-200 text-sm sm:text-base mb-3 line-clamp-2">
+                              {{ project.description }}
+                            </p>
+                            <div class="flex items-center gap-2 text-slate-300">
+                              <MapPin class="w-4 h-4 text-blue-400 flex-shrink-0" aria-hidden="true" />
                               <span class="text-sm">{{ project.location }}</span>
                             </div>
                           </div>
                         </div>
+                        
+                        <!-- Click overlay - Supprimé car non nécessaire -->
                       </div>
                     </div>
                   </div>
 
-                  <!-- Navigation arrows -->
+                  <!-- Navigation Arrows - Modern Design -->
                   <button
                     @click="prevSlide"
-                    class="absolute left-3 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white p-3 rounded-full transition-all duration-200 cursor-pointer"
-                    aria-label="Image précédente"
+                    class="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white rounded-full transition-all duration-300 cursor-pointer flex items-center justify-center group shadow-lg hover:scale-110 focus:outline-none focus:ring-4 focus:ring-white/30"
+                    aria-label="Voir le projet précédent"
+                    type="button"
                   >
-                    <ChevronLeft class="w-5 h-5" />
+                    <ChevronLeft class="w-6 h-6 group-hover:-translate-x-0.5 transition-transform" aria-hidden="true" />
                   </button>
                   <button
                     @click="nextSlide"
-                    class="absolute right-3 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white p-3 rounded-full transition-all duration-200 cursor-pointer"
-                    aria-label="Image suivante"
+                    class="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white rounded-full transition-all duration-300 cursor-pointer flex items-center justify-center group shadow-lg hover:scale-110 focus:outline-none focus:ring-4 focus:ring-white/30"
+                    aria-label="Voir le projet suivant"
+                    type="button"
                   >
-                    <ChevronRight class="w-5 h-5" />
+                    <ChevronRight class="w-6 h-6 group-hover:translate-x-0.5 transition-transform" aria-hidden="true" />
                   </button>
                 </div>
 
-                <!-- Indicators -->
-                <div class="flex justify-center gap-2 mt-6">
-                  <button
-                    v-for="(_, index) in projects"
-                    :key="index"
-                    @click="currentSlide = index"
-                    :class="[
-                      'w-2.5 h-2.5 rounded-full transition-all duration-300 cursor-pointer',
-                      currentSlide === index ? 'bg-white w-8' : 'bg-white/50 hover:bg-white/70'
-                    ]"
-                    :aria-label="`Aller au projet ${index + 1}`"
-                  />
+                <!-- Thumbnails Navigation -->
+                <div class="px-6 sm:px-8 py-6 bg-slate-900/50" role="tablist" aria-label="Sélection rapide des projets">
+                  <div class="flex gap-3 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-transparent">
+                    <button
+                      v-for="(project, index) in projects"
+                      :key="`thumb-${index}`"
+                      @click="currentSlide = index"
+                      :class="[
+                        'flex-shrink-0 w-20 h-20 sm:w-24 sm:h-24 rounded-lg overflow-hidden border-2 transition-all duration-300 cursor-pointer relative group',
+                        currentSlide === index 
+                          ? 'border-blue-500 ring-2 ring-blue-500/50 scale-105' 
+                          : 'border-white/20 hover:border-white/40 opacity-60 hover:opacity-100'
+                      ]"
+                      :aria-label="`Aller au projet ${index + 1}: ${project.title}`"
+                      :aria-selected="currentSlide === index"
+                      role="tab"
+                      type="button"
+                    >
+                      <img
+                        :src="project.image"
+                        :alt="`Miniature du projet ${project.title}`"
+                        class="w-full h-full object-cover"
+                        @error="handleProjectImageError"
+                        loading="lazy"
+                      >
+                      <div 
+                        v-if="currentSlide === index"
+                        class="absolute inset-0 bg-blue-500/20 flex items-center justify-center"
+                      >
+                        <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                      </div>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Progress Indicators -->
+                <div class="px-6 pb-6 flex items-center justify-center gap-8 text-slate-400 text-sm">
+                  <span class="font-medium" aria-live="polite" aria-atomic="true">Projet {{ currentSlide + 1 }} sur {{ projects.length }}</span>
+                  <div class="flex gap-1.5" role="presentation" aria-hidden="true">
+                    <div
+                      v-for="(_, index) in projects"
+                      :key="`indicator-${index}`"
+                      :class="[
+                        'h-1 rounded-full transition-all duration-300',
+                        currentSlide === index 
+                          ? 'w-8 bg-blue-500' 
+                          : 'w-1.5 bg-slate-600 hover:bg-slate-500'
+                      ]"
+                    ></div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -135,95 +197,114 @@
     </section>
 
     <!-- Services Section -->
-    <section class="py-12 bg-white">
-      <div class="max-w-7xl mx-auto px-4">
-        <div class="text-center mb-16 reveal">
-          <h2 class="text-4xl font-bold text-asp-black mb-4">Nos Services</h2>
-          <p class="text-xl text-asp-gray-600 max-w-2xl mx-auto">
+    <section class="py-20 bg-white" aria-labelledby="services-heading">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-20 reveal">
+          <h2 id="services-heading" class="text-4xl sm:text-5xl font-bold text-asp-black mb-6">Nos Services</h2>
+          <p class="text-xl sm:text-2xl text-asp-gray-600 max-w-3xl mx-auto leading-relaxed">
             Solutions complètes pour tous vos besoins en signalétique et impression
           </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 lg:gap-10">
           <!-- Service 1 -->
-          <NuxtLink to="/services?service=signaletique" class="block bg-white border border-asp-gray-200 rounded-xl p-8 hover:shadow-lg transition-all duration-200 hover:-translate-y-1 cursor-pointer reveal reveal-delay-1">
-            <div class="text-asp-blue-600 mb-4">
-              <Building class="w-12 h-12" />
+          <NuxtLink 
+            to="/services?service=signaletique" 
+            class="block bg-white border border-asp-gray-200 rounded-xl p-8 hover:shadow-lg transition-all duration-200 hover:-translate-y-1 cursor-pointer reveal reveal-delay-1 focus:outline-none focus:ring-4 focus:ring-asp-blue-300"
+            aria-label="En savoir plus sur nos services de signalétique"
+          >
+            <div class="text-asp-blue-600 mb-6" aria-hidden="true">
+              <Building class="w-14 h-14" />
             </div>
-            <h3 class="text-xl font-bold text-asp-black mb-3">Signalétique</h3>
-            <p class="text-asp-gray-600 mb-4">
+            <h3 class="text-xl font-bold text-asp-black mb-4">Signalétique</h3>
+            <p class="text-asp-gray-600 mb-6 leading-relaxed">
               Panneaux d'entreprise, enseignes lumineuses et signalisation directionnelle sur mesure.
             </p>
-            <ul class="text-sm text-asp-gray-600 space-y-1">
-              <li class="flex items-center gap-2">
-                <Check class="w-4 h-4 text-green-600" />
+            <ul class="text-sm text-asp-gray-600 space-y-2" role="list">
+              <li class="flex items-center gap-3" role="listitem">
+                <Check class="w-5 h-5 text-green-600 flex-shrink-0" aria-hidden="true" />
                 Enseignes lumineuses
               </li>
-              <li class="flex items-center gap-2">
-                <Check class="w-4 h-4 text-green-600" />
+              <li class="flex items-center gap-3" role="listitem">
+                <Check class="w-5 h-5 text-green-600 flex-shrink-0" aria-hidden="true" />
                 Panneaux directionnels
               </li>
-              <li class="flex items-center gap-2">
-                <Check class="w-4 h-4 text-green-600" />
+              <li class="flex items-center gap-3" role="listitem">
+                <Check class="w-5 h-5 text-green-600 flex-shrink-0" aria-hidden="true" />
                 Plaques professionnelles
               </li>
             </ul>
           </NuxtLink>
 
           <!-- Service 2 -->
-          <div class="bg-white border border-asp-gray-200 rounded-xl p-8 hover:shadow-lg transition-all duration-200 hover:-translate-y-1 cursor-pointer reveal">
-            <div class="text-asp-blue-600 mb-4">
-              <Car class="w-12 h-12" />
+          <div 
+            class="bg-white border border-asp-gray-200 rounded-xl p-8 hover:shadow-lg transition-all duration-200 hover:-translate-y-1 cursor-pointer reveal focus-within:ring-4 focus-within:ring-asp-blue-300"
+            tabindex="0"
+            role="article"
+            aria-labelledby="service-marquage"
+          >
+            <div class="text-asp-blue-600 mb-6" aria-hidden="true">
+              <Car class="w-14 h-14" />
             </div>
-            <h3 class="text-xl font-bold text-asp-black mb-3">Marquage au Sol</h3>
-            <p class="text-asp-gray-600 mb-4">
+            <h3 id="service-marquage" class="text-xl font-bold text-asp-black mb-4">Marquage au Sol</h3>
+            <p class="text-asp-gray-600 mb-6 leading-relaxed">
               Traçage professionnel pour parkings, zones industrielles et terrains de sport.
             </p>
-            <ul class="text-sm text-asp-gray-600 space-y-1">
-              <li class="flex items-center gap-2">
-                <Check class="w-4 h-4 text-green-600" />
+            <ul class="text-sm text-asp-gray-600 space-y-2" role="list">
+              <li class="flex items-center gap-3" role="listitem">
+                <Check class="w-5 h-5 text-green-600 flex-shrink-0" aria-hidden="true" />
                 Parkings et stationnements
               </li>
-              <li class="flex items-center gap-2">
-                <Check class="w-4 h-4 text-green-600" />
+              <li class="flex items-center gap-3" role="listitem">
+                <Check class="w-5 h-5 text-green-600 flex-shrink-0" aria-hidden="true" />
                 Zones industrielles
               </li>
-              <li class="flex items-center gap-2">
-                <Check class="w-4 h-4 text-green-600" />
+              <li class="flex items-center gap-3" role="listitem">
+                <Check class="w-5 h-5 text-green-600 flex-shrink-0" aria-hidden="true" />
                 Terrains de sport
               </li>
             </ul>
           </div>
 
           <!-- Service 3 -->
-          <div class="bg-white border border-asp-gray-200 rounded-xl p-8 hover:shadow-lg transition-all duration-200 hover:-translate-y-1 cursor-pointer reveal">
-            <div class="text-asp-blue-600 mb-4">
-              <Printer class="w-12 h-12" />
+          <div 
+            class="bg-white border border-asp-gray-200 rounded-xl p-8 hover:shadow-lg transition-all duration-200 hover:-translate-y-1 cursor-pointer reveal focus-within:ring-4 focus-within:ring-asp-blue-300"
+            tabindex="0"
+            role="article"
+            aria-labelledby="service-impression"
+          >
+            <div class="text-asp-blue-600 mb-6" aria-hidden="true">
+              <Printer class="w-14 h-14" />
             </div>
-            <h3 class="text-xl font-bold text-asp-black mb-3">Impression Grand Format</h3>
-            <p class="text-asp-gray-600 mb-4">
+            <h3 id="service-impression" class="text-xl font-bold text-asp-black mb-4">Impression Grand Format</h3>
+            <p class="text-asp-gray-600 mb-6 leading-relaxed">
               Bâches, roll-up, affiches et stickers avec notre traceur MUTOH professionnel.
             </p>
-            <ul class="text-sm text-asp-gray-600 space-y-1">
-              <li class="flex items-center gap-2">
-                <Check class="w-4 h-4 text-green-600" />
+            <ul class="text-sm text-asp-gray-600 space-y-2" role="list">
+              <li class="flex items-center gap-3" role="listitem">
+                <Check class="w-5 h-5 text-green-600 flex-shrink-0" aria-hidden="true" />
                 Bâches publicitaires
               </li>
-              <li class="flex items-center gap-2">
-                <Check class="w-4 h-4 text-green-600" />
+              <li class="flex items-center gap-3" role="listitem">
+                <Check class="w-5 h-5 text-green-600 flex-shrink-0" aria-hidden="true" />
                 Roll-up et kakémonos
               </li>
-              <li class="flex items-center gap-2">
-                <Check class="w-4 h-4 text-green-600" />
+              <li class="flex items-center gap-3" role="listitem">
+                <Check class="w-5 h-5 text-green-600 flex-shrink-0" aria-hidden="true" />
                 Stickers personnalisés
               </li>
             </ul>
           </div>
 
           <!-- Service 4 -->
-          <div class="bg-white border border-asp-gray-200 rounded-xl p-8 hover:shadow-lg transition-all duration-200 hover:-translate-y-1 cursor-pointer reveal">
-            <div class="text-asp-blue-600 mb-4">
-              <Package class="w-12 h-12" />
+          <div 
+            class="bg-white border border-asp-gray-200 rounded-xl p-8 hover:shadow-lg transition-all duration-200 hover:-translate-y-1 cursor-pointer reveal focus-within:ring-4 focus-within:ring-asp-blue-300"
+            tabindex="0"
+            role="article"
+            aria-labelledby="service-xerox"
+          >
+            <div class="text-asp-blue-600 mb-6" aria-hidden="true">
+              <Package class="w-14 h-14" />
             </div>
             <h3 class="text-xl font-bold text-asp-black mb-3">Consommables Xerox</h3>
             <p class="text-asp-gray-600 mb-4">
@@ -356,37 +437,47 @@
     -->
 
     <!-- Notre Processus -->
-    <section class="py-20 bg-asp-blue-900">
-      <div class="max-w-7xl mx-auto px-4">
-        <div class="text-center mb-16 reveal">
-          <h2 class="text-4xl font-bold text-white mb-4">Notre Processus de Travail</h2>
-          <p class="text-xl text-blue-100 max-w-2xl mx-auto">
+    <section class="py-24 bg-asp-blue-900" aria-labelledby="processus-heading">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-20 reveal">
+          <h2 id="processus-heading" class="text-4xl sm:text-5xl font-bold text-white mb-6">Notre Processus de Travail</h2>
+          <p class="text-xl sm:text-2xl text-blue-100 max-w-3xl mx-auto leading-relaxed">
             Un processus simple et transparent en 4 étapes pour votre tranquillité d'esprit
           </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12 relative" role="list">
           <!-- Étape 1 : Contact -->
-          <div class="relative reveal reveal-delay-1">
-            <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-200 border-2 border-gray-100 hover:border-asp-blue-300 cursor-pointer">
-              <div class="w-16 h-16 bg-asp-blue-600 text-white rounded-full flex items-center justify-center text-3xl font-bold mb-6 mx-auto">
+          <div class="relative reveal reveal-delay-1" role="listitem">
+            <div 
+              class="bg-white rounded-2xl p-10 shadow-lg hover:shadow-xl transition-all duration-200 border-2 border-gray-100 hover:border-asp-blue-300 cursor-pointer focus-within:ring-4 focus-within:ring-asp-blue-300"
+              tabindex="0"
+              role="article"
+              aria-labelledby="etape-1"
+            >
+              <div class="w-16 h-16 bg-asp-blue-600 text-white rounded-full flex items-center justify-center text-3xl font-bold mb-8 mx-auto" aria-hidden="true">
                 1
               </div>
-              <h3 class="text-xl font-bold text-asp-black mb-3 text-center">Contact</h3>
+              <h3 id="etape-1" class="text-xl font-bold text-asp-black mb-4 text-center">Contact</h3>
               <p class="text-asp-gray-600 text-center leading-relaxed">
                 Contactez-nous par téléphone, WhatsApp ou via notre formulaire de devis
               </p>
             </div>
             <!-- Flèche pour desktop -->
-            <div class="hidden lg:flex absolute top-1/2 -right-4 transform -translate-y-1/2 z-10 items-center justify-center w-8 h-8 bg-asp-blue-900 rounded-full">
+            <div class="hidden lg:flex absolute top-1/2 -right-4 transform -translate-y-1/2 z-10 items-center justify-center w-8 h-8 bg-asp-blue-900 rounded-full" aria-hidden="true">
               <ChevronRight class="w-6 h-6 text-yellow-400" />
             </div>
           </div>
 
           <!-- Étape 2 : Devis -->
-          <div class="relative reveal reveal-delay-2">
-            <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-200 border-2 border-gray-100 hover:border-yellow-300 cursor-pointer">
-              <div class="w-16 h-16 bg-yellow-500 text-white rounded-full flex items-center justify-center text-3xl font-bold mb-6 mx-auto">
+          <div class="relative reveal reveal-delay-2" role="listitem">
+            <div 
+              class="bg-white rounded-2xl p-10 shadow-lg hover:shadow-xl transition-all duration-200 border-2 border-gray-100 hover:border-yellow-300 cursor-pointer focus-within:ring-4 focus-within:ring-yellow-300"
+              tabindex="0"
+              role="article"
+              aria-labelledby="etape-2"
+            >
+              <div class="w-16 h-16 bg-yellow-500 text-white rounded-full flex items-center justify-center text-3xl font-bold mb-8 mx-auto" aria-hidden="true">
                 2
               </div>
               <h3 class="text-xl font-bold text-asp-black mb-3 text-center">Devis</h3>
@@ -432,12 +523,14 @@
         </div>
 
         <!-- CTA -->
-        <div class="text-center mt-12">
+        <div class="text-center mt-16">
           <button
             @click="scrollToQuoteForm"
-            class="bg-yellow-500 hover:bg-yellow-600 text-white px-8 py-4 rounded-lg font-semibold transition-colors duration-200 inline-flex items-center gap-2 cursor-pointer shadow-lg hover:shadow-xl"
+            class="bg-yellow-500 hover:bg-yellow-600 text-white px-10 py-5 rounded-lg font-semibold transition-all duration-200 inline-flex items-center gap-2 cursor-pointer shadow-lg hover:shadow-xl hover:scale-105 focus:outline-none focus:ring-4 focus:ring-yellow-300"
+            aria-label="Commencer votre projet avec ASP Services"
+            type="button"
           >
-            <FileText class="w-5 h-5" />
+            <FileText class="w-6 h-6" aria-hidden="true" />
             Commencer Mon Projet
           </button>
         </div>
@@ -445,31 +538,38 @@
     </section>
 
     <!-- FAQ Section -->
-    <section class="py-20 bg-gradient-to-br from-gray-50 to-white">
-      <div class="max-w-4xl mx-auto px-4">
-        <div class="text-center mb-16 reveal">
-          <h2 class="text-4xl font-bold text-asp-black mb-4">Questions Fréquentes</h2>
-          <p class="text-xl text-asp-gray-600">
+    <section class="py-24 bg-gradient-to-br from-gray-50 to-white" aria-labelledby="faq-heading">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-20 reveal">
+          <h2 id="faq-heading" class="text-4xl sm:text-5xl font-bold text-asp-black mb-6">Questions Fréquentes</h2>
+          <p class="text-xl sm:text-2xl text-asp-gray-600 leading-relaxed">
             Tout ce que vous devez savoir sur nos services
           </p>
         </div>
 
-        <div class="space-y-4">
+        <div class="space-y-5" role="list" aria-label="Liste des questions fréquentes">
           <!-- FAQ Item 1 -->
-          <div class="bg-white rounded-xl border-2 border-gray-100 overflow-hidden transition-all duration-300">
+          <div class="bg-white rounded-xl border-2 border-gray-100 overflow-hidden transition-all duration-300" role="listitem">
             <button
               @click="toggleFaq(0)"
-              class="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-gray-50 transition-colors cursor-pointer"
+              class="w-full px-8 py-6 flex items-center justify-between text-left hover:bg-gray-50 transition-colors cursor-pointer focus:outline-none focus:ring-4 focus:ring-inset focus:ring-asp-blue-300"
+              :aria-expanded="openFaq === 0"
+              aria-controls="faq-answer-0"
+              type="button"
             >
-              <span class="text-lg font-semibold text-asp-black">Quels types de services proposez-vous ?</span>
+              <span class="text-lg font-semibold text-asp-black pr-4">Quels types de services proposez-vous ?</span>
               <ChevronRight 
-                :class="['w-5 h-5 text-asp-blue-600 transition-transform duration-300', openFaq === 0 ? 'rotate-90' : '']"
+                :class="['w-6 h-6 text-asp-blue-600 transition-transform duration-300 flex-shrink-0', openFaq === 0 ? 'rotate-90' : '']"
+                aria-hidden="true"
               />
             </button>
             <Transition name="faq-slide">
               <div 
                 v-if="openFaq === 0"
-                class="px-6 pb-5 text-asp-gray-600 leading-relaxed"
+                id="faq-answer-0"
+                class="px-8 pb-6 text-asp-gray-600 leading-relaxed"
+                role="region"
+                aria-labelledby="faq-answer-0"
               >
                 Nous offrons une gamme complète de services : signalétique (enseignes lumineuses, panneaux), 
                 marquage au sol (parkings, terrains de sport), impression grand format (bâches, roll-up, stickers), 
@@ -609,28 +709,33 @@
     </section>
 
     <!-- Pourquoi nous choisir -->
-    <section class="py-20 bg-white">
-      <div class="max-w-7xl mx-auto px-4">
-        <div class="text-center mb-16">
-          <h2 class="text-4xl font-bold text-asp-black mb-4">Pourquoi Choisir ASP Services ?</h2>
-          <p class="text-xl text-asp-gray-600 max-w-2xl mx-auto">
+    <section class="py-24 bg-white" aria-labelledby="avantages-heading">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-20">
+          <h2 id="avantages-heading" class="text-4xl sm:text-5xl font-bold text-asp-black mb-6">Pourquoi Choisir ASP Services ?</h2>
+          <p class="text-xl sm:text-2xl text-asp-gray-600 max-w-3xl mx-auto leading-relaxed">
             Notre engagement : votre satisfaction et la qualité de nos réalisations
           </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-10 lg:gap-12" role="list">
           <!-- Garantie 1 : Qualité -->
-          <div class="bg-gradient-to-br from-asp-blue-50 to-white rounded-2xl p-8 border-2 border-asp-blue-100 hover:border-asp-blue-300 transition-all duration-300 hover:shadow-lg">
-            <div class="w-16 h-16 bg-asp-blue-600 rounded-xl flex items-center justify-center mb-6">
-              <Shield class="w-8 h-8 text-white" />
+          <div 
+            class="bg-gradient-to-br from-asp-blue-50 to-white rounded-2xl p-10 border-2 border-asp-blue-100 hover:border-asp-blue-300 transition-all duration-300 hover:shadow-lg focus-within:ring-4 focus-within:ring-asp-blue-300"
+            tabindex="0"
+            role="listitem"
+            aria-labelledby="garantie-qualite"
+          >
+            <div class="w-16 h-16 bg-asp-blue-600 rounded-xl flex items-center justify-center mb-8" aria-hidden="true">
+              <Shield class="w-9 h-9 text-white" />
             </div>
-            <h3 class="text-2xl font-bold text-asp-black mb-4">Garantie Qualité</h3>
-            <p class="text-asp-gray-600 leading-relaxed mb-4">
+            <h3 id="garantie-qualite" class="text-2xl font-bold text-asp-black mb-5">Garantie Qualité</h3>
+            <p class="text-asp-gray-600 leading-relaxed mb-6">
               Nous utilisons uniquement des matériaux premium et des équipements professionnels de dernière génération pour garantir la durabilité de nos réalisations.
             </p>
-            <ul class="space-y-2">
-              <li class="flex items-center gap-2 text-sm text-asp-gray-700">
-                <Check class="w-4 h-4 text-asp-blue-600 flex-shrink-0" />
+            <ul class="space-y-3" role="list">
+              <li class="flex items-center gap-3 text-sm text-asp-gray-700" role="listitem">
+                <Check class="w-5 h-5 text-asp-blue-600 flex-shrink-0" aria-hidden="true" />
                 Matériaux certifiés
               </li>
               <li class="flex items-center gap-2 text-sm text-asp-gray-700">
@@ -702,17 +807,17 @@
 
 
     <!-- Chiffres Clés -->
-    <section ref="statsSection" class="py-20 bg-asp-blue-600">
-      <div class="max-w-7xl mx-auto px-4">
-        <div class="text-center mb-12">
-          <h2 class="text-4xl font-bold text-white mb-4">ASP Services en Chiffres</h2>
-          <p class="text-xl text-blue-100">Notre expertise en quelques chiffres</p>
+    <section ref="statsSection" class="py-24 bg-asp-blue-600" aria-labelledby="stats-heading">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <h2 id="stats-heading" class="text-4xl sm:text-5xl font-bold text-white mb-6">ASP Services en Chiffres</h2>
+          <p class="text-xl sm:text-2xl text-blue-100 leading-relaxed">Notre expertise en quelques chiffres</p>
         </div>
         
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-10 lg:gap-12" role="list">
           <!-- Chiffre 1 -->
-          <div class="text-center">
-            <div class="text-5xl md:text-6xl font-bold text-yellow-400 mb-3">
+          <div class="text-center" role="listitem">
+            <div class="text-5xl md:text-6xl font-bold text-yellow-400 mb-4" aria-live="polite">
               {{ animatedStats.years }}+
             </div>
             <div class="text-lg text-blue-100 font-medium">Années d'Expérience</div>
@@ -754,6 +859,7 @@
 import { ref, reactive, onMounted, watch } from 'vue'
 import QuoteModal from '~/components/home/QuoteModal.vue'
 import PartnersSection from '~/components/home/PartnersSection.vue'
+import ScrambleText from '~/components/ScrambleText.vue'
 import {
   MessageCircle,
   Phone,
@@ -877,9 +983,6 @@ const openFaq = ref<number | null>(null)
 
 // Rotating text animation
 const rotatingTexts = ['Industrie graphique', 'Management', 'Bureautique', 'Impression']
-const rotatingText = ref(rotatingTexts[0])
-const isTextVisible = ref(true)
-let rotatingIndex = 0
 
 // Quote form state (déjà déclaré plus haut)
 const quoteForm = ref({
@@ -957,6 +1060,7 @@ let statsAnimated = false
 
 // Partners data (remplace testimonials)
 const { partners } = usePartners()
+
 // Carousel functions
 const nextSlide = () => {
   currentSlide.value = (currentSlide.value + 1) % projects.value.length
@@ -983,19 +1087,6 @@ onMounted(() => {
   setInterval(() => {
     nextSlide()
   }, 5000) // Change slide every 5 seconds
-  
-  // Rotating text animation with smooth fade
-  setInterval(() => {
-    // Fade out
-    isTextVisible.value = false
-    
-    // Wait for fade out, then change text and fade in
-    setTimeout(() => {
-      rotatingIndex = (rotatingIndex + 1) % rotatingTexts.length
-      rotatingText.value = rotatingTexts[rotatingIndex]
-      isTextVisible.value = true
-    }, 500) // 500ms = durée de la transition CSS
-  }, 3000) // Change text every 3 seconds
   
   // Responsive testimonials per view (not used for infinite scroll but kept for future)
   const updateTestimonialsPerView = () => {
@@ -1062,11 +1153,6 @@ onMounted(() => {
 const handleProjectImageError = (event: Event) => {
   const img = event.target as HTMLImageElement
   img.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600"%3E%3Crect fill="%231E3A8A" width="800" height="600"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" font-family="Arial" font-size="24" fill="%23fff"%3EProjekt ASP%3C/text%3E%3C/svg%3E'
-}
-
-const openProjectModal = (project: any) => {
-  // Future: open a modal with project details
-  console.log('Open project:', project)
 }
 
 // Toggle FAQ
@@ -1195,18 +1281,24 @@ const submitQuoteForm = async () => {
   }
 }
 
-/* Animation de flottement pour la section projets récents */
-.animate-float {
-  animation: float 6s ease-in-out infinite;
+/* Animation de flottement supprimée - design professionnel */
+
+/* Scrollbar personnalisée pour les thumbnails */
+.scrollbar-thin::-webkit-scrollbar {
+  height: 4px;
 }
 
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-20px);
-  }
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: #475569;
+  border-radius: 2px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
 }
 
 /* Animation défilement infini témoignages */

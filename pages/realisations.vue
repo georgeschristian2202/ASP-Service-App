@@ -84,20 +84,16 @@
           >
             <!-- Media Container -->
             <div class="relative aspect-[4/3] overflow-hidden bg-asp-gray-900">
-              <!-- Image -->
-              <OptimizedImage
+              <!-- Image - Utilisation directe du chemin local -->
+              <img
                 :src="item.media"
                 :alt="item.title"
-                :width="800"
-                :height="600"
-                :quality="85"
-                format="webp"
-                :responsive="true"
-                :responsive-widths="[400, 800, 1200]"
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                crop="maintain_ratio"
                 class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 loading="lazy"
+                @error="(e) => {
+                  const img = e.target as HTMLImageElement
+                  img.src = '/images/placeholder.jpg'
+                }"
               />
 
               <!-- Category Badge -->
