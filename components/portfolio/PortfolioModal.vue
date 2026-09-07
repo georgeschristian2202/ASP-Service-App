@@ -31,12 +31,12 @@
           <!-- Sur desktop: 2 colonnes, max-h 90vh, le contenu scrolle en interne -->
           <div class="grid grid-cols-1 lg:grid-cols-2 lg:max-h-[90vh]">
             <!-- Image/Video Side -->
-            <div class="relative bg-asp-gray-900 aspect-video lg:aspect-auto lg:h-full">
+            <div class="relative bg-asp-gray-900 flex items-center justify-center lg:h-full">
               <!-- Video -->
               <video
                 v-if="item.type === 'video'"
                 :src="item.media"
-                class="w-full h-full object-cover"
+                class="w-full h-full object-contain"
                 controls
                 autoplay
               />
@@ -51,7 +51,7 @@
                 format="webp"
                 :use-picture="true"
                 crop="maintain_ratio"
-                class="w-full h-full object-cover"
+                class="w-full max-h-[50vh] lg:max-h-[90vh] object-contain"
                 @error="handleImageError"
               />
             </div>
