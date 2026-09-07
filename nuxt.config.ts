@@ -21,22 +21,7 @@ export default defineNuxtConfig({
   nitro: {
     experimental: {
       appManifest: false
-    },
-    // Inclure le dossier data/ dans le build pour que les API routes puissent le lire
-    publicAssets: [
-      {
-        dir: 'data',
-        maxAge: 0, // Pas de cache pour les données
-        baseURL: '/_data'
-      }
-    ],
-    // Alternative : copier data/ dans le build output
-    serverAssets: [
-      {
-        baseName: 'data',
-        dir: './data'
-      }
-    ]
+    }
   },
 
   components: [

@@ -1,31 +1,11 @@
-import { readFileSync } from 'fs'
-import { join } from 'path'
+import portfolioData from '~/data/portfolio.json'
 
 export default defineEventHandler(async (event) => {
   try {
-    // Méthode 1 : Essayer de lire depuis serverAssets (production Vercel)
-    let portfolioData
-    
-    try {
-      const assets = useStorage('assets:data')
-      const rawData = await assets.getItem('portfolio.json')
-      portfolioData = rawData ? JSON.parse(rawData as string) : null
-      console.log('✅ Portfolio chargé depuis serverAssets (Vercel)')
-    } catch (serverAssetsError) {
-      console.log('⚠️ serverAssets non disponible, essai fichier local...')
-      
-      // Méthode 2 : Fallback - Lire depuis le système de fichiers (développement local)
-      try {
-        const portfolioFilePath = join(process.cwd(), 'data', 'portfolio.json')
-        portfolioData = JSON.parse(readFileSync(portfolioFilePath, 'utf-8'))
-        console.log('✅ Portfolio chargé depuis fichier local')
-      } catch (fsError) {
-        console.error('❌ Erreur lecture fichier local:', fsError)
-        throw fsError
-      }
-    }
+    console.log('📊 Portfolio API - Items count:', portfolioData?.items?.length || 0)
 
     if (!portfolioData || !portfolioData.items) {
+      console.error('❌ Portfolio data is empty or invalid')
       throw new Error('Portfolio data is empty or invalid')
     }
 
@@ -36,6 +16,7 @@ export default defineEventHandler(async (event) => {
     const limit = query.limit ? parseInt(query.limit as string) : undefined
 
     let items = portfolioData.items || []
+    console.log('🔍 Total items before filter:', items.length)
 
     // Filtrer par catégorie si spécifié
     if (category && category !== 'all') {
