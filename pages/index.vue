@@ -226,21 +226,252 @@
       <div class="absolute bottom-20 left-10 w-96 h-96 bg-yellow-400/10 rounded-full blur-3xl"></div>
       
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div class="text-center mb-20">
-          <h2 id="services-heading" class="services-title text-4xl sm:text-5xl font-bold text-asp-black mb-6 opacity-0">Nos Services</h2>
-          <p class="services-description text-xl sm:text-2xl text-asp-gray-600 max-w-3xl mx-auto leading-relaxed opacity-0">
+        <div class="text-center mb-16">
+          <h2 id="services-heading" class="text-4xl sm:text-5xl font-bold text-asp-black mb-6">Nos Services</h2>
+          <p class="text-xl sm:text-2xl text-asp-gray-600 max-w-3xl mx-auto leading-relaxed">
             Solutions complètes pour tous vos besoins en signalétique et impression
           </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 lg:gap-10">
-          <!-- Service 1 -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Service 1 : Signalétique -->
           <NuxtLink 
             to="/services?service=signaletique" 
-            class="service-card group block bg-white/80 backdrop-blur-sm border-2 border-asp-gray-200 rounded-2xl p-8 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer focus:outline-none focus:ring-4 focus:ring-asp-blue-300 hover:border-asp-blue-400 opacity-0 overflow-hidden relative"
+            class="group block bg-white/80 backdrop-blur-sm border-2 border-asp-gray-200 rounded-2xl p-8 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer focus:outline-none focus:ring-4 focus:ring-asp-blue-300 hover:border-asp-blue-400 overflow-hidden relative"
             aria-label="En savoir plus sur nos services de signalétique"
           >
-            <!-- Gradient Overlay on Hover -->
+            <div class="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            
+            <div class="relative z-10">
+              <div class="text-asp-blue-600 mb-6 transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+                <Building class="w-16 h-16" />
+              </div>
+              <h3 class="text-2xl font-bold text-asp-black mb-4 group-hover:text-asp-blue-600 transition-colors">Signalétique</h3>
+              <p class="text-asp-gray-600 mb-6 leading-relaxed">
+                Panneaux d'entreprise, enseignes lumineuses et signalisation directionnelle sur mesure.
+              </p>
+              <ul class="text-sm text-asp-gray-600 space-y-2">
+                <li class="flex items-center gap-3">
+                  <Check class="w-5 h-5 text-green-600 flex-shrink-0" />
+                  Enseignes lumineuses
+                </li>
+                <li class="flex items-center gap-3">
+                  <Check class="w-5 h-5 text-green-600 flex-shrink-0" />
+                  Panneaux directionnels
+                </li>
+                <li class="flex items-center gap-3">
+                  <Check class="w-5 h-5 text-green-600 flex-shrink-0" />
+                  Plaques professionnelles
+                </li>
+              </ul>
+              <div class="mt-6 flex items-center text-asp-blue-600 font-semibold group-hover:translate-x-2 transition-transform">
+                <span>En savoir plus</span>
+                <ChevronRight class="w-5 h-5 ml-2" />
+              </div>
+            </div>
+          </NuxtLink>
+
+          <!-- Service 2 : Marquage au Sol -->
+          <NuxtLink 
+            to="/services?service=marquage-sol"
+            class="group block bg-white/80 backdrop-blur-sm border-2 border-asp-gray-200 rounded-2xl p-8 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer focus:outline-none focus:ring-4 focus:ring-asp-blue-300 hover:border-asp-blue-400 overflow-hidden relative"
+            aria-label="En savoir plus sur nos services de marquage au sol"
+          >
+            <div class="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            
+            <div class="relative z-10">
+              <div class="text-asp-blue-600 mb-6 transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+                <Car class="w-16 h-16" />
+              </div>
+              <h3 class="text-2xl font-bold text-asp-black mb-4 group-hover:text-asp-blue-600 transition-colors">Marquage au Sol</h3>
+              <p class="text-asp-gray-600 mb-6 leading-relaxed">
+                Traçage professionnel pour parkings, zones industrielles et terrains de sport.
+              </p>
+              <ul class="text-sm text-asp-gray-600 space-y-2">
+                <li class="flex items-center gap-3">
+                  <Check class="w-5 h-5 text-green-600 flex-shrink-0" />
+                  Parkings et stationnements
+                </li>
+                <li class="flex items-center gap-3">
+                  <Check class="w-5 h-5 text-green-600 flex-shrink-0" />
+                  Zones industrielles
+                </li>
+                <li class="flex items-center gap-3">
+                  <Check class="w-5 h-5 text-green-600 flex-shrink-0" />
+                  Terrains de sport
+                </li>
+              </ul>
+              <div class="mt-6 flex items-center text-asp-blue-600 font-semibold group-hover:translate-x-2 transition-transform">
+                <span>En savoir plus</span>
+                <ChevronRight class="w-5 h-5 ml-2" />
+              </div>
+            </div>
+          </NuxtLink>
+
+          <!-- Service 3 : Impression Grand Format -->
+          <NuxtLink 
+            to="/services?service=impression-grand-format"
+            class="group block bg-white/80 backdrop-blur-sm border-2 border-asp-gray-200 rounded-2xl p-8 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer focus:outline-none focus:ring-4 focus:ring-asp-blue-300 hover:border-asp-blue-400 overflow-hidden relative"
+            aria-label="En savoir plus sur nos services d'impression grand format"
+          >
+            <div class="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            
+            <div class="relative z-10">
+              <div class="text-asp-blue-600 mb-6 transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+                <Printer class="w-16 h-16" />
+              </div>
+              <h3 class="text-2xl font-bold text-asp-black mb-4 group-hover:text-asp-blue-600 transition-colors">Impression Grand Format</h3>
+              <p class="text-asp-gray-600 mb-6 leading-relaxed">
+                Bâches, roll-up, affiches et stickers avec notre traceur MUTOH professionnel.
+              </p>
+              <ul class="text-sm text-asp-gray-600 space-y-2">
+                <li class="flex items-center gap-3">
+                  <Check class="w-5 h-5 text-green-600 flex-shrink-0" />
+                  Bâches publicitaires
+                </li>
+                <li class="flex items-center gap-3">
+                  <Check class="w-5 h-5 text-green-600 flex-shrink-0" />
+                  Roll-up et kakémonos
+                </li>
+                <li class="flex items-center gap-3">
+                  <Check class="w-5 h-5 text-green-600 flex-shrink-0" />
+                  Stickers personnalisés
+                </li>
+              </ul>
+              <div class="mt-6 flex items-center text-asp-blue-600 font-semibold group-hover:translate-x-2 transition-transform">
+                <span>En savoir plus</span>
+                <ChevronRight class="w-5 h-5 ml-2" />
+              </div>
+            </div>
+          </NuxtLink>
+
+          <!-- Service 4 : Consommables Xerox -->
+          <NuxtLink 
+            to="/services?service=consommables-xerox"
+            class="group block bg-white/80 backdrop-blur-sm border-2 border-asp-gray-200 rounded-2xl p-8 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer focus:outline-none focus:ring-4 focus:ring-asp-blue-300 hover:border-asp-blue-400 overflow-hidden relative"
+            aria-label="En savoir plus sur nos consommables Xerox"
+          >
+            <div class="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            
+            <div class="relative z-10">
+              <div class="text-asp-blue-600 mb-6 transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+                <Package class="w-16 h-16" />
+              </div>
+              <h3 class="text-2xl font-bold text-asp-black mb-4 group-hover:text-asp-blue-600 transition-colors">Consommables Xerox</h3>
+              <p class="text-asp-gray-600 mb-6 leading-relaxed">
+                Toners, cartouches et pièces détachées d'origine pour vos équipements.
+              </p>
+              <ul class="text-sm text-asp-gray-600 space-y-2">
+                <li class="flex items-center gap-3">
+                  <Check class="w-5 h-5 text-green-600 flex-shrink-0" />
+                  Toners d'origine
+                </li>
+                <li class="flex items-center gap-3">
+                  <Check class="w-5 h-5 text-green-600 flex-shrink-0" />
+                  Kits de maintenance
+                </li>
+                <li class="flex items-center gap-3">
+                  <Check class="w-5 h-5 text-green-600 flex-shrink-0" />
+                  Support technique
+                </li>
+              </ul>
+              <div class="mt-6 flex items-center text-asp-blue-600 font-semibold group-hover:translate-x-2 transition-transform">
+                <span>En savoir plus</span>
+                <ChevronRight class="w-5 h-5 ml-2" />
+              </div>
+            </div>
+          </NuxtLink>
+
+          <!-- Service 5 : Impression T-shirts -->
+          <NuxtLink 
+            to="/services?service=impression-tshirts"
+            class="group block bg-white/80 backdrop-blur-sm border-2 border-asp-gray-200 rounded-2xl p-8 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer focus:outline-none focus:ring-4 focus:ring-asp-blue-300 hover:border-asp-blue-400 overflow-hidden relative"
+            aria-label="En savoir plus sur nos services d'impression textile"
+          >
+            <div class="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            
+            <div class="relative z-10">
+              <div class="text-asp-blue-600 mb-6 transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+                <Shirt class="w-16 h-16" />
+              </div>
+              <h3 class="text-2xl font-bold text-asp-black mb-4 group-hover:text-asp-blue-600 transition-colors">Impression T-shirts</h3>
+              <p class="text-asp-gray-600 mb-6 leading-relaxed">
+                Personnalisation textile pour entreprises, événements et associations.
+              </p>
+              <ul class="text-sm text-asp-gray-600 space-y-2">
+                <li class="flex items-center gap-3">
+                  <Check class="w-5 h-5 text-green-600 flex-shrink-0" />
+                  Uniformes d'entreprise
+                </li>
+                <li class="flex items-center gap-3">
+                  <Check class="w-5 h-5 text-green-600 flex-shrink-0" />
+                  Vêtements événementiels
+                </li>
+                <li class="flex items-center gap-3">
+                  <Check class="w-5 h-5 text-green-600 flex-shrink-0" />
+                  Petites et grandes séries
+                </li>
+              </ul>
+              <div class="mt-6 flex items-center text-asp-blue-600 font-semibold group-hover:translate-x-2 transition-transform">
+                <span>En savoir plus</span>
+                <ChevronRight class="w-5 h-5 ml-2" />
+              </div>
+            </div>
+          </NuxtLink>
+
+          <!-- Service 6 : Badges & Cartes -->
+          <NuxtLink 
+            to="/services?service=badges-cartes"
+            class="group block bg-white/80 backdrop-blur-sm border-2 border-asp-gray-200 rounded-2xl p-8 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer focus:outline-none focus:ring-4 focus:ring-asp-blue-300 hover:border-asp-blue-400 overflow-hidden relative"
+            aria-label="En savoir plus sur nos services de badges et cartes"
+          >
+            <div class="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            
+            <div class="relative z-10">
+              <div class="text-asp-blue-600 mb-6 transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+                <CreditCard class="w-16 h-16" />
+              </div>
+              <h3 class="text-2xl font-bold text-asp-black mb-4 group-hover:text-asp-blue-600 transition-colors">Badges & Cartes</h3>
+              <p class="text-asp-gray-600 mb-6 leading-relaxed">
+                Badges professionnels, cartes de visite et cartes d'accès personnalisés.
+              </p>
+              <ul class="text-sm text-asp-gray-600 space-y-2">
+                <li class="flex items-center gap-3">
+                  <Check class="w-5 h-5 text-green-600 flex-shrink-0" />
+                  Badges nominatifs
+                </li>
+                <li class="flex items-center gap-3">
+                  <Check class="w-5 h-5 text-green-600 flex-shrink-0" />
+                  Cartes de visite premium
+                </li>
+                <li class="flex items-center gap-3">
+                  <Check class="w-5 h-5 text-green-600 flex-shrink-0" />
+                  Cartes d'accès personnalisées
+                </li>
+              </ul>
+              <div class="mt-6 flex items-center text-asp-blue-600 font-semibold group-hover:translate-x-2 transition-transform">
+                <span>En savoir plus</span>
+                <ChevronRight class="w-5 h-5 ml-2" />
+              </div>
+            </div>
+          </NuxtLink>
+        </div>
+
+        <!-- Bouton Voir Plus -->
+        <div class="text-center mt-16">
+          <NuxtLink 
+            to="/services"
+            class="inline-flex items-center gap-3 bg-asp-blue-600 hover:bg-asp-blue-700 text-white px-10 py-4 rounded-xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 cursor-pointer focus:outline-none focus:ring-4 focus:ring-asp-blue-300"
+          >
+            <span>Voir Tous Nos Services</span>
+            <ChevronRight class="w-6 h-6" />
+          </NuxtLink>
+        </div>
+      </div>
+    </section>
+
+    <!-- Notre Processus -->
+    <section class="py-24 bg-asp-blue-900 relative overflow-hidden" aria-labelledby="processus-heading">
             <div class="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             
             <div class="relative z-10">
