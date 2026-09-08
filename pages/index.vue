@@ -227,17 +227,17 @@
       
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="text-center mb-16">
-          <h2 id="services-heading" class="text-4xl sm:text-5xl font-bold text-asp-black mb-6">Nos Services</h2>
-          <p class="text-xl sm:text-2xl text-asp-gray-600 max-w-3xl mx-auto leading-relaxed">
+          <h2 id="services-heading" class="services-title text-4xl sm:text-5xl font-bold text-asp-black mb-6 opacity-0">Nos Services</h2>
+          <p class="services-description text-xl sm:text-2xl text-asp-gray-600 max-w-3xl mx-auto leading-relaxed opacity-0">
             Solutions complètes pour tous vos besoins en signalétique et impression
           </p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <!-- Service 1 : Signalétique -->
-          <NuxtLink 
-            to="/services?service=signaletique" 
-            class="group block bg-white/80 backdrop-blur-sm border-2 border-asp-gray-200 rounded-2xl p-8 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer focus:outline-none focus:ring-4 focus:ring-asp-blue-300 hover:border-asp-blue-400 overflow-hidden relative"
+          <NuxtLink
+            to="/services#signaletique"
+            class="service-card group block bg-white/80 backdrop-blur-sm border-2 border-asp-gray-200 rounded-2xl p-8 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer focus:outline-none focus:ring-4 focus:ring-asp-blue-300 hover:border-asp-blue-400 overflow-hidden relative opacity-0"
             aria-label="En savoir plus sur nos services de signalétique"
           >
             <div class="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -272,9 +272,9 @@
           </NuxtLink>
 
           <!-- Service 2 : Marquage au Sol -->
-          <NuxtLink 
-            to="/services?service=marquage-sol"
-            class="group block bg-white/80 backdrop-blur-sm border-2 border-asp-gray-200 rounded-2xl p-8 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer focus:outline-none focus:ring-4 focus:ring-asp-blue-300 hover:border-asp-blue-400 overflow-hidden relative"
+          <NuxtLink
+            to="/services#marquage-sol"
+            class="service-card group block bg-white/80 backdrop-blur-sm border-2 border-asp-gray-200 rounded-2xl p-8 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer focus:outline-none focus:ring-4 focus:ring-asp-blue-300 hover:border-asp-blue-400 overflow-hidden relative opacity-0"
             aria-label="En savoir plus sur nos services de marquage au sol"
           >
             <div class="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -309,9 +309,9 @@
           </NuxtLink>
 
           <!-- Service 3 : Impression Grand Format -->
-          <NuxtLink 
-            to="/services?service=impression-grand-format"
-            class="group block bg-white/80 backdrop-blur-sm border-2 border-asp-gray-200 rounded-2xl p-8 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer focus:outline-none focus:ring-4 focus:ring-asp-blue-300 hover:border-asp-blue-400 overflow-hidden relative"
+          <NuxtLink
+            to="/services#impression-grand-format"
+            class="service-card group block bg-white/80 backdrop-blur-sm border-2 border-asp-gray-200 rounded-2xl p-8 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer focus:outline-none focus:ring-4 focus:ring-asp-blue-300 hover:border-asp-blue-400 overflow-hidden relative opacity-0"
             aria-label="En savoir plus sur nos services d'impression grand format"
           >
             <div class="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -346,9 +346,9 @@
           </NuxtLink>
 
           <!-- Service 4 : Consommables Xerox -->
-          <NuxtLink 
-            to="/services?service=consommables-xerox"
-            class="group block bg-white/80 backdrop-blur-sm border-2 border-asp-gray-200 rounded-2xl p-8 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer focus:outline-none focus:ring-4 focus:ring-asp-blue-300 hover:border-asp-blue-400 overflow-hidden relative"
+          <NuxtLink
+            to="/services#consommables-xerox"
+            class="service-card group block bg-white/80 backdrop-blur-sm border-2 border-asp-gray-200 rounded-2xl p-8 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer focus:outline-none focus:ring-4 focus:ring-asp-blue-300 hover:border-asp-blue-400 overflow-hidden relative opacity-0"
             aria-label="En savoir plus sur nos consommables Xerox"
           >
             <div class="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -383,9 +383,9 @@
           </NuxtLink>
 
           <!-- Service 5 : Impression T-shirts -->
-          <NuxtLink 
-            to="/services?service=impression-tshirts"
-            class="group block bg-white/80 backdrop-blur-sm border-2 border-asp-gray-200 rounded-2xl p-8 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer focus:outline-none focus:ring-4 focus:ring-asp-blue-300 hover:border-asp-blue-400 overflow-hidden relative"
+          <NuxtLink
+            to="/services#impression-tshirts"
+            class="service-card group block bg-white/80 backdrop-blur-sm border-2 border-asp-gray-200 rounded-2xl p-8 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer focus:outline-none focus:ring-4 focus:ring-asp-blue-300 hover:border-asp-blue-400 overflow-hidden relative opacity-0"
             aria-label="En savoir plus sur nos services d'impression textile"
           >
             <div class="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -420,9 +420,9 @@
           </NuxtLink>
 
           <!-- Service 6 : Badges & Cartes -->
-          <NuxtLink 
-            to="/services?service=badges-cartes"
-            class="group block bg-white/80 backdrop-blur-sm border-2 border-asp-gray-200 rounded-2xl p-8 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer focus:outline-none focus:ring-4 focus:ring-asp-blue-300 hover:border-asp-blue-400 overflow-hidden relative"
+          <NuxtLink
+            to="/services#badges-cartes"
+            class="service-card group block bg-white/80 backdrop-blur-sm border-2 border-asp-gray-200 rounded-2xl p-8 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer focus:outline-none focus:ring-4 focus:ring-asp-blue-300 hover:border-asp-blue-400 overflow-hidden relative opacity-0"
             aria-label="En savoir plus sur nos services de badges et cartes"
           >
             <div class="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -461,7 +461,7 @@
         <div class="text-center mt-16">
           <NuxtLink 
             to="/services"
-            class="inline-flex items-center gap-3 bg-asp-blue-600 hover:bg-asp-blue-700 text-white px-10 py-4 rounded-xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 cursor-pointer focus:outline-none focus:ring-4 focus:ring-asp-blue-300"
+            class="services-cta inline-flex items-center gap-3 bg-asp-blue-600 hover:bg-asp-blue-700 text-white px-10 py-4 rounded-xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 cursor-pointer focus:outline-none focus:ring-4 focus:ring-asp-blue-300 opacity-0"
           >
             <span>Voir Tous Nos Services</span>
             <ChevronRight class="w-6 h-6" />
@@ -470,277 +470,7 @@
       </div>
     </section>
 
-    <!-- Notre Processus -->
-    <section class="py-24 bg-asp-blue-900 relative overflow-hidden" aria-labelledby="processus-heading">
-      <!-- Decorative Elements -->
-              <h3 class="text-xl font-bold text-asp-black mb-4 group-hover:text-asp-blue-600 transition-colors">Signalétique</h3>
-              <p class="text-asp-gray-600 mb-6 leading-relaxed">
-                Panneaux d'entreprise, enseignes lumineuses et signalisation directionnelle sur mesure.
-              </p>
-              <ul class="text-sm text-asp-gray-600 space-y-2" role="list">
-                <li class="flex items-center gap-3" role="listitem">
-                  <Check class="w-5 h-5 text-green-600 flex-shrink-0" aria-hidden="true" />
-                  Enseignes lumineuses
-                </li>
-                <li class="flex items-center gap-3" role="listitem">
-                  <Check class="w-5 h-5 text-green-600 flex-shrink-0" aria-hidden="true" />
-                  Panneaux directionnels
-                </li>
-                <li class="flex items-center gap-3" role="listitem">
-                  <Check class="w-5 h-5 text-green-600 flex-shrink-0" aria-hidden="true" />
-                  Plaques professionnelles
-                </li>
-              </ul>
-            </div>
-          </NuxtLink>
 
-          <!-- Service 2 -->
-          <div 
-            class="service-card group bg-white/80 backdrop-blur-sm border-2 border-asp-gray-200 rounded-2xl p-8 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer focus-within:ring-4 focus-within:ring-asp-blue-300 hover:border-asp-blue-400 opacity-0 overflow-hidden relative"
-            tabindex="0"
-            role="article"
-            aria-labelledby="service-marquage"
-          >
-            <div class="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            
-            <div class="relative z-10">
-              <div class="text-asp-blue-600 mb-6 transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300" aria-hidden="true">
-                <Car class="w-16 h-16" />
-              </div>
-              <h3 id="service-marquage" class="text-xl font-bold text-asp-black mb-4 group-hover:text-asp-blue-600 transition-colors">Marquage au Sol</h3>
-              <p class="text-asp-gray-600 mb-6 leading-relaxed">
-                Traçage professionnel pour parkings, zones industrielles et terrains de sport.
-              </p>
-              <ul class="text-sm text-asp-gray-600 space-y-2" role="list">
-                <li class="flex items-center gap-3" role="listitem">
-                  <Check class="w-5 h-5 text-green-600 flex-shrink-0" aria-hidden="true" />
-                  Parkings et stationnements
-                </li>
-                <li class="flex items-center gap-3" role="listitem">
-                  <Check class="w-5 h-5 text-green-600 flex-shrink-0" aria-hidden="true" />
-                  Zones industrielles
-                </li>
-                <li class="flex items-center gap-3" role="listitem">
-                  <Check class="w-5 h-5 text-green-600 flex-shrink-0" aria-hidden="true" />
-                  Terrains de sport
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <!-- Service 3 -->
-          <div 
-            class="service-card group bg-white/80 backdrop-blur-sm border-2 border-asp-gray-200 rounded-2xl p-8 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer focus-within:ring-4 focus-within:ring-asp-blue-300 hover:border-asp-blue-400 opacity-0 overflow-hidden relative"
-            tabindex="0"
-            role="article"
-            aria-labelledby="service-impression"
-          >
-            <div class="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            
-            <div class="relative z-10">
-              <div class="text-asp-blue-600 mb-6 transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300" aria-hidden="true">
-                <Printer class="w-16 h-16" />
-              </div>
-              <h3 id="service-impression" class="text-xl font-bold text-asp-black mb-4 group-hover:text-asp-blue-600 transition-colors">Impression Grand Format</h3>
-              <p class="text-asp-gray-600 mb-6 leading-relaxed">
-                Bâches, roll-up, affiches et stickers avec notre traceur MUTOH professionnel.
-              </p>
-              <ul class="text-sm text-asp-gray-600 space-y-2" role="list">
-                <li class="flex items-center gap-3" role="listitem">
-                  <Check class="w-5 h-5 text-green-600 flex-shrink-0" aria-hidden="true" />
-                  Bâches publicitaires
-                </li>
-                <li class="flex items-center gap-3" role="listitem">
-                  <Check class="w-5 h-5 text-green-600 flex-shrink-0" aria-hidden="true" />
-                  Roll-up et kakémonos
-                </li>
-                <li class="flex items-center gap-3" role="listitem">
-                  <Check class="w-5 h-5 text-green-600 flex-shrink-0" aria-hidden="true" />
-                  Stickers personnalisés
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <!-- Service 4 -->
-          <div 
-            class="service-card group bg-white/80 backdrop-blur-sm border-2 border-asp-gray-200 rounded-2xl p-8 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer focus-within:ring-4 focus-within:ring-asp-blue-300 hover:border-asp-blue-400 opacity-0 overflow-hidden relative"
-            tabindex="0"
-            role="article"
-            aria-labelledby="service-xerox"
-          >
-            <div class="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            
-            <div class="relative z-10">
-              <div class="text-asp-blue-600 mb-6 transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300" aria-hidden="true">
-                <Package class="w-16 h-16" />
-              </div>
-              <h3 id="service-xerox" class="text-xl font-bold text-asp-black mb-4 group-hover:text-asp-blue-600 transition-colors">Consommables Xerox</h3>
-              <p class="text-asp-gray-600 mb-6 leading-relaxed">
-                Toners, cartouches et pièces détachées d'origine pour vos équipements.
-              </p>
-              <ul class="text-sm text-asp-gray-600 space-y-2" role="list">
-                <li class="flex items-center gap-3" role="listitem">
-                  <Check class="w-5 h-5 text-green-600 flex-shrink-0" aria-hidden="true" />
-                  Toners d'origine
-                </li>
-                <li class="flex items-center gap-3" role="listitem">
-                  <Check class="w-5 h-5 text-green-600 flex-shrink-0" aria-hidden="true" />
-                  Kits de maintenance
-                </li>
-                <li class="flex items-center gap-3" role="listitem">
-                  <Check class="w-5 h-5 text-green-600 flex-shrink-0" aria-hidden="true" />
-                  Support technique
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <!-- Service 5 -->
-          <div 
-            class="service-card group bg-white/80 backdrop-blur-sm border-2 border-asp-gray-200 rounded-2xl p-8 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer focus-within:ring-4 focus-within:ring-asp-blue-300 hover:border-asp-blue-400 opacity-0 overflow-hidden relative"
-            tabindex="0"
-            role="article"
-            aria-labelledby="service-tshirts"
-          >
-            <div class="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            
-            <div class="relative z-10">
-              <div class="text-asp-blue-600 mb-6 transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300" aria-hidden="true">
-                <Shirt class="w-16 h-16" />
-              </div>
-              <h3 id="service-tshirts" class="text-xl font-bold text-asp-black mb-4 group-hover:text-asp-blue-600 transition-colors">Impression T-shirts</h3>
-              <p class="text-asp-gray-600 mb-6 leading-relaxed">
-                Personnalisation textile pour entreprises, événements et associations.
-              </p>
-              <ul class="text-sm text-asp-gray-600 space-y-2" role="list">
-                <li class="flex items-center gap-3" role="listitem">
-                  <Check class="w-5 h-5 text-green-600 flex-shrink-0" aria-hidden="true" />
-                  Uniformes d'entreprise
-                </li>
-                <li class="flex items-center gap-3" role="listitem">
-                  <Check class="w-5 h-5 text-green-600 flex-shrink-0" aria-hidden="true" />
-                  Vêtements événementiels
-                </li>
-                <li class="flex items-center gap-3" role="listitem">
-                  <Check class="w-5 h-5 text-green-600 flex-shrink-0" aria-hidden="true" />
-                  Petites et grandes séries
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <!-- Service 6 -->
-          <div 
-            class="service-card group bg-white/80 backdrop-blur-sm border-2 border-asp-gray-200 rounded-2xl p-8 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer focus-within:ring-4 focus-within:ring-asp-blue-300 hover:border-asp-blue-400 opacity-0 overflow-hidden relative"
-            tabindex="0"
-            role="article"
-            aria-labelledby="service-badges"
-          >
-            <div class="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            
-            <div class="relative z-10">
-              <div class="text-asp-blue-600 mb-6 transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300" aria-hidden="true">
-                <CreditCard class="w-16 h-16" />
-              </div>
-              <h3 id="service-badges" class="text-xl font-bold text-asp-black mb-4 group-hover:text-asp-blue-600 transition-colors">Badges & Cartes</h3>
-              <p class="text-asp-gray-600 mb-6 leading-relaxed">
-                Badges professionnels, cartes de visite et cartes d'accès personnalisés.
-              </p>
-              <ul class="text-sm text-asp-gray-600 space-y-2" role="list">
-                <li class="flex items-center gap-3" role="listitem">
-                  <Check class="w-5 h-5 text-green-600 flex-shrink-0" aria-hidden="true" />
-                  Badges nominatifs
-                </li>
-                <li class="flex items-center gap-3" role="listitem">
-                  <Check class="w-5 h-5 text-green-600 flex-shrink-0" aria-hidden="true" />
-                  Cartes de visite premium
-                </li>
-                <li class="flex items-center gap-3" role="listitem">
-                  <Check class="w-5 h-5 text-green-600 flex-shrink-0" aria-hidden="true" />
-                  Cartes d'accès personnalisées
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <!-- Service 7 : Vente Imprimantes -->
-          <div 
-            class="service-card group bg-white/80 backdrop-blur-sm border-2 border-asp-gray-200 rounded-2xl p-8 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer focus-within:ring-4 focus-within:ring-asp-blue-300 hover:border-asp-blue-400 opacity-0 overflow-hidden relative"
-            tabindex="0"
-            role="article"
-            aria-labelledby="service-vente-imprimantes"
-          >
-            <div class="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            
-            <div class="relative z-10">
-              <div class="text-asp-blue-600 mb-6 transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300" aria-hidden="true">
-                <Printer class="w-16 h-16" />
-              </div>
-              <h3 id="service-vente-imprimantes" class="text-xl font-bold text-asp-black mb-4 group-hover:text-asp-blue-600 transition-colors">Vente Imprimantes Xerox</h3>
-              <p class="text-asp-gray-600 mb-6 leading-relaxed">
-                Imprimantes multifonctions professionnelles Xerox neuves avec garantie constructeur.
-              </p>
-              <ul class="text-sm text-asp-gray-600 space-y-2" role="list">
-                <li class="flex items-center gap-3" role="listitem">
-                  <Check class="w-5 h-5 text-green-600 flex-shrink-0" aria-hidden="true" />
-                  Xerox C8045 / C8145
-                </li>
-                <li class="flex items-center gap-3" role="listitem">
-                  <Check class="w-5 h-5 text-green-600 flex-shrink-0" aria-hidden="true" />
-                  Xerox C60 Production
-                </li>
-                <li class="flex items-center gap-3" role="listitem">
-                  <Check class="w-5 h-5 text-green-600 flex-shrink-0" aria-hidden="true" />
-                  Installation & Formation
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <!-- Service 8 : Location Imprimantes -->
-          <div 
-            class="service-card group bg-white/80 backdrop-blur-sm border-2 border-asp-gray-200 rounded-2xl p-8 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer focus-within:ring-4 focus-within:ring-asp-blue-300 hover:border-asp-blue-400 opacity-0 overflow-hidden relative"
-            tabindex="0"
-            role="article"
-            aria-labelledby="service-location-imprimantes"
-          >
-            <div class="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            
-            <div class="relative z-10">
-              <div class="text-asp-blue-600 mb-6 transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300" aria-hidden="true">
-                <Package class="w-16 h-16" />
-              </div>
-              <h3 id="service-location-imprimantes" class="text-xl font-bold text-asp-black mb-4 group-hover:text-asp-blue-600 transition-colors">Location Imprimantes Xerox</h3>
-              <p class="text-asp-gray-600 mb-6 leading-relaxed">
-                Solutions de location flexibles pour entreprises et particuliers avec maintenance incluse.
-              </p>
-              <ul class="text-sm text-asp-gray-600 space-y-2" role="list">
-                <li class="flex items-center gap-3" role="listitem">
-                  <Check class="w-5 h-5 text-green-600 flex-shrink-0" aria-hidden="true" />
-                  Formules entreprise
-                </li>
-                <li class="flex items-center gap-3" role="listitem">
-                  <Check class="w-5 h-5 text-green-600 flex-shrink-0" aria-hidden="true" />
-                  Formules particulier
-                </li>
-                <li class="flex items-center gap-3" role="listitem">
-                  <Check class="w-5 h-5 text-green-600 flex-shrink-0" aria-hidden="true" />
-                  Maintenance & Assistance
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Ancienne Modal (désactivée - remplacée par QuoteModal component) -->
-    <!--
-    <Teleport to="body">
-      ...
-    </Teleport>
-    -->
 
     <!-- Notre Processus -->
     <section class="py-24 bg-asp-blue-900 relative overflow-hidden" aria-labelledby="processus-heading">
@@ -1589,6 +1319,17 @@ onMounted(() => {
             duration: 800,
             easing: 'easeOutExpo',
             delay: anime.stagger(120, { start: 400 }) // 120ms between each card
+          })
+          
+          // Animate CTA Button
+          anime({
+            targets: '.services-cta',
+            opacity: [0, 1],
+            translateY: [30, 0],
+            scale: [0.95, 1],
+            duration: 800,
+            easing: 'easeOutExpo',
+            delay: 1200 // After all cards
           })
           
           // Disconnect observer after animation
