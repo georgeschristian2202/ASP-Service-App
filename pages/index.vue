@@ -472,12 +472,7 @@
 
     <!-- Notre Processus -->
     <section class="py-24 bg-asp-blue-900 relative overflow-hidden" aria-labelledby="processus-heading">
-            <div class="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            
-            <div class="relative z-10">
-              <div class="text-asp-blue-600 mb-6 transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300" aria-hidden="true">
-                <Building class="w-16 h-16" />
-              </div>
+      <!-- Decorative Elements -->
               <h3 class="text-xl font-bold text-asp-black mb-4 group-hover:text-asp-blue-600 transition-colors">Signalétique</h3>
               <p class="text-asp-gray-600 mb-6 leading-relaxed">
                 Panneaux d'entreprise, enseignes lumineuses et signalisation directionnelle sur mesure.
