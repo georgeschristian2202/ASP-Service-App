@@ -1,23 +1,31 @@
 <template>
   <Teleport to="body">
     <Transition
-      enter-active-class="transition-opacity duration-300"
+      enter-active-class="transition-all duration-300 ease-out"
       enter-from-class="opacity-0"
       enter-to-class="opacity-100"
-      leave-active-class="transition-opacity duration-200"
+      leave-active-class="transition-all duration-200 ease-in"
       leave-from-class="opacity-100"
       leave-to-class="opacity-0"
     >
       <div
-        class="fixed inset-0 z-50 overflow-y-auto bg-asp-black/90 backdrop-blur-sm"
+        class="fixed inset-0 z-50 overflow-y-auto bg-asp-black/95 backdrop-blur-md"
         @click="$emit('close')"
       >
         <!-- Modal Content -->
         <div class="min-h-full flex items-start sm:items-center justify-center p-3 sm:p-4 sm:py-8">
-          <div
-            class="relative max-w-6xl w-full bg-asp-white rounded-2xl shadow-asp-2xl overflow-hidden animate-scale-in"
-            @click.stop
+          <Transition
+            enter-active-class="transition-all duration-400 ease-out"
+            enter-from-class="opacity-0 scale-95 translate-y-8"
+            enter-to-class="opacity-100 scale-100 translate-y-0"
+            leave-active-class="transition-all duration-200 ease-in"
+            leave-from-class="opacity-100 scale-100 translate-y-0"
+            leave-to-class="opacity-0 scale-95 translate-y-8"
           >
+            <div
+              class="relative max-w-6xl w-full bg-asp-white rounded-2xl shadow-2xl overflow-hidden"
+              @click.stop
+            >
           <!-- Close Button -->
           <button
             @click="$emit('close')"
@@ -31,12 +39,15 @@
           <!-- Sur desktop: 2 colonnes, max-h 90vh, le contenu scrolle en interne -->
           <div class="grid grid-cols-1 lg:grid-cols-2 lg:max-h-[90vh]">
             <!-- Image/Video Side -->
-            <div class="relative bg-asp-gray-900 flex items-center justify-center lg:h-full">
+            <div class="relative bg-gradient-to-br from-asp-gray-900 via-asp-gray-800 to-asp-gray-900 flex items-center justify-center lg:h-full overflow-hidden">
+              <!-- Decorative gradient overlay -->
+              <div class="absolute inset-0 bg-gradient-to-br from-asp-blue-600/10 to-purple-600/10"></div>
+              
               <!-- Video -->
               <video
                 v-if="item.type === 'video'"
                 :src="item.media"
-                class="w-full h-full object-contain"
+                class="relative z-10 w-full h-full object-cover"
                 controls
                 autoplay
               />
@@ -47,35 +58,35 @@
                 :alt="item.title"
                 :width="1600"
                 :height="1200"
-                :quality="90"
+                :quality="95"
                 format="webp"
                 :use-picture="true"
                 crop="maintain_ratio"
-                class="w-full max-h-[50vh] lg:max-h-[90vh] object-contain"
+                class="relative z-10 w-full h-full min-h-[50vh] lg:min-h-[90vh] object-cover transition-transform duration-700 hover:scale-105"
                 @error="handleImageError"
               />
             </div>
 
             <!-- Content Side -->
-            <div class="p-5 sm:p-6 lg:p-12 flex flex-col justify-between lg:overflow-y-auto">
+            <div class="p-5 sm:p-6 lg:p-12 flex flex-col justify-between lg:overflow-y-auto animate-slide-up">
               <div class="space-y-4 sm:space-y-6">
                 <!-- Category Badge -->
-                <span class="inline-block px-3 py-1.5 sm:px-4 sm:py-2 bg-asp-blue-100 text-asp-blue-700 rounded-full text-xs sm:text-sm font-semibold">
+                <span class="inline-block px-3 py-1.5 sm:px-4 sm:py-2 bg-asp-blue-100 text-asp-blue-700 rounded-full text-xs sm:text-sm font-semibold animate-fade-in" style="animation-delay: 0.1s;">
                   {{ getCategoryName(item.category) }}
                 </span>
 
                 <!-- Title -->
-                <h2 class="text-xl sm:text-2xl lg:text-3xl font-bold text-asp-black leading-tight">
+                <h2 class="text-xl sm:text-2xl lg:text-3xl font-bold text-asp-black leading-tight animate-fade-in" style="animation-delay: 0.2s;">
                   {{ item.title }}
                 </h2>
 
                 <!-- Description -->
-                <p class="text-sm sm:text-base text-muted leading-relaxed">
+                <p class="text-sm sm:text-base text-muted leading-relaxed animate-fade-in" style="animation-delay: 0.3s;">
                   {{ item.description }}
                 </p>
 
                 <!-- Project Details -->
-                <div class="space-y-3 pt-2">
+                <div class="space-y-3 pt-2 animate-fade-in" style="animation-delay: 0.4s;">
                   <div v-if="item.client" class="flex items-start gap-3">
                     <Building2 class="w-4 h-4 sm:w-5 sm:h-5 text-asp-blue-700 flex-shrink-0 mt-0.5" />
                     <div>
@@ -103,7 +114,7 @@
               </div>
 
               <!-- CTA Buttons -->
-              <div class="flex flex-col sm:flex-row gap-3 pt-5 sm:pt-8 mt-5 sm:mt-0 border-t border-asp-gray-200">
+              <div class="flex flex-col sm:flex-row gap-3 pt-5 sm:pt-8 mt-5 sm:mt-0 border-t border-asp-gray-200 animate-fade-in" style="animation-delay: 0.5s;">
                 <Button
                   variant="primary"
                   :href="`whatsapp://send?phone=${config.public.whatsappNumber}&text=Bonjour, j'ai vu votre réalisation '${item.title}' et je souhaite en savoir plus`"
@@ -127,6 +138,7 @@
             </div>
           </div>
           </div>
+          </Transition>
         <!-- Fin du wrapper scrollable -->
         </div>
       </div>

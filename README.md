@@ -1,162 +1,285 @@
+# 🏢 ASP Services - Site Web Officiel
 
-# ASP Services Gabon - Site Vitrine
+Site web professionnel pour ASP Services, spécialiste en signalétique, marquage au sol et impression grand format à Libreville, Gabon.
 
-Site vitrine professionnel pour ASP Services Gabon, spécialiste en signalétique, impression grand format, marquage au sol et consommables Xerox à Libreville.
+---
 
-## 🚀 Technologies
+## 🚀 Démarrage Rapide
 
-- **Nuxt 3** - Framework Vue.js pour applications modernes
-- **TypeScript** - Typage statique pour plus de robustesse
-- **Tailwind CSS** - Framework CSS utilitaire pour un design moderne
-- **Vue 3** - Framework JavaScript progressif
-- **@nuxt/image** - Optimisation d'images automatique
-- **Heroicons** - Icônes SVG professionnelles
-
-## 📦 Installation
+### Développement Local
 
 ```bash
-# Installer les dépendances
+# 1. Installer les dépendances
 npm install
 
-# ou avec yarn
-yarn install
+# 2. Configurer l'environnement
+cp .env.example .env
+# Éditer .env avec vos clés
 
-# ou avec pnpm
-pnpm install
-```
-
-## 🛠️ Développement
-
-```bash
-# Lancer le serveur de développement sur http://localhost:3001
+# 3. Démarrer le serveur de développement
 npm run dev
 ```
 
-### ⚠️ Problème Rolldown sur Windows
+**Application disponible sur http://localhost:3001**
 
-Si vous obtenez une erreur "Cannot find native binding @rolldown/binding-win32-x64-msvc", utilisez les **scripts automatisés** :
-
-```powershell
-# Réparer le projet (nettoie et réinstalle tout)
-.\fix-rolldown.ps1
-
-# Ajouter une dépendance (résout automatiquement Rolldown)
-.\add-package.ps1 nom-du-package
-```
-
-**Documentation complète** : Voir `GUIDE-ROLLDOWN.md` et `SCRIPTS-AUTOMATISES.md`
-
-**Commandes npm disponibles** :
-```bash
-npm run clean        # Nettoyer uniquement
-npm run reinstall    # Nettoyer + réinstaller
-npm run dev:fix      # Nettoyer + réinstaller + démarrer
-npm run safe-install # Installation sécurisée
-```
-
-## 🏗️ Build
+### Avec Docker (Recommandé pour Production)
 
 ```bash
-# Build pour production
-npm run build
+# 1. Configurer
+cp .env.example .env
 
-# Prévisualiser le build de production
-npm run preview
+# 2. Construire et démarrer
+docker-compose build
+docker-compose up -d
 
-# Générer un site statique
-npm run generate
+# 3. Voir les logs
+docker-compose logs -f
 ```
+
+**Application disponible sur http://localhost:3000**
+
+📖 Voir [QUICKSTART.Docker.md](./QUICKSTART.Docker.md) pour le guide complet Docker.
+
+---
 
 ## 📁 Structure du Projet
 
 ```
-asp-services-website/
-├── assets/              # CSS, images, fonts
+ASP-Service-App/
+├── assets/              # CSS, images statiques
 ├── components/          # Composants Vue réutilisables
-├── layouts/             # Templates de mise en page
-├── pages/               # Pages du site (routing automatique)
-├── public/              # Fichiers statiques
-├── composables/         # Fonctions composables Vue
-├── design-system/       # Documentation du design system
-├── nuxt.config.ts       # Configuration Nuxt
-└── tailwind.config.js   # Configuration Tailwind CSS
+├── layouts/             # Layouts (default, admin)
+├── pages/               # Pages et routes
+│   ├── admin/           # Dashboard admin
+│   │   ├── realisations/  # Gestion portfolio
+│   │   └── pages/         # Édition pages publiques
+│   ├── index.vue        # Page d'accueil
+│   ├── services.vue     # Page services
+│   └── contact.vue      # Page contact
+├── composables/         # Composables Vue
+├── server/              # API Nuxt (backend)
+│   └── api/             # Endpoints API
+├── plugins/             # Plugins Nuxt
+├── middleware/          # Middleware (auth, etc.)
+├── Dockerfile           # Configuration Docker
+├── docker-compose.yml   # Orchestration Docker
+└── nuxt.config.ts       # Configuration Nuxt 3
 ```
 
-## 🎨 Design System
+---
 
-Le design system complet est documenté dans `design-system/MASTER.md`.
+## 🛠️ Technologies
 
-### Couleurs Principales
+- **Framework :** [Nuxt 3](https://nuxt.com/) (Vue 3 + SSR)
+- **Styling :** [Tailwind CSS](https://tailwindcss.com/)
+- **Animations :** [Anime.js](https://animejs.com/)
+- **State Management :** [Pinia](https://pinia.vuejs.org/)
+- **Icons :** [Lucide Icons](https://lucide.dev/)
+- **Email :** [EmailJS](https://www.emailjs.com/)
+- **Images :** [ImageKit](https://imagekit.io/)
 
-- **Bleu ASP** (#1D4ED8) - Couleur principale, professionnalisme
-- **Rouge ASP** (#EF4444) - Couleur d'accent, CTA
-- **Noir ASP** (#0F172A) - Texte principal
-- **Blanc ASP** (#FFFFFF) - Arrière-plans, cartes
+---
 
-### Typographie
+## 🔑 Configuration (.env)
 
-- **Police** : Inter (Google Fonts)
-- **Poids** : 400 (Regular), 500 (Medium), 600 (Semibold), 700 (Bold)
-
-## 📄 Pages
-
-- **/** - Accueil (Hero, Services, À propos, Portfolio, Contact)
-- **/services** - Liste détaillée des services
-- **/a-propos** - Présentation de l'entreprise
-- **/realisations** - Galerie de projets
-- **/contact** - Formulaire de contact et informations
-
-## 📞 Informations de Contact
-
-- **Téléphone** : +241 77 86 31 98
-- **WhatsApp** : +241 77 86 31 98
-- **Email** : andih12003@yahoo.fr
-- **Adresse** : Libreville, Likouala en face de l'église Hebron
-
-## 📧 Configuration EmailJS
-
-Le site utilise **EmailJS** pour l'envoi automatique des demandes de devis par email.
-
-### 🚀 Démarrage rapide (5 minutes)
-
-1. Ouvrez **`GUIDE-RAPIDE-EMAILJS.md`** pour les instructions pas à pas
-2. Créez un compte sur [EmailJS](https://www.emailjs.com)
-3. Configurez votre service Yahoo
-4. Créez le template email
-5. Remplissez le fichier `.env` avec vos clés
-
-### 📚 Documentation disponible
-
-| Fichier | Description |
-|---------|-------------|
-| `GUIDE-RAPIDE-EMAILJS.md` | Guide rapide pour démarrer en 5 min |
-| `EMAILJS-SETUP.md` | Guide complet avec toutes les étapes |
-| `TEMPLATES-EMAILJS.txt` | Templates à copier-coller |
-| `ACCES-EMAILJS.md` | Informations d'accès et configuration |
-| `RECAP-EMAILJS.md` | Récapitulatif visuel |
-
-### 🔑 Clés nécessaires
-
-Créez un fichier `.env` à la racine avec :
+Variables d'environnement requises :
 
 ```env
-NUXT_PUBLIC_EMAILJS_SERVICE_ID=votre_service_id
-NUXT_PUBLIC_EMAILJS_TEMPLATE_ID=votre_template_id
-NUXT_PUBLIC_EMAILJS_PUBLIC_KEY=votre_public_key
-NUXT_PUBLIC_SITE_URL=https://aspservices.ga
+# Site
+NUXT_PUBLIC_SITE_URL=https://asp-services.ga
+
+# EmailJS (formulaires de contact)
+NUXT_PUBLIC_EMAILJS_SERVICE_ID=
+NUXT_PUBLIC_EMAILJS_TEMPLATE_ID=
+NUXT_PUBLIC_EMAILJS_PUBLIC_KEY=
+
+# ImageKit (gestion des images)
+NUXT_PUBLIC_IMAGEKIT_URL_ENDPOINT=
+NUXT_PUBLIC_IMAGEKIT_PUBLIC_KEY=
+NUXT_IMAGEKIT_PRIVATE_KEY=
 ```
 
-Voir `.env.example` pour un modèle.
+---
 
-## 🔧 Configuration
+## 📜 Scripts Disponibles
 
-Les variables d'environnement peuvent être définies dans `.env` :
+```bash
+# Développement
+npm run dev              # Serveur de dev (port 3001)
 
-```env
-NUXT_PUBLIC_SITE_URL=https://aspservices.ga
+# Build
+npm run build            # Build pour production
+npm run generate         # Génération statique
+npm run preview          # Preview du build
+
+# Maintenance
+npm run clean            # Nettoyer node_modules/.nuxt
+npm run reinstall        # Réinstaller proprement
 ```
 
-## 📝 License
+---
 
-© 2026 ASP Services Gabon. Tous droits réservés.
->>>>>>> 6798008 (site vitrine acceuil)
+## 🐳 Docker
+
+### Commandes principales
+
+```bash
+# Build
+docker-compose build
+
+# Démarrer
+docker-compose up -d
+
+# Arrêter
+docker-compose down
+
+# Logs
+docker-compose logs -f
+
+# Status
+docker-compose ps
+```
+
+### Avec Makefile
+
+```bash
+make build       # Construire l'image
+make up          # Démarrer
+make down        # Arrêter
+make logs        # Voir les logs
+make shell       # Ouvrir un shell
+```
+
+---
+
+## 🌐 Pages Principales
+
+### Pages Publiques
+- **Accueil** (`/`) - Présentation, services, projets
+- **Services** (`/services`) - Détail des 6 services
+- **Réalisations** (`/realisations`) - Portfolio de projets
+- **À propos** (`/about`) - Histoire et équipe
+- **Contact** (`/contact`) - Formulaire et coordonnées
+
+### Dashboard Admin (`/admin`)
+- **Réalisations** - Gestion du portfolio
+- **Pages** - Édition du contenu des pages
+  - Accueil (Hero, Projets, Services, Processus)
+  - Services (6 services détaillés)
+  - À propos (Histoire, Mission, Équipe)
+  - Contact (Coordonnées, FAQ)
+- **Configuration** - Paramètres généraux
+
+---
+
+## 🔐 Authentification Admin
+
+Le dashboard admin est protégé par authentification.
+
+**Connexion :** `/admin`
+
+---
+
+## 📦 Déploiement
+
+### Sur serveur avec Docker
+
+```bash
+# 1. Cloner le projet
+git clone <repo-url>
+cd ASP-Service-App
+
+# 2. Configurer .env
+cp .env.example .env
+nano .env
+
+# 3. Démarrer
+docker-compose up -d
+```
+
+### Avec Nginx (reverse proxy)
+
+Configuration Nginx :
+```nginx
+server {
+    listen 80;
+    server_name asp-services.ga;
+    
+    location / {
+        proxy_pass http://localhost:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+}
+```
+
+### SSL avec Certbot
+
+```bash
+sudo certbot --nginx -d asp-services.ga
+```
+
+---
+
+## 🧪 Développement
+
+### Ajouter une page
+
+```bash
+# Créer le fichier
+touch pages/nouvelle-page.vue
+
+# Contenu minimal
+<template>
+  <div>
+    <h1>Ma nouvelle page</h1>
+  </div>
+</template>
+```
+
+### Ajouter une API
+
+```bash
+# Créer l'endpoint
+mkdir -p server/api/mon-endpoint
+touch server/api/mon-endpoint/index.get.ts
+
+# Contenu
+export default defineEventHandler(async (event) => {
+  return { message: 'Hello API' }
+})
+```
+
+---
+
+## 📝 Notes Importantes
+
+1. **Sécurité** : Ne commitez jamais le fichier `.env`
+2. **Images** : Utilisez ImageKit pour optimiser automatiquement les images
+3. **Emails** : Configurez EmailJS pour les formulaires de contact
+4. **Cache** : En production, Nuxt met en cache automatiquement
+5. **Admin** : L'accès admin nécessite une authentification
+
+---
+
+## 📚 Documentation
+
+- [QUICKSTART.Docker.md](./QUICKSTART.Docker.md) - Guide Docker simplifié
+- [README.Docker.md](./README.Docker.md) - Documentation Docker complète
+- [Nuxt 3 Docs](https://nuxt.com/docs)
+- [Tailwind CSS Docs](https://tailwindcss.com/docs)
+
+---
+
+## 📧 Support
+
+Pour toute question ou problème :
+- Email : contact@asp-services.ga
+- Site : https://asp-services.ga
+
+---
+
+## 📄 Licence
+
+© 2024 ASP Services - Tous droits réservés

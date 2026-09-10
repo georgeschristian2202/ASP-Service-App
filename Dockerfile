@@ -1,40 +1,71 @@
-# Stage 1: Build
-FROM node:20-alpine AS builder
+# ============================================
+# Dockerfile - ASP Services Website (Nuxt 3)
+# ============================================
 
-# Définir le répertoire de travail
+# Stage 1: Dépendances
+FROM node:20-alpine AS deps
+LABEL stage=deps
+
 WORKDIR /app
 
-# Copier les fichiers de dépendances
-COPY package*.json ./
+# Copier uniquement les fichiers de dépendances
+COPY package.json package-lock.json ./
 
-# Installer les dépendances
-RUN npm ci
+# Installer toutes les dépendances (dev + prod)
+RUN npm ci --prefer-offline --no-audit
+
+# ============================================
+# Stage 2: Builder
+FROM node:20-alpine AS builder
+LABEL stage=builder
+
+WORKDIR /app
+
+# Copier les node_modules depuis deps
+COPY --from=deps /app/node_modules ./node_modules
 
 # Copier tout le code source
 COPY . .
 
-# Build de l'application Nuxt
+# Build de l'application Nuxt 3
 RUN npm run build
 
-# Stage 2: Production
+# ============================================
+# Stage 3: Production
 FROM node:20-alpine AS runner
+LABEL maintainer="ASP Services"
 
 WORKDIR /app
 
-# Copier les fichiers nécessaires depuis le builder
-COPY --from=builder /app/.output /app/.output
-COPY --from=builder /app/package*.json ./
+# Installer dumb-init pour une meilleure gestion des processus
+RUN apk add --no-cache dumb-init
 
-# Installer uniquement les dépendances de production
-RUN npm ci --only=production
+# Créer un utilisateur non-root pour la sécurité
+RUN addgroup -g 1001 -S nodejs && \
+    adduser -S nuxtjs -u 1001
+
+# Copier uniquement les fichiers nécessaires depuis le builder
+COPY --from=builder --chown=nuxtjs:nodejs /app/.output /app/.output
+COPY --from=builder --chown=nuxtjs:nodejs /app/package.json ./
+
+# Créer le dossier data pour le storage
+RUN mkdir -p /app/data && chown nuxtjs:nodejs /app/data
+
+# Passer à l'utilisateur non-root
+USER nuxtjs
 
 # Exposer le port 3000
 EXPOSE 3000
 
-# Variables d'environnement par défaut
-ENV NUXT_HOST=0.0.0.0
-ENV NUXT_PORT=3000
-ENV NODE_ENV=production
+# Variables d'environnement
+ENV NODE_ENV=production \
+    NUXT_HOST=0.0.0.0 \
+    NUXT_PORT=3000
 
-# Démarrer l'application
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD node -e "require('http').get('http://localhost:3000', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"
+
+# Démarrer avec dumb-init pour une meilleure gestion des signaux
+ENTRYPOINT ["dumb-init", "--"]
 CMD ["node", ".output/server/index.mjs"]

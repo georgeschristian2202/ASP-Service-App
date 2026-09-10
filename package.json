@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
+    "@nuxt/ui": "^4.11.1",
     "@nuxtjs/tailwindcss": "^6.11.4",
     "@pinia/nuxt": "^0.5.1",
     "@vueuse/core": "^10.9.0",

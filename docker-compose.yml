@@ -1,31 +1,60 @@
+# ============================================
+# Docker Compose - ASP Services Website
+# ============================================
 version: '3.8'
 
 services:
-  asp-services-web:
+  # Application Web Nuxt 3
+  web:
     build:
       context: .
       dockerfile: Dockerfile
     container_name: asp-services-web
+    restart: unless-stopped
+    
+    # Port d'accès
     ports:
       - "3000:3000"
-    environment:
-      - NUXT_PUBLIC_EMAILJS_SERVICE_ID=${NUXT_PUBLIC_EMAILJS_SERVICE_ID}
-      - NUXT_PUBLIC_EMAILJS_TEMPLATE_ID=${NUXT_PUBLIC_EMAILJS_TEMPLATE_ID}
-      - NUXT_PUBLIC_EMAILJS_TEMPLATE_ID_QUOTE=${NUXT_PUBLIC_EMAILJS_TEMPLATE_ID_QUOTE}
-      - NUXT_PUBLIC_EMAILJS_PUBLIC_KEY=${NUXT_PUBLIC_EMAILJS_PUBLIC_KEY}
-      - NUXT_PUBLIC_EMAILJS_SERVICE_ID_CLIENT=${NUXT_PUBLIC_EMAILJS_SERVICE_ID_CLIENT}
-      - NUXT_PUBLIC_EMAILJS_TEMPLATE_ID_QUOTE_CLIENT=${NUXT_PUBLIC_EMAILJS_TEMPLATE_ID_QUOTE_CLIENT}
-      - NUXT_PUBLIC_EMAILJS_PUBLIC_KEY_CLIENT=${NUXT_PUBLIC_EMAILJS_PUBLIC_KEY_CLIENT}
-      - NUXT_PUBLIC_SITE_URL=${NUXT_PUBLIC_SITE_URL}
-      - NUXT_PUBLIC_IMAGEKIT_URL_ENDPOINT=${NUXT_PUBLIC_IMAGEKIT_URL_ENDPOINT}
-      - NUXT_PUBLIC_IMAGEKIT_PUBLIC_KEY=${NUXT_PUBLIC_IMAGEKIT_PUBLIC_KEY}
-      - NODE_ENV=production
+    
+    # Variables d'environnement depuis .env
     env_file:
       - .env
-    restart: always
+    
+    # Variables supplémentaires
+    environment:
+      - NODE_ENV=production
+      - NUXT_HOST=0.0.0.0
+      - NUXT_PORT=3000
+    
+    # Volumes pour données persistantes
+    volumes:
+      - asp-data:/app/data
+    
+    # Health check - vérifie que l'app fonctionne
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    
+    # Réseau
     networks:
       - asp-network
+    
+    # Rotation des logs
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
 
+# Volumes persistants
+volumes:
+  asp-data:
+    name: asp-services-data
+
+# Réseau
 networks:
   asp-network:
-    driver: bridge
+    name: asp-services-network

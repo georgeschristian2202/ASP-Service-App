@@ -100,7 +100,9 @@ export default defineNuxtConfig({
       // EmailJS - Compte séparé pour confirmation client
       emailjsServiceIdClient: process.env.NUXT_PUBLIC_EMAILJS_SERVICE_ID_CLIENT || '',
       emailjsTemplateIdQuoteClient: process.env.NUXT_PUBLIC_EMAILJS_TEMPLATE_ID_QUOTE_CLIENT || '',
-      emailjsPublicKeyClient: process.env.NUXT_PUBLIC_EMAILJS_PUBLIC_KEY_CLIENT || ''
+      emailjsPublicKeyClient: process.env.NUXT_PUBLIC_EMAILJS_PUBLIC_KEY_CLIENT || '',
+      // Google Analytics 4
+      googleAnalyticsId: process.env.NUXT_PUBLIC_GOOGLE_ANALYTICS_ID || ''
     }
   }
 })
