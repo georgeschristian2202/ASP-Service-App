@@ -19,11 +19,11 @@ definePageMeta({
   layout: false
 })
 
-const router = useRouter()
+let loadTimeout: NodeJS.Timeout
 
 onMounted(() => {
-  // Attendre le chargement complet
-  const loadTimeout = setTimeout(() => {
+  // Attendre 3 secondes de chargement
+  loadTimeout = setTimeout(() => {
     // Marquer comme chargé
     sessionStorage.setItem('app-loaded', 'true')
     
@@ -31,14 +31,15 @@ onMounted(() => {
     const intendedPath = sessionStorage.getItem('intended-path') || '/accueil'
     sessionStorage.removeItem('intended-path')
     
-    // Rediriger
-    router.push(intendedPath)
-  }, 1500) // 1.5 secondes de loading
-  
-  // Cleanup
-  onUnmounted(() => {
+    // Redirection forcée avec window.location
+    window.location.href = intendedPath
+  }, 3000) // 3 secondes
+})
+
+onUnmounted(() => {
+  if (loadTimeout) {
     clearTimeout(loadTimeout)
-  })
+  }
 })
 </script>
 
