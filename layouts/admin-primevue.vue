@@ -217,7 +217,7 @@
               <div class="flex items-center gap-3">
                 <!-- Lien vers le site -->
                 <NuxtLink
-                  to="/"
+                  to="/accueil"
                   target="_blank"
                   class="hidden sm:flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 hover:border-asp-blue-700 hover:bg-asp-blue-50 text-asp-blue-700 rounded-lg transition-colors"
                 >

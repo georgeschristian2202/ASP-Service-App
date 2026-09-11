@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Test Loader</title>
+  <style>
+    #initial-loader {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .loader-container {
+      text-align: center;
+    }
+    .loader-spinner {
+      width: 80px;
+      height: 80px;
+      border: 8px solid #e5e7eb;
+      border-top-color: #1e3a5f;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 20px;
+    }
+    .loader-text {
+      font-size: 18px;
+      color: #475569;
+      font-family: sans-serif;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div id="initial-loader">
+    <div class="loader-container">
+      <div class="loader-spinner"></div>
+      <div class="loader-text">Chargement en cours...</div>
+    </div>
+  </div>
+
+  <script>
+    setTimeout(function() {
+      const loader = document.getElementById('initial-loader');
+      loader.style.opacity = '0';
+      loader.style.transition = 'opacity 0.4s';
+      setTimeout(function() {
+        loader.style.display = 'none';
+      }, 400);
+    }, 2000);
+  </script>
+</body>
+</html>

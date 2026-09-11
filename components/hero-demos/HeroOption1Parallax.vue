@@ -7,11 +7,10 @@
         class="absolute inset-0 transition-transform duration-100 ease-out"
         :style="{ transform: `translateY(${scrollY * 0.5}px)` }"
       >
-        <img 
-          src="/images/portfolio/Panneau-publicitaire/IMG-20260709-WA0204.jpg"
+        <img src="/images/portfolio/Panneau-publicitaire/IMG-20260709-WA0204.jpg"
           alt="Background layer 1"
           class="w-full h-full object-cover opacity-20 blur-sm"
-        >
+         loading="lazy" decoding="async">
       </div>
       
       <!-- Layer 2 - Middle -->
@@ -19,11 +18,10 @@
         class="absolute inset-0 transition-transform duration-100 ease-out"
         :style="{ transform: `translateY(${scrollY * 0.3}px)` }"
       >
-        <img 
-          src="/images/portfolio/Panneau-publicitaire/Panneau-Pk4 apres sovog-1.jpg"
+        <img src="/images/portfolio/Panneau-publicitaire/Panneau-Pk4 apres sovog-1.jpg"
           alt="Background layer 2"
           class="w-full h-full object-cover opacity-15 blur-[2px]"
-        >
+         loading="lazy" decoding="async">
       </div>
       
       <!-- Overlay Gradient -->
@@ -56,11 +54,10 @@
             :style="{ transform: `translateY(${scrollY * 0.1}px)` }"
           >
             <div class="bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/20">
-              <img 
-                src="/images/portfolio/Machine xerox/xerox-3.jpg"
+              <img src="/images/portfolio/Machine xerox/xerox-3.jpg"
                 alt="Projet récent"
                 class="rounded-lg shadow-2xl"
-              >
+               loading="lazy" decoding="async">
             </div>
           </div>
         </div>

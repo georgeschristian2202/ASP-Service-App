@@ -21,12 +21,11 @@
             class="w-full h-full object-cover"
             @error="handleImageError"
           />
-          <img
-            v-else
+          <img v-else
             :src="placeholderImage"
             :alt="service.title"
             class="w-full h-full object-cover"
-          >
+           loading="lazy" decoding="async">
         </div>
       </div>
     </div>

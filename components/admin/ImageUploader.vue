@@ -2,12 +2,11 @@
   <div class="space-y-4">
     <!-- Prévisualisation -->
     <div class="aspect-video bg-gray-100 rounded-lg overflow-hidden border-2 border-dashed border-gray-300">
-      <img
-        v-if="imageUrl"
+      <img v-if="imageUrl"
         :src="imageUrl"
         :alt="alt"
         class="w-full h-full object-cover"
-      />
+       loading="lazy" decoding="async" />
       <div v-else class="w-full h-full flex items-center justify-center">
         <div class="text-center">
           <svg class="w-12 h-12 text-gray-300 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

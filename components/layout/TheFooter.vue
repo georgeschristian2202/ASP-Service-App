@@ -5,13 +5,11 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           <!-- À propos -->
           <div>
-            <img 
-              src="/Logo-ASP-Service-sans fond.png" 
+            <img src="/Logo-ASP-Service-blanc.png" 
               alt="ASP Services Gabon" 
-              class="h-16 w-auto mb-4 bg-transparent" 
-              style="mix-blend-mode: lighten;"
+              class="h-16 w-auto mb-4" 
               @error="handleLogoError"
-            >
+             loading="lazy" decoding="async">
             <p class="text-gray-400 leading-relaxed text-sm">
               Votre partenaire de confiance en signalétique, impression grand format et marquage au sol à Libreville depuis 28 ans.
             </p>
@@ -22,7 +20,7 @@
             <h4 class="text-lg font-bold mb-4 text-white">Navigation</h4>
             <ul class="space-y-3">
               <li>
-                <NuxtLink to="/" class="text-gray-400 hover:text-yellow-400 transition-colors duration-200 text-sm cursor-pointer">
+                <NuxtLink to="/accueil" class="text-gray-400 hover:text-yellow-400 transition-colors duration-200 text-sm cursor-pointer">
                   Accueil
                 </NuxtLink>
               </li>
@@ -115,6 +113,6 @@ import {
 
 const handleLogoError = (event: Event) => {
   const img = event.target as HTMLImageElement
-  img.src = '/logo.png' // Fallback to the original logo
+  img.src = '/Logo-ASP-Service-sans fond.png' // Fallback au logo couleur si blanc non disponible
 }
 </script>

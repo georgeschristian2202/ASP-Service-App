@@ -16,13 +16,57 @@ export default defineNuxtConfig({
   ],
 
   experimental: {
-    appManifest: false
+    appManifest: false,
+    payloadExtraction: false
   },
 
+  // ==========================================
+  // 🚀 OPTIMISATIONS PERFORMANCE
+  // ==========================================
+  
+  // Build optimizations
+  vite: {
+    build: {
+      cssCodeSplit: true,
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            'vendor': ['vue', 'vue-router'],
+            'anime': ['animejs'],
+            'lucide': ['lucide-vue-next']
+          }
+        }
+      }
+    },
+    optimizeDeps: {
+      include: ['animejs', 'lucide-vue-next']
+    }
+  },
+
+  // Nitro optimizations (server)
   nitro: {
     experimental: {
       appManifest: false
+    },
+    compressPublicAssets: true,
+    minify: true,
+    prerender: {
+      crawlLinks: true,
+      routes: ['/', '/accueil', '/services', '/contact', '/a-propos', '/realisations']
     }
+  },
+
+  // Router optimizations
+  router: {
+    options: {
+      strict: false
+    }
+  },
+
+  // Image optimization hints
+  image: {
+    quality: 80,
+    formats: ['webp', 'jpeg']
   },
 
   components: [
@@ -61,7 +105,13 @@ export default defineNuxtConfig({
         { name: 'twitter:image', content: 'https://aspservices.ga/images/hero/hero-background.jpg' }
       ],
       link: [
+        // Favicons - Logo ASP Services
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+        { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon-16x16.png' },
+        { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32x32.png' },
+        { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' },
+        { rel: 'manifest', href: '/site.webmanifest' },
+        // Preconnect
         { rel: 'preconnect', href: 'https://fonts.googleapis.com' }
       ]
     }

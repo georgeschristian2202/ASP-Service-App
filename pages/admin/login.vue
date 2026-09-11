@@ -86,7 +86,7 @@
       <!-- Lien retour site -->
       <div class="mt-6 text-center">
         <NuxtLink 
-          to="/" 
+          to="/accueil" 
           class="text-white hover:text-asp-blue-100 text-sm transition-colors inline-flex items-center gap-2"
         >
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

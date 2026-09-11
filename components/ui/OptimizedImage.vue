@@ -10,8 +10,7 @@
       :srcset="sources.webp"
       type="image/webp"
     />
-    <img
-      :src="sources.jpg"
+    <img :src="sources.jpg"
       :alt="alt"
       :width="width"
       :height="height"
@@ -19,11 +18,10 @@
       :loading="loading"
       :decoding="decoding"
       @error="handleError"
-    />
+     loading="lazy" decoding="async" />
   </picture>
 
-  <img
-    v-else
+  <img v-else
     :src="imageUrl"
     :srcset="srcset"
     :sizes="sizes"
@@ -34,7 +32,7 @@
     :loading="loading"
     :decoding="decoding"
     @error="handleError"
-  />
+   loading="lazy" decoding="async" />
 </template>
 
 <script setup lang="ts">

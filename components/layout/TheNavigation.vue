@@ -19,11 +19,10 @@
       <div class="flex items-center justify-between h-20">
         <!-- Logo -->
         <NuxtLink 
-          to="/" 
+          to="/accueil" 
           class="flex items-center focus:outline-none focus:ring-2 focus:ring-asp-blue-500 rounded-lg logo-container"
         >
-          <img 
-            ref="logoImg"
+          <img ref="logoImg"
             src="/Logo-ASP-Service-sans fond.png" 
             alt="ASP Services Gabon" 
             :class="[
@@ -31,7 +30,7 @@
               scrolled ? 'h-12' : 'h-14'
             ]"
             @error="handleImageError"
-          >
+           fetchpriority="high">
         </NuxtLink>
 
         <!-- Desktop Navigation -->
@@ -138,7 +137,7 @@ const route = useRoute()
 
 // Navigation items
 const navItems = [
-  { name: 'Accueil', path: '/' },
+  { name: 'Accueil', path: '/accueil' },
   { name: 'Services', path: '/services' },
   { name: 'À Propos', path: '/a-propos' },
   { name: 'Réalisations', path: '/realisations' },

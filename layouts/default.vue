@@ -1,8 +1,11 @@
 <template>
   <div class="min-h-screen flex flex-col">
+    <!-- Loading animation pour changements de page -->
+    <GlobalPageLoader />
+
     <!-- Barre de progression de lecture - repositionnée -->
     <div
-      class="fixed top-0 left-0 h-[3px] bg-gradient-to-r from-yellow-400 to-asp-blue-500 z-[9999] transition-all duration-100 ease-out pointer-events-none"
+      class="fixed top-0 left-0 h-[3px] bg-gradient-to-r from-yellow-400 to-asp-blue-500 z-[9998] transition-all duration-100 ease-out pointer-events-none"
       :style="{ width: scrollProgress + '%' }"
     />
 

@@ -8,7 +8,10 @@
         <!-- Header -->
         <div class="bg-gradient-to-r from-asp-blue-900 to-asp-blue-700 px-4 py-3 flex items-center justify-between">
           <div class="flex items-center gap-2">
-            <span class="text-lg">⚡</span>
+            <!-- Icône éclair SVG -->
+            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M13 2L3 14h8l-1 8 10-12h-8l1-8z"/>
+            </svg>
             <span class="text-white font-bold text-sm">Offre Spéciale</span>
             <span class="bg-yellow-400 text-asp-blue-900 text-xs font-bold px-2 py-0.5 rounded-full">GRATUIT</span>
           </div>

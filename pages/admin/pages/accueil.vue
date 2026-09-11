@@ -9,7 +9,7 @@
         </div>
         <div class="flex gap-3">
           <NuxtLink
-            to="/"
+            to="/accueil"
             target="_blank"
             class="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 hover:bg-gray-50 rounded-lg transition-colors text-sm font-medium"
           >

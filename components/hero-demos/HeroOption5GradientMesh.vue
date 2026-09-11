@@ -46,11 +46,10 @@
               
               <!-- Mini Carousel -->
               <div class="relative h-80 rounded-2xl overflow-hidden">
-                <img 
-                  :src="projects[currentSlide].image"
+                <img :src="projects[currentSlide].image"
                   :alt="projects[currentSlide].title"
                   class="w-full h-full object-cover transition-all duration-500"
-                >
+                 loading="lazy" decoding="async">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                 <div class="absolute bottom-4 left-4 right-4 text-white">
                   <h4 class="font-bold text-lg mb-1">{{ projects[currentSlide].title }}</h4>
