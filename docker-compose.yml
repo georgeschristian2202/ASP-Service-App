@@ -1,60 +1,88 @@
-# ============================================
-# Docker Compose - ASP Services Website
-# ============================================
 version: '3.8'
 
 services:
-  # Application Web Nuxt 3
-  web:
+  # Frontend Nuxt 3
+  frontend:
     build:
-      context: .
+      context: ./frontend
       dockerfile: Dockerfile
-    container_name: asp-services-web
-    restart: unless-stopped
-    
-    # Port d'accès
+    container_name: asp-service-frontend
     ports:
       - "3000:3000"
-    
-    # Variables d'environnement depuis .env
-    env_file:
-      - .env
-    
-    # Variables supplémentaires
     environment:
       - NODE_ENV=production
-      - NUXT_HOST=0.0.0.0
-      - NUXT_PORT=3000
-    
-    # Volumes pour données persistantes
-    volumes:
-      - asp-data:/app/data
-    
-    # Health check - vérifie que l'app fonctionne
-    healthcheck:
-      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"]
-      interval: 30s
-      timeout: 5s
-      retries: 3
-      start_period: 10s
-    
-    # Réseau
+      - NUXT_PUBLIC_API_URL=http://backend:5000/api
+    depends_on:
+      - backend
     networks:
       - asp-network
-    
-    # Rotation des logs
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "10m"
-        max-file: "3"
+    restart: unless-stopped
 
-# Volumes persistants
-volumes:
-  asp-data:
-    name: asp-services-data
+  # Backend API (à configurer selon la stack choisie)
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: asp-service-backend
+    ports:
+      - "5000:5000"
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://asp_user:asp_password@db:5432/asp_service_db
+      - JWT_SECRET=${JWT_SECRET:-your-secret-key-change-in-production}
+      - FRONTEND_URL=http://localhost:3000
+    depends_on:
+      - db
+    networks:
+      - asp-network
+    restart: unless-stopped
+    volumes:
+      - ./backend/uploads:/app/uploads
 
-# Réseau
+  # Base de données PostgreSQL
+  db:
+    image: postgres:16-alpine
+    container_name: asp-service-db
+    environment:
+      - POSTGRES_USER=asp_user
+      - POSTGRES_PASSWORD=asp_password
+      - POSTGRES_DB=asp_service_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - asp-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U asp_user -d asp_service_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # PgAdmin pour gérer la base de données (optionnel)
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: asp-service-pgadmin
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@aspservice.com
+      - PGADMIN_DEFAULT_PASSWORD=admin123
+    ports:
+      - "5050:80"
+    depends_on:
+      - db
+    networks:
+      - asp-network
+    restart: unless-stopped
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+
 networks:
   asp-network:
-    name: asp-services-network
+    driver: bridge
+
+volumes:
+  postgres_data:
+    driver: local
+  pgadmin_data:
+    driver: local

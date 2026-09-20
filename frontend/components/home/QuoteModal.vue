@@ -150,22 +150,18 @@
                     </Message>
                   </div>
 
-                  <!-- Téléphone -->
+                  <!-- Téléphone with Country Selector -->
                   <div class="flex flex-col gap-1">
-                    <FloatLabel>
-                      <input 
-                        id="telephone"
-                        v-model="formData.telephone"
-                        type="tel" 
-                        required
-                        :class="['w-full px-4 py-3 border-2 border-asp-gray-200 rounded-lg focus:ring-2 focus:ring-asp-blue-500 focus:border-asp-blue-500 transition-all duration-200', { 'border-red-500 focus:border-red-500 focus:ring-red-500': errors.telephone }]"
-                        placeholder=" "
-                        @blur="validateField('telephone')"
-                      />
-                      <label for="telephone">
-                        Téléphone <span class="text-red-600">*</span>
-                      </label>
-                    </FloatLabel>
+                    <PhoneInput
+                      id="telephone"
+                      v-model="formData.telephone"
+                      label="Téléphone"
+                      placeholder="06 12 34 56 78"
+                      required
+                      :has-error="!!errors.telephone"
+                      default-country="GA"
+                      @blur="validateField('telephone')"
+                    />
                     <Message 
                       v-if="errors.telephone" 
                       severity="error" 

@@ -1,0 +1,230 @@
+ASP-Service-App/
+│
+├── 📄 README.md                        ← Documentation principale
+├── 📄 ARCHITECTURE.md                  ← Architecture détaillée
+├── 📄 GETTING-STARTED.md               ← Guide de démarrage
+├── 📄 COMMANDS.md                      ← Commandes essentielles
+├── 📄 RESTRUCTURATION-COMPLETE.md      ← Récapitulatif restructuration
+├── 📄 PROJECT-TREE.txt                 ← Ce fichier - arborescence
+│
+├── 🐳 docker-compose.yml               ← Orchestration Docker (frontend + backend + db)
+├── 🛠️  Makefile                        ← Commandes simplifiées
+├── 📄 .gitignore                       ← Exclusions Git globales
+│
+├── 📁 .git/                            ← Repository Git
+│
+├── 📁 frontend/                        ← 🎨 APPLICATION FRONTEND (NUXT 3)
+│   │
+│   ├── 📁 .nuxt/                       ← Fichiers générés (git-ignored)
+│   ├── 📁 node_modules/                ← Dépendances NPM (git-ignored)
+│   │
+│   ├── 📁 components/                  ← Composants Vue réutilisables
+│   │   ├── 📁 admin/
+│   │   │   └── ImageUploader.vue
+│   │   ├── 📁 contact/
+│   │   │   ├── ContactForm.vue
+│   │   │   ├── ContactInfo.vue
+│   │   │   ├── FAQItem.vue
+│   │   │   └── PhoneInput.vue
+│   │   ├── 📁 hero-demos/
+│   │   ├── 📁 services/
+│   │   └── ...
+│   │
+│   ├── 📁 pages/                       ← Pages (routing automatique)
+│   │   ├── index.vue                   ← Page d'accueil
+│   │   ├── about.vue
+│   │   ├── services/
+│   │   │   ├── index.vue
+│   │   │   └── [slug].vue
+│   │   ├── contact.vue
+│   │   └── ...
+│   │
+│   ├── 📁 layouts/                     ← Layouts de l'app
+│   │   ├── default.vue
+│   │   └── ...
+│   │
+│   ├── 📁 composables/                 ← Composables Vue (logique réutilisable)
+│   │   ├── useServices.ts
+│   │   ├── useContact.ts
+│   │   └── ...
+│   │
+│   ├── 📁 stores/                      ← State management (Pinia)
+│   │   ├── services.ts
+│   │   └── ...
+│   │
+│   ├── 📁 middleware/                  ← Middlewares Nuxt
+│   │   └── auth.ts
+│   │
+│   ├── 📁 server/                      ← API Nuxt (routes serveur)
+│   │   └── api/
+│   │       └── ...
+│   │
+│   ├── 📁 public/                      ← Fichiers statiques publics
+│   │   ├── favicon.ico
+│   │   ├── images/
+│   │   └── ...
+│   │
+│   ├── 📁 assets/                      ← Assets (CSS, images à compiler)
+│   │   └── css/
+│   │       └── main.css
+│   │
+│   ├── 📁 plugins/                     ← Plugins Nuxt
+│   │   └── ...
+│   │
+│   ├── 📁 data/                        ← Données statiques (JSON)
+│   │   └── ...
+│   │
+│   ├── 📁 design-system/               ← Système de design
+│   │   └── ...
+│   │
+│   ├── 📁 documentation/               ← Documentation frontend
+│   │   └── ...
+│   │
+│   ├── 📁 attachments/                 ← Images attachées
+│   │   └── ...
+│   │
+│   ├── 📁 scripts/                     ← Scripts utilitaires
+│   │   └── ...
+│   │
+│   ├── 📄 app.vue                      ← Composant racine
+│   ├── 📄 nuxt.config.ts               ← Configuration Nuxt
+│   ├── 📄 tailwind.config.js           ← Configuration Tailwind
+│   ├── 📄 tsconfig.json                ← Configuration TypeScript
+│   ├── 📄 package.json                 ← Dépendances NPM
+│   ├── 📄 package-lock.json
+│   │
+│   ├── 🐳 Dockerfile                   ← Image Docker frontend
+│   ├── 📄 docker-compose.yml
+│   ├── 📄 .dockerignore
+│   │
+│   ├── 📄 .env                         ← Variables d'environnement (git-ignored)
+│   ├── 📄 .env.example
+│   ├── 📄 .gitignore
+│   │
+│   └── 📄 README.md                    ← Documentation frontend
+│
+└── 📁 backend/                         ← 🔧 API BACKEND (À DÉVELOPPER)
+    │
+    ├── 📁 src/                         ← Code source (à créer)
+    │   ├── 📁 config/
+    │   │   └── database.ts
+    │   ├── 📁 controllers/
+    │   │   ├── authController.ts
+    │   │   ├── userController.ts
+    │   │   ├── serviceController.ts
+    │   │   └── appointmentController.ts
+    │   ├── 📁 routes/
+    │   │   ├── authRoutes.ts
+    │   │   ├── userRoutes.ts
+    │   │   ├── serviceRoutes.ts
+    │   │   └── appointmentRoutes.ts
+    │   ├── 📁 services/
+    │   │   ├── authService.ts
+    │   │   ├── emailService.ts
+    │   │   └── uploadService.ts
+    │   ├── 📁 middleware/
+    │   │   ├── auth.ts
+    │   │   ├── errorHandler.ts
+    │   │   └── validation.ts
+    │   ├── 📁 types/
+    │   │   └── express.d.ts
+    │   ├── 📁 utils/
+    │   │   ├── jwt.ts
+    │   │   └── validators.ts
+    │   ├── 📄 app.ts
+    │   └── 📄 server.ts
+    │
+    ├── 📁 prisma/                      ← Prisma ORM (à créer)
+    │   ├── 📄 schema.prisma
+    │   ├── 📁 migrations/
+    │   └── 📄 seed.ts
+    │
+    ├── 📁 uploads/                     ← Fichiers uploadés (à créer)
+    ├── 📁 tests/                       ← Tests (à créer)
+    ├── 📁 node_modules/                ← Dépendances (git-ignored, à créer)
+    │
+    ├── 📄 package.json                 ← Dépendances (à créer)
+    ├── 📄 tsconfig.json                ← Config TypeScript (à créer)
+    │
+    ├── 🐳 Dockerfile                   ← Image Docker backend (à créer)
+    │
+    ├── 📄 .env                         ← Variables d'environnement (git-ignored, à créer)
+    ├── 📄 .env.example                 ← Exemple de variables
+    ├── 📄 .gitignore
+    │
+    ├── 📄 README.md                    ← Documentation backend
+    └── 📄 BACKEND-SETUP.md             ← Guide de setup backend
+
+
+═══════════════════════════════════════════════════════════════════════════
+
+📊 STATISTIQUES DU PROJET
+
+Frontend (Nuxt 3) :
+  ✅ Complètement fonctionnel
+  ✅ 18+ dossiers
+  ✅ Composants, pages, layouts, stores
+  ✅ Configuration Docker
+  ✅ Documentation complète
+
+Backend (Node.js + Express) :
+  🔶 Structure prête
+  🔶 Documentation complète
+  🔶 À développer
+  
+Documentation Racine :
+  ✅ 8 fichiers de documentation
+  ✅ Architecture détaillée
+  ✅ Guides de démarrage
+  ✅ Commandes complètes
+
+Infrastructure :
+  ✅ Docker Compose configuré
+  ✅ PostgreSQL + PgAdmin
+  ✅ Makefile avec commandes
+  
+═══════════════════════════════════════════════════════════════════════════
+
+🚀 COMMANDES RAPIDES
+
+Installation :
+  cd frontend && npm install
+
+Développement :
+  make dev              (avec Make)
+  cd frontend && npm run dev    (sans Make)
+
+Docker :
+  make docker-up        (avec Make)
+  docker-compose up -d  (sans Make)
+
+Documentation :
+  cat README.md
+  cat GETTING-STARTED.md
+  cat ARCHITECTURE.md
+  cat COMMANDS.md
+
+═══════════════════════════════════════════════════════════════════════════
+
+📍 SERVICES & PORTS
+
+Frontend (Nuxt)       → http://localhost:3000
+Backend (Express)     → http://localhost:5000
+PostgreSQL            → postgresql://localhost:5432
+PgAdmin               → http://localhost:5050
+
+═══════════════════════════════════════════════════════════════════════════
+
+✨ PROCHAINES ÉTAPES
+
+1. Choisir la stack backend (Recommandé : Node.js + Express + Prisma)
+2. Initialiser le projet backend (voir backend/BACKEND-SETUP.md)
+3. Créer les endpoints API
+4. Connecter le frontend au backend
+5. Tester l'intégration complète
+
+═══════════════════════════════════════════════════════════════════════════
+
+Date de restructuration : 15 septembre 2026
+Statut : ✅ Structure complète, prêt pour le développement backend
+

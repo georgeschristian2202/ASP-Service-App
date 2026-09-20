@@ -85,13 +85,65 @@
               <label class="block text-sm font-medium text-asp-gray-700 mb-2">
                 Téléphone <span class="text-red-500">*</span>
               </label>
-              <input
-                v-model="formData.contact.phone"
-                type="tel"
-                required
-                class="w-full px-4 py-3 border border-asp-gray-300 rounded-lg focus:ring-2 focus:ring-asp-blue-500 focus:border-asp-blue-500"
-                placeholder="+241 77 86 31 98"
-              />
+              <div class="flex gap-2">
+                <!-- Sélecteur de pays -->
+                <div class="relative" ref="phoneDropdownRef">
+                  <button
+                    type="button"
+                    @click="togglePhoneDropdown"
+                    class="flex items-center gap-2 px-3 py-3 border border-asp-gray-300 rounded-lg hover:border-asp-blue-500 focus:ring-2 focus:ring-asp-blue-500 focus:border-asp-blue-500 transition-all bg-white"
+                  >
+                    <span class="text-2xl">{{ selectedPhoneCountry.flag }}</span>
+                    <span class="font-semibold text-gray-700">{{ selectedPhoneCountry.code }}</span>
+                    <svg class="w-4 h-4 text-gray-500 transition-transform" :class="{ 'rotate-180': isPhoneDropdownOpen }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+
+                  <!-- Dropdown -->
+                  <div
+                    v-if="isPhoneDropdownOpen"
+                    class="absolute z-50 mt-2 w-80 bg-white rounded-lg shadow-xl border border-gray-200 max-h-96 overflow-hidden"
+                  >
+                    <div class="p-3 border-b border-gray-200 sticky top-0 bg-white">
+                      <input
+                        v-model="phoneSearchQuery"
+                        type="text"
+                        placeholder="Rechercher un pays..."
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-asp-blue-500 focus:border-asp-blue-500 text-sm"
+                      />
+                    </div>
+                    <div class="overflow-y-auto max-h-80">
+                      <button
+                        v-for="country in filteredPhoneCountries"
+                        :key="country.iso"
+                        type="button"
+                        @click="selectPhoneCountry(country)"
+                        class="w-full flex items-center gap-3 px-4 py-3 hover:bg-asp-blue-50 transition-colors text-left"
+                        :class="{ 'bg-asp-blue-100': country.iso === selectedPhoneCountry.iso }"
+                      >
+                        <span class="text-2xl">{{ country.flag }}</span>
+                        <div class="flex-1">
+                          <div class="font-medium text-gray-900">{{ country.name }}</div>
+                          <div class="text-sm text-gray-500">{{ country.code }}</div>
+                        </div>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Champ numéro -->
+                <input
+                  v-model="phoneLocalNumber"
+                  type="tel"
+                  required
+                  class="flex-1 px-4 py-3 border border-asp-gray-300 rounded-lg focus:ring-2 focus:ring-asp-blue-500 focus:border-asp-blue-500"
+                  placeholder="77 86 31 98"
+                />
+              </div>
+              <p v-if="phoneLocalNumber" class="text-xs text-gray-600 mt-1">
+                Numéro complet: <span class="font-semibold text-asp-blue-600">{{ selectedPhoneCountry.code }}{{ phoneLocalNumber.replace(/\D/g, '') }}</span>
+              </p>
             </div>
 
             <div>
@@ -111,12 +163,64 @@
               <label class="block text-sm font-medium text-asp-gray-700 mb-2">
                 WhatsApp
               </label>
-              <input
-                v-model="formData.contact.whatsapp"
-                type="tel"
-                class="w-full px-4 py-3 border border-asp-gray-300 rounded-lg focus:ring-2 focus:ring-asp-blue-500 focus:border-asp-blue-500"
-                placeholder="24177863198"
-              />
+              <div class="flex gap-2">
+                <!-- Sélecteur de pays WhatsApp -->
+                <div class="relative" ref="whatsappDropdownRef">
+                  <button
+                    type="button"
+                    @click="toggleWhatsAppDropdown"
+                    class="flex items-center gap-2 px-3 py-3 border border-asp-gray-300 rounded-lg hover:border-asp-blue-500 focus:ring-2 focus:ring-asp-blue-500 focus:border-asp-blue-500 transition-all bg-white"
+                  >
+                    <span class="text-2xl">{{ selectedWhatsAppCountry.flag }}</span>
+                    <span class="font-semibold text-gray-700">{{ selectedWhatsAppCountry.code }}</span>
+                    <svg class="w-4 h-4 text-gray-500 transition-transform" :class="{ 'rotate-180': isWhatsAppDropdownOpen }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+
+                  <!-- Dropdown -->
+                  <div
+                    v-if="isWhatsAppDropdownOpen"
+                    class="absolute z-50 mt-2 w-80 bg-white rounded-lg shadow-xl border border-gray-200 max-h-96 overflow-hidden"
+                  >
+                    <div class="p-3 border-b border-gray-200 sticky top-0 bg-white">
+                      <input
+                        v-model="whatsappSearchQuery"
+                        type="text"
+                        placeholder="Rechercher un pays..."
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-asp-blue-500 focus:border-asp-blue-500 text-sm"
+                      />
+                    </div>
+                    <div class="overflow-y-auto max-h-80">
+                      <button
+                        v-for="country in filteredWhatsAppCountries"
+                        :key="country.iso"
+                        type="button"
+                        @click="selectWhatsAppCountry(country)"
+                        class="w-full flex items-center gap-3 px-4 py-3 hover:bg-asp-blue-50 transition-colors text-left"
+                        :class="{ 'bg-asp-blue-100': country.iso === selectedWhatsAppCountry.iso }"
+                      >
+                        <span class="text-2xl">{{ country.flag }}</span>
+                        <div class="flex-1">
+                          <div class="font-medium text-gray-900">{{ country.name }}</div>
+                          <div class="text-sm text-gray-500">{{ country.code }}</div>
+                        </div>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Champ numéro WhatsApp -->
+                <input
+                  v-model="whatsappLocalNumber"
+                  type="tel"
+                  class="flex-1 px-4 py-3 border border-asp-gray-300 rounded-lg focus:ring-2 focus:ring-asp-blue-500 focus:border-asp-blue-500"
+                  placeholder="77 86 31 98"
+                />
+              </div>
+              <p v-if="whatsappLocalNumber" class="text-xs text-gray-600 mt-1">
+                Numéro complet: <span class="font-semibold text-asp-blue-600">{{ selectedWhatsAppCountry.code }}{{ whatsappLocalNumber.replace(/\D/g, '') }}</span>
+              </p>
               <p class="text-xs text-asp-gray-500 mt-1">
                 Numéro sans espaces ni caractères spéciaux
               </p>
@@ -407,4 +511,181 @@ const showMessage = (type: 'success' | 'error', text: string) => {
     message.value = null
   }, 5000)
 }
+
+// ==== Logique pour les sélecteurs de pays ====
+
+interface Country {
+  name: string
+  iso: string
+  code: string
+  flag: string
+}
+
+const countries: Country[] = [
+  // Afrique Centrale
+  { name: 'Gabon', iso: 'GA', code: '+241', flag: '🇬🇦' },
+  { name: 'Cameroun', iso: 'CM', code: '+237', flag: '🇨🇲' },
+  { name: 'République du Congo', iso: 'CG', code: '+242', flag: '🇨🇬' },
+  { name: 'République Démocratique du Congo', iso: 'CD', code: '+243', flag: '🇨🇩' },
+  { name: 'Tchad', iso: 'TD', code: '+235', flag: '🇹🇩' },
+  { name: 'République Centrafricaine', iso: 'CF', code: '+236', flag: '🇨🇫' },
+  { name: 'Guinée Équatoriale', iso: 'GQ', code: '+240', flag: '🇬🇶' },
+  // Afrique de l'Ouest
+  { name: 'Sénégal', iso: 'SN', code: '+221', flag: '🇸🇳' },
+  { name: 'Côte d\'Ivoire', iso: 'CI', code: '+225', flag: '🇨🇮' },
+  { name: 'Mali', iso: 'ML', code: '+223', flag: '🇲🇱' },
+  { name: 'Burkina Faso', iso: 'BF', code: '+226', flag: '🇧🇫' },
+  { name: 'Niger', iso: 'NE', code: '+227', flag: '🇳🇪' },
+  { name: 'Bénin', iso: 'BJ', code: '+229', flag: '🇧🇯' },
+  { name: 'Togo', iso: 'TG', code: '+228', flag: '🇹🇬' },
+  { name: 'Ghana', iso: 'GH', code: '+233', flag: '🇬🇭' },
+  { name: 'Nigeria', iso: 'NG', code: '+234', flag: '🇳🇬' },
+  // Afrique du Nord
+  { name: 'Maroc', iso: 'MA', code: '+212', flag: '🇲🇦' },
+  { name: 'Algérie', iso: 'DZ', code: '+213', flag: '🇩🇿' },
+  { name: 'Tunisie', iso: 'TN', code: '+216', flag: '🇹🇳' },
+  { name: 'Égypte', iso: 'EG', code: '+20', flag: '🇪🇬' },
+  // Afrique de l'Est
+  { name: 'Kenya', iso: 'KE', code: '+254', flag: '🇰🇪' },
+  { name: 'Tanzanie', iso: 'TZ', code: '+255', flag: '🇹🇿' },
+  { name: 'Ouganda', iso: 'UG', code: '+256', flag: '🇺🇬' },
+  { name: 'Rwanda', iso: 'RW', code: '+250', flag: '🇷🇼' },
+  { name: 'Burundi', iso: 'BI', code: '+257', flag: '🇧🇮' },
+  { name: 'Éthiopie', iso: 'ET', code: '+251', flag: '🇪🇹' },
+  // Afrique Australe
+  { name: 'Afrique du Sud', iso: 'ZA', code: '+27', flag: '🇿🇦' },
+  { name: 'Angola', iso: 'AO', code: '+244', flag: '🇦🇴' },
+  { name: 'Mozambique', iso: 'MZ', code: '+258', flag: '🇲🇿' },
+  { name: 'Zimbabwe', iso: 'ZW', code: '+263', flag: '🇿🇼' },
+  // International
+  { name: 'France', iso: 'FR', code: '+33', flag: '🇫🇷' },
+  { name: 'Belgique', iso: 'BE', code: '+32', flag: '🇧🇪' },
+  { name: 'Suisse', iso: 'CH', code: '+41', flag: '🇨🇭' },
+  { name: 'Canada', iso: 'CA', code: '+1', flag: '🇨🇦' },
+  { name: 'États-Unis', iso: 'US', code: '+1', flag: '🇺🇸' },
+  { name: 'Royaume-Uni', iso: 'GB', code: '+44', flag: '🇬🇧' },
+  { name: 'Chine', iso: 'CN', code: '+86', flag: '🇨🇳' },
+]
+
+// État pour le téléphone
+const selectedPhoneCountry = ref<Country>(countries.find(c => c.iso === 'GA') || countries[0])
+const phoneLocalNumber = ref('')
+const isPhoneDropdownOpen = ref(false)
+const phoneSearchQuery = ref('')
+const phoneDropdownRef = ref<HTMLElement>()
+
+// État pour WhatsApp
+const selectedWhatsAppCountry = ref<Country>(countries.find(c => c.iso === 'GA') || countries[0])
+const whatsappLocalNumber = ref('')
+const isWhatsAppDropdownOpen = ref(false)
+const whatsappSearchQuery = ref('')
+const whatsappDropdownRef = ref<HTMLElement>()
+
+// Filtrer les pays pour téléphone
+const filteredPhoneCountries = computed(() => {
+  if (!phoneSearchQuery.value.trim()) return countries
+  const query = phoneSearchQuery.value.toLowerCase()
+  return countries.filter(country => 
+    country.name.toLowerCase().includes(query) ||
+    country.code.includes(query)
+  )
+})
+
+// Filtrer les pays pour WhatsApp
+const filteredWhatsAppCountries = computed(() => {
+  if (!whatsappSearchQuery.value.trim()) return countries
+  const query = whatsappSearchQuery.value.toLowerCase()
+  return countries.filter(country => 
+    country.name.toLowerCase().includes(query) ||
+    country.code.includes(query)
+  )
+})
+
+// Toggle dropdowns
+const togglePhoneDropdown = () => {
+  isPhoneDropdownOpen.value = !isPhoneDropdownOpen.value
+  if (isPhoneDropdownOpen.value) {
+    isWhatsAppDropdownOpen.value = false
+  }
+}
+
+const toggleWhatsAppDropdown = () => {
+  isWhatsAppDropdownOpen.value = !isWhatsAppDropdownOpen.value
+  if (isWhatsAppDropdownOpen.value) {
+    isPhoneDropdownOpen.value = false
+  }
+}
+
+// Sélectionner pays
+const selectPhoneCountry = (country: Country) => {
+  selectedPhoneCountry.value = country
+  isPhoneDropdownOpen.value = false
+  phoneSearchQuery.value = ''
+  updatePhoneFormData()
+}
+
+const selectWhatsAppCountry = (country: Country) => {
+  selectedWhatsAppCountry.value = country
+  isWhatsAppDropdownOpen.value = false
+  whatsappSearchQuery.value = ''
+  updateWhatsAppFormData()
+}
+
+// Mettre à jour formData avec numéros complets
+const updatePhoneFormData = () => {
+  const cleaned = phoneLocalNumber.value.replace(/\D/g, '')
+  formData.value.contact.phone = cleaned ? `${selectedPhoneCountry.value.code}${cleaned}` : ''
+}
+
+const updateWhatsAppFormData = () => {
+  const cleaned = whatsappLocalNumber.value.replace(/\D/g, '')
+  formData.value.contact.whatsapp = cleaned ? `${selectedWhatsAppCountry.value.code}${cleaned}` : ''
+}
+
+// Watchers pour synchroniser les changements
+watch(phoneLocalNumber, updatePhoneFormData)
+watch(whatsappLocalNumber, updateWhatsAppFormData)
+
+// Fermer dropdowns au clic extérieur
+const handleClickOutside = (event: MouseEvent) => {
+  if (phoneDropdownRef.value && !phoneDropdownRef.value.contains(event.target as Node)) {
+    isPhoneDropdownOpen.value = false
+  }
+  if (whatsappDropdownRef.value && !whatsappDropdownRef.value.contains(event.target as Node)) {
+    isWhatsAppDropdownOpen.value = false
+  }
+}
+
+// Initialiser les numéros locaux depuis formData
+watch(() => config.value, (newConfig) => {
+  if (newConfig) {
+    // Extraire code pays et numéro local pour téléphone
+    const phoneMatch = newConfig.contact.phone?.match(/^\+(\d{1,3})(.*)$/)
+    if (phoneMatch) {
+      const phoneCode = `+${phoneMatch[1]}`
+      const phoneLocal = phoneMatch[2]
+      const phoneCountry = countries.find(c => c.code === phoneCode)
+      if (phoneCountry) selectedPhoneCountry.value = phoneCountry
+      phoneLocalNumber.value = phoneLocal
+    }
+
+    // Extraire code pays et numéro local pour WhatsApp
+    const whatsappMatch = newConfig.contact.whatsapp?.match(/^\+(\d{1,3})(.*)$/)
+    if (whatsappMatch) {
+      const whatsappCode = `+${whatsappMatch[1]}`
+      const whatsappLocal = whatsappMatch[2]
+      const whatsappCountry = countries.find(c => c.code === whatsappCode)
+      if (whatsappCountry) selectedWhatsAppCountry.value = whatsappCountry
+      whatsappLocalNumber.value = whatsappLocal
+    }
+  }
+}, { immediate: true })
+
+onMounted(() => {
+  document.addEventListener('click', handleClickOutside)
+})
+
+onBeforeUnmount(() => {
+  document.removeEventListener('click', handleClickOutside)
+})
 </script>

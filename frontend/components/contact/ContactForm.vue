@@ -66,23 +66,19 @@
       </Message>
     </div>
 
-    <!-- Phone -->
+    <!-- Phone with Country Selector -->
     <div class="flex flex-col gap-1">
-      <FloatLabel>
-        <input
-          id="phone"
-          v-model="formData.phone"
-          type="tel"
-          required
-          :class="['form-input', { 'border-red-500 focus:border-red-500 focus:ring-red-500': errors.phone }]"
-          placeholder=" "
-          :disabled="isSubmitting"
-          @blur="validateField('phone')"
-        >
-        <label for="phone">
-          Téléphone <span class="text-red-600">*</span>
-        </label>
-      </FloatLabel>
+      <PhoneInput
+        id="phone"
+        v-model="formData.phone"
+        label="Téléphone"
+        placeholder="06 12 34 56 78"
+        required
+        :disabled="isSubmitting"
+        :has-error="!!errors.phone"
+        default-country="GA"
+        @blur="validateField('phone')"
+      />
       <Message 
         v-if="errors.phone" 
         severity="error" 
