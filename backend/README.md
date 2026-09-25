@@ -1,146 +1,98 @@
-# Backend - ASP Service App
+# ASP Service API
 
-API Backend pour l'application ASP Service.
+API Express et PostgreSQL du site ASP Services. Elle remplace progressivement les fichiers JSON actuellement utilisés par les routes Nuxt du back-office.
 
-## 🎯 Objectif
+## Fonctionnalités
 
-Ce backend servira d'API pour gérer :
-- **Authentification et autorisation**
-- **Gestion des utilisateurs**
-- **Gestion des services**
-- **Gestion des rendez-vous**
-- **Base de données**
-- **Envoi d'emails**
-- **Upload de fichiers**
+- Authentification administrateur avec mot de passe haché (bcrypt) et cookie JWT HTTP-only.
+- Gestion CRUD des réalisations du portfolio.
+- Configuration générale du site et contenus administrables des pages.
+- Validation des entrées avec Zod, limitation de débit, CORS et en-têtes de sécurité.
+- Import initial des données existantes de frontend/data/.
 
-## 📋 Technologies à Définir
+## Modèles de données
 
-Plusieurs options sont possibles :
+- Utilisateur : identifiant, nom utilisateur, courriel, mot de passe haché et rôle.
+- Réalisation : titre, catégorie, description, images, étiquettes, mise en avant et ordre d’affichage.
+- ConfigurationSite : données générales de l’entreprise et du site.
+- ContenuPage : contenu administrable des pages d’accueil, à propos, services et contact.
+- MessageContact : nom, courriel, téléphone, objet, message et état de lecture.
 
-### Option 1 : Node.js + Express
-- **Framework**: Express.js
-- **ORM**: Prisma / Sequelize / TypeORM
-- **Database**: PostgreSQL / MySQL / MongoDB
-- **Authentication**: JWT + bcrypt
+Les attributs Prisma sont en français. Les colonnes PostgreSQL historiques restent compatibles grâce aux annotations map.
 
-### Option 2 : Node.js + NestJS
-- **Framework**: NestJS (architecture modulaire)
-- **ORM**: TypeORM / Prisma
-- **Database**: PostgreSQL / MySQL
-- **Authentication**: Passport.js + JWT
+## Préparation
 
-### Option 3 : Python + FastAPI
-- **Framework**: FastAPI
-- **ORM**: SQLAlchemy / Prisma
-- **Database**: PostgreSQL / MySQL
-- **Authentication**: JWT + passlib
+1. Copier le fichier d’exemple :
 
-### Option 4 : C# + ASP.NET Core
-- **Framework**: ASP.NET Core Web API
-- **ORM**: Entity Framework Core
-- **Database**: SQL Server / PostgreSQL
-- **Authentication**: ASP.NET Core Identity + JWT
+~~~powershell
+Copy-Item .env.example .env
+~~~
 
-## 📁 Structure Proposée (Générique)
+2. Modifier au minimum dans .env :
 
-```
-backend/
-├── src/
-│   ├── controllers/      # Contrôleurs/Handlers
-│   ├── models/           # Modèles de données
-│   ├── routes/           # Routes API
-│   ├── middleware/       # Middlewares
-│   ├── services/         # Logique métier
-│   ├── config/           # Configuration
-│   └── utils/            # Utilitaires
-├── tests/                # Tests unitaires/intégration
-├── prisma/              # Schéma base de données (si Prisma)
-├── .env.example         # Variables d'environnement exemple
-└── package.json         # Dépendances (si Node.js)
-```
+~~~dotenv
+DATABASE_URL=postgresql://asp_user:asp_password@localhost:5432/asp_service_db?schema=public
+JWT_SECRET=une-cle-aleatoire-d-au-moins-32-caracteres
+ADMIN_PASSWORD=un-mot-de-passe-administrateur-fort
+~~~
 
-## 🔗 API Endpoints Prévus
+3. Installer et initialiser la base :
 
-### Authentification
-- `POST /api/auth/register` - Inscription
-- `POST /api/auth/login` - Connexion
-- `POST /api/auth/logout` - Déconnexion
-- `POST /api/auth/refresh` - Rafraîchir le token
+~~~powershell
+npm install
+npm run prisma:deploy
+npm run prisma:seed
+~~~
 
-### Utilisateurs
-- `GET /api/users/me` - Profil utilisateur
-- `PUT /api/users/me` - Mise à jour profil
-- `GET /api/users/:id` - Utilisateur par ID (admin)
+## Commandes
 
-### Services
-- `GET /api/services` - Liste des services
-- `GET /api/services/:id` - Détail d'un service
-- `POST /api/services` - Créer un service (admin)
-- `PUT /api/services/:id` - Modifier un service (admin)
-- `DELETE /api/services/:id` - Supprimer un service (admin)
+~~~powershell
+npm run dev
+npm run build
+npm start
+npm run prisma:migrate
+npm run prisma:deploy
+npm run prisma:seed
+~~~
 
-### Rendez-vous
-- `GET /api/appointments` - Liste des rendez-vous
-- `POST /api/appointments` - Créer un rendez-vous
-- `GET /api/appointments/:id` - Détail d'un rendez-vous
-- `PUT /api/appointments/:id` - Modifier un rendez-vous
-- `DELETE /api/appointments/:id` - Annuler un rendez-vous
+L’API est disponible sur http://localhost:5000 et son état est exposé par GET /api/health.
 
-### Contact
-- `POST /api/contact` - Envoyer un message de contact
+## Endpoints
 
-## 🗄️ Base de Données
+| Méthode | Route | Accès | Description |
+| --- | --- | --- | --- |
+| POST | /api/auth/login | Public | Ouvre une session administrateur |
+| GET | /api/auth/me | Connecté | Retourne l’utilisateur courant |
+| POST | /api/auth/logout | Public | Ferme la session |
+| GET | /api/portfolio | Public | Liste les réalisations |
+| GET | /api/portfolio/:id | Public | Lit une réalisation |
+| GET | /api/portfolio/stats | Public | Retourne les statistiques |
+| POST | /api/portfolio | Admin | Crée une réalisation |
+| PUT | /api/portfolio/:id | Admin | Modifie une réalisation |
+| DELETE | /api/portfolio/:id | Admin | Supprime une réalisation |
+| GET | /api/config | Public | Lit la configuration du site |
+| PUT / POST | /api/config | Admin | Met à jour la configuration |
+| GET | /api/pages/:key | Public | Lit un contenu (homepage, about, services, contact) |
+| PUT / POST | /api/pages/:key | Admin | Met à jour un contenu |
 
-### Schéma Prévu
+Les écritures acceptent également un en-tête Authorization: Bearer token ; le cookie de session est utilisé par défaut dans un navigateur.
 
-**Tables principales :**
-- `users` - Utilisateurs de l'application
-- `services` - Services proposés
-- `appointments` - Rendez-vous
-- `categories` - Catégories de services
-- `testimonials` - Témoignages clients
+## Docker
 
-## 🔐 Sécurité
+Depuis la racine du projet :
 
-- **CORS** configuré pour le frontend
-- **Rate limiting** pour éviter les abus
-- **Validation** des données entrantes
-- **Sanitization** contre les injections
-- **JWT** pour l'authentification
-- **Bcrypt/Argon2** pour le hashage des mots de passe
+~~~powershell
+docker compose up --build
+~~~
 
-## 📝 Prochaines Étapes
+Avant le premier démarrage, définir une valeur JWT_SECRET forte dans le fichier .env situé à la racine. La base PostgreSQL est migrée au lancement du conteneur backend.
 
-1. ✅ Structure du projet créée
-2. ⏳ Choisir la stack technologique
-3. ⏳ Initialiser le projet avec les dépendances
-4. ⏳ Configurer la base de données
-5. ⏳ Implémenter l'authentification
-6. ⏳ Créer les endpoints API
-7. ⏳ Ajouter les tests
-8. ⏳ Documentation API (Swagger/OpenAPI)
+Après le démarrage de PostgreSQL, importer les données existantes une seule fois :
 
-## 🚀 Installation
+~~~powershell
+docker compose run --rm backend npm run prisma:seed:production
+~~~
 
-*(À compléter une fois la stack choisie)*
+## Migration du frontend
 
-```bash
-cd backend
-# Commandes d'installation...
-```
-
-## 🧪 Tests
-
-*(À compléter)*
-
-```bash
-# Commandes de test...
-```
-
-## 📚 Documentation API
-
-La documentation API complète sera disponible via Swagger/OpenAPI une fois le backend développé.
-
----
-
-**Note**: Ce fichier sera mis à jour au fur et à mesure du développement du backend.
+Le front conserve ses routes Nuxt actuelles pendant la transition afin d’éviter toute interruption. Une fois la base initialisée et les données importées, les routes Nuxt pourront déléguer progressivement vers cette API sans changer l’interface du back-office.

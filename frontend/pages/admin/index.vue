@@ -1,7 +1,7 @@
 <template>
-  <div class="space-y-8">
+  <div class="mx-auto w-full max-w-[1600px] space-y-6 lg:space-y-8">
     <!-- Statistiques principales -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4 lg:gap-6">
       <!-- Total réalisations -->
       <div class="group relative bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-2 border-asp-blue-100">
         <div class="flex items-center justify-between mb-4">
@@ -60,7 +60,7 @@
     </div>
 
     <!-- Actions rapides -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <div class="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-6">
       <!-- Gestion des réalisations -->
       <div class="bg-white rounded-xl shadow-lg border-2 border-asp-blue-100 hover:shadow-xl transition-shadow overflow-hidden">
         <div class="bg-gradient-to-r from-asp-blue-700 to-asp-blue-800 p-6 text-white">
@@ -82,7 +82,7 @@
           </p>
           <div class="flex flex-wrap gap-3">
             <NuxtLink
-              to="/admin/portfolio"
+              to="/admin/realisations"
               class="flex items-center gap-2 px-5 py-3 bg-asp-blue-700 hover:bg-asp-blue-800 text-white rounded-xl transition-all shadow-md hover:shadow-lg font-medium"
             >
               <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -92,7 +92,7 @@
               Voir toutes
             </NuxtLink>
             <NuxtLink
-              to="/admin/portfolio/create"
+              to="/admin/realisations/create"
               class="flex items-center gap-2 px-5 py-3 bg-white border-2 border-asp-blue-700 hover:bg-asp-blue-50 text-asp-blue-700 rounded-xl transition-all font-medium"
             >
               <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">

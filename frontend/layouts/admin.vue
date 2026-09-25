@@ -20,8 +20,9 @@
     <aside
       :class="[
         'fixed left-0 top-0 bottom-0 bg-white border-r border-gray-200 z-50 transition-all duration-300',
-        isSidebarOpen ? (isCollapsed ? 'w-20' : 'w-72') : (isMobile ? '-translate-x-full w-72' : 'w-20'),
-        isCollapsed ? 'lg:w-20' : 'lg:w-72'
+        isMobile
+          ? (isSidebarOpen ? 'translate-x-0 w-72' : '-translate-x-full w-72')
+          : (isCollapsed ? (isHovering ? 'w-72' : 'w-20') : 'w-72')
       ]"
       @mouseenter="handleMouseEnter"
       @mouseleave="handleMouseLeave"
@@ -207,7 +208,10 @@
     </aside>
 
     <!-- Main -->
-    <main :class="['transition-all duration-300', isSidebarOpen || !isMobile ? (isCollapsed ? 'ml-20' : 'ml-72') : 'ml-0']">
+    <main :class="[
+      'min-h-screen min-w-0 transition-all duration-300',
+      isMobile ? 'ml-0' : (isCollapsed && !isHovering ? 'ml-20' : 'ml-72')
+    ]">
       <!-- Top Bar -->
       <div class="sticky top-0 z-30 bg-white border-b border-gray-200 shadow-sm">
         <div class="px-6 py-4">
@@ -239,7 +243,7 @@
       </div>
 
       <!-- Content -->
-      <div class="p-6 lg:p-8">
+      <div class="p-4 sm:p-6 lg:p-8">
         <slot />
       </div>
     </main>

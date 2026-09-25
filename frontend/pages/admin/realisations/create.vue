@@ -3,7 +3,7 @@
     <!-- En-tête -->
     <div class="mb-6">
       <NuxtLink
-        to="/admin/portfolio"
+        to="/admin/realisations"
         class="inline-flex items-center gap-2 text-asp-gray-600 hover:text-asp-blue-700 mb-4 transition-colors"
       >
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -153,7 +153,7 @@
               {{ isSaving ? 'Création...' : 'Créer la réalisation' }}
             </button>
             <NuxtLink
-              to="/admin/portfolio"
+              to="/admin/realisations"
               class="block w-full px-4 py-3 bg-white border border-asp-gray-300 hover:bg-gray-50 text-center text-asp-black rounded-lg transition-colors"
             >
               Annuler
@@ -216,7 +216,7 @@ const handleSubmit = async () => {
 
   if (result.success) {
     alert('Réalisation créée avec succès !')
-    router.push('/admin/portfolio')
+    router.push('/admin/realisations')
   } else {
     alert(result.error || 'Erreur lors de la création')
   }

@@ -63,9 +63,9 @@
 
           <!-- Réalisations -->
           <NuxtLink
-            to="/admin/portfolio"
+            to="/admin/realisations"
             class="flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all group relative"
-            :class="$route.path.startsWith('/admin/portfolio')
+            :class="$route.path.startsWith('/admin/realisations')
               ? 'bg-asp-blue-50 text-asp-blue-700 font-medium' 
               : 'text-gray-700 hover:bg-gray-100'"
           >
@@ -285,14 +285,14 @@ const handleMouseLeave = () => {
 
 const pageTitle = computed(() => {
   if (route.path === '/admin') return 'Dashboard'
-  if (route.path.startsWith('/admin/portfolio')) return 'Réalisations'
+  if (route.path.startsWith('/admin/realisations')) return 'Réalisations'
   if (route.path === '/admin/config') return 'Configuration'
   return 'Back-Office'
 })
 
 const pageSubtitle = computed(() => {
   if (route.path === '/admin') return 'Vue d\'ensemble de votre site web'
-  if (route.path.startsWith('/admin/portfolio')) return 'Gérez votre portfolio de projets'
+  if (route.path.startsWith('/admin/realisations')) return 'Gérez votre portfolio de projets'
   if (route.path === '/admin/config') return 'Paramètres de l\'entreprise'
   return 'Gestion de contenu'
 })

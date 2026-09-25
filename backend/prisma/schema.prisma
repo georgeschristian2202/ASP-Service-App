@@ -1,0 +1,82 @@
+generator client {
+  provider     = "prisma-client"
+  output       = "../generated/prisma"
+  moduleFormat = "esm"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum RoleUtilisateur {
+  ADMINISTRATEUR @map("ADMIN")
+  EDITEUR        @map("EDITOR")
+
+  @@map("UserRole")
+}
+
+model Utilisateur {
+  identifiant       String          @id @default(uuid()) @map("id")
+  nomUtilisateur    String          @unique @map("username")
+  courriel          String          @unique @map("email")
+  motDePasseHache   String          @map("passwordHash")
+  role              RoleUtilisateur @default(ADMINISTRATEUR)
+  creeLe            DateTime        @default(now()) @map("createdAt")
+  modifieLe         DateTime        @updatedAt @map("updatedAt")
+
+  @@map("users")
+}
+
+model Realisation {
+  identifiant       String   @id @default(uuid()) @map("id")
+  titre             String
+  categorie         String
+  description       String   @default("")
+  urlImage          String   @default("") @map("imageUrl")
+  cheminImage       String   @default("") @map("imagePath")
+  etiquettes        String[] @default([]) @map("tags")
+  aLaUne            Boolean  @default(false) @map("featured")
+  ordreAffichage    Int      @default(999) @map("orderIndex")
+  creeLe            DateTime @default(now()) @map("createdAt")
+  modifieLe         DateTime @updatedAt @map("updatedAt")
+
+  @@index([categorie])
+  @@index([aLaUne])
+  @@index([ordreAffichage])
+  @@map("portfolio_items")
+}
+
+model ConfigurationSite {
+  identifiant String   @id @default("default") @map("id")
+  donnees     Json     @map("data")
+  creeLe      DateTime @default(now()) @map("createdAt")
+  modifieLe   DateTime @updatedAt @map("updatedAt")
+
+  @@map("site_configurations")
+}
+
+model ContenuPage {
+  identifiant String   @id @default(uuid()) @map("id")
+  cle         String   @unique @map("key")
+  donnees     Json     @map("data")
+  creeLe      DateTime @default(now()) @map("createdAt")
+  modifieLe   DateTime @updatedAt @map("updatedAt")
+
+  @@map("page_contents")
+}
+
+model MessageContact {
+  identifiant String   @id @default(uuid()) @map("id")
+  nom         String
+  courriel    String
+  telephone   String?
+  objet       String?
+  message     String
+  estLu       Boolean  @default(false) @map("isRead")
+  creeLe      DateTime @default(now()) @map("createdAt")
+  modifieLe  DateTime @updatedAt @map("updatedAt")
+
+  @@index([estLu])
+  @@index([creeLe])
+  @@map("contact_messages")
+}

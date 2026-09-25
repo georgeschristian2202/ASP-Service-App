@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   # Frontend Nuxt 3
   frontend:
@@ -21,18 +19,23 @@ services:
   # Backend API (à configurer selon la stack choisie)
   backend:
     build:
-      context: ./backend
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: backend/Dockerfile
     container_name: asp-service-backend
     ports:
       - "5000:5000"
     environment:
       - NODE_ENV=production
       - DATABASE_URL=postgresql://asp_user:asp_password@db:5432/asp_service_db
-      - JWT_SECRET=${JWT_SECRET:-your-secret-key-change-in-production}
+      - JWT_SECRET=${JWT_SECRET:?Definissez JWT_SECRET dans le fichier .env racine}
       - FRONTEND_URL=http://localhost:3000
+      - ALLOWED_ORIGINS=http://localhost:3000,http://localhost:3001
+      - ADMIN_USERNAME=${ADMIN_USERNAME:-admin}
+      - ADMIN_EMAIL=${ADMIN_EMAIL:-aspservicesgabon@gmail.com}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD:?Definissez ADMIN_PASSWORD dans le fichier .env racine}
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     networks:
       - asp-network
     restart: unless-stopped

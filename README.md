@@ -17,8 +17,9 @@ ASP-Service-App/
 │   ├── server/        # API Nuxt (routes serveur)
 │   └── nuxt.config.ts # Configuration Nuxt
 │
-└── backend/           # API Backend (à développer)
-    └── (en cours de développement)
+└── backend/           # API Express + Prisma + PostgreSQL
+    ├── src/           # Routes, sécurité et accès aux données
+    └── prisma/        # Schéma, migrations et import initial
 ```
 
 ## 🚀 Démarrage Rapide
@@ -35,7 +36,17 @@ L'application sera disponible sur `http://localhost:3000`
 
 ### Backend
 
-*(À venir)*
+~~~bash
+cd backend
+Copy-Item .env.example .env
+# Configurer DATABASE_URL, JWT_SECRET et ADMIN_PASSWORD
+npm install
+npm run prisma:deploy
+npm run prisma:seed
+npm run dev
+~~~
+
+L'API sera disponible sur http://localhost:5000.
 
 ## 📦 Technologies
 
@@ -46,13 +57,15 @@ L'application sera disponible sur `http://localhost:3000`
 - **Composants UI**: Heroicons, Lucide Icons
 
 ### Backend
-- *(À définir)*
+- **Runtime**: Node.js + Express
+- **Base de données**: PostgreSQL + Prisma
+- **Sécurité**: JWT, bcrypt, Zod, Helmet, rate limiting
 
 ## 🛠️ Développement
 
 Voir les fichiers README spécifiques dans chaque dossier :
 - [Frontend README](./frontend/README.md)
-- Backend README (à venir)
+- [Backend README](./backend/README.md)
 
 ## 📝 Documentation
 

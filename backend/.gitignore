@@ -8,6 +8,7 @@ venv/
 # Build outputs
 dist/
 build/
+generated/
 *.dll
 *.exe
 *.pdb

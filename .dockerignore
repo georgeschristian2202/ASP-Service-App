@@ -1,0 +1,13 @@
+.git
+.env
+**/.env
+**/node_modules
+**/.nuxt
+**/.output
+**/dist
+**/generated
+**/coverage
+**/*.log
+frontend/*
+!frontend/data/
+!frontend/data/**

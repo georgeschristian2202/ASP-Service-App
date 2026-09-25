@@ -9,7 +9,7 @@
             <p class="text-sm text-gray-600">Gérez votre portfolio de projets</p>
           </div>
           <NuxtLink
-            to="/admin/portfolio/create"
+            to="/admin/realisations/create"
             class="inline-flex items-center gap-2 px-5 py-2.5 bg-asp-blue-700 hover:bg-asp-blue-800 text-white text-sm font-medium rounded-lg transition-colors shadow-sm"
           >
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -124,7 +124,7 @@
         <h3 class="text-lg font-semibold text-gray-900 mb-2">Aucune réalisation</h3>
         <p class="text-gray-600 mb-6 text-sm">Commencez par ajouter votre première réalisation au portfolio.</p>
         <NuxtLink
-          to="/admin/portfolio/create"
+          to="/admin/realisations/create"
           class="inline-flex items-center gap-2 px-5 py-2.5 bg-asp-blue-700 hover:bg-asp-blue-800 text-white text-sm font-medium rounded-lg transition-colors"
         >
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -203,7 +203,7 @@
               <!-- Actions -->
               <div class="flex items-center gap-2 pt-3 border-t border-gray-100">
                 <NuxtLink
-                  :to="`/admin/portfolio/${item.id}`"
+                  :to="`/admin/realisations/${item.id}`"
                   class="flex-1 inline-flex items-center justify-center gap-2 px-3 py-2 bg-asp-blue-700 hover:bg-asp-blue-800 text-white text-sm font-medium rounded-lg transition-colors"
                 >
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
