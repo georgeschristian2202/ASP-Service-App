@@ -62,36 +62,61 @@
     <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
       <div class="flex items-center justify-between mb-6">
         <h2 class="text-lg font-semibold text-gray-900">Services ({{ content.services.length }})</h2>
-        <div class="text-sm text-gray-600">
-          Cliquez sur un service pour l'éditer
+        <div class="flex items-center gap-3">
+          <span class="hidden sm:inline text-sm text-gray-600">
+            Cliquez sur un service pour l'éditer
+          </span>
+          <button
+            type="button"
+            @click="addService"
+            class="inline-flex items-center gap-2 px-4 py-2 bg-asp-blue-700 hover:bg-asp-blue-800 text-white text-sm font-medium rounded-lg transition-colors"
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+            </svg>
+            Ajouter un service
+          </button>
         </div>
       </div>
 
       <!-- Grille des services -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
-        <button
+        <div
           v-for="(service, index) in content.services"
           :key="service.id"
-          @click="selectedServiceIndex = index"
           :class="[
-            'text-left p-4 border-2 rounded-lg transition-all hover:shadow-md',
+            'p-4 border-2 rounded-lg transition-all hover:shadow-md',
             selectedServiceIndex === index
               ? 'border-asp-blue-600 bg-asp-blue-50'
               : 'border-gray-200 hover:border-gray-300'
           ]"
         >
-          <div class="flex items-start gap-3">
-            <div class="w-10 h-10 bg-asp-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
-              <svg class="w-6 h-6 text-asp-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          <div class="flex items-start justify-between gap-3">
+            <button type="button" @click="selectedServiceIndex = index" class="flex items-start gap-3 flex-1 min-w-0 text-left">
+              <div class="w-10 h-10 bg-asp-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-asp-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.5-9.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 8.5-8.5z" />
+                </svg>
+              </div>
+              <div class="flex-1 min-w-0">
+                <h3 class="font-semibold text-gray-900 mb-1 truncate">{{ service.title }}</h3>
+                <p class="text-xs text-gray-600 truncate">{{ service.subtitle || service.description }}</p>
+                <span class="inline-block mt-2 text-xs font-medium text-asp-blue-700">Modifier</span>
+              </div>
+            </button>
+            <button
+              type="button"
+              @click="removeService(index)"
+              class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors flex-shrink-0"
+              :aria-label="`Supprimer ${service.title}`"
+              title="Supprimer ce service"
+            >
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
               </svg>
-            </div>
-            <div class="flex-1 min-w-0">
-              <h3 class="font-semibold text-gray-900 mb-1 truncate">{{ service.title }}</h3>
-              <p class="text-xs text-gray-600 truncate">{{ service.subtitle }}</p>
-            </div>
+            </button>
           </div>
-        </button>
+        </div>
       </div>
 
       <!-- Formulaire d'édition du service sélectionné -->
@@ -100,19 +125,39 @@
           <h3 class="text-lg font-semibold text-gray-900">
             Édition : {{ content.services[selectedServiceIndex].title }}
           </h3>
-          <button
-            @click="selectedServiceIndex = null"
-            class="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
-          >
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
+          <div class="flex items-center gap-2">
+            <button
+              type="button"
+              @click="removeSelectedService"
+              class="px-3 py-2 text-sm text-red-700 hover:bg-red-50 rounded-lg transition-colors"
+            >
+              Supprimer
+            </button>
+            <button
+              type="button"
+              @click="selectedServiceIndex = null"
+              class="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+              aria-label="Fermer le formulaire"
+            >
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
         </div>
 
         <div class="space-y-6">
           <!-- Informations de base -->
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Identifiant (URL)</label>
+              <input
+                v-model="content.services[selectedServiceIndex].id"
+                type="text"
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-asp-blue-500 focus:border-asp-blue-500"
+                placeholder="impression-grand-format"
+              />
+            </div>
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-2">Titre du service</label>
               <input
@@ -153,13 +198,16 @@
 
           <!-- Image -->
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">URL de l'image</label>
-            <input
+            <label class="block text-sm font-medium text-gray-700 mb-2">Image du service</label>
+            <ImageUploader
               v-model="content.services[selectedServiceIndex].image"
-              type="text"
-              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-asp-blue-500 focus:border-asp-blue-500"
-              placeholder="/images/services/service.jpg"
+              :alt="content.services[selectedServiceIndex].title || 'Image du service'"
+              folder="services"
+              @upload="handleServiceImageUpload"
             />
+            <p class="mt-2 text-xs text-gray-500">
+              L'image est envoyée dans le dossier « services » d'ImageKit et son URL est enregistrée automatiquement.
+            </p>
           </div>
 
           <!-- Caractéristiques -->
@@ -293,8 +341,10 @@ definePageMeta({
 const isSaving = ref(false)
 const selectedServiceIndex = ref<number | null>(null)
 const message = ref<{ type: 'success' | 'error'; text: string } | null>(null)
+const { services: defaultServices } = useServices()
 
-const content = ref({
+const content = ref<any>({
+  servicesVersion: 2,
   hero: {
     title: "Nos Services",
     description: "Découvrez notre gamme complète de solutions en signalétique, marquage et impression"
@@ -302,12 +352,106 @@ const content = ref({
   services: [] as any[]
 })
 
+const createEmptyService = () => ({
+  id: '',
+  title: 'Nouveau service',
+  subtitle: '',
+  description: '',
+  longDescription: '',
+  image: '',
+  icon: 'cube',
+  features: [] as string[],
+  benefits: [] as string[],
+  pricing: {
+    from: '',
+    description: ''
+  },
+  deliveryTime: '',
+  warranty: ''
+})
+
+const slugify = (value: string) => value
+  .normalize('NFD')
+  .replace(/[\u0300-\u036f]/g, '')
+  .toLowerCase()
+  .trim()
+  .replace(/[^a-z0-9]+/g, '-')
+  .replace(/^-|-$/g, '')
+
+const addService = () => {
+  content.value.services.push(createEmptyService())
+  selectedServiceIndex.value = content.value.services.length - 1
+  nextTick(() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }))
+}
+
+const handleServiceImageUpload = (result: { url: string; path: string }) => {
+  if (selectedServiceIndex.value === null) return
+  content.value.services[selectedServiceIndex.value].image = result.url
+  showMessage('success', 'Image envoyée vers ImageKit avec succès.')
+}
+
+const removeService = (index: number) => {
+  const service = content.value.services[index]
+  if (!service) return
+  if (!window.confirm(`Supprimer le service « ${service.title} » ?`)) return
+
+  content.value.services.splice(index, 1)
+  if (selectedServiceIndex.value === index) {
+    selectedServiceIndex.value = null
+  } else if (selectedServiceIndex.value !== null && selectedServiceIndex.value > index) {
+    selectedServiceIndex.value--
+  }
+  showMessage('success', 'Service supprimé. Cliquez sur Enregistrer pour confirmer.')
+}
+
+const removeSelectedService = () => {
+  if (selectedServiceIndex.value !== null) removeService(selectedServiceIndex.value)
+}
+
+const toEditableService = (service: (typeof defaultServices)[number]) => ({
+  id: service.id,
+  title: service.title,
+  subtitle: service.shortDescription,
+  description: service.shortDescription,
+  longDescription: service.description,
+  image: service.image || '',
+  icon: service.icon || 'cube',
+  features: [...service.features],
+  benefits: [...service.benefits],
+  gallery: [...(service.gallery || [])],
+  pricing: { from: '', description: '' },
+  deliveryTime: '',
+  warranty: ''
+})
+
+const migrateLegacyServices = (loadedContent: any) => {
+  if (loadedContent.servicesInitialized === true) return loadedContent
+
+  const existingServices = Array.isArray(loadedContent.services) ? loadedContent.services : []
+  const existingIds = new Set(existingServices.map((service: any) => service.id))
+  const missingServices = defaultServices
+    .filter(service => !existingIds.has(service.id))
+    .map(toEditableService)
+
+  return {
+    ...loadedContent,
+    servicesVersion: 2,
+    services: [...existingServices, ...missingServices]
+  }
+}
+
 // Charger le contenu au montage
 onMounted(async () => {
   try {
     const { data } = await useFetch('/api/pages/services')
     if (data.value?.success && data.value?.data) {
-      content.value = data.value.data
+      content.value = migrateLegacyServices(data.value.data)
+      if (content.value.services.length === 8 && data.value.data.servicesInitialized !== true) {
+        showMessage('success', 'Les 8 services ont été restaurés. Cliquez sur Enregistrer pour confirmer.')
+      }
+    } else {
+      content.value = migrateLegacyServices(content.value)
+      showMessage('success', 'Les 8 services par défaut ont été chargés. Cliquez sur Enregistrer pour les conserver.')
     }
   } catch (error) {
     console.error('Erreur lors du chargement:', error)
@@ -318,6 +462,24 @@ const handleSave = async () => {
   isSaving.value = true
 
   try {
+    content.value.servicesVersion = 2
+    content.value.servicesInitialized = true
+    for (const service of content.value.services) {
+      service.id = slugify(service.id || service.title)
+      service.features = Array.isArray(service.features) ? service.features : []
+      service.benefits = Array.isArray(service.benefits) ? service.benefits : []
+      service.pricing ||= { from: '', description: '' }
+
+      if (!service.id || !service.title.trim() || !service.description.trim()) {
+        throw new Error('Chaque service doit avoir un identifiant, un titre et une description.')
+      }
+    }
+
+    const ids = content.value.services.map(service => service.id)
+    if (new Set(ids).size !== ids.length) {
+      throw new Error('Chaque service doit avoir un identifiant unique.')
+    }
+
     const { data } = await useFetch('/api/pages/services', {
       method: 'POST',
       body: content.value
@@ -330,7 +492,7 @@ const handleSave = async () => {
     }
   } catch (error) {
     console.error('Erreur:', error)
-    showMessage('error', 'Erreur lors de l\'enregistrement')
+    showMessage('error', error instanceof Error ? error.message : 'Erreur lors de l\'enregistrement')
   } finally {
     isSaving.value = false
   }

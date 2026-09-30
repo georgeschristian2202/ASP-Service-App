@@ -1,7 +1,22 @@
 <template>
   <div class="mx-auto w-full max-w-[1600px] space-y-6 lg:space-y-8">
+    <section class="relative overflow-hidden rounded-2xl bg-[#0b2747] px-6 py-7 text-white shadow-xl sm:px-8">
+      <div class="pointer-events-none absolute -right-12 -top-16 h-56 w-56 rounded-full bg-cyan-300/15 blur-3xl"></div>
+      <div class="relative flex flex-col justify-between gap-5 sm:flex-row sm:items-center">
+        <div>
+          <p class="text-sm font-medium text-blue-200">ESPACE D'ADMINISTRATION</p>
+          <h1 class="mt-1 text-2xl font-bold tracking-tight sm:text-3xl">Bonjour, {{ user?.username || 'Administrateur' }}</h1>
+          <p class="mt-2 max-w-xl text-sm leading-6 text-blue-100">Retrouvez les indicateurs essentiels et accédez rapidement aux contenus de votre site.</p>
+        </div>
+        <NuxtLink to="/accueil" target="_blank" class="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-4 py-3 text-sm font-semibold text-asp-blue-800 transition hover:bg-blue-50 focus:outline-none focus:ring-4 focus:ring-white/30">
+          <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 3h7m0 0v7m0-7L10 14m-2 0H5a2 2 0 01-2-2V5a2 2 0 012-2h7a2 2 0 012 2v3" /></svg>
+          Voir le site
+        </NuxtLink>
+      </div>
+    </section>
+
     <!-- Statistiques principales -->
-    <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4 lg:gap-6">
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
       <!-- Total réalisations -->
       <div class="group relative bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-2 border-asp-blue-100">
         <div class="flex items-center justify-between mb-4">
@@ -28,6 +43,18 @@
         <p class="text-asp-gray-600 text-sm font-medium">Catégories</p>
       </div>
 
+      <!-- Services -->
+      <div class="group relative bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-2 border-asp-blue-100">
+        <div class="flex items-center justify-between mb-4">
+          <div class="w-14 h-14 bg-asp-blue-100 rounded-xl flex items-center justify-center">
+            <svg class="w-7 h-7 text-asp-blue-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>
+          </div>
+          <NuxtLink to="/admin/pages/services" class="text-xs font-semibold text-asp-blue-700 hover:underline">Gérer</NuxtLink>
+        </div>
+        <h3 class="text-4xl font-bold text-asp-blue-900 mb-1">{{ stats.totalServices }}</h3>
+        <p class="text-asp-gray-600 text-sm font-medium">Services publiés</p>
+      </div>
+
       <!-- Site visible -->
       <div class="group relative bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-2 border-asp-blue-100">
         <div class="flex items-center justify-between mb-4">
@@ -45,7 +72,7 @@
         <p class="text-asp-gray-600 text-sm font-medium">Statut du site</p>
       </div>
 
-      <!-- Dernière connexion -->
+      <!-- Mises en avant -->
       <div class="group relative bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-2 border-asp-blue-100">
         <div class="flex items-center justify-between mb-4">
           <div class="w-14 h-14 bg-asp-blue-100 rounded-xl flex items-center justify-center">
@@ -54,13 +81,45 @@
             </svg>
           </div>
         </div>
-        <h3 class="text-4xl font-bold text-asp-blue-900 mb-1">{{ formattedTime }}</h3>
-        <p class="text-asp-gray-600 text-sm font-medium">Dernière connexion</p>
+        <h3 class="text-4xl font-bold text-asp-blue-900 mb-1">{{ stats.featuredPortfolio }}</h3>
+        <p class="text-asp-gray-600 text-sm font-medium">Réalisations à la une</p>
       </div>
     </div>
 
+    <div class="grid grid-cols-1 gap-6 xl:grid-cols-3">
+      <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm xl:col-span-2">
+        <div class="mb-5 flex items-center justify-between gap-4">
+          <div>
+            <h2 class="text-lg font-bold text-slate-900">Dernières réalisations</h2>
+            <p class="mt-1 text-sm text-slate-500">Vos projets les plus récemment ajoutés ou modifiés.</p>
+          </div>
+          <NuxtLink to="/admin/realisations" class="text-sm font-semibold text-asp-blue-700 hover:underline">Tout voir</NuxtLink>
+        </div>
+        <div v-if="recentProjects.length" class="divide-y divide-slate-100">
+          <NuxtLink v-for="project in recentProjects" :key="project.id" :to="`/admin/realisations/${project.id}`" class="flex items-center gap-4 py-3 transition hover:bg-slate-50">
+            <img v-if="project.imageUrl" :src="project.imageUrl" :alt="project.title" class="h-11 w-11 rounded-lg object-cover" loading="lazy">
+            <div v-else class="flex h-11 w-11 items-center justify-center rounded-lg bg-asp-blue-50 text-asp-blue-700"><svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01" /></svg></div>
+            <div class="min-w-0 flex-1"><p class="truncate font-semibold text-slate-800">{{ project.title }}</p><p class="truncate text-sm text-slate-500">{{ project.category }}</p></div>
+            <span class="hidden text-xs text-slate-400 sm:block">{{ formatDate(project.updatedAt) }}</span>
+          </NuxtLink>
+        </div>
+        <div v-else class="rounded-xl bg-slate-50 px-4 py-8 text-center text-sm text-slate-500">Aucune réalisation disponible pour le moment.</div>
+      </section>
+
+      <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+        <h2 class="text-lg font-bold text-slate-900">Accès rapides</h2>
+        <p class="mt-1 text-sm text-slate-500">Modifiez les contenus les plus consultés.</p>
+        <div class="mt-5 space-y-2">
+          <NuxtLink v-for="shortcut in shortcuts" :key="shortcut.to" :to="shortcut.to" class="flex items-center justify-between rounded-xl border border-slate-200 px-4 py-3 text-sm font-semibold text-slate-700 transition hover:border-asp-blue-200 hover:bg-asp-blue-50 hover:text-asp-blue-800">
+            {{ shortcut.label }}
+            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+          </NuxtLink>
+        </div>
+      </section>
+    </div>
+
     <!-- Actions rapides -->
-    <div class="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-6">
+    <div class="hidden grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-6">
       <!-- Gestion des réalisations -->
       <div class="bg-white rounded-xl shadow-lg border-2 border-asp-blue-100 hover:shadow-xl transition-shadow overflow-hidden">
         <div class="bg-gradient-to-r from-asp-blue-700 to-asp-blue-800 p-6 text-white">
@@ -138,7 +197,7 @@
     </div>
 
     <!-- Prochaines fonctionnalités -->
-    <div class="bg-gradient-to-br from-asp-blue-50 to-blue-50 rounded-xl p-8 border-2 border-asp-blue-100">
+    <div class="hidden bg-gradient-to-br from-asp-blue-50 to-blue-50 rounded-xl p-8 border-2 border-asp-blue-100">
       <div class="flex items-start gap-4">
         <div class="w-12 h-12 bg-asp-blue-700 rounded-xl flex items-center justify-center flex-shrink-0">
           <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -182,11 +241,24 @@ definePageMeta({
   middleware: 'admin'
 })
 
+const { user } = useAuth()
+const { services: defaultServices } = useServices()
+
 // Statistiques
 const stats = ref({
   totalPortfolio: 0,
-  totalCategories: 5,
+  totalCategories: 0,
+  totalServices: defaultServices.length,
+  featuredPortfolio: 0
 })
+
+const recentProjects = ref<any[]>([])
+const shortcuts = [
+  { label: 'Ajouter une réalisation', to: '/admin/realisations/create' },
+  { label: 'Gérer les services', to: '/admin/pages/services' },
+  { label: 'Modifier la page d’accueil', to: '/admin/pages/accueil' },
+  { label: 'Configuration de l’entreprise', to: '/admin/config' }
+]
 
 // Heure actuelle
 const currentTime = ref(new Date())
@@ -216,12 +288,31 @@ onUnmounted(() => {
 
 // Charger les statistiques
 const loadStats = async () => {
-  const { fetchStats } = usePortfolio()
-  const result = await fetchStats()
+  const { fetchStats, fetchList } = usePortfolio()
+  const [result, listResult, servicesResult] = await Promise.all([
+    fetchStats(),
+    fetchList({ limit: 4 }),
+    $fetch<{ success: boolean; data: { services?: unknown[] } | null }>('/api/pages/services').catch(() => null)
+  ])
   
   if (result.success && result.stats) {
     stats.value.totalPortfolio = result.stats.total
-    stats.value.totalCategories = result.stats.categories
+    stats.value.featuredPortfolio = result.stats.featured || 0
+    stats.value.totalCategories = Object.keys(result.stats.byCategory || {}).length
+  }
+
+  if (listResult.success && listResult.items) {
+    recentProjects.value = listResult.items
+  }
+
+  if (servicesResult?.success && servicesResult.data?.services?.length) {
+    stats.value.totalServices = servicesResult.data.services.length
   }
 }
+
+const formatDate = (value: string) => new Intl.DateTimeFormat('fr-FR', {
+  day: '2-digit',
+  month: 'short',
+  year: 'numeric'
+}).format(new Date(value))
 </script>

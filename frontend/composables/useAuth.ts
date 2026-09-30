@@ -26,7 +26,13 @@ export const useAuth = () => {
       })
 
       if (error.value) {
-        throw new Error(error.value.statusMessage || 'Erreur de connexion')
+        const apiError = error.value as any
+        throw new Error(
+          apiError.data?.message ||
+          apiError.message ||
+          apiError.statusMessage ||
+          'Erreur de connexion'
+        )
       }
 
       if (data.value?.success && data.value.user) {

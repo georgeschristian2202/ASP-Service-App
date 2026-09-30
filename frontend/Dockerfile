@@ -20,6 +20,8 @@ FROM node:20-alpine AS builder
 LABEL stage=builder
 
 WORKDIR /app
+ENV NUXT_BACKEND_API_URL=http://127.0.0.1:9/api
+ENV NUXT_SKIP_PRERENDER=true
 
 # Copier les node_modules depuis deps
 COPY --from=deps /app/node_modules ./node_modules

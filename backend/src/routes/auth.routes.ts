@@ -52,7 +52,7 @@ authRouter.post('/login', async (request, response) => {
 
   response.cookie(AUTH_COOKIE_NAME, token, {
     httpOnly: true,
-    secure: env.NODE_ENV === 'production',
+    secure: env.COOKIE_SECURE,
     sameSite: 'lax',
     maxAge: 24 * 60 * 60 * 1000,
     path: '/'
@@ -85,7 +85,7 @@ authRouter.get('/me', requireAuthentication, (request, response) => {
 authRouter.post('/logout', (_request, response) => {
   response.clearCookie(AUTH_COOKIE_NAME, {
     httpOnly: true,
-    secure: env.NODE_ENV === 'production',
+    secure: env.COOKIE_SECURE,
     sameSite: 'lax',
     path: '/'
   })

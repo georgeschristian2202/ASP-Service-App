@@ -25,7 +25,7 @@ interface PortfolioSeedData {
 
 function getDataPath(fileName: string): string {
   const seedDirectory = dirname(fileURLToPath(import.meta.url))
-  return resolve(seedDirectory, '../../frontend/data', fileName)
+  return resolve(seedDirectory, '../../../frontend/data', fileName)
 }
 
 async function readJsonFile<T>(fileName: string): Promise<T> {

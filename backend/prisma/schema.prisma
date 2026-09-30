@@ -29,8 +29,8 @@ model Utilisateur {
 
 model Realisation {
   identifiant       String   @id @default(uuid()) @map("id")
-  titre             String
-  categorie         String
+  titre             String   @map("title")
+  categorie         String   @map("category")
   description       String   @default("")
   urlImage          String   @default("") @map("imageUrl")
   cheminImage       String   @default("") @map("imagePath")
@@ -67,10 +67,10 @@ model ContenuPage {
 
 model MessageContact {
   identifiant String   @id @default(uuid()) @map("id")
-  nom         String
-  courriel    String
-  telephone   String?
-  objet       String?
+  nom         String   @map("name")
+  courriel    String   @map("email")
+  telephone   String?  @map("phone")
+  objet       String?  @map("subject")
   message     String
   estLu       Boolean  @default(false) @map("isRead")
   creeLe      DateTime @default(now()) @map("createdAt")

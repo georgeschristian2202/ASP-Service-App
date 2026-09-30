@@ -93,7 +93,34 @@
 import { ref, onMounted } from 'vue'
 import { BadgeCheck, Clock, Wrench, DollarSign } from 'lucide-vue-next'
 
-const { services } = useServices()
+const { services: defaultServices } = useServices()
+
+type StoredService = Partial<(typeof defaultServices)[number]> & {
+  subtitle?: string
+  longDescription?: string
+}
+
+const { data: servicesContent } = await useFetch<{
+  success: boolean
+  data: { services?: StoredService[] } | null
+}>('/api/pages/services')
+
+const services = computed(() => {
+  const storedServices = servicesContent.value?.data?.services
+  if (!storedServices?.length) return defaultServices
+
+  return storedServices.map((service, index) => ({
+    id: service.id || `service-${index + 1}`,
+    title: service.title || 'Service',
+    shortDescription: service.shortDescription || service.subtitle || service.description || '',
+    description: service.longDescription || service.description || '',
+    features: Array.isArray(service.features) ? service.features : [],
+    benefits: Array.isArray(service.benefits) ? service.benefits : [],
+    icon: service.icon || 'cube',
+    image: service.image || '',
+    gallery: Array.isArray(service.gallery) ? service.gallery : []
+  }))
+})
 
 // Modal de devis
 const showQuoteModal = ref(false)

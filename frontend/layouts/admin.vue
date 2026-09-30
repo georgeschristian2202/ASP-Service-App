@@ -1,5 +1,6 @@
 <template>
   <div class="min-h-screen bg-gray-50">
+    <Toast />
     <!-- Backdrop mobile -->
     <Transition
       enter-active-class="transition-opacity duration-300"

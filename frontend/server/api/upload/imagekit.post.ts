@@ -62,7 +62,7 @@ export default defineEventHandler(async (event) => {
       
       // Ajouter le dossier si spécifié
       if (folder) {
-        const folderPath = `portfolio/${folder}`
+        const folderPath = `/${String(folder).replace(/^\/+|\/+$/g, '')}`
         formBody.append('folder', folderPath)
         console.log('📁 Dossier:', folderPath)
       }
@@ -84,7 +84,7 @@ export default defineEventHandler(async (event) => {
       return {
         success: true,
         url: result.url,
-        path: result.filePath || `/${folder ? 'portfolio/' + folder + '/' : ''}${fileName || 'upload.jpg'}`,
+        path: result.filePath || `/${folder ? String(folder).replace(/^\/+|\/+$/g, '') + '/' : ''}${fileName || 'upload.jpg'}`,
         fileId: result.fileId,
         name: result.name
       }

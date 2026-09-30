@@ -50,10 +50,12 @@ export default defineNuxtConfig({
     },
     compressPublicAssets: true,
     minify: true,
-    prerender: {
-      crawlLinks: true,
-      routes: ['/', '/accueil', '/services', '/contact', '/a-propos', '/realisations']
-    }
+    prerender: process.env.NUXT_SKIP_PRERENDER === 'true'
+      ? undefined
+      : {
+          crawlLinks: true,
+          routes: ['/', '/accueil', '/services', '/contact', '/a-propos', '/realisations']
+        }
   },
 
   // Router optimizations

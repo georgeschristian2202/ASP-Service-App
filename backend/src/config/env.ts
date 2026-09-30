@@ -8,6 +8,7 @@ const environmentSchema = z.object({
   DATABASE_URL: z.string().min(1),
   JWT_SECRET: z.string().min(32),
   JWT_EXPIRES_IN: z.string().min(1).default('24h'),
+  COOKIE_SECURE: z.string().default('false').transform((value) => value === 'true'),
   FRONTEND_URL: z.string().url().default('http://localhost:3001'),
   ALLOWED_ORIGINS: z.string().default('http://localhost:3000,http://localhost:3001'),
   BCRYPT_ROUNDS: z.coerce.number().int().min(10).max(15).default(12),
