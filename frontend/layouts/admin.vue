@@ -193,7 +193,7 @@
           </div>
           <div v-show="!isCollapsed || isHovering" class="flex-1 min-w-0">
             <p class="font-medium text-gray-900 text-sm truncate">{{ user?.username }}</p>
-            <p class="text-xs text-gray-500">Administrateur</p>
+            <p class="text-xs text-gray-500">{{ roleLabel }}</p>
           </div>
           <button
             v-show="!isCollapsed || isHovering"
@@ -214,34 +214,82 @@
       isMobile ? 'ml-0' : (isCollapsed && !isHovering ? 'ml-20' : 'ml-72')
     ]">
       <!-- Top Bar -->
-      <div class="sticky top-0 z-30 bg-white border-b border-gray-200 shadow-sm">
-        <div class="px-6 py-4">
-          <div class="flex items-center justify-between">
-            <div class="flex items-center gap-4">
-              <button @click="toggleSidebar" class="p-2 hover:bg-gray-100 rounded-lg lg:hidden">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-              </button>
-              <button @click="toggleCollapse" class="hidden lg:flex p-2 hover:bg-gray-100 rounded-lg">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-              </button>
-              <div>
-                <h2 class="text-xl font-bold text-gray-900">{{ pageTitle }}</h2>
-                <p class="text-sm text-gray-600">{{ pageSubtitle }}</p>
-              </div>
-            </div>
-            <NuxtLink to="/accueil" target="_blank" class="hidden sm:flex items-center gap-2 px-4 py-2 border border-gray-300 hover:bg-gray-50 rounded-lg">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-              </svg>
-              <span class="text-sm font-medium">Voir le site</span>
+      <header class="sticky top-0 z-30 border-b border-slate-200 bg-white shadow-sm">
+        <div class="flex h-16 items-center gap-3 px-4 sm:px-6">
+          <button
+            type="button"
+            class="flex size-10 shrink-0 items-center justify-center rounded-lg text-slate-700 transition hover:bg-slate-100"
+            aria-label="Afficher ou réduire le menu"
+            @click="isMobile ? toggleSidebar() : toggleCollapse()"
+          >
+            <Menu class="size-5" aria-hidden="true" />
+          </button>
+
+          <div class="hidden min-w-0 md:block">
+            <p class="truncate text-sm font-bold text-slate-900">{{ pageTitle }}</p>
+            <p class="truncate text-xs text-slate-500">{{ pageSubtitle }}</p>
+          </div>
+
+          <div class="relative hidden min-w-0 max-w-md flex-1 lg:block">
+            <Search class="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-slate-400" aria-hidden="true" />
+            <input
+              v-model="headerSearch"
+              type="search"
+              placeholder="Rechercher dans l’administration..."
+              class="h-10 w-full rounded-lg border border-slate-200 bg-slate-50 pl-10 pr-4 text-sm text-slate-800 outline-none transition focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
+            />
+          </div>
+
+          <div class="ml-auto flex items-center gap-1.5 sm:gap-2">
+            <UButton
+              v-if="isSuperAdmin"
+              to="/admin/utilisateurs/nouveau"
+              color="success"
+              size="md"
+              class="hidden justify-center font-semibold sm:flex"
+              label="Ajouter un utilisateur"
+            >
+              <template #leading><UserPlus class="size-4" aria-hidden="true" /></template>
+            </UButton>
+
+            <UButton
+              v-if="isSuperAdmin"
+              to="/admin/utilisateurs/nouveau"
+              color="success"
+              variant="soft"
+              square
+              class="sm:hidden"
+              aria-label="Ajouter un utilisateur"
+            >
+              <UserPlus class="size-5" aria-hidden="true" />
+            </UButton>
+
+            <button type="button" class="header-icon-button flex" aria-label="Notifications">
+              <Bell class="size-5" aria-hidden="true" />
+            </button>
+            <button type="button" class="header-icon-button hidden sm:flex" aria-label="Aide">
+              <CircleHelp class="size-5" aria-hidden="true" />
+            </button>
+            <button type="button" class="header-icon-button hidden sm:flex" aria-label="Changer le thème" @click="toggleColorMode">
+              <Moon v-if="colorMode.value !== 'dark'" class="size-5" aria-hidden="true" />
+              <Sun v-else class="size-5" aria-hidden="true" />
+            </button>
+
+            <div class="mx-1 hidden h-8 w-px bg-slate-200 sm:block" />
+
+            <NuxtLink
+              to="/admin/profil-entreprise"
+              class="flex items-center gap-2 rounded-full p-1.5 transition hover:bg-blue-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+              title="Profil de l’entreprise"
+            >
+              <span class="flex size-8 items-center justify-center rounded-full bg-gradient-to-br from-blue-600 to-blue-900 text-sm font-bold text-white">
+                {{ user?.username?.charAt(0).toUpperCase() || 'A' }}
+              </span>
+              <span class="hidden max-w-28 truncate text-sm font-semibold text-slate-700 xl:block">{{ user?.username }}</span>
             </NuxtLink>
           </div>
         </div>
-      </div>
+      </header>
 
       <!-- Content -->
       <div class="p-4 sm:p-6 lg:p-8">
@@ -252,14 +300,28 @@
 </template>
 
 <script setup lang="ts">
-const { user, logout } = useAuth()
+import { Bell, CircleHelp, Menu, Moon, Search, Sun, UserPlus } from 'lucide-vue-next'
+
+const { user, logout, isSuperAdmin } = useAuth()
 const route = useRoute()
+const colorMode = useColorMode()
 
 const isSidebarOpen = ref(true)
 const isCollapsed = ref(true)
 const isHovering = ref(false)
 const isMobile = ref(false)
 const isPagesMenuOpen = ref(false)
+const headerSearch = ref('')
+
+const toggleColorMode = () => {
+  colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'
+}
+
+const roleLabel = computed(() => {
+  if (user.value?.role === 'superadmin') return 'Super administrateur'
+  if (user.value?.role === 'admin') return 'Administrateur'
+  return 'Éditeur'
+})
 
 const checkMobile = () => {
   if (typeof window !== 'undefined') {
@@ -272,11 +334,13 @@ const checkMobile = () => {
   }
 }
 
-onMounted(() => {
+onMounted(async () => {
   checkMobile()
   window.addEventListener('resize', checkMobile)
   const { fetchUser } = useAuth()
-  fetchUser()
+  if (!user.value) {
+    await fetchUser()
+  }
 })
 
 onBeforeUnmount(() => {
@@ -320,6 +384,8 @@ const pageTitle = computed(() => {
   if (route.path.startsWith('/admin/realisations')) return 'Réalisations'
   if (route.path.startsWith('/admin/pages')) return 'Gestion des Pages'
   if (route.path === '/admin/config') return 'Configuration'
+  if (route.path === '/admin/utilisateurs/nouveau') return 'Nouvel utilisateur'
+  if (route.path === '/admin/profil-entreprise') return 'Profil de l’entreprise'
   return 'Back-Office'
 })
 
@@ -328,6 +394,8 @@ const pageSubtitle = computed(() => {
   if (route.path.startsWith('/admin/realisations')) return 'Gérez votre portfolio de projets'
   if (route.path.startsWith('/admin/pages')) return 'Modifiez le contenu de vos pages publiques'
   if (route.path === '/admin/config') return 'Paramètres de l\'entreprise'
+  if (route.path === '/admin/utilisateurs/nouveau') return 'Créer un accès administrateur sécurisé'
+  if (route.path === '/admin/profil-entreprise') return 'Informations et identité de l’entreprise'
   return 'Gestion de contenu'
 })
 
@@ -337,3 +405,25 @@ const handleLogout = async () => {
   }
 }
 </script>
+
+<style scoped>
+.header-icon-button {
+  width: 2.5rem;
+  height: 2.5rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  color: #64748b;
+  transition: color 150ms ease, background-color 150ms ease;
+}
+
+.header-icon-button:hover {
+  background: #f1f5f9;
+  color: #1d4ed8;
+}
+
+.header-icon-button:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+</style>

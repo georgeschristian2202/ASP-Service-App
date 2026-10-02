@@ -3,7 +3,7 @@
 # ============================================
 
 # Stage 1: Dépendances
-FROM node:20-alpine AS deps
+FROM node:24-alpine AS deps
 LABEL stage=deps
 
 WORKDIR /app
@@ -16,7 +16,7 @@ RUN npm ci --prefer-offline --no-audit
 
 # ============================================
 # Stage 2: Builder
-FROM node:20-alpine AS builder
+FROM node:24-alpine AS builder
 LABEL stage=builder
 
 WORKDIR /app
@@ -34,7 +34,7 @@ RUN npm run build
 
 # ============================================
 # Stage 3: Production
-FROM node:20-alpine AS runner
+FROM node:24-alpine AS runner
 LABEL maintainer="ASP Services"
 
 WORKDIR /app

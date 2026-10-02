@@ -16,24 +16,22 @@
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
-    "@nuxtjs/tailwindcss": "^6.11.4",
-    "@pinia/nuxt": "^0.5.1",
-    "@vueuse/core": "^10.9.0",
-    "@vueuse/nuxt": "^10.9.0",
+    "@nuxt/ui": "^4.11.2",
+    "@pinia/nuxt": "^1.0.2",
+    "@vueuse/core": "^15.0.0",
+    "@vueuse/nuxt": "^15.0.0",
     "animejs": "^3.2.2",
     "imagekit": "^6.0.0",
     "lucide-vue-next": "^0.451.0",
-    "nuxt": "^3.11.1",
-    "pinia": "^2.1.7",
-    "vue": "^3.4.21",
-    "vue-router": "^4.3.0"
+    "nuxt": "^4.5.2",
+    "pinia": "^4.0.3",
+    "vue": "^3.5.0",
+    "vue-router": "^5.0.0"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config-typescript": "^12.1.0",
     "@types/node": "^20.11.30",
-    "autoprefixer": "^10.4.21",
-    "postcss": "^8.5.6",
-    "tailwindcss": "3.4.19",
-    "typescript": "^5.4.3"
+    "tailwindcss": "^4.1.14",
+    "typescript": "^5.9.0"
   }
 }

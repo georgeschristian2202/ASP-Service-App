@@ -61,7 +61,7 @@ async function seedAdminUser() {
     nomUtilisateur: username,
     courriel: email,
     motDePasseHache: passwordHash,
-    role: 'ADMINISTRATEUR' as const
+    role: 'SUPERADMINISTRATEUR' as const
   }
 
   if (existingUser) {

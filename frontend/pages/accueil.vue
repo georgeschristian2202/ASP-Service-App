@@ -1538,6 +1538,8 @@ const submitQuoteForm = async () => {
 </script>
 
 <style scoped>
+@reference "../assets/css/main.css";
+
 .nav-link {
   @apply text-gray-700 hover:text-asp-blue-600 font-medium transition-colors duration-200 px-3 py-2 rounded-lg hover:bg-asp-blue-50 cursor-pointer;
 }

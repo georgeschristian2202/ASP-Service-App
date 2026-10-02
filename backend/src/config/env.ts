@@ -7,13 +7,18 @@ const environmentSchema = z.object({
   HOST: z.string().min(1).default('0.0.0.0'),
   DATABASE_URL: z.string().min(1),
   JWT_SECRET: z.string().min(32),
-  JWT_EXPIRES_IN: z.string().min(1).default('24h'),
+  JWT_EXPIRES_IN: z.string().min(1).default('8h'),
+  JWT_ISSUER: z.string().min(1).default('asp-service-api'),
+  JWT_AUDIENCE: z.string().min(1).default('asp-service-admin'),
+  JWT_COOKIE_MAX_AGE_MS: z.coerce.number().int().positive().default(28800000),
   COOKIE_SECURE: z.string().default('false').transform((value) => value === 'true'),
   FRONTEND_URL: z.string().url().default('http://localhost:3001'),
   ALLOWED_ORIGINS: z.string().default('http://localhost:3000,http://localhost:3001'),
   BCRYPT_ROUNDS: z.coerce.number().int().min(10).max(15).default(12),
   RATE_LIMIT_WINDOW_MS: z.coerce.number().int().positive().default(900000),
-  RATE_LIMIT_MAX_REQUESTS: z.coerce.number().int().positive().default(100)
+  RATE_LIMIT_MAX_REQUESTS: z.coerce.number().int().positive().default(100),
+  LOGIN_RATE_LIMIT_WINDOW_MS: z.coerce.number().int().positive().default(900000),
+  LOGIN_RATE_LIMIT_MAX_REQUESTS: z.coerce.number().int().positive().default(5)
 })
 
 const parsedEnvironment = environmentSchema.safeParse(process.env)

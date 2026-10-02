@@ -10,10 +10,16 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
   // Vérifier l'authentification côté client uniquement
   if (process.client) {
     try {
-      // Appeler l'API pour vérifier la session
-      const { data, error } = await useFetch('/api/auth/me')
+      const { user, fetchUser } = useAuth()
 
-      if (error.value || !data.value?.success) {
+      if (!user.value) {
+        const result = await fetchUser()
+        if (!result.success) {
+          return navigateTo('/admin/login')
+        }
+      }
+
+      if (!user.value) {
         // Non authentifié, rediriger vers login
         return navigateTo('/admin/login')
       }

@@ -2,10 +2,11 @@ import jwt, { type SignOptions } from 'jsonwebtoken'
 import { env } from '../config/env.js'
 import { AppError } from '../middleware/error-handler.js'
 
-export type AdminRole = 'ADMINISTRATEUR' | 'EDITEUR'
+export type AdminRole = 'SUPERADMINISTRATEUR' | 'ADMINISTRATEUR' | 'EDITEUR'
 
 export interface AuthPayload {
   identifiantUtilisateur: string
+  identifiantSession: string
   nomUtilisateur: string
   courriel: string
   role: AdminRole
@@ -13,10 +14,14 @@ export interface AuthPayload {
 
 export const AUTH_COOKIE_NAME = 'asp-admin-token'
 
-export function createAccessToken(user: AuthPayload): string {
+export function createAccessToken(user: Omit<AuthPayload, 'identifiantSession'>, sessionId: string): string {
   const options: SignOptions = {
     subject: user.identifiantUtilisateur,
-    expiresIn: env.JWT_EXPIRES_IN as SignOptions['expiresIn']
+    expiresIn: env.JWT_EXPIRES_IN as SignOptions['expiresIn'],
+    algorithm: 'HS256',
+    issuer: env.JWT_ISSUER,
+    audience: env.JWT_AUDIENCE,
+    jwtid: sessionId
   }
 
   return jwt.sign(
@@ -32,20 +37,28 @@ export function createAccessToken(user: AuthPayload): string {
 
 export function verifyAccessToken(token: string): AuthPayload {
   try {
-    const decoded = jwt.verify(token, env.JWT_SECRET)
+    const decoded = jwt.verify(token, env.JWT_SECRET, {
+      algorithms: ['HS256'],
+      issuer: env.JWT_ISSUER,
+      audience: env.JWT_AUDIENCE
+    })
 
     if (
       typeof decoded === 'string' ||
       typeof decoded.sub !== 'string' ||
+      typeof decoded.jti !== 'string' ||
       typeof decoded.nomUtilisateur !== 'string' ||
       typeof decoded.courriel !== 'string' ||
-      (decoded.role !== 'ADMINISTRATEUR' && decoded.role !== 'EDITEUR')
+      decoded.role !== 'SUPERADMINISTRATEUR' &&
+      decoded.role !== 'ADMINISTRATEUR' &&
+      decoded.role !== 'EDITEUR'
     ) {
       throw new AppError(401, 'Jeton d’authentification invalide.')
     }
 
     return {
       identifiantUtilisateur: decoded.sub,
+      identifiantSession: decoded.jti,
       nomUtilisateur: decoded.nomUtilisateur,
       courriel: decoded.courriel,
       role: decoded.role

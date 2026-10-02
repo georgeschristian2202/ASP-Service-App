@@ -1,5 +1,7 @@
 import { compare } from 'bcryptjs'
 import { Router } from 'express'
+import rateLimit from 'express-rate-limit'
+import { randomUUID } from 'node:crypto'
 import { z } from 'zod'
 import { prisma } from '../config/database.js'
 import { env } from '../config/env.js'
@@ -17,8 +19,12 @@ function toAuthPayload(user: {
   nomUtilisateur: string
   courriel: string
   role: string
-}): AuthPayload {
-  if (user.role !== 'ADMINISTRATEUR' && user.role !== 'EDITEUR') {
+}): Omit<AuthPayload, 'identifiantSession'> {
+  if (
+    user.role !== 'SUPERADMINISTRATEUR' &&
+    user.role !== 'ADMINISTRATEUR' &&
+    user.role !== 'EDITEUR'
+  ) {
     throw new AppError(500, 'Rôle utilisateur invalide.')
   }
 
@@ -32,7 +38,29 @@ function toAuthPayload(user: {
 
 export const authRouter = Router()
 
-authRouter.post('/login', async (request, response) => {
+const loginRateLimiter = rateLimit({
+  windowMs: env.LOGIN_RATE_LIMIT_WINDOW_MS,
+  max: env.LOGIN_RATE_LIMIT_MAX_REQUESTS,
+  standardHeaders: true,
+  legacyHeaders: false,
+  skipSuccessfulRequests: true,
+  handler: (_request, response) => {
+    response.status(429).json({
+      success: false,
+      message: 'Trop de tentatives de connexion. Veuillez réessayer plus tard.'
+    })
+  }
+})
+
+const authCookieBaseOptions = {
+  httpOnly: true,
+  secure: env.COOKIE_SECURE,
+  sameSite: 'lax' as const,
+  path: '/',
+  priority: 'high' as const
+}
+
+authRouter.post('/login', loginRateLimiter, async (request, response) => {
   const credentials = loginSchema.parse(request.body)
   const user = await prisma.utilisateur.findFirst({
     where: {
@@ -48,14 +76,22 @@ authRouter.post('/login', async (request, response) => {
   }
 
   const authPayload = toAuthPayload(user)
-  const token = createAccessToken(authPayload)
+  const sessionId = randomUUID()
+  const expireLe = new Date(Date.now() + env.JWT_COOKIE_MAX_AGE_MS)
+
+  await prisma.sessionAuthentification.create({
+    data: {
+      identifiant: sessionId,
+      identifiantUtilisateur: user.identifiant,
+      expireLe
+    }
+  })
+
+  const token = createAccessToken(authPayload, sessionId)
 
   response.cookie(AUTH_COOKIE_NAME, token, {
-    httpOnly: true,
-    secure: env.COOKIE_SECURE,
-    sameSite: 'lax',
-    maxAge: 24 * 60 * 60 * 1000,
-    path: '/'
+    ...authCookieBaseOptions,
+    maxAge: env.JWT_COOKIE_MAX_AGE_MS
   })
 
   response.status(200).json({
@@ -64,7 +100,11 @@ authRouter.post('/login', async (request, response) => {
       id: authPayload.identifiantUtilisateur,
       username: authPayload.nomUtilisateur,
       email: authPayload.courriel,
-      role: authPayload.role === 'ADMINISTRATEUR' ? 'admin' : 'editor'
+      role: authPayload.role === 'SUPERADMINISTRATEUR'
+        ? 'superadmin'
+        : authPayload.role === 'ADMINISTRATEUR'
+          ? 'admin'
+          : 'editor'
     },
     message: 'Connexion réussie.'
   })
@@ -77,17 +117,27 @@ authRouter.get('/me', requireAuthentication, (request, response) => {
       id: request.auth?.identifiantUtilisateur,
       username: request.auth?.nomUtilisateur,
       email: request.auth?.courriel,
-      role: request.auth?.role === 'ADMINISTRATEUR' ? 'admin' : 'editor'
+      role: request.auth?.role === 'SUPERADMINISTRATEUR'
+        ? 'superadmin'
+        : request.auth?.role === 'ADMINISTRATEUR'
+          ? 'admin'
+          : 'editor'
     }
   })
 })
 
-authRouter.post('/logout', (_request, response) => {
+authRouter.post('/logout', requireAuthentication, async (request, response) => {
+  await prisma.sessionAuthentification.updateMany({
+    where: {
+      identifiant: request.auth?.identifiantSession,
+      identifiantUtilisateur: request.auth?.identifiantUtilisateur,
+      revoqueLe: null
+    },
+    data: { revoqueLe: new Date() }
+  })
+
   response.clearCookie(AUTH_COOKIE_NAME, {
-    httpOnly: true,
-    secure: env.COOKIE_SECURE,
-    sameSite: 'lax',
-    path: '/'
+    ...authCookieBaseOptions
   })
 
   response.json({

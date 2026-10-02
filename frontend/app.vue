@@ -1,12 +1,13 @@
 <template>
-  <div id="app" class="min-h-screen bg-asp-white">
-    <!-- SEO Schema.org pour Google -->
-    <SchemaOrg />
-    
-    <NuxtLayout>
-      <NuxtPage :transition="{ name: 'page', mode: 'out-in' }" />
-    </NuxtLayout>
-  </div>
+  <UApp>
+    <div id="app" class="min-h-screen bg-asp-white">
+      <SchemaOrg />
+
+      <NuxtLayout>
+        <NuxtPage :transition="{ name: 'page', mode: 'out-in' }" />
+      </NuxtLayout>
+    </div>
+  </UApp>
 </template>
 
 <script setup lang="ts">

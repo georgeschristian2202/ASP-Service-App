@@ -10,6 +10,8 @@
 </script>
 
 <style scoped>
+@reference "../../assets/css/main.css";
+
 /* Styles pour le floating label - label sur la bordure */
 :deep(input),
 :deep(textarea),

@@ -24,20 +24,30 @@ services:
       dockerfile: backend/Dockerfile
     container_name: asp-service-backend
     ports:
-      - "5000:5000"
+      - "127.0.0.1:5000:5000"
     environment:
       - NODE_ENV=production
-      - COOKIE_SECURE=false
-      - DATABASE_URL=postgresql://asp_user:asp_password@db:5432/asp_service_db
+      - COOKIE_SECURE=${COOKIE_SECURE:-true}
+      - JWT_EXPIRES_IN=${JWT_EXPIRES_IN:-8h}
+      - JWT_ISSUER=${JWT_ISSUER:-asp-service-api}
+      - JWT_AUDIENCE=${JWT_AUDIENCE:-asp-service-admin}
+      - JWT_COOKIE_MAX_AGE_MS=${JWT_COOKIE_MAX_AGE_MS:-28800000}
+      # Ancienne connexion PostgreSQL locale Docker (secours)
+      # - DATABASE_URL=postgresql://asp_user:asp_password@db:5432/asp_service_db
+      # Connexion PostgreSQL publique chargee depuis le fichier .env racine
+      - DATABASE_URL=${DATABASE_URL:?Definissez DATABASE_URL dans le fichier .env racine}
       - JWT_SECRET=${JWT_SECRET:?Definissez JWT_SECRET dans le fichier .env racine}
-      - FRONTEND_URL=http://localhost:3000
-      - ALLOWED_ORIGINS=http://localhost:3000,http://localhost:3001
+      - FRONTEND_URL=${FRONTEND_URL:-https://aspservices.ga}
+      - ALLOWED_ORIGINS=${ALLOWED_ORIGINS:-https://aspservices.ga}
+      - LOGIN_RATE_LIMIT_WINDOW_MS=${LOGIN_RATE_LIMIT_WINDOW_MS:-900000}
+      - LOGIN_RATE_LIMIT_MAX_REQUESTS=${LOGIN_RATE_LIMIT_MAX_REQUESTS:-5}
       - ADMIN_USERNAME=${ADMIN_USERNAME:-admin}
       - ADMIN_EMAIL=${ADMIN_EMAIL:-aspservicesgabon@gmail.com}
       - ADMIN_PASSWORD=${ADMIN_PASSWORD:?Definissez ADMIN_PASSWORD dans le fichier .env racine}
-    depends_on:
-      db:
-        condition: service_healthy
+    # Ancienne dependance a la base locale Docker (secours)
+    # depends_on:
+    #   db:
+    #     condition: service_healthy
     networks:
       - asp-network
     restart: unless-stopped

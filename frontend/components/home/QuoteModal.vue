@@ -395,6 +395,7 @@
 
 <script setup lang="ts">
 import { ref, reactive, watch, onUnmounted, computed } from 'vue'
+import { useToast as useAppToast } from '@/composables/useToast'
 import {
   X,
   CheckCircle2,
@@ -602,7 +603,7 @@ const submitForm = async () => {
 
   isSubmitting.value = true
   
-  const toast = useToast()
+  const toast = useAppToast()
   
   try {
     // Préparer les données pour EmailJS

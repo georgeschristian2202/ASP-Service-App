@@ -1,6 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
+  srcDir: '.',
 
   devtools: { enabled: false },
 
@@ -10,7 +11,7 @@ export default defineNuxtConfig({
   },
 
   modules: [
-    '@nuxtjs/tailwindcss',
+    '@nuxt/ui',
     '@vueuse/nuxt',
     '@pinia/nuxt'
   ],
@@ -27,16 +28,7 @@ export default defineNuxtConfig({
   // Build optimizations
   vite: {
     build: {
-      cssCodeSplit: true,
-      rollupOptions: {
-        output: {
-          manualChunks: {
-            'vendor': ['vue', 'vue-router'],
-            'anime': ['animejs'],
-            'lucide': ['lucide-vue-next']
-          }
-        }
-      }
+      cssCodeSplit: true
     },
     optimizeDeps: {
       include: ['animejs', 'lucide-vue-next']

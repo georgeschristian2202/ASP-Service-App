@@ -178,6 +178,7 @@
 
 <script setup lang="ts">
 import { ref, reactive, computed } from 'vue'
+import { useToast as useAppToast } from '@/composables/useToast'
 import { 
   Send,
   MessageCircle
@@ -293,7 +294,7 @@ const validateForm = (): boolean => {
 }
 
 const { sendEmail } = useEmailJS()
-const toast = useToast()
+const toast = useAppToast()
 
 const handleSubmit = async () => {
   if (!validateForm()) {

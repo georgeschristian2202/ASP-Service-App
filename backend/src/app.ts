@@ -3,7 +3,7 @@ import express from 'express'
 import rateLimit from 'express-rate-limit'
 import helmet from 'helmet'
 import { allowedOrigins, env } from './config/env.js'
-import { errorHandler, notFoundHandler } from './middleware/error-handler.js'
+import { AppError, errorHandler, notFoundHandler } from './middleware/error-handler.js'
 import { apiRouter } from './routes/index.js'
 
 export const app = express()
@@ -18,7 +18,7 @@ app.use(cors({
       return
     }
 
-    callback(new Error('Origine non autorisée.'))
+    callback(new AppError(403, 'Origine non autorisée.'))
   },
   credentials: true
 }))

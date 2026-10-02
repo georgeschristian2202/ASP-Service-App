@@ -9,6 +9,7 @@ datasource db {
 }
 
 enum RoleUtilisateur {
+  SUPERADMINISTRATEUR @map("SUPERADMIN")
   ADMINISTRATEUR @map("ADMIN")
   EDITEUR        @map("EDITOR")
 
@@ -23,8 +24,22 @@ model Utilisateur {
   role              RoleUtilisateur @default(ADMINISTRATEUR)
   creeLe            DateTime        @default(now()) @map("createdAt")
   modifieLe         DateTime        @updatedAt @map("updatedAt")
+  sessions          SessionAuthentification[]
 
   @@map("users")
+}
+
+model SessionAuthentification {
+  identifiant            String      @id @default(uuid()) @map("id")
+  identifiantUtilisateur String      @map("userId")
+  expireLe               DateTime    @map("expiresAt")
+  revoqueLe              DateTime?   @map("revokedAt")
+  creeLe                 DateTime    @default(now()) @map("createdAt")
+  utilisateur            Utilisateur @relation(fields: [identifiantUtilisateur], references: [identifiant], onDelete: Cascade)
+
+  @@index([identifiantUtilisateur])
+  @@index([expireLe])
+  @@map("auth_sessions")
 }
 
 model Realisation {
