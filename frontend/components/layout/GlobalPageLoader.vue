@@ -6,7 +6,7 @@
     leave-to-class="opacity-0"
   >
     <div
-      v-if="isLoading"
+      v-if="displayedLoading"
       class="fixed inset-0 z-[9999] bg-white/95 backdrop-blur-sm"
     >
       <!-- Barre de progression en haut -->
@@ -42,11 +42,11 @@
           <!-- Texte dynamique selon le contexte -->
           <div class="flex flex-col items-center gap-2">
             <p class="text-sm font-medium text-asp-gray-600 animate-pulse">
-              {{ loadingText }}
+              {{ displayedText }}
             </p>
             
             <!-- Pourcentage (seulement pour premier chargement) -->
-            <p v-if="isFirstLoad" class="text-xs text-asp-gray-400 font-mono">
+            <p v-if="isFirstLoad && !force" class="text-xs text-asp-gray-400 font-mono">
               {{ Math.round(progress) }}%
             </p>
           </div>
@@ -57,10 +57,21 @@
 </template>
 
 <script setup lang="ts">
+const props = withDefaults(defineProps<{
+  force?: boolean
+  forceText?: string
+  forcedOnly?: boolean
+}>(), {
+  force: false,
+  forceText: 'Chargement de la page...',
+  forcedOnly: false
+})
+
 const { $pageLoading } = useNuxtApp()
 const isLoading = $pageLoading?.isLoading || ref(false)
 const progress = $pageLoading?.progress || ref(0)
 const isFirstLoad = $pageLoading?.isFirstLoad || ref(false)
+const displayedLoading = computed(() => props.force || (!props.forcedOnly && isLoading.value))
 
 // Texte dynamique selon le contexte
 const loadingText = computed(() => {
@@ -72,6 +83,8 @@ const loadingText = computed(() => {
   }
   return 'Chargement de la page...'
 })
+
+const displayedText = computed(() => props.force ? props.forceText : loadingText.value)
 </script>
 
 <style scoped>

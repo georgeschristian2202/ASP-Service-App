@@ -19,7 +19,10 @@
       <template #leading><ShieldCheck class="size-5" aria-hidden="true" /></template>
     </UAlert>
 
-    <UCard :ui="{ root: 'border border-slate-200 ring-0 shadow-sm', body: 'p-6 sm:p-8' }">
+    <UCard
+      class="!bg-white !text-slate-900"
+      :ui="{ root: 'border border-slate-200 !bg-white !text-slate-900 ring-0 shadow-sm', body: '!bg-white p-6 sm:p-8' }"
+    >
       <div class="mb-7 flex items-start gap-4 border-b border-slate-100 pb-6">
         <div class="flex size-12 shrink-0 items-center justify-center rounded-xl bg-emerald-50 text-emerald-700 ring-1 ring-emerald-100">
           <UserPlus class="size-6" aria-hidden="true" />
@@ -45,6 +48,15 @@
         variant="soft"
         title="Utilisateur créé"
         :description="successMessage"
+        class="mb-6"
+      />
+
+      <UAlert
+        v-if="emailWarningMessage"
+        color="warning"
+        variant="soft"
+        title="Compte créé, e-mail non envoyé"
+        :description="emailWarningMessage"
         class="mb-6"
       />
 
@@ -110,6 +122,20 @@
           </div>
         </div>
 
+        <label class="flex cursor-pointer items-start gap-3 rounded-lg border border-blue-100 bg-blue-50/70 p-4">
+          <input
+            v-model="form.sendCredentialsByEmail"
+            type="checkbox"
+            class="mt-0.5 size-4 rounded border-slate-300 text-blue-700 focus:ring-blue-500"
+          />
+          <span>
+            <span class="block text-sm font-semibold text-slate-800">Envoyer les identifiants par e-mail</span>
+            <span class="mt-1 block text-xs leading-5 text-slate-600">
+              Le nom d’utilisateur, le mot de passe initial et le rôle seront envoyés à l’adresse indiquée.
+            </span>
+          </span>
+        </label>
+
         <div class="flex flex-col-reverse gap-3 border-t border-slate-100 pt-6 sm:flex-row sm:justify-end">
           <UButton to="/admin" color="neutral" variant="outline" size="lg" label="Annuler" class="justify-center" />
           <UButton type="submit" color="success" size="lg" :loading="isSubmitting" label="Créer l’utilisateur" class="justify-center font-semibold">
@@ -117,6 +143,84 @@
           </UButton>
         </div>
       </form>
+    </UCard>
+
+    <UCard
+      class="!bg-white !text-slate-900"
+      :ui="{ root: 'border border-slate-200 !bg-white !text-slate-900 ring-0 shadow-sm', body: '!bg-white p-0' }"
+    >
+      <div class="flex flex-col gap-3 border-b border-slate-200 px-6 py-5 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <div class="flex items-center gap-2">
+            <Users class="size-5 text-blue-700" aria-hidden="true" />
+            <h2 class="text-xl font-bold text-slate-950">Utilisateurs créés</h2>
+          </div>
+          <p class="mt-1 text-sm text-slate-500">{{ users.length }} compte{{ users.length > 1 ? 's' : '' }} enregistré{{ users.length > 1 ? 's' : '' }}.</p>
+        </div>
+        <UButton
+          type="button"
+          color="neutral"
+          variant="outline"
+          :loading="isLoadingUsers"
+          label="Actualiser"
+          @click="loadUsers"
+        >
+          <template #leading><RefreshCw class="size-4" aria-hidden="true" /></template>
+        </UButton>
+      </div>
+
+      <div v-if="isLoadingUsers && !users.length" class="flex min-h-40 items-center justify-center gap-3 text-sm text-slate-500">
+        <LoaderCircle class="size-5 animate-spin text-blue-700" aria-hidden="true" />
+        Chargement des utilisateurs…
+      </div>
+
+      <UAlert
+        v-else-if="usersError"
+        color="error"
+        variant="soft"
+        title="Liste indisponible"
+        :description="usersError"
+        class="m-6"
+      />
+
+      <div v-else-if="users.length" class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-slate-200 text-left text-sm">
+          <thead class="bg-slate-50 text-xs uppercase tracking-wide text-slate-500">
+            <tr>
+              <th class="px-6 py-3 font-semibold">Utilisateur</th>
+              <th class="px-6 py-3 font-semibold">Adresse e-mail</th>
+              <th class="px-6 py-3 font-semibold">Rôle</th>
+              <th class="px-6 py-3 font-semibold">Créé le</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100 bg-white">
+            <tr v-for="account in users" :key="account.id" class="transition hover:bg-slate-50">
+              <td class="whitespace-nowrap px-6 py-4">
+                <div class="flex items-center gap-3">
+                  <span class="flex size-9 items-center justify-center rounded-full bg-blue-100 font-bold text-blue-800">
+                    {{ account.username.charAt(0).toUpperCase() }}
+                  </span>
+                  <span class="font-semibold text-slate-900">{{ account.username }}</span>
+                </div>
+              </td>
+              <td class="whitespace-nowrap px-6 py-4 text-slate-600">{{ account.email }}</td>
+              <td class="whitespace-nowrap px-6 py-4">
+                <span
+                  class="inline-flex rounded-full px-2.5 py-1 text-xs font-semibold"
+                  :class="account.role === 'superadmin' ? 'bg-emerald-100 text-emerald-800' : 'bg-blue-100 text-blue-800'"
+                >
+                  {{ roleName(account.role) }}
+                </span>
+              </td>
+              <td class="whitespace-nowrap px-6 py-4 text-slate-600">{{ formatDate(account.createdAt) }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div v-else class="px-6 py-10 text-center text-sm text-slate-500">
+        Aucun utilisateur enregistré.
+      </div>
     </UCard>
   </div>
 </template>
@@ -128,11 +232,14 @@ import {
   Eye,
   EyeOff,
   KeyRound,
+  LoaderCircle,
   Mail,
+  RefreshCw,
   Shield,
   ShieldCheck,
   UserPlus,
-  UserRound
+  UserRound,
+  Users
 } from 'lucide-vue-next'
 
 definePageMeta({
@@ -145,17 +252,60 @@ const form = reactive({
   email: '',
   role: 'admin' as 'admin' | 'superadmin',
   password: '',
-  confirmPassword: ''
+  confirmPassword: '',
+  sendCredentialsByEmail: true
 })
 
 const isSubmitting = ref(false)
 const showPassword = ref(false)
 const errorMessage = ref('')
 const successMessage = ref('')
+const emailWarningMessage = ref('')
+type AccountRole = 'superadmin' | 'admin' | 'editor'
+interface AccountDetails {
+  id: string
+  username: string
+  email: string
+  role: AccountRole
+  createdAt: string
+  updatedAt: string
+}
+
+const users = ref<AccountDetails[]>([])
+const isLoadingUsers = ref(false)
+const usersError = ref('')
+
+const roleName = (role: AccountRole) => {
+  if (role === 'superadmin') return 'Super administrateur'
+  if (role === 'admin') return 'Administrateur'
+  return 'Éditeur'
+}
+
+const formatDate = (value: string) => new Intl.DateTimeFormat('fr-FR', {
+  dateStyle: 'medium',
+  timeStyle: 'short'
+}).format(new Date(value))
+
+const loadUsers = async () => {
+  isLoadingUsers.value = true
+  usersError.value = ''
+
+  try {
+    const result = await $fetch<{ success: boolean; users: AccountDetails[] }>('/api/users')
+    users.value = result.users
+  } catch (error: any) {
+    usersError.value = error.data?.message || 'Impossible de charger la liste des utilisateurs.'
+  } finally {
+    isLoadingUsers.value = false
+  }
+}
+
+onMounted(loadUsers)
 
 const createUser = async () => {
   errorMessage.value = ''
   successMessage.value = ''
+  emailWarningMessage.value = ''
 
   if (form.password !== form.confirmPassword) {
     errorMessage.value = 'Les deux mots de passe ne correspondent pas.'
@@ -165,22 +315,39 @@ const createUser = async () => {
   isSubmitting.value = true
 
   try {
-    const result = await $fetch<{ success: boolean; message: string; user: { username: string; role: string } }>('/api/users', {
+    const result = await $fetch<{
+      success: boolean
+      message: string
+      user: AccountDetails
+      emailDelivery: { requested: boolean; sent: boolean; message: string }
+    }>('/api/users', {
       method: 'POST',
       body: {
         username: form.username,
         email: form.email,
         password: form.password,
-        role: form.role
+        role: form.role,
+        sendCredentialsByEmail: form.sendCredentialsByEmail
       }
     })
 
-    successMessage.value = `${result.user.username} a été créé avec le rôle ${result.user.role === 'superadmin' ? 'super administrateur' : 'administrateur'}.`
+    const roleLabel = result.user.role === 'superadmin' ? 'super administrateur' : 'administrateur'
+    successMessage.value = result.emailDelivery.sent
+      ? `${result.user.username} a été créé avec le rôle ${roleLabel}. ${result.emailDelivery.message}`
+      : `${result.user.username} a été créé avec le rôle ${roleLabel}.`
+
+    if (result.emailDelivery.requested && !result.emailDelivery.sent) {
+      emailWarningMessage.value = result.emailDelivery.message
+    }
+
+    users.value = [result.user, ...users.value.filter((account) => account.id !== result.user.id)]
+
     form.username = ''
     form.email = ''
     form.role = 'admin'
     form.password = ''
     form.confirmPassword = ''
+    form.sendCredentialsByEmail = true
   } catch (error: any) {
     errorMessage.value = error.data?.message || error.message || 'Une erreur est survenue pendant la création.'
   } finally {

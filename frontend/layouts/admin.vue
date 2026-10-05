@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-gray-50">
+  <div class="admin-light min-h-screen bg-gray-50 text-slate-900">
     <Toast />
     <!-- Backdrop mobile -->
     <Transition
@@ -270,11 +270,6 @@
             <button type="button" class="header-icon-button hidden sm:flex" aria-label="Aide">
               <CircleHelp class="size-5" aria-hidden="true" />
             </button>
-            <button type="button" class="header-icon-button hidden sm:flex" aria-label="Changer le thème" @click="toggleColorMode">
-              <Moon v-if="colorMode.value !== 'dark'" class="size-5" aria-hidden="true" />
-              <Sun v-else class="size-5" aria-hidden="true" />
-            </button>
-
             <div class="mx-1 hidden h-8 w-px bg-slate-200 sm:block" />
 
             <NuxtLink
@@ -300,11 +295,10 @@
 </template>
 
 <script setup lang="ts">
-import { Bell, CircleHelp, Menu, Moon, Search, Sun, UserPlus } from 'lucide-vue-next'
+import { Bell, CircleHelp, Menu, Search, UserPlus } from 'lucide-vue-next'
 
 const { user, logout, isSuperAdmin } = useAuth()
 const route = useRoute()
-const colorMode = useColorMode()
 
 const isSidebarOpen = ref(true)
 const isCollapsed = ref(true)
@@ -312,10 +306,6 @@ const isHovering = ref(false)
 const isMobile = ref(false)
 const isPagesMenuOpen = ref(false)
 const headerSearch = ref('')
-
-const toggleColorMode = () => {
-  colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'
-}
 
 const roleLabel = computed(() => {
   if (user.value?.role === 'superadmin') return 'Super administrateur'
@@ -407,6 +397,10 @@ const handleLogout = async () => {
 </script>
 
 <style scoped>
+.admin-light {
+  color-scheme: light;
+}
+
 .header-icon-button {
   width: 2.5rem;
   height: 2.5rem;

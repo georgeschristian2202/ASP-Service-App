@@ -173,7 +173,8 @@ definePageMeta({
 })
 
 const { login, isLoading, isAuthenticated } = useAuth()
-const { showSuccess, showError } = useAppToast()
+const { showError } = useAppToast()
+const adminTransitionLoading = useState('admin-transition-loading', () => false)
 
 const credentials = reactive({
   username: '',
@@ -201,7 +202,8 @@ const handleLogin = async () => {
   const result = await login(credentials)
 
   if (result.success) {
-    showSuccess('Connexion réussie', 'Bienvenue dans votre espace d’administration.', 3500)
+    adminTransitionLoading.value = true
+    sessionStorage.setItem('admin-login-success', 'true')
     await navigateTo('/admin')
     return
   }

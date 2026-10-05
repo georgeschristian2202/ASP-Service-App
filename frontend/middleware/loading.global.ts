@@ -1,5 +1,11 @@
 // Middleware global pour gérer le loading (affiche aussi lors des rechargements F5)
 export default defineNuxtRouteMiddleware((to, from) => {
+  // Le back-office possède son propre chargement contrôlé après connexion.
+  // Ne jamais le rediriger vers la page de splash publique.
+  if (to.path.startsWith('/admin')) {
+    return
+  }
+
   // Côté client uniquement
   if (process.client) {
     // Détecter le rechargement de page (F5, Ctrl+R)

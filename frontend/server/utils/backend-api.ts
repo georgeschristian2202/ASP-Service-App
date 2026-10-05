@@ -1,5 +1,5 @@
 export function getBackendApiUrl(): string {
-  return process.env.NUXT_BACKEND_API_URL ?? 'http://localhost:5000/api'
+  return process.env.NUXT_BACKEND_API_URL ?? 'http://localhost:5001/api'
 }
 
 export async function requestBackend(

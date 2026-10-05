@@ -18,7 +18,13 @@ const environmentSchema = z.object({
   RATE_LIMIT_WINDOW_MS: z.coerce.number().int().positive().default(900000),
   RATE_LIMIT_MAX_REQUESTS: z.coerce.number().int().positive().default(100),
   LOGIN_RATE_LIMIT_WINDOW_MS: z.coerce.number().int().positive().default(900000),
-  LOGIN_RATE_LIMIT_MAX_REQUESTS: z.coerce.number().int().positive().default(5)
+  LOGIN_RATE_LIMIT_MAX_REQUESTS: z.coerce.number().int().positive().default(5),
+  EMAIL_HOST: z.string().optional(),
+  EMAIL_PORT: z.coerce.number().int().positive().default(587),
+  EMAIL_USER: z.string().optional(),
+  EMAIL_PASSWORD: z.string().optional(),
+  EMAIL_FROM: z.string().optional(),
+  EMAIL_FROM_NAME: z.string().default('ASP Services Gabon')
 })
 
 const parsedEnvironment = environmentSchema.safeParse(process.env)

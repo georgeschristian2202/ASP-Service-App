@@ -47,8 +47,8 @@
         <UCard
           v-for="item in statCards"
           :key="item.label"
-          class="group transition duration-200 hover:-translate-y-0.5 hover:shadow-lg"
-          :ui="{ root: 'border border-slate-200 ring-0 shadow-sm', body: 'p-5' }"
+          class="group !bg-white !text-slate-900 transition duration-200 hover:-translate-y-0.5 hover:shadow-lg"
+          :ui="{ root: 'border border-slate-200 !bg-white !text-slate-900 ring-0 shadow-sm', body: '!bg-white p-5' }"
         >
           <div class="flex items-start justify-between gap-3">
             <div class="flex size-11 items-center justify-center rounded-xl bg-blue-50 text-blue-700 ring-1 ring-blue-100">
@@ -71,7 +71,7 @@
     </section>
 
     <div class="grid grid-cols-1 gap-6 xl:grid-cols-3">
-      <UCard class="xl:col-span-2" :ui="{ root: 'border border-slate-200 ring-0 shadow-sm', body: 'p-0' }">
+      <UCard class="!bg-white !text-slate-900 xl:col-span-2" :ui="{ root: 'border border-slate-200 !bg-white !text-slate-900 ring-0 shadow-sm', header: '!bg-white', body: '!bg-white p-0' }">
         <template #header>
           <div class="flex items-center justify-between gap-4">
             <div>
@@ -119,7 +119,7 @@
         </UAlert>
       </UCard>
 
-      <UCard :ui="{ root: 'border border-slate-200 ring-0 shadow-sm', body: 'p-0' }">
+      <UCard class="!bg-white !text-slate-900" :ui="{ root: 'border border-slate-200 !bg-white !text-slate-900 ring-0 shadow-sm', header: '!bg-white', body: '!bg-white p-0' }">
         <template #header>
           <div>
             <h2 class="text-lg font-bold text-slate-950">Accès rapides</h2>
@@ -136,7 +136,7 @@
             variant="ghost"
             size="lg"
             :label="shortcut.label"
-            class="w-full justify-start text-left"
+            class="w-full justify-start text-left text-slate-700 hover:bg-slate-50 hover:text-blue-700"
             :ui="{ trailingIcon: 'ml-auto' }"
           >
             <template #leading><component :is="shortcut.icon" class="size-5" aria-hidden="true" /></template>
@@ -187,6 +187,7 @@ import {
   Settings2,
   Sparkles
 } from 'lucide-vue-next'
+import { useToast as useAppToast } from '@/composables/useToast'
 
 definePageMeta({
   layout: 'admin',
@@ -195,6 +196,8 @@ definePageMeta({
 
 const { user } = useAuth()
 const { services: defaultServices } = useServices()
+const { showSuccess } = useAppToast()
+const adminTransitionLoading = useState('admin-transition-loading', () => false)
 
 const stats = ref({
   totalPortfolio: 0,
@@ -228,11 +231,22 @@ const formattedTime = computed(() => currentTime.value.toLocaleTimeString('fr-FR
 
 let timeInterval: ReturnType<typeof setInterval> | undefined
 
-onMounted(() => {
+onMounted(async () => {
   timeInterval = setInterval(() => {
     currentTime.value = new Date()
   }, 60000)
-  loadStats()
+  try {
+    await loadStats()
+    await nextTick()
+  } finally {
+    const loginSucceeded = sessionStorage.getItem('admin-login-success') === 'true'
+    sessionStorage.removeItem('admin-login-success')
+    adminTransitionLoading.value = false
+
+    if (loginSucceeded) {
+      showSuccess('Connexion réussie', 'Bienvenue dans votre espace d’administration.', 3500)
+    }
+  }
 })
 
 onUnmounted(() => {

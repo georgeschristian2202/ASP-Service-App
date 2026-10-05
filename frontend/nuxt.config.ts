@@ -16,6 +16,12 @@ export default defineNuxtConfig({
     '@pinia/nuxt'
   ],
 
+  // Le thème sombre sera réactivé lorsque toutes les pages seront compatibles.
+  colorMode: {
+    preference: 'light',
+    fallback: 'light'
+  },
+
   experimental: {
     appManifest: false,
     payloadExtraction: false

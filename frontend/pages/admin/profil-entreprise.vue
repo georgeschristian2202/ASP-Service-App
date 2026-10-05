@@ -15,7 +15,7 @@
     </div>
 
     <div v-else class="grid items-start gap-6 xl:grid-cols-[340px_minmax(0,1fr)]">
-      <UCard class="overflow-hidden" :ui="{ root: 'border border-slate-200 ring-0 shadow-sm', body: 'p-0' }">
+      <UCard class="overflow-hidden !bg-white !text-slate-900" :ui="{ root: 'border border-slate-200 !bg-white !text-slate-900 ring-0 shadow-sm', body: '!bg-white p-0' }">
         <div class="h-36 bg-gradient-to-br from-emerald-500 via-amber-400 to-blue-700" />
         <div class="px-6 pb-7 text-center">
           <div class="relative mx-auto -mt-16 flex size-32 items-center justify-center overflow-hidden rounded-full border-8 border-white bg-white shadow-xl">
@@ -49,7 +49,7 @@
         <UAlert v-if="errorMessage" color="error" variant="soft" title="Enregistrement impossible" :description="errorMessage" />
         <UAlert v-if="successMessage" color="success" variant="soft" title="Profil mis à jour" :description="successMessage" />
 
-        <UCard :ui="{ root: 'border border-slate-200 ring-0 shadow-sm', body: 'p-6 sm:p-7' }">
+        <UCard class="!bg-white !text-slate-900" :ui="{ root: 'border border-slate-200 !bg-white !text-slate-900 ring-0 shadow-sm', body: '!bg-white p-6 sm:p-7' }">
           <div class="mb-6 flex flex-col gap-3 border-b border-slate-100 pb-5 sm:flex-row sm:items-center sm:justify-between">
             <div class="flex items-center gap-3">
               <div class="flex size-11 items-center justify-center rounded-xl bg-emerald-50 text-emerald-700">
@@ -76,7 +76,7 @@
           </div>
         </UCard>
 
-        <UCard :ui="{ root: 'border border-slate-200 ring-0 shadow-sm', body: 'p-6 sm:p-7' }">
+        <UCard class="!bg-white !text-slate-900" :ui="{ root: 'border border-slate-200 !bg-white !text-slate-900 ring-0 shadow-sm', body: '!bg-white p-6 sm:p-7' }">
           <div class="mb-6 flex items-center gap-3 border-b border-slate-100 pb-5">
             <div class="flex size-11 items-center justify-center rounded-xl bg-blue-50 text-blue-700">
               <ContactRound class="size-5" aria-hidden="true" />
