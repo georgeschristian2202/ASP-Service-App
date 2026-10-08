@@ -7,9 +7,9 @@
     
     <div class="max-w-7xl mx-auto px-4 mb-12 relative z-10">
       <div class="text-center">
-        <h2 class="text-4xl font-bold text-asp-black mb-4">Ils Nous Font Confiance</h2>
+        <h2 class="text-4xl font-bold text-asp-black mb-4">{{ title }}</h2>
         <p class="text-xl text-asp-gray-600">
-          Des partenaires prestigieux qui nous font confiance au quotidien
+          {{ description }}
         </p>
       </div>
     </div>
@@ -19,7 +19,7 @@
       <div class="partners-track flex gap-8 items-center">
         <!-- Triple répétition pour effet de scroll infini -->
         <div
-          v-for="(partner, index) in [...partners, ...partners, ...partners]"
+          v-for="(partner, index) in [...displayPartners, ...displayPartners, ...displayPartners]"
           :key="`partner-${index}`"
           class="partner-card flex-shrink-0"
         >
@@ -44,9 +44,9 @@
       <div class="inline-block bg-gradient-to-r from-asp-blue-50 to-blue-50 rounded-2xl px-8 py-6 border-2 border-asp-blue-200">
         <div class="flex items-center gap-3 justify-center mb-2">
           <Shield class="w-6 h-6 text-asp-blue-600" />
-          <span class="text-4xl font-bold text-asp-black">+100</span>
+          <span class="text-4xl font-bold text-asp-black">{{ count }}</span>
         </div>
-        <p class="text-asp-gray-600">Entreprises et administrations partenaires</p>
+        <p class="text-asp-gray-600">{{ countLabel }}</p>
       </div>
     </div>
   </section>
@@ -55,7 +55,22 @@
 <script setup lang="ts">
 import { Shield } from 'lucide-vue-next'
 
-const { partners } = usePartners()
+const props = withDefaults(defineProps<{
+  title?: string
+  description?: string
+  count?: string
+  countLabel?: string
+  partners?: Array<{ id: string; name: string; logo: string; description?: string }>
+}>(), {
+  title: 'Ils Nous Font Confiance',
+  description: 'Des partenaires prestigieux qui nous font confiance au quotidien',
+  count: '+100',
+  countLabel: 'Entreprises et administrations partenaires',
+  partners: () => []
+})
+
+const { partners: defaultPartners } = usePartners()
+const displayPartners = computed(() => props.partners.length ? props.partners : defaultPartners)
 </script>
 
 <style scoped>

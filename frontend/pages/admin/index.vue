@@ -1,30 +1,30 @@
 <template>
   <div class="mx-auto w-full max-w-[1600px] space-y-6 lg:space-y-8">
     <UCard
-      class="relative overflow-hidden bg-[#0b2747] text-white"
-      :ui="{ root: 'border-0 ring-0 shadow-xl', body: 'relative p-6 sm:p-8' }"
+      class="relative overflow-hidden !bg-white !text-slate-900"
+      :ui="{ root: 'border border-slate-200 !bg-white !text-slate-900 ring-0 shadow-lg', body: 'relative !bg-white p-6 sm:p-8' }"
     >
-      <div class="pointer-events-none absolute -right-12 -top-16 size-56 rounded-full bg-cyan-300/15 blur-3xl" />
+      <div class="pointer-events-none absolute -right-12 -top-16 size-56 rounded-full bg-blue-100/70 blur-3xl" />
       <div class="relative flex flex-col justify-between gap-5 sm:flex-row sm:items-center">
         <div>
-          <UBadge color="neutral" variant="soft" class="mb-3 bg-white/10 text-blue-100 ring-white/15">
+          <UBadge color="primary" variant="soft" class="mb-3 bg-blue-50 text-blue-800 ring-blue-100">
             Espace d’administration
           </UBadge>
-          <h1 class="text-2xl font-bold tracking-tight sm:text-3xl">
+          <h1 class="text-2xl font-bold tracking-tight text-slate-950 sm:text-3xl">
             Bonjour, {{ user?.username || 'Administrateur' }}
           </h1>
-          <p class="mt-2 max-w-2xl text-sm leading-6 text-blue-100/85">
+          <p class="mt-2 max-w-2xl text-sm leading-6 text-slate-600">
             Suivez les indicateurs essentiels et accédez rapidement aux contenus de votre site.
           </p>
         </div>
         <UButton
           to="/accueil"
           target="_blank"
-          color="neutral"
+          color="primary"
           variant="solid"
           size="lg"
           label="Voir le site"
-          class="justify-center font-semibold text-blue-900"
+          class="justify-center bg-blue-700 font-semibold text-white hover:bg-blue-800"
         >
           <template #leading><ExternalLink class="size-4" aria-hidden="true" /></template>
         </UButton>

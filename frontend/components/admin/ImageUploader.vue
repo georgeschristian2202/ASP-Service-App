@@ -1,15 +1,24 @@
 <template>
-  <div class="space-y-4">
+  <div :class="compact ? 'space-y-2' : 'space-y-4'">
     <!-- Prévisualisation -->
-    <div class="aspect-video bg-gray-100 rounded-lg overflow-hidden border-2 border-dashed border-gray-300">
-      <img v-if="imageUrl"
-        :src="imageUrl"
-        :alt="alt"
-        class="w-full h-full object-cover"
-       loading="lazy" decoding="async" />
+    <div
+      class="bg-gray-100 rounded-lg overflow-hidden border-2 border-dashed border-gray-300"
+      :class="squarePreview ? 'h-36 w-36' : compact ? 'h-24' : 'aspect-video'"
+    >
+      <button v-if="imageUrl" type="button" @click="showOriginal = true" class="group relative block h-full w-full cursor-zoom-in" aria-label="Afficher l’image originale">
+        <img
+          :src="imageUrl"
+          :alt="alt"
+          class="w-full h-full"
+          :class="objectFit === 'contain' ? 'object-contain p-4' : 'object-cover'"
+          loading="lazy"
+          decoding="async"
+        />
+        <span class="absolute inset-x-2 bottom-2 rounded-md bg-slate-950/75 px-2 py-1 text-center text-xs font-medium text-white opacity-0 transition-opacity group-hover:opacity-100">Voir l’original</span>
+      </button>
       <div v-else class="w-full h-full flex items-center justify-center">
         <div class="text-center">
-          <svg class="w-12 h-12 text-gray-300 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg :class="compact ? 'w-7 h-7 mb-1' : 'w-12 h-12 mb-2'" class="text-gray-300 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
           </svg>
           <p class="text-sm text-gray-500">Aucune image</p>
@@ -33,6 +42,7 @@
     <!-- Onglets -->
     <div class="flex border-b border-gray-200">
       <button
+        v-if="allowUrl"
         type="button"
         @click="activeTab = 'upload'"
         :class="[
@@ -139,6 +149,17 @@
         </button>
       </div>
     </div>
+
+    <Teleport to="body">
+      <Transition enter-active-class="transition duration-200" enter-from-class="opacity-0" enter-to-class="opacity-100" leave-active-class="transition duration-150" leave-from-class="opacity-100" leave-to-class="opacity-0">
+        <div v-if="showOriginal" class="fixed inset-0 z-[110] flex items-center justify-center bg-slate-950/90 p-4 sm:p-8" role="dialog" aria-modal="true" aria-label="Aperçu de l’image originale" @click.self="showOriginal = false">
+          <button type="button" @click="showOriginal = false" class="absolute right-4 top-4 rounded-full bg-white/10 p-3 text-white transition hover:bg-white/20 focus:outline-none focus:ring-4 focus:ring-white/30" aria-label="Fermer l’aperçu">
+            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+          </button>
+          <img :src="imageUrl" :alt="alt" class="max-h-[90vh] max-w-[94vw] object-contain shadow-2xl" />
+        </div>
+      </Transition>
+    </Teleport>
   </div>
 </template>
 
@@ -147,12 +168,20 @@ interface Props {
   modelValue?: string
   alt?: string
   folder?: string
+  allowUrl?: boolean
+  objectFit?: 'cover' | 'contain'
+  compact?: boolean
+  squarePreview?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
   modelValue: '',
   alt: 'Image',
-  folder: 'portfolio'
+  folder: 'portfolio',
+  allowUrl: true,
+  objectFit: 'cover',
+  compact: false,
+  squarePreview: false
 })
 
 const emit = defineEmits<{
@@ -167,6 +196,7 @@ const activeTab = ref<'upload' | 'url'>('upload')
 const urlInput = ref('')
 const errorMessage = ref('')
 const imageUrl = computed(() => props.modelValue)
+const showOriginal = ref(false)
 
 // Déclencher le sélecteur de fichier
 const triggerFileInput = () => {

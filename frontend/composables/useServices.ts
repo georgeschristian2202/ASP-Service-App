@@ -4,6 +4,7 @@ export interface Service {
   description: string
   shortDescription: string
   features: string[]
+  applications?: string[]
   benefits: string[]
   icon?: string
   image?: string

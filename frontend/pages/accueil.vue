@@ -38,12 +38,12 @@
               <h1 class="hero-title text-4xl sm:text-5xl lg:text-6xl font-bold mb-8 leading-tight opacity-0"
                   role="heading"
                   aria-level="1">
-                Votre Expert en
-                <span class="text-yellow-400">Signalétique</span>
+                {{ homepageContent.hero.title }}
+                <span class="text-yellow-400">{{ homepageContent.hero.titleHighlight }}</span>
                 <br />
                 <span class="inline-block relative h-16 w-full min-w-[300px]">
                   <ScrambleText 
-                    :texts="rotatingTexts" 
+                    :texts="homepageContent.hero.rotatingTexts"
                     :interval="3500"
                     class="absolute left-0"
                   />
@@ -51,23 +51,14 @@
               </h1>
               
               <p class="hero-description text-lg sm:text-xl text-white/90 mb-8 leading-relaxed max-w-xl opacity-0">
-                De la conception à la réalisation, ASP Services vous accompagne dans tous vos projets 
-                de signalétique, marquage au sol et impression grand format à Libreville.
+                {{ homepageContent.hero.description }}
               </p>
 
               <!-- Points clés -->
               <div class="flex flex-wrap gap-4 mb-8" role="list" aria-label="Avantages ASP Services">
-                <div class="hero-feature flex items-center gap-2 opacity-0" role="listitem">
+                <div v-for="feature in homepageContent.hero.features" :key="feature" class="hero-feature flex items-center gap-2 opacity-0" role="listitem">
                   <CheckCircle2 class="w-6 h-6 text-green-400" aria-hidden="true" />
-                  <span class="text-sm sm:text-base">Devis gratuit 24h</span>
-                </div>
-                <div class="hero-feature flex items-center gap-2 opacity-0" role="listitem">
-                  <CheckCircle2 class="w-6 h-6 text-green-400" aria-hidden="true" />
-                  <span class="text-sm sm:text-base">Équipement MUTOH</span>
-                </div>
-                <div class="hero-feature flex items-center gap-2 opacity-0" role="listitem">
-                  <CheckCircle2 class="w-6 h-6 text-green-400" aria-hidden="true" />
-                  <span class="text-sm sm:text-base">Installation incluse</span>
+                  <span class="text-sm sm:text-base">{{ feature }}</span>
                 </div>
               </div>
 
@@ -79,7 +70,7 @@
                   type="button"
                 >
                   <FileText class="w-5 h-5" aria-hidden="true" />
-                  Obtenir un Devis Gratuit
+                  {{ homepageContent.hero.ctaText }}
                 </button>
               </div>
             </div>
@@ -227,9 +218,9 @@
       
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="text-center mb-16">
-          <h2 id="services-heading" class="services-title text-4xl sm:text-5xl font-bold text-asp-black mb-6 opacity-0">Nos Services</h2>
+          <h2 id="services-heading" class="services-title text-4xl sm:text-5xl font-bold text-asp-black mb-6 opacity-0">{{ homepageContent.services.title }}</h2>
           <p class="services-description text-xl sm:text-2xl text-asp-gray-600 max-w-3xl mx-auto leading-relaxed opacity-0">
-            Solutions complètes pour tous vos besoins en signalétique et impression
+            {{ homepageContent.services.description }}
           </p>
         </div>
 
@@ -481,15 +472,15 @@
       
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="text-center mb-20 reveal">
-          <h2 id="processus-heading" class="text-4xl sm:text-5xl font-bold text-white mb-6">Notre Processus de Travail</h2>
+          <h2 id="processus-heading" class="text-4xl sm:text-5xl font-bold text-white mb-6">{{ homepageContent.process.title }}</h2>
           <p class="text-xl sm:text-2xl text-blue-100 max-w-3xl mx-auto leading-relaxed">
-            Un processus simple et transparent en 4 étapes pour votre tranquillité d'esprit
+            {{ homepageContent.process.description }}
           </p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12 relative" role="list">
           <!-- Étape 1 : Contact -->
-          <div class="relative reveal reveal-delay-1" role="listitem">
+          <div v-if="homepageContent.process.steps[0]" class="relative reveal reveal-delay-1" role="listitem">
             <div 
               class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-200 border-2 border-gray-100 hover:border-asp-blue-300 cursor-pointer focus-within:ring-4 focus-within:ring-asp-blue-300 h-full flex flex-col"
               tabindex="0"
@@ -497,11 +488,11 @@
               aria-labelledby="etape-1"
             >
               <div class="w-16 h-16 bg-asp-blue-600 text-white rounded-full flex items-center justify-center text-3xl font-bold mb-6 mx-auto" aria-hidden="true">
-                1
+                {{ homepageContent.process.steps[0]?.number }}
               </div>
-              <h3 id="etape-1" class="text-xl font-bold text-asp-black mb-4 text-center">Contact</h3>
+              <h3 id="etape-1" class="text-xl font-bold text-asp-black mb-4 text-center">{{ homepageContent.process.steps[0]?.title }}</h3>
               <p class="text-asp-gray-600 text-center leading-relaxed">
-                Contactez-nous par téléphone, WhatsApp ou via notre formulaire de devis
+                {{ homepageContent.process.steps[0]?.description }}
               </p>
             </div>
             <!-- Flèche pour desktop -->
@@ -511,7 +502,7 @@
           </div>
 
           <!-- Étape 2 : Devis -->
-          <div class="relative reveal reveal-delay-2" role="listitem">
+          <div v-if="homepageContent.process.steps[1]" class="relative reveal reveal-delay-2" role="listitem">
             <div 
               class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-200 border-2 border-gray-100 hover:border-yellow-300 cursor-pointer focus-within:ring-4 focus-within:ring-yellow-300 h-full flex flex-col"
               tabindex="0"
@@ -519,11 +510,11 @@
               aria-labelledby="etape-2"
             >
               <div class="w-16 h-16 bg-yellow-500 text-white rounded-full flex items-center justify-center text-3xl font-bold mb-6 mx-auto" aria-hidden="true">
-                2
+                {{ homepageContent.process.steps[1]?.number }}
               </div>
-              <h3 id="etape-2" class="text-xl font-bold text-asp-black mb-4 text-center">Devis</h3>
+              <h3 id="etape-2" class="text-xl font-bold text-asp-black mb-4 text-center">{{ homepageContent.process.steps[1]?.title }}</h3>
               <p class="text-asp-gray-600 text-center leading-relaxed">
-                Nous établissons un devis détaillé et gratuit sous 24h adapté à vos besoins
+                {{ homepageContent.process.steps[1]?.description }}
               </p>
             </div>
             <!-- Flèche pour desktop -->
@@ -533,7 +524,7 @@
           </div>
 
           <!-- Étape 3 : Réalisation -->
-          <div class="relative reveal reveal-delay-3" role="listitem">
+          <div v-if="homepageContent.process.steps[2]" class="relative reveal reveal-delay-3" role="listitem">
             <div 
               class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-200 border-2 border-gray-100 hover:border-asp-blue-300 cursor-pointer focus-within:ring-4 focus-within:ring-asp-blue-300 h-full flex flex-col"
               tabindex="0"
@@ -541,11 +532,11 @@
               aria-labelledby="etape-3"
             >
               <div class="w-16 h-16 bg-asp-blue-600 text-white rounded-full flex items-center justify-center text-3xl font-bold mb-6 mx-auto" aria-hidden="true">
-                3
+                {{ homepageContent.process.steps[2]?.number }}
               </div>
-              <h3 id="etape-3" class="text-xl font-bold text-asp-black mb-4 text-center">Réalisation</h3>
+              <h3 id="etape-3" class="text-xl font-bold text-asp-black mb-4 text-center">{{ homepageContent.process.steps[2]?.title }}</h3>
               <p class="text-asp-gray-600 text-center leading-relaxed">
-                Notre équipe réalise votre projet avec soin et professionnalisme
+                {{ homepageContent.process.steps[2]?.description }}
               </p>
             </div>
             <!-- Flèche pour desktop -->
@@ -555,7 +546,7 @@
           </div>
 
           <!-- Étape 4 : Livraison -->
-          <div class="relative reveal reveal-delay-4" role="listitem">
+          <div v-if="homepageContent.process.steps[3]" class="relative reveal reveal-delay-4" role="listitem">
             <div 
               class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-200 border-2 border-gray-100 hover:border-yellow-300 cursor-pointer focus-within:ring-4 focus-within:ring-yellow-300 h-full flex flex-col"
               tabindex="0"
@@ -563,12 +554,20 @@
               aria-labelledby="etape-4"
             >
               <div class="w-16 h-16 bg-yellow-500 text-white rounded-full flex items-center justify-center text-3xl font-bold mb-6 mx-auto" aria-hidden="true">
-                4
+                {{ homepageContent.process.steps[3]?.number }}
               </div>
-              <h3 id="etape-4" class="text-xl font-bold text-asp-black mb-4 text-center">Livraison</h3>
+              <h3 id="etape-4" class="text-xl font-bold text-asp-black mb-4 text-center">{{ homepageContent.process.steps[3]?.title }}</h3>
               <p class="text-asp-gray-600 text-center leading-relaxed">
-                Installation et livraison dans les délais convenus, avec garantie qualité
+                {{ homepageContent.process.steps[3]?.description }}
               </p>
+            </div>
+          </div>
+
+          <div v-for="(step, index) in homepageContent.process.steps.slice(4)" :key="`process-extra-${index}`" class="relative reveal" role="listitem">
+            <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-200 border-2 border-gray-100 hover:border-asp-blue-300 h-full flex flex-col" tabindex="0" role="article">
+              <div class="w-16 h-16 bg-asp-blue-600 text-white rounded-full flex items-center justify-center text-3xl font-bold mb-6 mx-auto" aria-hidden="true">{{ step.number }}</div>
+              <h3 class="text-xl font-bold text-asp-black mb-4 text-center">{{ step.title }}</h3>
+              <p class="text-asp-gray-600 text-center leading-relaxed">{{ step.description }}</p>
             </div>
           </div>
         </div>
@@ -596,15 +595,15 @@
       
       <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="text-center mb-20 reveal">
-          <h2 id="faq-heading" class="text-4xl sm:text-5xl font-bold text-asp-black mb-6">Questions Fréquentes</h2>
+          <h2 id="faq-heading" class="text-4xl sm:text-5xl font-bold text-asp-black mb-6">{{ homepageContent.faq.title }}</h2>
           <p class="text-xl sm:text-2xl text-asp-gray-600 leading-relaxed">
-            Tout ce que vous devez savoir sur nos services
+            {{ homepageContent.faq.description }}
           </p>
         </div>
 
         <div class="space-y-5" role="list" aria-label="Liste des questions fréquentes">
           <!-- FAQ Item 1 -->
-          <div class="bg-white rounded-xl border-2 border-gray-100 overflow-hidden transition-all duration-300" role="listitem">
+          <div v-if="homepageContent.faq.items[0]" class="bg-white rounded-xl border-2 border-gray-100 overflow-hidden transition-all duration-300" role="listitem">
             <button
               @click="toggleFaq(0)"
               class="w-full px-8 py-6 flex items-center justify-between text-left hover:bg-gray-50 transition-colors cursor-pointer focus:outline-none focus:ring-4 focus:ring-inset focus:ring-asp-blue-300"
@@ -612,7 +611,7 @@
               aria-controls="faq-answer-0"
               type="button"
             >
-              <span class="text-lg font-semibold text-asp-black pr-4">Quels types de services proposez-vous ?</span>
+              <span class="text-lg font-semibold text-asp-black pr-4">{{ homepageContent.faq.items[0]?.question }}</span>
               <ChevronRight 
                 :class="['w-6 h-6 text-asp-blue-600 transition-transform duration-300 flex-shrink-0', openFaq === 0 ? 'rotate-90' : '']"
                 aria-hidden="true"
@@ -626,20 +625,18 @@
                 role="region"
                 aria-labelledby="faq-answer-0"
               >
-                Nous offrons une gamme complète de services : signalétique (enseignes lumineuses, panneaux), 
-                marquage au sol (parkings, terrains de sport), impression grand format (bâches, roll-up, stickers), 
-                fourniture de consommables Xerox, et impression textile (t-shirts personnalisés).
+                {{ homepageContent.faq.items[0]?.answer }}
               </div>
             </Transition>
           </div>
 
           <!-- FAQ Item 2 -->
-          <div class="bg-white rounded-xl border-2 border-gray-100 overflow-hidden transition-all duration-300">
+          <div v-if="homepageContent.faq.items[1]" class="bg-white rounded-xl border-2 border-gray-100 overflow-hidden transition-all duration-300">
             <button
               @click="toggleFaq(1)"
               class="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-gray-50 transition-colors cursor-pointer"
             >
-              <span class="text-lg font-semibold text-asp-black">Quels sont vos délais de réalisation ?</span>
+              <span class="text-lg font-semibold text-asp-black">{{ homepageContent.faq.items[1]?.question }}</span>
               <ChevronRight 
                 :class="['w-5 h-5 text-asp-blue-600 transition-transform duration-300', openFaq === 1 ? 'rotate-90' : '']"
               />
@@ -649,20 +646,18 @@
                 v-if="openFaq === 1"
                 class="px-6 pb-5 text-asp-gray-600 leading-relaxed"
               >
-                Les délais varient selon le projet : devis sous 24h, impression grand format 2-3 jours, 
-                signalétique 5-7 jours, marquage au sol 3-5 jours, t-shirts personnalisés 3-5 jours. 
-                Service express disponible pour les projets urgents.
+                {{ homepageContent.faq.items[1]?.answer }}
               </div>
             </Transition>
           </div>
 
           <!-- FAQ Item 3 -->
-          <div class="bg-white rounded-xl border-2 border-gray-100 overflow-hidden transition-all duration-300">
+          <div v-if="homepageContent.faq.items[2]" class="bg-white rounded-xl border-2 border-gray-100 overflow-hidden transition-all duration-300">
             <button
               @click="toggleFaq(2)"
               class="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-gray-50 transition-colors cursor-pointer"
             >
-              <span class="text-lg font-semibold text-asp-black">Intervenez-vous partout à Libreville ?</span>
+              <span class="text-lg font-semibold text-asp-black">{{ homepageContent.faq.items[2]?.question }}</span>
               <ChevronRight 
                 :class="['w-5 h-5 text-asp-blue-600 transition-transform duration-300', openFaq === 2 ? 'rotate-90' : '']"
               />
@@ -672,20 +667,18 @@
                 v-if="openFaq === 2"
                 class="px-6 pb-5 text-asp-gray-600 leading-relaxed"
               >
-                Oui, nous intervenons dans tout Libreville et ses environs pour l'installation de signalétique, 
-                le marquage au sol et la livraison de nos produits. Contactez-nous pour connaître nos zones 
-                d'intervention exactes.
+                {{ homepageContent.faq.items[2]?.answer }}
               </div>
             </Transition>
           </div>
 
           <!-- FAQ Item 4 -->
-          <div class="bg-white rounded-xl border-2 border-gray-100 overflow-hidden transition-all duration-300">
+          <div v-if="homepageContent.faq.items[3]" class="bg-white rounded-xl border-2 border-gray-100 overflow-hidden transition-all duration-300">
             <button
               @click="toggleFaq(3)"
               class="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-gray-50 transition-colors cursor-pointer"
             >
-              <span class="text-lg font-semibold text-asp-black">Proposez-vous la création graphique ?</span>
+              <span class="text-lg font-semibold text-asp-black">{{ homepageContent.faq.items[3]?.question }}</span>
               <ChevronRight 
                 :class="['w-5 h-5 text-asp-blue-600 transition-transform duration-300', openFaq === 3 ? 'rotate-90' : '']"
               />
@@ -695,20 +688,18 @@
                 v-if="openFaq === 3"
                 class="px-6 pb-5 text-asp-gray-600 leading-relaxed"
               >
-                Absolument ! Notre équipe de designers peut créer vos visuels : logos, maquettes pour enseignes, 
-                designs pour t-shirts, mise en page pour bâches publicitaires. Nous adaptons vos idées ou créons 
-                de A à Z selon vos besoins.
+                {{ homepageContent.faq.items[3]?.answer }}
               </div>
             </Transition>
           </div>
 
           <!-- FAQ Item 5 -->
-          <div class="bg-white rounded-xl border-2 border-gray-100 overflow-hidden transition-all duration-300">
+          <div v-if="homepageContent.faq.items[4]" class="bg-white rounded-xl border-2 border-gray-100 overflow-hidden transition-all duration-300">
             <button
               @click="toggleFaq(4)"
               class="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-gray-50 transition-colors cursor-pointer"
             >
-              <span class="text-lg font-semibold text-asp-black">Quelle est votre politique de garantie ?</span>
+              <span class="text-lg font-semibold text-asp-black">{{ homepageContent.faq.items[4]?.question }}</span>
               <ChevronRight 
                 :class="['w-5 h-5 text-asp-blue-600 transition-transform duration-300', openFaq === 4 ? 'rotate-90' : '']"
               />
@@ -718,20 +709,18 @@
                 v-if="openFaq === 4"
                 class="px-6 pb-5 text-asp-gray-600 leading-relaxed"
               >
-                Tous nos travaux sont garantis : 6 mois pour les impressions, 1 an pour la signalétique, 
-                2 ans pour le marquage au sol. Nous utilisons des matériaux de qualité professionnelle 
-                pour assurer la durabilité de nos réalisations.
+                {{ homepageContent.faq.items[4]?.answer }}
               </div>
             </Transition>
           </div>
 
           <!-- FAQ Item 6 -->
-          <div class="bg-white rounded-xl border-2 border-gray-100 overflow-hidden transition-all duration-300">
+          <div v-if="homepageContent.faq.items[5]" class="bg-white rounded-xl border-2 border-gray-100 overflow-hidden transition-all duration-300">
             <button
               @click="toggleFaq(5)"
               class="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-gray-50 transition-colors cursor-pointer"
             >
-              <span class="text-lg font-semibold text-asp-black">Acceptez-vous les commandes en grande quantité ?</span>
+              <span class="text-lg font-semibold text-asp-black">{{ homepageContent.faq.items[5]?.question }}</span>
               <ChevronRight 
                 :class="['w-5 h-5 text-asp-blue-600 transition-transform duration-300', openFaq === 5 ? 'rotate-90' : '']"
               />
@@ -741,12 +730,19 @@
                 v-if="openFaq === 5"
                 class="px-6 pb-5 text-asp-gray-600 leading-relaxed"
               >
-                Oui, nous gérons aussi bien les petites que les grandes commandes. Pour les volumes importants 
-                (t-shirts, bâches, signalétique multiple), nous proposons des tarifs dégressifs. 
-                Contactez-nous pour un devis personnalisé.
+                {{ homepageContent.faq.items[5]?.answer }}
               </div>
             </Transition>
           </div>
+
+          <div v-for="(item, extraIndex) in homepageContent.faq.items.slice(6)" :key="`faq-extra-${extraIndex}`" class="bg-white rounded-xl border-2 border-gray-100 overflow-hidden transition-all duration-300">
+            <button @click="toggleFaq(extraIndex + 6)" class="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-gray-50 transition-colors cursor-pointer" type="button">
+              <span class="text-lg font-semibold text-asp-black">{{ item.question }}</span>
+              <ChevronRight :class="['w-5 h-5 text-asp-blue-600 transition-transform duration-300', openFaq === extraIndex + 6 ? 'rotate-90' : '']" />
+            </button>
+            <Transition name="faq-slide"><div v-if="openFaq === extraIndex + 6" class="px-6 pb-5 text-asp-gray-600 leading-relaxed">{{ item.answer }}</div></Transition>
+          </div>
+
         </div>
 
         <!-- CTA après FAQ -->
@@ -771,9 +767,9 @@
       
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="text-center mb-20">
-          <h2 id="avantages-heading" class="avantages-title text-4xl sm:text-5xl font-bold text-asp-black mb-6 opacity-0">Pourquoi Choisir ASP Services ?</h2>
+          <h2 id="avantages-heading" class="avantages-title text-4xl sm:text-5xl font-bold text-asp-black mb-6 opacity-0">{{ homepageContent.advantages.title }}</h2>
           <p class="avantages-description text-xl sm:text-2xl text-asp-gray-600 max-w-3xl mx-auto leading-relaxed opacity-0">
-            Notre engagement : votre satisfaction et la qualité de nos réalisations
+            {{ homepageContent.advantages.description }}
           </p>
         </div>
 
@@ -792,9 +788,9 @@
               <div class="w-16 h-16 bg-asp-blue-600 rounded-xl flex items-center justify-center mb-6 transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300" aria-hidden="true">
                 <Shield class="w-9 h-9 text-white" />
               </div>
-              <h3 id="garantie-qualite" class="text-2xl font-bold text-asp-black mb-5 group-hover:text-asp-blue-600 transition-colors">Garantie Qualité</h3>
+              <h3 id="garantie-qualite" class="text-2xl font-bold text-asp-black mb-5 group-hover:text-asp-blue-600 transition-colors">{{ homepageContent.advantages.items[0]?.title }}</h3>
               <p class="text-asp-gray-600 leading-relaxed mb-6">
-                Nous utilisons uniquement des matériaux premium et des équipements professionnels de dernière génération pour garantir la durabilité de nos réalisations.
+                {{ homepageContent.advantages.items[0]?.description }}
               </p>
               <ul class="space-y-3" role="list">
                 <li class="flex items-center gap-3 text-sm text-asp-gray-700" role="listitem">
@@ -826,9 +822,9 @@
               <div class="w-16 h-16 bg-asp-blue-600 rounded-xl flex items-center justify-center mb-6 transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300" aria-hidden="true">
                 <Clock class="w-9 h-9 text-white" />
               </div>
-              <h3 id="garantie-rapidite" class="text-2xl font-bold text-asp-black mb-5 group-hover:text-asp-blue-600 transition-colors">Rapidité d'Exécution</h3>
+              <h3 id="garantie-rapidite" class="text-2xl font-bold text-asp-black mb-5 group-hover:text-asp-blue-600 transition-colors">{{ homepageContent.advantages.items[1]?.title }}</h3>
               <p class="text-asp-gray-600 leading-relaxed mb-6">
-                Nous nous engageons à respecter les délais convenus. Votre temps est précieux, nous le savons et nous le respectons.
+                {{ homepageContent.advantages.items[1]?.description }}
               </p>
               <ul class="space-y-3" role="list">
                 <li class="flex items-center gap-3 text-sm text-asp-gray-700" role="listitem">
@@ -860,9 +856,9 @@
               <div class="w-16 h-16 bg-asp-blue-600 rounded-xl flex items-center justify-center mb-6 transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300" aria-hidden="true">
                 <Award class="w-9 h-9 text-white" />
               </div>
-              <h3 id="garantie-pro" class="text-2xl font-bold text-asp-black mb-5 group-hover:text-asp-blue-600 transition-colors">Professionnalisme</h3>
+              <h3 id="garantie-pro" class="text-2xl font-bold text-asp-black mb-5 group-hover:text-asp-blue-600 transition-colors">{{ homepageContent.advantages.items[2]?.title }}</h3>
               <p class="text-asp-gray-600 leading-relaxed mb-6">
-                Une équipe expérimentée et passionnée, à votre écoute pour transformer vos idées en réalité avec expertise et créativité.
+                {{ homepageContent.advantages.items[2]?.description }}
               </p>
               <ul class="space-y-3" role="list">
                 <li class="flex items-center gap-3 text-sm text-asp-gray-700" role="listitem">
@@ -885,7 +881,7 @@
     </section>
 
     <!-- Nos Partenaires -->
- <PartnersSection />
+ <PartnersSection :title="homepageContent.partners.title" :description="homepageContent.partners.description" :count="homepageContent.partners.count" :count-label="homepageContent.partners.countLabel" :partners="homepageContent.partners.items" />
 
 
     <!-- Chiffres Clés -->
@@ -897,41 +893,41 @@
       
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="text-center mb-16">
-          <h2 id="stats-heading" class="text-4xl sm:text-5xl font-bold text-white mb-6">ASP Services en Chiffres</h2>
-          <p class="text-xl sm:text-2xl text-blue-100 leading-relaxed">Notre expertise en quelques chiffres</p>
+          <h2 id="stats-heading" class="text-4xl sm:text-5xl font-bold text-white mb-6">{{ homepageContent.stats.title }}</h2>
+          <p class="text-xl sm:text-2xl text-blue-100 leading-relaxed">{{ homepageContent.stats.description }}</p>
         </div>
         
         <div class="grid grid-cols-2 md:grid-cols-4 gap-10 lg:gap-12" role="list">
           <!-- Chiffre 1 -->
           <div class="text-center" role="listitem">
             <div class="text-5xl md:text-6xl font-bold text-yellow-400 mb-4" aria-live="polite">
-              {{ animatedStats.years }}+
+              {{ animatedStats.years }}{{ homepageContent.stats.items[0]?.suffix }}
             </div>
-            <div class="text-lg text-blue-100 font-medium">Années d'Expérience</div>
+            <div class="text-lg text-blue-100 font-medium">{{ homepageContent.stats.items[0]?.label }}</div>
           </div>
           
           <!-- Chiffre 2 -->
           <div class="text-center">
             <div class="text-5xl md:text-6xl font-bold text-yellow-400 mb-3">
-              {{ animatedStats.projects }}+
+              {{ animatedStats.projects }}{{ homepageContent.stats.items[1]?.suffix }}
             </div>
-            <div class="text-lg text-blue-100 font-medium">Projets Réalisés</div>
+            <div class="text-lg text-blue-100 font-medium">{{ homepageContent.stats.items[1]?.label }}</div>
           </div>
           
           <!-- Chiffre 3 -->
           <div class="text-center">
             <div class="text-5xl md:text-6xl font-bold text-yellow-400 mb-3">
-              {{ animatedStats.satisfaction }}%
+              {{ animatedStats.satisfaction }}{{ homepageContent.stats.items[2]?.suffix }}
             </div>
-            <div class="text-lg text-blue-100 font-medium">Clients Satisfaits</div>
+            <div class="text-lg text-blue-100 font-medium">{{ homepageContent.stats.items[2]?.label }}</div>
           </div>
           
           <!-- Chiffre 4 -->
           <div class="text-center">
             <div class="text-5xl md:text-6xl font-bold text-yellow-400 mb-3">
-              {{ animatedStats.response }}h
+              {{ animatedStats.response }}{{ homepageContent.stats.items[3]?.suffix }}
             </div>
-            <div class="text-lg text-blue-100 font-medium">Délai d'Intervention</div>
+            <div class="text-lg text-blue-100 font-medium">{{ homepageContent.stats.items[3]?.label }}</div>
           </div>
         </div>
       </div>
@@ -971,6 +967,125 @@ import {
   Briefcase,
   ShieldCheck
 } from 'lucide-vue-next'
+
+type HomepageContent = {
+  hero: {
+    title: string
+    titleHighlight: string
+    rotatingTexts: string[]
+    description: string
+    features: string[]
+    ctaText: string
+    projects: Array<{ title: string; description: string; location: string; image: string }>
+  }
+  services: { title: string; description: string }
+  process: {
+    title: string
+    description: string
+    steps: Array<{ number: number; title: string; description: string }>
+  }
+  faq: { title: string; description: string; items: Array<{ question: string; answer: string }> }
+  advantages: { title: string; description: string; items: Array<{ title: string; description: string }> }
+  partners: {
+    title: string
+    description: string
+    count: string
+    countLabel: string
+    items: Array<{ id: string; name: string; logo: string; description?: string }>
+  }
+  stats: { title: string; description: string; items: Array<{ key: string; value: number; suffix: string; label: string }> }
+}
+
+const homepageContent = reactive<HomepageContent>({
+  hero: {
+    title: 'Votre Expert en',
+    titleHighlight: 'Signalétique',
+    rotatingTexts: ['Industrie graphique', 'Management', 'Bureautique', 'Impression'],
+    description: 'De la conception à la réalisation, ASP Services vous accompagne dans tous vos projets de signalétique, marquage au sol et impression grand format à Libreville.',
+    features: ['Devis gratuit 24h', 'Équipement MUTOH', 'Installation incluse'],
+    ctaText: 'Obtenir un Devis Gratuit',
+    projects: []
+  },
+  services: {
+    title: 'Nos Services',
+    description: 'Solutions complètes pour tous vos besoins en signalétique et impression'
+  },
+  process: {
+    title: 'Notre Processus de Travail',
+    description: "Un processus simple et transparent en 4 étapes pour votre tranquillité d'esprit",
+    steps: [
+      { number: 1, title: 'Contact', description: 'Contactez-nous par téléphone, WhatsApp ou via notre formulaire de devis' },
+      { number: 2, title: 'Devis', description: 'Nous établissons un devis détaillé et gratuit sous 24h adapté à vos besoins' },
+      { number: 3, title: 'Réalisation', description: 'Notre équipe réalise votre projet avec soin et professionnalisme' },
+      { number: 4, title: 'Livraison', description: 'Installation et livraison dans les délais convenus, avec garantie qualité' }
+    ]
+  },
+  faq: {
+    title: 'Questions Fréquentes', description: 'Tout ce que vous devez savoir sur nos services',
+    items: [
+      { question: 'Quels types de services proposez-vous ?', answer: 'Nous offrons une gamme complète de services : signalétique, marquage au sol, impression grand format, consommables Xerox et impression textile.' },
+      { question: 'Quels sont vos délais de réalisation ?', answer: 'Les délais varient selon le projet. Un devis détaillé vous précise le délai de réalisation.' },
+      { question: 'Intervenez-vous partout à Libreville ?', answer: 'Oui, nous intervenons dans tout Libreville et ses environs.' },
+      { question: 'Proposez-vous la création graphique ?', answer: 'Oui, notre équipe peut créer ou adapter vos visuels selon vos besoins.' },
+      { question: 'Quelle est votre politique de garantie ?', answer: 'Nos travaux bénéficient de garanties adaptées au type de réalisation.' },
+      { question: 'Acceptez-vous les commandes en grande quantité ?', answer: 'Oui, avec des tarifs adaptés aux volumes importants.' }
+    ]
+  },
+  advantages: {
+    title: 'Pourquoi Choisir ASP Services ?', description: 'Notre engagement : votre satisfaction et la qualité de nos réalisations',
+    items: [
+      { title: 'Garantie Qualité', description: 'Nous utilisons uniquement des matériaux premium et des équipements professionnels de dernière génération pour garantir la durabilité de nos réalisations.' },
+      { title: "Rapidité d'Exécution", description: 'Nous nous engageons à respecter les délais convenus. Votre temps est précieux, nous le savons et nous le respectons.' },
+      { title: 'Professionnalisme', description: 'Une équipe expérimentée et passionnée, à votre écoute pour transformer vos idées en réalité avec expertise et créativité.' }
+    ]
+  },
+  partners: {
+    title: 'Ils Nous Font Confiance',
+    description: 'Des partenaires prestigieux qui nous font confiance au quotidien',
+    count: '+100',
+    countLabel: 'Entreprises et administrations partenaires',
+    items: [
+      { id: 'seeg', name: 'SEEG', logo: '/images/partenaire/seeg.webp', description: "Société d'Énergie et d'Eau du Gabon" },
+      { id: 'setrag', name: 'SETRAG', logo: '/images/partenaire/setragwebp.webp', description: "Société d'Exploitation du Transgabonais" },
+      { id: 'eramet', name: 'Eramet Comilog', logo: '/images/partenaire/eramet setrag.webp', description: 'Leader mondial du manganèse' },
+      { id: 'omp', name: 'OMP', logo: '/images/partenaire/OMP.png', description: 'Office Multimodal des Permis' },
+      { id: 'dusk', name: 'Dusk Gabon', logo: '/images/partenaire/Dusk-SymbolDusk_Gabon.png', description: 'Solutions numériques au Gabon' },
+      { id: 'autre', name: 'Autres Partenaires', logo: '/images/partenaire/télécharger.webp', description: 'Entreprises et administrations gabonaises' }
+    ]
+  },
+  stats: {
+    title: 'ASP Services en Chiffres', description: 'Notre expertise en quelques chiffres',
+    items: [
+      { key: 'years', value: 28, suffix: '+', label: "Années d'Expérience" },
+      { key: 'projects', value: 500, suffix: '+', label: 'Projets Réalisés' },
+      { key: 'satisfaction', value: 90, suffix: '%', label: 'Clients Satisfaits' },
+      { key: 'response', value: 24, suffix: 'h', label: "Délai d'Intervention" }
+    ]
+  }
+})
+
+const legacyProjectImages: Record<string, string> = {
+  '/images/projects/project-1.jpg': '/images/portfolio/Panneau-publicitaire/IMG-20260709-WA0204.jpg',
+  '/images/projects/project-2.jpg': '/images/portfolio/Panneau-publicitaire/Panneau-Pk4 apres sovog-1.jpg',
+  '/images/projects/project-3.jpg': '/images/portfolio/carte & badge/badge-setrag-1.jpg'
+}
+
+const { data: savedHomepageContent } = await useFetch<{ success: boolean; data: HomepageContent | null }>('/api/homepage/content')
+
+if (savedHomepageContent.value?.success && savedHomepageContent.value.data) {
+  const saved = savedHomepageContent.value.data
+  Object.assign(homepageContent.hero, saved.hero ?? {})
+  homepageContent.hero.projects = homepageContent.hero.projects.map(project => ({
+    ...project,
+    image: legacyProjectImages[project.image] ?? project.image
+  }))
+  Object.assign(homepageContent.services, saved.services ?? {})
+  Object.assign(homepageContent.process, saved.process ?? {})
+  Object.assign(homepageContent.faq, saved.faq ?? {})
+  Object.assign(homepageContent.advantages, saved.advantages ?? {})
+  Object.assign(homepageContent.partners, saved.partners ?? {})
+  Object.assign(homepageContent.stats, saved.stats ?? {})
+}
 
 useHead({
   title: 'ASP Services Gabon - Signalétique, Impression & Marquage au Sol à Libreville',
@@ -1068,9 +1183,6 @@ const services = [
 // FAQ state
 const openFaq = ref<number | null>(null)
 
-// Rotating text animation
-const rotatingTexts = ['Industrie graphique', 'Management', 'Bureautique', 'Impression']
-
 // Quote form state (déjà déclaré plus haut)
 const quoteForm = ref({
   name: '',
@@ -1084,7 +1196,7 @@ const quoteSubmitted = ref(false)
 
 // Carousel data
 const currentSlide = ref(0)
-const projects = ref([
+const fallbackProjects = [
   {
     title: 'Lanyards Personnalisés OMP',
     description: 'Cordons porte-badge OMP imprimés en bleu et vert, logo sérigraphié haute qualité',
@@ -1121,7 +1233,11 @@ const projects = ref([
     location: 'Libreville',
     image: '/images/portfolio/Machine xerox/xerox-3.jpg'
   }
-])
+]
+
+const projects = computed(() => homepageContent.hero.projects.length
+  ? homepageContent.hero.projects
+  : fallbackProjects)
 
 // Testimonials carousel
 const currentTestimonialSlide = ref(0)
@@ -1137,10 +1253,10 @@ const animatedStats = reactive({
 })
 
 const statsTargets = {
-  years: 28,
-  projects: 500,
-  satisfaction: 90,
-  response: 24
+  years: homepageContent.stats.items[0]?.value ?? 28,
+  projects: homepageContent.stats.items[1]?.value ?? 500,
+  satisfaction: homepageContent.stats.items[2]?.value ?? 90,
+  response: homepageContent.stats.items[3]?.value ?? 24
 }
 
 let statsAnimated = false

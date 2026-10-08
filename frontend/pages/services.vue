@@ -115,6 +115,7 @@ const services = computed(() => {
     shortDescription: service.shortDescription || service.subtitle || service.description || '',
     description: service.longDescription || service.description || '',
     features: Array.isArray(service.features) ? service.features : [],
+    applications: Array.isArray(service.applications) ? service.applications : undefined,
     benefits: Array.isArray(service.benefits) ? service.benefits : [],
     icon: service.icon || 'cube',
     image: service.image || '',

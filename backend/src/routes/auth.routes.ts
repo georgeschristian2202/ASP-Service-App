@@ -1,4 +1,4 @@
-import { compare } from 'bcryptjs'
+import { compare, hash } from 'bcryptjs'
 import { Router } from 'express'
 import rateLimit from 'express-rate-limit'
 import { randomUUID } from 'node:crypto'
@@ -12,6 +12,14 @@ import { AUTH_COOKIE_NAME, createAccessToken, type AuthPayload } from '../utils/
 const loginSchema = z.object({
   username: z.string().trim().min(1, 'Le nom d’utilisateur ou l’email est requis.'),
   password: z.string().min(1, 'Le mot de passe est requis.')
+})
+
+const changePasswordSchema = z.object({
+  currentPassword: z.string().min(1, 'Le mot de passe actuel est requis.'),
+  newPassword: z.string().min(8, 'Le nouveau mot de passe doit contenir au moins 8 caractères.')
+}).refine((input) => input.currentPassword !== input.newPassword, {
+  path: ['newPassword'],
+  message: 'Le nouveau mot de passe doit être différent du mot de passe actuel.'
 })
 
 function toAuthPayload(user: {
@@ -123,6 +131,43 @@ authRouter.get('/me', requireAuthentication, (request, response) => {
           ? 'admin'
           : 'editor'
     }
+  })
+})
+
+authRouter.post('/password', requireAuthentication, async (request, response) => {
+  const input = changePasswordSchema.parse(request.body)
+  const userId = request.auth?.identifiantUtilisateur
+
+  if (!userId) {
+    throw new AppError(401, 'Authentification requise.')
+  }
+
+  const user = await prisma.utilisateur.findUnique({
+    where: { identifiant: userId }
+  })
+
+  if (!user || !(await compare(input.currentPassword, user.motDePasseHache))) {
+    throw new AppError(401, 'Le mot de passe actuel est incorrect.')
+  }
+
+  await prisma.$transaction([
+    prisma.utilisateur.update({
+      where: { identifiant: user.identifiant },
+      data: { motDePasseHache: await hash(input.newPassword, env.BCRYPT_ROUNDS) }
+    }),
+    prisma.sessionAuthentification.updateMany({
+      where: {
+        identifiantUtilisateur: user.identifiant,
+        identifiant: { not: request.auth?.identifiantSession },
+        revoqueLe: null
+      },
+      data: { revoqueLe: new Date() }
+    })
+  ])
+
+  response.json({
+    success: true,
+    message: 'Votre mot de passe a été modifié avec succès.'
   })
 })
 

@@ -1,5 +1,6 @@
 <template>
   <div class="min-h-screen bg-gray-50">
+    <ConfirmDialog ref="confirmDialog" />
     <!-- En-tête -->
     <div class="bg-white border-b border-gray-200 p-6 rounded-lg shadow-sm mb-6">
       <div class="flex items-center justify-between">
@@ -48,12 +49,13 @@
         </div>
         <div class="md:col-span-2">
           <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
-          <input
+          <textarea
+            v-auto-resize
             v-model="content.hero.description"
-            type="text"
-            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-asp-blue-500 focus:border-asp-blue-500"
+            rows="2"
+            class="auto-resize-textarea block w-full max-w-full min-w-0 px-4 py-2 border border-gray-300 rounded-lg resize-none overflow-hidden focus:ring-2 focus:ring-asp-blue-500 focus:border-asp-blue-500"
             placeholder="Découvrez notre gamme complète..."
-          />
+          ></textarea>
         </div>
       </div>
     </div>
@@ -82,17 +84,19 @@
       <!-- Grille des services -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
         <div
-          v-for="(service, index) in content.services"
+          v-for="(service, index) in paginatedServices"
           :key="service.id"
+          @click="selectService((currentServicesPage - 1) * servicesPerPage + index)"
           :class="[
-            'p-4 border-2 rounded-lg transition-all hover:shadow-md',
-            selectedServiceIndex === index
-              ? 'border-asp-blue-600 bg-asp-blue-50'
-              : 'border-gray-200 hover:border-gray-300'
+            'relative min-w-0 p-4 border-2 rounded-xl transition-all hover:shadow-md cursor-pointer',
+            selectedServiceIndex === (currentServicesPage - 1) * servicesPerPage + index
+              ? 'border-asp-blue-600 bg-asp-blue-50 ring-2 ring-asp-blue-200'
+              : 'border-gray-200 bg-white hover:border-gray-300'
           ]"
         >
+          <div v-if="selectedServiceIndex === (currentServicesPage - 1) * servicesPerPage + index" class="absolute -top-2.5 left-3 rounded-full bg-asp-blue-700 px-2 py-0.5 text-xs font-medium text-white">En cours d’édition</div>
           <div class="flex items-start justify-between gap-3">
-            <button type="button" @click="selectedServiceIndex = index" class="flex items-start gap-3 flex-1 min-w-0 text-left">
+            <button type="button" @click.stop="selectService((currentServicesPage - 1) * servicesPerPage + index)" class="flex items-start gap-3 flex-1 min-w-0 text-left">
               <div class="w-10 h-10 bg-asp-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
                 <svg class="w-6 h-6 text-asp-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.5-9.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 8.5-8.5z" />
@@ -106,7 +110,7 @@
             </button>
             <button
               type="button"
-              @click="removeService(index)"
+              @click.stop="removeService((currentServicesPage - 1) * servicesPerPage + index)"
               class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors flex-shrink-0"
               :aria-label="`Supprimer ${service.title}`"
               title="Supprimer ce service"
@@ -119,8 +123,13 @@
         </div>
       </div>
 
+      <div v-if="totalServicesPages > 1" class="mb-6 flex flex-wrap items-center justify-between gap-3 border-b border-gray-200 pb-5">
+        <p class="text-sm text-gray-600">Page {{ currentServicesPage }} sur {{ totalServicesPages }} · {{ content.services.length }} services</p>
+        <div class="flex items-center gap-2"><button type="button" @click="currentServicesPage--" :disabled="currentServicesPage === 1" class="rounded-lg border border-gray-300 px-3 py-2 text-sm disabled:opacity-40">Précédent</button><button v-for="page in totalServicesPages" :key="page" type="button" @click="currentServicesPage = page" :class="currentServicesPage === page ? 'border-asp-blue-700 bg-asp-blue-700 text-white' : 'border-gray-300 bg-white text-gray-700'" class="min-w-9 rounded-lg border px-3 py-2 text-sm">{{ page }}</button><button type="button" @click="currentServicesPage++" :disabled="currentServicesPage === totalServicesPages" class="rounded-lg border border-gray-300 px-3 py-2 text-sm disabled:opacity-40">Suivant</button></div>
+      </div>
+
       <!-- Formulaire d'édition du service sélectionné -->
-      <div v-if="selectedServiceIndex !== null" class="border-t border-gray-200 pt-6">
+      <div v-if="selectedServiceIndex !== null" ref="serviceEditor" class="scroll-mt-36 rounded-2xl border border-asp-blue-200 bg-asp-blue-50/30 p-5 sm:p-6">
         <div class="flex items-center justify-between mb-6">
           <h3 class="text-lg font-semibold text-gray-900">
             Édition : {{ content.services[selectedServiceIndex].title }}
@@ -146,7 +155,7 @@
           </div>
         </div>
 
-        <div class="space-y-6">
+        <div class="space-y-5">
           <!-- Informations de base -->
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
@@ -176,50 +185,52 @@
             </div>
           </div>
 
-          <!-- Description courte -->
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Description courte (carte)</label>
-            <textarea
-              v-model="content.services[selectedServiceIndex].description"
-              rows="2"
-              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-asp-blue-500 focus:border-asp-blue-500"
-            ></textarea>
-          </div>
-
-          <!-- Description longue -->
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Description détaillée</label>
-            <textarea
-              v-model="content.services[selectedServiceIndex].longDescription"
-              rows="4"
-              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-asp-blue-500 focus:border-asp-blue-500"
-            ></textarea>
-          </div>
-
-          <!-- Image -->
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Image du service</label>
-            <ImageUploader
-              v-model="content.services[selectedServiceIndex].image"
-              :alt="content.services[selectedServiceIndex].title || 'Image du service'"
-              folder="services"
-              @upload="handleServiceImageUpload"
-            />
-            <p class="mt-2 text-xs text-gray-500">
-              L'image est envoyée dans le dossier « services » d'ImageKit et son URL est enregistrée automatiquement.
-            </p>
+          <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_280px] gap-5 items-start">
+            <div class="space-y-5">
+              <!-- Description courte -->
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Description courte (carte)</label>
+                <textarea v-auto-resize v-model="content.services[selectedServiceIndex].description" rows="2" class="auto-resize-textarea block w-full px-4 py-2 border border-gray-300 rounded-lg resize-none overflow-hidden focus:ring-2 focus:ring-asp-blue-500 focus:border-asp-blue-500"></textarea>
+              </div>
+              <!-- Description longue -->
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Description détaillée</label>
+                <textarea v-auto-resize v-model="content.services[selectedServiceIndex].longDescription" rows="4" class="auto-resize-textarea block w-full px-4 py-2 border border-gray-300 rounded-lg resize-none overflow-hidden focus:ring-2 focus:ring-asp-blue-500 focus:border-asp-blue-500"></textarea>
+              </div>
+            </div>
+            <!-- Image compacte dans une colonne dédiée -->
+            <div class="min-w-0">
+              <label class="block text-sm font-medium text-gray-700 mb-2">Image du service</label>
+              <ImageUploader v-model="content.services[selectedServiceIndex].image" :alt="content.services[selectedServiceIndex].title || 'Image du service'" folder="services" compact square-preview @upload="handleServiceImageUpload" />
+              <p class="mt-2 text-xs text-gray-500">Image envoyée dans le dossier « services » d'ImageKit.</p>
+            </div>
           </div>
 
           <!-- Caractéristiques -->
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-2">Caractéristiques (une par ligne)</label>
             <textarea
+              v-auto-resize
               :value="content.services[selectedServiceIndex].features.join('\n')"
               @input="content.services[selectedServiceIndex].features = ($event.target as HTMLTextAreaElement).value.split('\n').filter(f => f.trim())"
-              rows="5"
-              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-asp-blue-500 focus:border-asp-blue-500"
+              rows="3"
+              class="auto-resize-textarea block w-full max-w-full min-w-0 px-4 py-2 border border-gray-300 rounded-lg resize-none overflow-hidden focus:ring-2 focus:ring-asp-blue-500 focus:border-asp-blue-500"
               placeholder="Caractéristique 1&#10;Caractéristique 2&#10;..."
             ></textarea>
+          </div>
+
+          <!-- Applications courantes -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Applications courantes (une par ligne)</label>
+            <textarea
+              v-auto-resize
+              :value="content.services[selectedServiceIndex].applications.join('\n')"
+              @input="content.services[selectedServiceIndex].applications = ($event.target as HTMLTextAreaElement).value.split('\n').map(item => item.trim()).filter(Boolean)"
+              rows="3"
+              class="auto-resize-textarea block w-full max-w-full min-w-0 px-4 py-2 border border-gray-300 rounded-lg resize-none overflow-hidden focus:ring-2 focus:ring-asp-blue-500 focus:border-asp-blue-500"
+              placeholder="Entreprises&#10;Commerces&#10;Administrations"
+            ></textarea>
+            <p class="mt-1 text-xs text-gray-500">Ces textes apparaissent sous forme de petites étiquettes dans l’aperçu et sur la page publique.</p>
           </div>
 
           <!-- Tarification -->
@@ -264,6 +275,14 @@
                 placeholder="2 ans sur les installations"
               />
             </div>
+          </div>
+
+          <div v-if="selectedServicePreview" class="rounded-2xl border border-gray-200 bg-white p-4 sm:p-6">
+            <div class="mb-6 flex flex-wrap items-center justify-between gap-3 border-b border-gray-100 pb-4">
+              <div><h4 class="font-semibold text-gray-900">Aperçu sur la page publique</h4><p class="mt-1 text-sm text-gray-500">Cette vue reprend directement le composant utilisé sur la page Services.</p></div>
+              <NuxtLink :to="`/services#${selectedServicePreview.id}`" target="_blank" class="inline-flex items-center gap-2 rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">Ouvrir la page publique</NuxtLink>
+            </div>
+            <ServiceDetail :service="selectedServicePreview" />
           </div>
         </div>
       </div>
@@ -342,6 +361,17 @@ const isSaving = ref(false)
 const selectedServiceIndex = ref<number | null>(null)
 const message = ref<{ type: 'success' | 'error'; text: string } | null>(null)
 const { services: defaultServices } = useServices()
+const confirmDialog = ref<{ open: (options: { title?: string; message: string; confirmLabel?: string; danger?: boolean }) => Promise<boolean> } | null>(null)
+const serviceEditor = ref<HTMLElement | null>(null)
+const currentServicesPage = ref(1)
+const servicesPerPage = 10
+
+const resizeTextarea = (element: HTMLTextAreaElement) => {
+  element.style.height = 'auto'
+  element.style.height = `${Math.max(72, element.scrollHeight)}px`
+}
+
+const vAutoResize = { mounted: resizeTextarea, updated: resizeTextarea }
 
 const content = ref<any>({
   servicesVersion: 2,
@@ -361,6 +391,7 @@ const createEmptyService = () => ({
   image: '',
   icon: 'cube',
   features: [] as string[],
+  applications: [] as string[],
   benefits: [] as string[],
   pricing: {
     from: '',
@@ -378,10 +409,41 @@ const slugify = (value: string) => value
   .replace(/[^a-z0-9]+/g, '-')
   .replace(/^-|-$/g, '')
 
+const totalServicesPages = computed(() => Math.max(1, Math.ceil(content.value.services.length / servicesPerPage)))
+const paginatedServices = computed(() => {
+  const start = (currentServicesPage.value - 1) * servicesPerPage
+  return content.value.services.slice(start, start + servicesPerPage)
+})
+
+const selectedServicePreview = computed(() => {
+  if (selectedServiceIndex.value === null) return null
+  const service = content.value.services[selectedServiceIndex.value]
+  if (!service) return null
+  return {
+    id: service.id || slugify(service.title || 'service'),
+    title: service.title || 'Service',
+    shortDescription: service.subtitle || service.description || '',
+    description: service.longDescription || service.description || '',
+    features: Array.isArray(service.features) ? service.features : [],
+    applications: Array.isArray(service.applications) ? service.applications : [],
+    benefits: Array.isArray(service.benefits) ? service.benefits : [],
+    icon: service.icon || 'cube',
+    image: service.image || '',
+    gallery: Array.isArray(service.gallery) ? service.gallery : []
+  }
+})
+
+const selectService = (index: number) => {
+  selectedServiceIndex.value = index
+  nextTick(() => serviceEditor.value?.scrollIntoView({ behavior: 'smooth', block: 'start' }))
+}
+
 const addService = () => {
-  content.value.services.push(createEmptyService())
-  selectedServiceIndex.value = content.value.services.length - 1
-  nextTick(() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }))
+  content.value.services.unshift(createEmptyService())
+  currentServicesPage.value = 1
+  selectedServiceIndex.value = 0
+  showMessage('success', 'Nouveau service ajouté. Complétez sa fiche puis enregistrez les modifications.')
+  nextTick(() => serviceEditor.value?.scrollIntoView({ behavior: 'smooth', block: 'start' }))
 }
 
 const handleServiceImageUpload = (result: { url: string; path: string }) => {
@@ -390,10 +452,11 @@ const handleServiceImageUpload = (result: { url: string; path: string }) => {
   showMessage('success', 'Image envoyée vers ImageKit avec succès.')
 }
 
-const removeService = (index: number) => {
+const removeService = async (index: number) => {
   const service = content.value.services[index]
   if (!service) return
-  if (!window.confirm(`Supprimer le service « ${service.title} » ?`)) return
+  const confirmed = await confirmDialog.value?.open({ title: `Supprimer « ${service.title} » ?`, message: 'Le service sera retiré de la page publique après l’enregistrement.', confirmLabel: 'Supprimer', danger: true })
+  if (!confirmed) return
 
   content.value.services.splice(index, 1)
   if (selectedServiceIndex.value === index) {
@@ -401,11 +464,23 @@ const removeService = (index: number) => {
   } else if (selectedServiceIndex.value !== null && selectedServiceIndex.value > index) {
     selectedServiceIndex.value--
   }
+  if (currentServicesPage.value > totalServicesPages.value) currentServicesPage.value = totalServicesPages.value
   showMessage('success', 'Service supprimé. Cliquez sur Enregistrer pour confirmer.')
 }
 
 const removeSelectedService = () => {
   if (selectedServiceIndex.value !== null) removeService(selectedServiceIndex.value)
+}
+
+const defaultApplications: Record<string, string[]> = {
+  signaletique: ['Entreprises', 'Commerces', 'Administrations', 'Hôtels & Restaurants', 'Immobilier', 'Événements'],
+  'marquage-sol': ['Parkings', 'Zones industrielles', 'Entrepôts logistiques', 'Terrains de sport', 'Espaces publics', 'Centres commerciaux'],
+  'impression-grand-format': ['Publicité extérieure', 'Stands événementiels', 'Décoration intérieure', 'Habillage véhicules', 'Enseignes commerciales', 'Campagnes marketing'],
+  'consommables-xerox': ['Bureaux', 'Administrations', 'Écoles & Universités', 'Imprimeries', 'Centres de copie', 'Entreprises'],
+  'impression-tshirts': ['Entreprises', 'Associations', 'Événements sportifs', 'Campagnes promotionnelles', 'Écoles', 'Cadeaux personnalisés'],
+  'badges-cartes': ['Entreprises', 'Événements', 'Écoles', 'Associations', 'Contrôle d’accès', 'Cartes de visite'],
+  'vente-imprimantes': ['Entreprises', 'Administrations', 'Imprimeries', 'Écoles', 'Centres de copie', 'Professionnels'],
+  'location-imprimantes': ['Entreprises', 'Événements', 'Administrations', 'PME', 'Associations', 'Particuliers']
 }
 
 const toEditableService = (service: (typeof defaultServices)[number]) => ({
@@ -417,6 +492,7 @@ const toEditableService = (service: (typeof defaultServices)[number]) => ({
   image: service.image || '',
   icon: service.icon || 'cube',
   features: [...service.features],
+  applications: [...(defaultApplications[service.id] || [])],
   benefits: [...service.benefits],
   gallery: [...(service.gallery || [])],
   pricing: { from: '', description: '' },
@@ -425,10 +501,16 @@ const toEditableService = (service: (typeof defaultServices)[number]) => ({
 })
 
 const migrateLegacyServices = (loadedContent: any) => {
-  if (loadedContent.servicesInitialized === true) return loadedContent
-
   const existingServices = Array.isArray(loadedContent.services) ? loadedContent.services : []
-  const existingIds = new Set(existingServices.map((service: any) => service.id))
+  const normalizedServices = existingServices.map((service: any) => ({
+    ...service,
+    applications: Array.isArray(service.applications)
+      ? service.applications
+      : [...(defaultApplications[service.id] || [])]
+  }))
+  if (loadedContent.servicesInitialized === true) return { ...loadedContent, services: normalizedServices }
+
+  const existingIds = new Set(normalizedServices.map((service: any) => service.id))
   const missingServices = defaultServices
     .filter(service => !existingIds.has(service.id))
     .map(toEditableService)
@@ -436,7 +518,7 @@ const migrateLegacyServices = (loadedContent: any) => {
   return {
     ...loadedContent,
     servicesVersion: 2,
-    services: [...existingServices, ...missingServices]
+    services: [...normalizedServices, ...missingServices]
   }
 }
 
@@ -459,6 +541,9 @@ onMounted(async () => {
 })
 
 const handleSave = async () => {
+  const confirmed = await confirmDialog.value?.open({ title: 'Enregistrer les services ?', message: 'Les modifications seront publiées sur la page Services.', confirmLabel: 'Enregistrer' })
+  if (!confirmed) return
+
   isSaving.value = true
 
   try {
@@ -467,6 +552,7 @@ const handleSave = async () => {
     for (const service of content.value.services) {
       service.id = slugify(service.id || service.title)
       service.features = Array.isArray(service.features) ? service.features : []
+      service.applications = Array.isArray(service.applications) ? service.applications : []
       service.benefits = Array.isArray(service.benefits) ? service.benefits : []
       service.pricing ||= { from: '', description: '' }
 
@@ -505,3 +591,12 @@ const showMessage = (type: 'success' | 'error', text: string) => {
   }, 4000)
 }
 </script>
+
+<style scoped>
+.auto-resize-textarea {
+  min-height: 4.5rem;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  white-space: pre-wrap;
+}
+</style>

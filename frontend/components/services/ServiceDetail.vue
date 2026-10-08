@@ -66,14 +66,14 @@
       </div>
 
       <!-- Applications/Use Cases -->
-      <div v-if="useCases[service.id]" class="bg-asp-blue-50 rounded-xl p-6">
+      <div v-if="displayedApplications.length" class="bg-asp-blue-50 rounded-xl p-6">
         <h3 class="font-semibold text-asp-black mb-3 flex items-center gap-2">
           <Lightbulb class="w-5 h-5 text-asp-blue-700" />
           Applications courantes
         </h3>
         <div class="flex flex-wrap gap-2">
           <span
-            v-for="(useCase, index) in useCases[service.id]"
+            v-for="(useCase, index) in displayedApplications"
             :key="index"
             class="inline-flex items-center px-3 py-1 bg-asp-white text-asp-gray-700 text-sm rounded-full"
           >
@@ -162,7 +162,7 @@ const useCases: Record<string, string[]> = {
     'Immobilier',
     'Événements'
   ],
-  'marquage': [
+  'marquage-sol': [
     'Parkings',
     'Zones industrielles',
     'Entrepôts logistiques',
@@ -170,7 +170,7 @@ const useCases: Record<string, string[]> = {
     'Espaces publics',
     'Centres commerciaux'
   ],
-  'impression': [
+  'impression-grand-format': [
     'Publicité extérieure',
     'Stands événementiels',
     'Décoration intérieure',
@@ -178,7 +178,7 @@ const useCases: Record<string, string[]> = {
     'Enseignes commerciales',
     'Campagnes marketing'
   ],
-  'xerox': [
+  'consommables-xerox': [
     'Bureaux',
     'Administrations',
     'Écoles & Universités',
@@ -186,15 +186,23 @@ const useCases: Record<string, string[]> = {
     'Centres de copie',
     'Entreprises'
   ],
-  'tshirts': [
+  'impression-tshirts': [
     'Entreprises',
     'Associations',
     'Événements sportifs',
     'Campagnes promotionnelles',
     'Écoles',
     'Cadeaux personnalisés'
-  ]
+  ],
+  'badges-cartes': ['Entreprises', 'Événements', 'Écoles', 'Associations', 'Contrôle d’accès', 'Cartes de visite'],
+  'vente-imprimantes': ['Entreprises', 'Administrations', 'Imprimeries', 'Écoles', 'Centres de copie', 'Professionnels'],
+  'location-imprimantes': ['Entreprises', 'Événements', 'Administrations', 'PME', 'Associations', 'Particuliers']
 }
+
+const displayedApplications = computed(() => {
+  if (Array.isArray(props.service.applications)) return props.service.applications
+  return useCases[props.service.id] || []
+})
 
 const handleImageError = (event: Event) => {
   const img = event.target as HTMLImageElement

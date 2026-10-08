@@ -9,10 +9,10 @@
       <Container class="relative z-10">
         <div class="max-w-3xl mx-auto text-center">
           <h1 class="about-page-title heading-1 mb-6 opacity-0">
-            À Propos d'ASP Services
+            {{ aboutContent.hero.title }}
           </h1>
           <p class="about-page-subtitle text-body-lg text-asp-gray-400 opacity-0">
-            ASP : trois initiales, une histoire, une identité depuis 1998
+            {{ aboutContent.hero.description }}
           </p>
         </div>
       </Container>
@@ -40,26 +40,12 @@
                 Notre Histoire
               </span>
               <h2 class="heading-2 text-asp-black mb-4">
-                L'origine d'une ambition
+                {{ aboutContent.story.title }}
               </h2>
             </div>
 
             <p class="histoire-intro-text text-body-lg text-muted leading-relaxed">
-              Fondée en <strong>1998 par Andy Simon Pierre</strong>, ASP Services est née d'une ambition : 
-              mettre l'expertise en <strong>management, en industrie graphique et en communication</strong> au service 
-              des entreprises et des institutions.
-            </p>
-
-            <p class="histoire-intro-text text-asp-gray-600 leading-relaxed">
-              Le nom <strong>ASP</strong> trouve son origine dans les initiales de son fondateur. 
-              Depuis ses débuts, cette identité accompagne une volonté constante de développer un savoir-faire 
-              solide dans les métiers de la communication et de la création visuelle.
-            </p>
-
-            <p class="histoire-intro-text text-asp-gray-600 leading-relaxed">
-              Au fil des années, ASP Services a développé son expertise dans la 
-              <strong>communication imprimée, l'identité graphique, l'imprimerie, la sérigraphie, 
-              la signalisation et la signalétique</strong>.
+              {{ aboutContent.story.content }}
             </p>
 
             <div class="pt-4">
@@ -76,7 +62,7 @@
           <!-- Image -->
           <div class="relative histoire-image opacity-0">
             <OptimizedImage
-              src="/images/about/histoire.png"
+              :src="aboutContent.story.image"
               alt="ASP Services - Notre histoire depuis 1998"
               :width="1200"
               :height="800"
@@ -289,19 +275,13 @@
                 <Target class="w-6 h-6 text-asp-blue-700" />
               </div>
               <div>
-                <h2 class="mission-title text-2xl font-bold text-asp-black mb-2">Notre Mission</h2>
-                <p class="mission-subtitle text-sm text-asp-gray-600">Servir notre clientèle dans les règles de l'art</p>
+                <h2 class="mission-title text-2xl font-bold text-asp-black mb-2">{{ aboutContent.mission.title }}</h2>
+                <p class="mission-subtitle text-sm text-asp-gray-600">{{ aboutContent.mission.subtitle }}</p>
               </div>
             </div>
 
             <p class="mission-intro-text text-asp-gray-700 leading-relaxed mb-4">
-              Concevoir et réaliser des solutions de communication et de signalétique 
-              <strong>fiables, efficaces et adaptées</strong> aux besoins de chaque client.
-            </p>
-
-            <p class="mission-intro-text text-asp-gray-700 leading-relaxed mb-6">
-              De la signalisation routière à la signalisation ferroviaire, nous accompagnons nos clients avec 
-              <strong>professionnalisme, rigueur et exigence</strong>.
+              {{ aboutContent.mission.content }}
             </p>
 
             <button
@@ -341,19 +321,13 @@
                 <Telescope class="w-6 h-6 text-asp-orange-700" />
               </div>
               <div>
-                <h2 class="vision-title text-2xl font-bold text-asp-black mb-2">Notre Vision</h2>
-                <p class="vision-subtitle text-sm text-asp-gray-600">Horizon 2030</p>
+                <h2 class="vision-title text-2xl font-bold text-asp-black mb-2">{{ aboutContent.mission.visionTitle }}</h2>
+                <p class="vision-subtitle text-sm text-asp-gray-600">{{ aboutContent.mission.visionSubtitle }}</p>
               </div>
             </div>
 
             <p class="vision-intro-text text-asp-gray-700 leading-relaxed mb-4">
-              Devenir une <strong>référence en Afrique centrale</strong> dans l'industrie de la signalétique, 
-              de la signalisation et du management.
-            </p>
-
-            <p class="vision-intro-text text-asp-gray-700 leading-relaxed mb-6">
-              Étendre notre présence dans l'espace <strong>CEMAC</strong> : Cameroun, Congo, 
-              Guinée équatoriale, République centrafricaine.
+              {{ aboutContent.mission.visionContent }}
             </p>
 
             <button
@@ -421,6 +395,37 @@
               </p>
             </div>
           </Card>
+        </div>
+      </Container>
+    </section>
+
+    <!-- Équipe administrable -->
+    <section v-if="aboutContent.team.members.length" class="section-padding bg-gray-50">
+      <Container>
+        <div class="max-w-3xl mx-auto text-center mb-12">
+          <h2 class="heading-2 text-asp-black mb-4">{{ aboutContent.team.title }}</h2>
+          <p class="text-body-lg text-muted">{{ aboutContent.team.description }}</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <article v-for="member in aboutContent.team.members" :key="`${member.name}-${member.position}`" class="bg-white rounded-2xl p-6 text-center shadow-sm">
+            <img v-if="member.photo" :src="member.photo" :alt="member.name" class="w-32 h-32 mx-auto rounded-full object-cover mb-5" />
+            <h3 class="text-xl font-semibold text-asp-black">{{ member.name }}</h3>
+            <p class="text-asp-blue-700 font-medium mt-1">{{ member.position }}</p>
+            <p v-if="member.bio" class="text-asp-gray-600 mt-3 leading-relaxed">{{ member.bio }}</p>
+          </article>
+        </div>
+      </Container>
+    </section>
+
+    <!-- Chiffres administrables -->
+    <section v-if="aboutContent.stats.items.length" class="section-padding bg-asp-blue-900 text-white">
+      <Container>
+        <h2 class="heading-2 text-center mb-12">{{ aboutContent.stats.title }}</h2>
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+          <div v-for="stat in aboutContent.stats.items" :key="`${stat.number}-${stat.label}`" class="rounded-2xl bg-white/10 p-6 text-center">
+            <p class="text-4xl font-bold text-asp-yellow-400">{{ stat.number }}</p>
+            <p class="mt-2 text-white/80">{{ stat.label }}</p>
+          </div>
         </div>
       </Container>
     </section>
@@ -569,6 +574,51 @@ import {
 
 const config = useRuntimeConfig()
 const { animateWords } = useTextAnimation()
+
+const aboutContent = reactive({
+  hero: { title: "À Propos d'ASP Services", description: "ASP : trois initiales, une histoire, une identité depuis 1998" },
+  story: {
+    title: "L'origine d'une ambition",
+    content: "Fondée en 1998 par Andy Simon Pierre, ASP Services est née d'une ambition : mettre l'expertise en management, en industrie graphique et en communication au service des entreprises et des institutions. Le nom ASP trouve son origine dans les initiales de son fondateur. Au fil des années, ASP Services a développé son expertise dans la communication imprimée, l'identité graphique, l'imprimerie, la sérigraphie, la signalisation et la signalétique.",
+    image: "/images/about/histoire.png"
+  },
+  mission: {
+    title: "Notre Mission",
+    subtitle: "Servir notre clientèle dans les règles de l'art",
+    content: "Concevoir et réaliser des solutions de communication et de signalétique fiables, efficaces et adaptées aux besoins de chaque client. De la signalisation routière à la signalisation ferroviaire, nous accompagnons nos clients avec professionnalisme, rigueur et exigence.",
+    visionTitle: "Notre Vision",
+    visionSubtitle: "Horizon 2030",
+    visionContent: "Devenir une référence en Afrique centrale dans l'industrie de la signalétique, de la signalisation et du management. Étendre notre présence dans l'espace CEMAC.",
+    values: [
+      { title: 'Excellence opérationnelle', description: 'Qualité et efficacité dans chaque réalisation. Respect des exigences techniques pour des résultats fiables et durables.' },
+      { title: 'Réactivité', description: 'Capacité à répondre rapidement aux besoins et à agir dans les meilleurs délais.' },
+      { title: 'Accompagnement', description: 'Comprendre les besoins et accompagner chaque client à chaque étape de son projet.' },
+      { title: "Esprit d'équipe", description: 'Collaboration et complémentarité des compétences pour construire ensemble des solutions performantes.' },
+      { title: 'Transmission des compétences', description: 'Partage des connaissances pour renforcer nos équipes et préparer les générations futures.' },
+      { title: 'Intégrité', description: 'Honnêteté, transparence et respect des engagements.' }
+    ]
+  },
+  team: { title: 'Notre Équipe', description: 'Une équipe expérimentée et engagée au service de vos projets.', members: [] as any[] },
+  stats: {
+    title: 'ASP Services en chiffres',
+    items: [
+      { number: '28+', label: "Années d'expérience" },
+      { number: '500+', label: 'Projets réalisés' },
+      { number: '90%', label: 'Clients satisfaits' },
+      { number: '24h', label: 'Délai de réponse' }
+    ] as any[]
+  }
+})
+
+const { data: storedAboutContent } = await useFetch<{ success: boolean; data: any | null }>('/api/pages/about')
+if (storedAboutContent.value?.success && storedAboutContent.value.data) {
+  const saved = storedAboutContent.value.data
+  Object.assign(aboutContent.hero, saved.hero ?? {})
+  Object.assign(aboutContent.story, saved.story ?? {})
+  Object.assign(aboutContent.mission, saved.mission ?? {})
+  Object.assign(aboutContent.team, saved.team ?? {})
+  Object.assign(aboutContent.stats, saved.stats ?? {})
+}
 
 const showFullHistory = ref(false)
 const showMission = ref(false)
@@ -949,32 +999,7 @@ useHead({
   ]
 })
 
-const values = [
-  {
-    title: 'Excellence opérationnelle',
-    description: 'Qualité et efficacité dans chaque réalisation. Respect des exigences techniques pour des résultats fiables et durables.'
-  },
-  {
-    title: 'Réactivité',
-    description: 'Capacité à répondre rapidement aux besoins. Comprendre, décider et agir dans les meilleurs délais.'
-  },
-  {
-    title: 'Accompagnement',
-    description: 'Comprendre les besoins et accompagner chaque client à chaque étape de son projet.'
-  },
-  {
-    title: 'Esprit d\'équipe',
-    description: 'Collaboration et complémentarité des compétences pour construire ensemble des solutions performantes.'
-  },
-  {
-    title: 'Transmission des compétences',
-    description: 'Partage des connaissances pour renforcer nos équipes et préparer les générations futures.'
-  },
-  {
-    title: 'Intégrité',
-    description: 'Honnêteté, transparence et respect des engagements. Relations fondées sur la confiance.'
-  }
-]
+const values = computed(() => aboutContent.mission.values)
 
 const equipmentList = [
   {

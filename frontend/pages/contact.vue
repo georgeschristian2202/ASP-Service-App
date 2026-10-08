@@ -10,11 +10,10 @@
       <Container>
         <div class="max-w-3xl mx-auto text-center relative z-10">
           <h1 class="heading-1 mb-6 header-title opacity-0">
-            Contactez-Nous
+            {{ contactContent.hero.title }}
           </h1>
           <p class="text-body-lg text-asp-gray-400 header-description opacity-0">
-            Une question ? Un projet ? Notre équipe est à votre écoute pour vous accompagner 
-            dans tous vos besoins en signalétique, impression et marquage au sol.
+            {{ contactContent.hero.description }}
           </p>
         </div>
       </Container>
@@ -46,7 +45,7 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16 relative z-10">
           <!-- WhatsApp Card -->
           <a
-            :href="`whatsapp://send?phone=${config.public.whatsappNumber}`"
+            :href="`whatsapp://send?phone=${whatsappNumber}`"
             target="_blank"
             rel="noopener noreferrer"
             class="contact-card opacity-0 group cursor-pointer"
@@ -64,7 +63,7 @@
                   Réponse rapide et directe
                 </p>
                 <p class="text-green-600 font-semibold">
-                  {{ config.public.phone }}
+                  {{ contactContent.contactInfo.phone.main }}
                 </p>
               </div>
             </Card>
@@ -72,7 +71,7 @@
 
           <!-- Phone Card -->
           <a
-            :href="`tel:${config.public.phone.replace(/\s/g, '')}`"
+            :href="`tel:${contactContent.contactInfo.phone.main.replace(/\s/g, '')}`"
             class="contact-card opacity-0 group cursor-pointer"
             data-index="1"
           >
@@ -88,7 +87,7 @@
                   Appelez-nous directement
                 </p>
                 <p class="text-asp-blue-700 font-semibold">
-                  {{ config.public.phone }}
+                  {{ contactContent.contactInfo.phone.main }}
                 </p>
               </div>
             </Card>
@@ -96,7 +95,7 @@
 
           <!-- Email Card -->
           <a
-            :href="`mailto:${config.public.email}`"
+            :href="`mailto:${contactContent.contactInfo.email.general}`"
             class="contact-card opacity-0 group cursor-pointer"
             data-index="2"
           >
@@ -112,7 +111,7 @@
                   Écrivez-nous à
                 </p>
                 <p class="text-asp-blue-700 font-semibold break-all">
-                  {{ config.public.email }}
+                  {{ contactContent.contactInfo.email.general }}
                 </p>
               </div>
             </Card>
@@ -147,7 +146,7 @@
 
           <!-- Contact Info Sidebar -->
           <div class="lg:col-span-1 info-sidebar opacity-0">
-            <ContactInfo />
+            <ContactInfo :contact-info="contactContent.contactInfo" />
           </div>
         </div>
       </Container>
@@ -172,8 +171,8 @@
         <!-- Map Embed -->
         <div class="aspect-video map-container opacity-0 relative z-10">
           <GoogleMapEmbed
-            :address="config.public.address"
-            query="Assemblées de Dieu du Gabon - Église de Likouala, Libreville"
+            :address="formattedAddress"
+            :query="formattedAddress"
             :latitude="0.3901"
             :longitude="9.4544"
             :zoom="17"
@@ -208,15 +207,15 @@
         <div class="max-w-3xl mx-auto relative z-10">
           <div class="text-center mb-12">
             <h2 class="heading-2 text-asp-black mb-4 faq-title opacity-0">
-              Questions Fréquentes
+              {{ contactContent.faq.title }}
             </h2>
             <p class="text-body-lg text-muted faq-description opacity-0">
-              Trouvez rapidement les réponses à vos questions
+              {{ contactContent.faq.description }}
             </p>
           </div>
 
           <div class="space-y-4">
-            <div v-for="(faq, index) in faqs" :key="index" class="faq-item opacity-0" :data-index="index">
+            <div v-for="(faq, index) in displayedFaqs" :key="index" class="faq-item opacity-0" :data-index="index">
               <FAQItem
                 :question="faq.question"
                 :answer="faq.answer"
@@ -244,6 +243,33 @@ import {
 } from 'lucide-vue-next'
 
 const config = useRuntimeConfig()
+
+const contactContent = reactive({
+  hero: { title: 'Contactez-Nous', description: 'Une question ? Un projet ? Notre équipe est à votre écoute pour vous accompagner dans tous vos besoins en signalétique, impression et marquage au sol.' },
+  contactInfo: {
+    address: { street: "Likouala, en face de l'Assemblée de Dieu – Église de Likouala", city: 'Libreville', country: 'Gabon', details: '' },
+    phone: { main: String(config.public.phone), whatsapp: String(config.public.whatsappNumber), secondary: '' },
+    email: { general: String(config.public.email), support: String(config.public.email), sales: String(config.public.email) },
+    hours: { weekdays: '8h - 17h', saturday: '9h - 13h', sunday: 'Fermé', details: '' }
+  },
+  faq: { title: 'Questions Fréquentes', description: 'Trouvez rapidement les réponses à vos questions', items: [] as Array<{ question: string; answer: string }> }
+})
+
+const { data: storedContactContent } = await useFetch<{ success: boolean; data: any | null }>('/api/pages/contact')
+if (storedContactContent.value?.success && storedContactContent.value.data) {
+  const saved = storedContactContent.value.data
+  Object.assign(contactContent.hero, saved.hero ?? {})
+  if (saved.contactInfo) {
+    Object.assign(contactContent.contactInfo.address, saved.contactInfo.address ?? {})
+    Object.assign(contactContent.contactInfo.phone, saved.contactInfo.phone ?? {})
+    Object.assign(contactContent.contactInfo.email, saved.contactInfo.email ?? {})
+    Object.assign(contactContent.contactInfo.hours, saved.contactInfo.hours ?? {})
+  }
+  Object.assign(contactContent.faq, saved.faq ?? {})
+}
+
+const formattedAddress = computed(() => [contactContent.contactInfo.address.street, contactContent.contactInfo.address.city, contactContent.contactInfo.address.country, contactContent.contactInfo.address.details].filter(Boolean).join(', '))
+const whatsappNumber = computed(() => contactContent.contactInfo.phone.whatsapp.replace(/\D/g, ''))
 
 useHead({
   title: 'Contact - ASP Services Gabon',
@@ -545,4 +571,5 @@ const faqs = [
     answer: 'Oui, toutes nos réalisations sont garanties. La durée de garantie varie selon le type de prestation : 1 an pour la signalétique, 6 mois pour le marquage au sol, et conformité aux spécifications pour l\'impression.'
   }
 ]
+const displayedFaqs = computed(() => contactContent.faq.items.length ? contactContent.faq.items : faqs)
 </script>

@@ -1,5 +1,6 @@
 <template>
   <div class="mx-auto w-full max-w-7xl space-y-6">
+    <ConfirmDialog ref="confirmDialog" />
     <div>
       <div class="mb-3 flex items-center gap-2 text-sm text-slate-500">
         <NuxtLink to="/admin" class="transition hover:text-blue-700">Accueil</NuxtLink>
@@ -45,9 +46,10 @@
         </div>
       </UCard>
 
-      <form class="space-y-6" @submit.prevent="saveProfile">
-        <UAlert v-if="errorMessage" color="error" variant="soft" title="Enregistrement impossible" :description="errorMessage" />
-        <UAlert v-if="successMessage" color="success" variant="soft" title="Profil mis à jour" :description="successMessage" />
+      <div class="space-y-6">
+        <form class="space-y-6" @submit.prevent="saveProfile">
+          <UAlert v-if="errorMessage" color="error" variant="soft" title="Enregistrement impossible" :description="errorMessage" />
+          <UAlert v-if="successMessage" color="success" variant="soft" title="Profil mis à jour" :description="successMessage" />
 
         <UCard class="!bg-white !text-slate-900" :ui="{ root: 'border border-slate-200 !bg-white !text-slate-900 ring-0 shadow-sm', body: '!bg-white p-6 sm:p-7' }">
           <div class="mb-6 flex flex-col gap-3 border-b border-slate-100 pb-5 sm:flex-row sm:items-center sm:justify-between">
@@ -68,7 +70,17 @@
           <div class="grid gap-5 md:grid-cols-2">
             <ProfileField v-model="form.company.name" label="Nom de l’entreprise" required icon="building" placeholder="ASP Services Gabon" />
             <ProfileField v-model="form.company.tagline" label="Slogan" icon="sparkles" placeholder="Industrie Graphique et Management" />
-            <ProfileField v-model="form.company.logo" class="md:col-span-2" label="Adresse du logo" icon="image" placeholder="/logo.png" />
+            <div class="md:col-span-2">
+              <label class="mb-2 block text-sm font-semibold text-slate-700">Logo de l’entreprise</label>
+              <ImageUploader
+                v-model="form.company.logo"
+                folder="company-logo"
+                alt="Logo de l’entreprise"
+                :allow-url="false"
+                object-fit="contain"
+              />
+              <p class="mt-2 text-xs text-slate-500">Choisissez une nouvelle image pour remplacer le logo actuel, puis enregistrez le profil.</p>
+            </div>
             <div class="md:col-span-2">
               <label for="company-description" class="mb-2 block text-sm font-semibold text-slate-700">Description</label>
               <textarea id="company-description" v-model="form.company.description" rows="4" class="profile-control resize-none" placeholder="Présentez brièvement l’entreprise..." />
@@ -101,14 +113,56 @@
               <template #leading><Save class="size-5" aria-hidden="true" /></template>
             </UButton>
           </div>
-        </UCard>
-      </form>
+          </UCard>
+        </form>
+
+        <form class="space-y-5" @submit.prevent="changePassword">
+          <UCard class="!bg-white !text-slate-900" :ui="{ root: 'border border-slate-200 !bg-white !text-slate-900 ring-0 shadow-sm', body: '!bg-white p-6 sm:p-7' }">
+            <div class="mb-6 flex items-center gap-3 border-b border-slate-100 pb-5">
+              <div class="flex size-11 items-center justify-center rounded-xl bg-amber-50 text-amber-700">
+                <LockKeyhole class="size-5" aria-hidden="true" />
+              </div>
+              <div>
+                <h2 class="text-xl font-bold text-slate-950">Sécurité du compte</h2>
+                <p class="text-sm text-slate-500">Modifiez le mot de passe de votre compte connecté.</p>
+              </div>
+            </div>
+
+            <UAlert v-if="passwordError" color="error" variant="soft" title="Modification impossible" :description="passwordError" class="mb-5" />
+            <UAlert v-if="passwordSuccess" color="success" variant="soft" title="Mot de passe modifié" :description="passwordSuccess" class="mb-5" />
+
+            <div class="grid gap-5">
+              <div>
+                <label for="current-password" class="mb-2 block text-sm font-semibold text-slate-700">Mot de passe actuel <span class="text-red-600">*</span></label>
+                <input id="current-password" v-model="passwordForm.currentPassword" type="password" autocomplete="current-password" required class="profile-control" />
+              </div>
+              <div class="grid gap-5 md:grid-cols-2">
+                <div>
+                  <label for="new-account-password" class="mb-2 block text-sm font-semibold text-slate-700">Nouveau mot de passe <span class="text-red-600">*</span></label>
+                  <input id="new-account-password" v-model="passwordForm.newPassword" type="password" autocomplete="new-password" minlength="8" required class="profile-control" />
+                  <p class="mt-2 text-xs text-slate-500">Minimum 8 caractères.</p>
+                </div>
+                <div>
+                  <label for="confirm-account-password" class="mb-2 block text-sm font-semibold text-slate-700">Confirmer le nouveau mot de passe <span class="text-red-600">*</span></label>
+                  <input id="confirm-account-password" v-model="passwordForm.confirmPassword" type="password" autocomplete="new-password" minlength="8" required class="profile-control" />
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-7 flex justify-end border-t border-slate-100 pt-6">
+              <UButton type="submit" color="warning" size="lg" :loading="isChangingPassword" label="Changer le mot de passe" class="justify-center font-semibold">
+                <template #leading><KeyRound class="size-5" aria-hidden="true" /></template>
+              </UButton>
+            </div>
+          </UCard>
+        </form>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { Building2, ChevronRight, ContactRound, LoaderCircle, Save } from 'lucide-vue-next'
+import { Building2, ChevronRight, ContactRound, KeyRound, LoaderCircle, LockKeyhole, Save } from 'lucide-vue-next'
 
 definePageMeta({
   layout: 'admin',
@@ -133,6 +187,19 @@ const isLoading = ref(true)
 const isSaving = ref(false)
 const errorMessage = ref('')
 const successMessage = ref('')
+const passwordForm = reactive({
+  currentPassword: '',
+  newPassword: '',
+  confirmPassword: ''
+})
+const isChangingPassword = ref(false)
+const passwordError = ref('')
+const passwordSuccess = ref('')
+const toast = useToast()
+const profileDirty = ref(false)
+const passwordDirty = ref(false)
+const trackProfileChanges = ref(false)
+const confirmDialog = ref<{ open: (options: { title?: string; message: string; confirmLabel?: string; danger?: boolean }) => Promise<boolean> } | null>(null)
 
 const loadProfile = async () => {
   try {
@@ -145,12 +212,25 @@ const loadProfile = async () => {
     })
   } catch (error: any) {
     errorMessage.value = error.data?.message || 'Impossible de charger le profil de l’entreprise.'
+    toast.add({ title: 'Chargement impossible', description: errorMessage.value, color: 'error' })
   } finally {
     isLoading.value = false
+    nextTick(() => { trackProfileChanges.value = true })
   }
 }
 
+watch(form, () => {
+  if (trackProfileChanges.value) profileDirty.value = true
+}, { deep: true })
+
+watch(passwordForm, () => {
+  passwordDirty.value = Boolean(passwordForm.currentPassword || passwordForm.newPassword || passwordForm.confirmPassword)
+}, { deep: true })
+
 const saveProfile = async () => {
+  const confirmed = await confirmDialog.value?.open({ title: 'Mettre à jour le profil ?', message: 'Les nouvelles informations seront utilisées dans l’administration et sur le site public.', confirmLabel: 'Enregistrer' })
+  if (!confirmed) return
+
   isSaving.value = true
   errorMessage.value = ''
   successMessage.value = ''
@@ -161,14 +241,71 @@ const saveProfile = async () => {
       body: JSON.parse(JSON.stringify(form))
     })
     successMessage.value = 'Les informations de l’entreprise ont été enregistrées.'
+    profileDirty.value = false
+    toast.add({ title: 'Profil mis à jour', description: successMessage.value, color: 'success' })
   } catch (error: any) {
     errorMessage.value = error.data?.message || error.message || 'Impossible d’enregistrer le profil.'
+    toast.add({ title: 'Enregistrement impossible', description: errorMessage.value, color: 'error' })
   } finally {
     isSaving.value = false
   }
 }
 
-onMounted(loadProfile)
+const changePassword = async () => {
+  passwordError.value = ''
+  passwordSuccess.value = ''
+
+  if (passwordForm.newPassword !== passwordForm.confirmPassword) {
+    passwordError.value = 'La confirmation ne correspond pas au nouveau mot de passe.'
+    toast.add({ title: 'Vérification requise', description: passwordError.value, color: 'error' })
+    return
+  }
+
+  const confirmed = await confirmDialog.value?.open({ title: 'Modifier le mot de passe ?', message: 'Vous devrez utiliser le nouveau mot de passe lors de votre prochaine connexion.', confirmLabel: 'Modifier le mot de passe', danger: true })
+  if (!confirmed) return
+
+  isChangingPassword.value = true
+
+  try {
+    const response = await $fetch<{ success: boolean; message: string }>('/api/auth/password', {
+      method: 'POST',
+      body: {
+        currentPassword: passwordForm.currentPassword,
+        newPassword: passwordForm.newPassword
+      }
+    })
+
+    passwordSuccess.value = response.message
+    passwordForm.currentPassword = ''
+    passwordForm.newPassword = ''
+    passwordForm.confirmPassword = ''
+    passwordDirty.value = false
+    toast.add({ title: 'Mot de passe modifié', description: passwordSuccess.value, color: 'success' })
+  } catch (error: any) {
+    passwordError.value = error.data?.message || error.message || 'Impossible de modifier le mot de passe.'
+    toast.add({ title: 'Modification impossible', description: passwordError.value, color: 'error' })
+  } finally {
+    isChangingPassword.value = false
+  }
+}
+
+const hasUnsavedProfileChanges = computed(() => profileDirty.value || passwordDirty.value)
+const warnBeforeUnload = (event: BeforeUnloadEvent) => {
+  if (!hasUnsavedProfileChanges.value) return
+  event.preventDefault()
+  event.returnValue = ''
+}
+
+onBeforeRouteLeave(async () => {
+  if (!hasUnsavedProfileChanges.value) return true
+  return await confirmDialog.value?.open({ title: 'Modifications non enregistrées', message: 'Vous allez perdre les changements effectués sur le profil.', confirmLabel: 'Quitter sans enregistrer', danger: true }) ?? false
+})
+
+onMounted(() => {
+  window.addEventListener('beforeunload', warnBeforeUnload)
+  loadProfile()
+})
+onBeforeUnmount(() => window.removeEventListener('beforeunload', warnBeforeUnload))
 </script>
 
 <style scoped>
