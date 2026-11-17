@@ -12,11 +12,11 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     try {
       const { user, fetchUser } = useAuth()
 
-      if (!user.value) {
-        const result = await fetchUser()
-        if (!result.success) {
-          return navigateTo('/admin/login')
-        }
+      // Toujours revalider la session serveur. Un utilisateur conservé dans
+      // l'état Nuxt ne prouve pas que le cookie de session existe encore.
+      const result = await fetchUser()
+      if (!result.success) {
+        return navigateTo('/admin/login')
       }
 
       if (!user.value) {

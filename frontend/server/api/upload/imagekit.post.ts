@@ -1,13 +1,10 @@
+import { requestBackend } from '../../utils/backend-api'
+
 export default defineEventHandler(async (event) => {
   try {
-    // Vérifier l'authentification admin
-    const sessionCookie = getCookie(event, 'admin-session')
-    if (!sessionCookie) {
-      throw createError({
-        statusCode: 401,
-        statusMessage: 'Non authentifié'
-      })
-    }
+    // Valider la session admin auprès du backend.
+    // La connexion utilise le cookie `asp-admin-token` transmis par requestBackend.
+    await requestBackend(event, '/auth/me')
 
     const body = await readBody(event)
     const { file, fileName, folder } = body

@@ -8,6 +8,8 @@ export default defineNuxtPlugin((nuxtApp) => {
   // 🎬 CHARGEMENT/RECHARGEMENT DE PAGE (F5, première visite, etc.)
   // ============================================
   if (process.client) {
+    let initialLoaderHidden = false
+
     // Simuler la progression du chargement
     const initialInterval = setInterval(() => {
       if (loadingProgress.value < 85) {
@@ -15,8 +17,11 @@ export default defineNuxtPlugin((nuxtApp) => {
       }
     }, 100)
 
-    // Attendre que le DOM soit complètement chargé
+    // Le contenu Vue est prêt dès que l'application est montée. Attendre
+    // window.load bloquait inutilement l'écran sur les images et scripts tiers.
     const hideInitialLoader = () => {
+      if (initialLoaderHidden) return
+      initialLoaderHidden = true
       clearInterval(initialInterval)
       loadingProgress.value = 100
       
@@ -24,15 +29,13 @@ export default defineNuxtPlugin((nuxtApp) => {
         isPageLoading.value = false
         isInitialPageLoad.value = false
         loadingProgress.value = 0
-      }, 500)
+      }, 100)
     }
 
-    // Attendre le chargement complet
-    if (document.readyState === 'complete') {
-      hideInitialLoader()
-    } else {
-      window.addEventListener('load', hideInitialLoader)
-    }
+    nuxtApp.hook('app:mounted', hideInitialLoader)
+
+    // Sécurité : le loader ne doit jamais masquer une page fonctionnelle.
+    window.setTimeout(hideInitialLoader, 1500)
   }
 
   // ============================================

@@ -4,11 +4,20 @@ import { configRouter } from './config.routes.js'
 import { contentRouter } from './content.routes.js'
 import { portfolioRouter } from './portfolio.routes.js'
 import { usersRouter } from './users.routes.js'
+import { auditRouter } from './audit.routes.js'
+import { eventsRouter } from './events.routes.js'
+import { contactRouter } from './contact.routes.js'
+import { auditAdminActions } from '../middleware/audit.js'
 
 export const apiRouter = Router()
+
+apiRouter.use(auditAdminActions)
 
 apiRouter.use('/auth', authRouter)
 apiRouter.use('/config', configRouter)
 apiRouter.use('/pages', contentRouter)
 apiRouter.use('/portfolio', portfolioRouter)
 apiRouter.use('/users', usersRouter)
+apiRouter.use('/audit', auditRouter)
+apiRouter.use('/events', eventsRouter)
+apiRouter.use('/contact', contactRouter)

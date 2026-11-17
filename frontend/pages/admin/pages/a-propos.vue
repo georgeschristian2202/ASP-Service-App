@@ -2,17 +2,17 @@
   <div class="min-h-screen bg-gray-50">
     <ConfirmDialog ref="confirmDialog" />
     <!-- En-tête -->
-    <div class="bg-white border-b border-gray-200 p-6 rounded-lg shadow-sm mb-6">
-      <div class="flex items-center justify-between">
+    <div class="mb-6 rounded-lg border-b border-gray-200 bg-white p-4 shadow-sm sm:p-6">
+      <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 class="text-2xl font-semibold text-gray-900 mb-1">Édition de la Page À propos</h1>
           <p class="text-sm text-gray-600">Modifiez l'histoire, les valeurs et l'équipe de votre entreprise</p>
         </div>
-        <div class="flex gap-3">
+        <div class="grid grid-cols-1 gap-3 sm:flex">
           <NuxtLink
             to="/a-propos"
             target="_blank"
-            class="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 hover:bg-gray-50 rounded-lg transition-colors text-sm font-medium"
+            class="inline-flex items-center justify-center gap-2 px-4 py-2 border border-gray-300 hover:bg-gray-50 rounded-lg transition-colors text-sm font-medium"
           >
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -23,7 +23,7 @@
           <button
             @click="handleSave"
             :disabled="isSaving"
-            class="inline-flex items-center gap-2 px-5 py-2 bg-asp-blue-700 hover:bg-asp-blue-800 text-white text-sm font-medium rounded-lg transition-colors shadow-sm disabled:opacity-50"
+            class="inline-flex items-center justify-center gap-2 px-5 py-2 bg-asp-blue-700 hover:bg-asp-blue-800 text-white text-sm font-medium rounded-lg transition-colors shadow-sm disabled:opacity-50"
           >
             <svg v-if="!isSaving" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
@@ -126,9 +126,9 @@
         </div>
 
         <div class="border-t border-gray-200 pt-6">
-          <div class="flex items-start justify-between gap-4 mb-4">
+          <div class="mb-4 flex flex-col items-stretch gap-4 sm:flex-row sm:items-start sm:justify-between">
             <div><h3 class="font-semibold text-gray-900">Valeurs ({{ content.mission.values.length }})</h3><p class="text-sm text-gray-600">Cliquez sur une carte pour la mettre en édition.</p></div>
-            <button type="button" @click="addValue" class="inline-flex items-center gap-2 px-4 py-2 bg-asp-blue-700 hover:bg-asp-blue-800 text-white rounded-lg text-sm font-medium">+ Ajouter une valeur</button>
+            <button type="button" @click="addValue" class="inline-flex items-center justify-center gap-2 px-4 py-2 bg-asp-blue-700 hover:bg-asp-blue-800 text-white rounded-lg text-sm font-medium">+ Ajouter une valeur</button>
           </div>
           <div ref="valuesListTop" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 scroll-mt-40">
             <div
@@ -144,7 +144,7 @@
                 <button
                   type="button"
                   @click.stop="removeValue(index)"
-                  class="px-2 py-1 text-sm text-red-600 hover:bg-red-50 rounded"
+                  class="flex size-11 items-center justify-center rounded text-sm text-red-600 hover:bg-red-50"
                 >
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -206,7 +206,7 @@
               <h4 class="text-sm font-semibold text-gray-900">Membre {{ index + 1 }}</h4>
               <button
                 @click="removeMember(index)"
-                class="p-1 text-red-600 hover:bg-red-50 rounded"
+                class="flex size-11 items-center justify-center rounded text-red-600 hover:bg-red-50"
               >
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -287,7 +287,7 @@
 
     <!-- Toast -->
     <Transition enter-active-class="transition-all duration-300" enter-from-class="opacity-0 translate-x-full" enter-to-class="opacity-100 translate-x-0" leave-active-class="transition-all duration-200" leave-from-class="opacity-100 translate-x-0" leave-to-class="opacity-0 translate-x-full">
-      <div v-if="message" class="fixed top-4 right-4 z-50 max-w-sm">
+      <div v-if="message" class="fixed left-4 right-4 top-4 z-50 sm:left-auto sm:max-w-sm">
         <div :class="['px-4 py-3 rounded-lg shadow-lg border', message.type === 'success' ? 'bg-green-50 border-green-200' : 'bg-red-50 border-red-200']">
           <p :class="['text-sm font-medium', message.type === 'success' ? 'text-green-800' : 'text-red-800']">{{ message.text }}</p>
         </div>

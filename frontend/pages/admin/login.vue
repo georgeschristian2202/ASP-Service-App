@@ -1,5 +1,5 @@
 <template>
-  <main class="login-shell relative flex items-center overflow-hidden bg-slate-950 p-3 sm:p-6 lg:p-8">
+  <main class="login-shell relative flex items-start overflow-x-hidden overflow-y-auto bg-slate-950 p-3 sm:items-center sm:p-6 lg:p-8">
     <Toast />
     <div class="pointer-events-none absolute -right-24 -top-32 size-96 rounded-full bg-blue-500/20 blur-3xl" />
     <div class="pointer-events-none absolute -bottom-48 left-1/3 size-96 rounded-full bg-cyan-400/10 blur-3xl" />
@@ -64,26 +64,19 @@
             </p>
           </div>
 
-          <UAlert
-            v-if="errorMessage"
-            color="error"
-            variant="soft"
-            title="Connexion refusée"
-            :description="errorMessage"
-            class="mb-5"
-          >
-            <template #leading><CircleAlert class="size-5" aria-hidden="true" /></template>
-          </UAlert>
-
-          <UForm :state="credentials" class="space-y-5" @submit="handleLogin">
+          <UForm :state="credentials" class="space-y-5" autocomplete="off" @submit="handleLogin">
             <UFormField name="username" required>
-              <div class="login-field" :class="{ 'has-value': fieldHasValue('username') }">
+              <fieldset class="login-field" :class="{ 'has-value': fieldHasValue('username') }">
+                <legend aria-hidden="true"><span>Nom d’utilisateur *</span></legend>
                 <input
                   ref="usernameInput"
                   id="admin-username"
                   v-model="credentials.username"
                   type="text"
                   autocomplete="username"
+                  inputmode="text"
+                  autocapitalize="none"
+                  :spellcheck="false"
                   placeholder=" "
                   aria-label="Nom d’utilisateur"
                   class="login-input"
@@ -97,11 +90,12 @@
                 <label for="admin-username">
                   Nom d’utilisateur <span aria-hidden="true">*</span>
                 </label>
-              </div>
+              </fieldset>
             </UFormField>
 
             <UFormField name="password" required>
-              <div class="login-field" :class="{ 'has-value': fieldHasValue('password') }">
+              <fieldset class="login-field" :class="{ 'has-value': fieldHasValue('password') }">
+                <legend aria-hidden="true"><span>Mot de passe *</span></legend>
                 <input
                   ref="passwordInput"
                   id="admin-password"
@@ -130,13 +124,13 @@
                 >
                   <component :is="showPassword ? EyeOff : Eye" class="size-4" aria-hidden="true" />
                 </button>
-              </div>
+              </fieldset>
             </UFormField>
 
             <button
               type="submit"
               class="login-submit mt-2 flex h-11 w-full items-center justify-center gap-2 rounded-md font-semibold text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-asp-blue-500 focus-visible:ring-offset-2"
-              :disabled="isLoading"
+              :disabled="isLoading || !isFormValid"
               :aria-busy="isLoading"
             >
               <LoaderCircle v-if="isLoading" class="size-5 animate-spin" aria-hidden="true" />
@@ -158,7 +152,6 @@
 <script setup lang="ts">
 import {
   ArrowLeft,
-  CircleAlert,
   Eye,
   EyeOff,
   LockKeyhole,
@@ -172,7 +165,7 @@ definePageMeta({
   layout: false
 })
 
-const { login, isLoading, isAuthenticated } = useAuth()
+const { login, fetchUser, isLoading, isAuthenticated } = useAuth()
 const { showError } = useAppToast()
 const adminTransitionLoading = useState('admin-transition-loading', () => false)
 
@@ -185,6 +178,9 @@ const showPassword = ref(false)
 const usernameInput = ref<HTMLInputElement | null>(null)
 const passwordInput = ref<HTMLInputElement | null>(null)
 const autofillState = reactive({ username: false, password: false })
+const isFormValid = computed(() => {
+  return credentials.username.trim().length > 0 && credentials.password.length > 0
+})
 
 const syncAutofillState = () => {
   autofillState.username = Boolean(usernameInput.value?.value)
@@ -199,9 +195,32 @@ const handleLogin = async () => {
   if (isLoading.value) return
 
   errorMessage.value = ''
+
+  if (!credentials.username.trim()) {
+    errorMessage.value = 'Veuillez saisir votre nom d’utilisateur.'
+    showError('Champ obligatoire', errorMessage.value, 4000)
+    usernameInput.value?.focus()
+    return
+  }
+
+  if (!credentials.password) {
+    errorMessage.value = 'Veuillez saisir votre mot de passe.'
+    showError('Champ obligatoire', errorMessage.value, 4000)
+    passwordInput.value?.focus()
+    return
+  }
+
+  credentials.username = credentials.username.trim()
   const result = await login(credentials)
 
   if (result.success) {
+    const session = await fetchUser()
+    if (!session.success) {
+      errorMessage.value = 'La connexion a été acceptée, mais la session n’a pas pu être conservée. Rechargez la page puis réessayez.'
+      showError('Session non conservée', errorMessage.value, 6000)
+      return
+    }
+
     adminTransitionLoading.value = true
     sessionStorage.setItem('admin-login-success', 'true')
     await navigateTo('/admin')
@@ -233,15 +252,13 @@ onMounted(async () => {
 
 <style scoped>
 .login-shell {
-  height: 100vh;
-  height: 100dvh;
-  min-height: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
 }
 
 .login-panel {
-  height: calc(100dvh - 1.5rem);
+  min-height: calc(100dvh - 1.5rem);
   max-height: 760px;
-  min-height: 0;
 }
 
 .login-section,
@@ -254,11 +271,11 @@ onMounted(async () => {
   box-sizing: border-box;
   display: block;
   width: 100%;
-  height: 3rem;
-  border: 1px solid #94a3b8;
-  border-radius: 0.375rem;
-  background: #fff;
-  padding: 0 1rem;
+  height: 100%;
+  border: 0;
+  border-radius: 0.32rem;
+  background: transparent;
+  padding: 0.85rem 1rem 0;
   color: #0f172a;
   font-size: 1rem;
   line-height: 1.5rem;
@@ -268,6 +285,34 @@ onMounted(async () => {
 
 .login-field {
   position: relative;
+  width: 100%;
+  height: 3.5rem;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 1px solid #94a3b8;
+  border-radius: 0.375rem;
+  background: #fff;
+  transition: border-color 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
+}
+
+.login-field legend {
+  width: auto;
+  max-width: 0;
+  height: 0;
+  margin-left: 0.75rem;
+  padding: 0;
+  overflow: hidden;
+  color: transparent;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 0;
+  white-space: nowrap;
+  transition: max-width 180ms ease, padding 180ms ease;
+}
+
+.login-field legend span {
+  display: inline-block;
 }
 
 .login-field label {
@@ -281,7 +326,7 @@ onMounted(async () => {
   padding: 0 0.35rem;
   color: #64748b;
   font-size: 1rem;
-  line-height: 1.25rem;
+  line-height: 1rem;
   text-overflow: ellipsis;
   white-space: nowrap;
   transform: translateY(-50%);
@@ -293,10 +338,14 @@ onMounted(async () => {
   color: #dc2626;
 }
 
-.login-input:focus {
+.login-field:focus-within {
   border-color: #2563eb;
   background-color: #eff6ff;
   box-shadow: 0 0 0 4px rgb(37 99 235 / 18%);
+}
+
+.login-input:focus {
+  box-shadow: none;
 }
 
 .login-input:focus ~ label,
@@ -322,22 +371,10 @@ onMounted(async () => {
   transform: translateY(-50%) !important;
 }
 
-.login-input:focus ~ label::before,
-.login-field.has-value label::before,
-.login-input:not(:placeholder-shown) ~ label::before,
-.login-input.is-filled ~ label::before,
-.login-input:autofill ~ label::before,
-.login-input:-webkit-autofill ~ label::before,
-.login-input:-moz-autofill ~ label::before {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: #fff;
-  content: '';
-}
-
-.login-input:focus ~ label::before {
-  background: linear-gradient(to bottom, #fff 50%, #eff6ff 50%);
+.login-field:focus-within > legend,
+.login-field.has-value > legend {
+  max-width: calc(100% - 3rem);
+  padding: 0 0.35rem;
 }
 
 .login-field:focus-within .login-password-toggle {
@@ -374,6 +411,7 @@ onMounted(async () => {
 
 @media (min-width: 640px) {
   .login-panel {
+    min-height: 0;
     height: calc(100dvh - 3rem);
   }
 }
@@ -381,6 +419,16 @@ onMounted(async () => {
 @media (min-width: 1024px) {
   .login-panel {
     height: calc(100dvh - 4rem);
+  }
+}
+
+@media (max-width: 639px) {
+  .login-panel {
+    max-height: none;
+  }
+
+  .login-section {
+    overflow: visible;
   }
 }
 

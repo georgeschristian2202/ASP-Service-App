@@ -281,11 +281,11 @@ curl http://localhost:3001
 ### Accès Rapide
 
 **📖 Document Principal (Tout en un) :**
-[documentation/GUIDE-OPTIMISATIONS-PERFORMANCE.md](./documentation/GUIDE-OPTIMISATIONS-PERFORMANCE.md)
+[GUIDE-OPTIMISATIONS-PERFORMANCE.md](./GUIDE-OPTIMISATIONS-PERFORMANCE.md)
 
 **🗂️ Navigation :**
-- [documentation/README.md](./documentation/README.md) - Vue d'ensemble
-- [documentation/INDEX.md](./documentation/INDEX.md) - Index par sujet
+- [README.md](./README.md) - Vue d'ensemble
+- [INDEX.md](./INDEX.md) - Index par sujet
 - [DOCUMENTATION.md](./DOCUMENTATION.md) - Point d'entrée racine
 
 **🔍 Par besoin :**

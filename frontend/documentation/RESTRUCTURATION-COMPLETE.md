@@ -369,13 +369,13 @@ git commit -m "docs: Update API documentation"
 
 | Document | Contenu |
 |----------|---------|
-| [README.md](./README.md) | Vue d'ensemble du projet |
+| [README.md](../../README.md) | Vue d'ensemble du projet |
 | [ARCHITECTURE.md](./ARCHITECTURE.md) | Architecture détaillée, flux, technologies |
 | [GETTING-STARTED.md](./GETTING-STARTED.md) | Guide de démarrage rapide |
 | [COMMANDS.md](./COMMANDS.md) | Toutes les commandes utiles |
-| [frontend/README.md](./frontend/README.md) | Documentation frontend |
-| [backend/README.md](./backend/README.md) | Documentation backend |
-| [backend/BACKEND-SETUP.md](./backend/BACKEND-SETUP.md) | Guide de setup backend |
+| [frontend/README.md](../README.md) | Documentation frontend |
+| [backend/README.md](../../backend/README.md) | Documentation backend |
+| [BACKEND-SETUP.md](./BACKEND-SETUP.md) | Guide de setup backend |
 
 ---
 
@@ -408,7 +408,7 @@ git commit -m "docs: Update API documentation"
 **Développer le Backend !**
 
 1. Choisir la stack (Recommandé : Node.js + Express + Prisma)
-2. Suivre le guide [backend/BACKEND-SETUP.md](./backend/BACKEND-SETUP.md)
+2. Suivre le guide [BACKEND-SETUP.md](./BACKEND-SETUP.md)
 3. Initialiser le projet backend
 4. Créer les endpoints API
 5. Connecter le frontend au backend

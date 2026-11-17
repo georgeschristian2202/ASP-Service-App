@@ -3,28 +3,29 @@
     <Transition name="modal">
       <div
         v-if="modelValue"
-        class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm"
+        class="fixed inset-0 z-[100] flex items-start justify-center overflow-y-auto bg-black/70 p-2 backdrop-blur-sm sm:items-center sm:p-4"
         @click.self="closeModal"
       >
-        <div class="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden">
+        <div class="my-2 flex max-h-[calc(100dvh-1rem)] w-full max-w-4xl flex-col overflow-hidden rounded-2xl bg-white shadow-2xl sm:my-0 sm:max-h-[90dvh]">
           <!-- Header Modal avec gradient -->
-          <div class="sticky top-0 bg-gradient-to-r from-asp-blue-900 to-asp-blue-700 px-8 py-6 flex items-center justify-between rounded-t-2xl z-10">
+          <div class="flex shrink-0 items-start justify-between gap-3 rounded-t-2xl bg-gradient-to-r from-asp-blue-900 to-asp-blue-700 px-4 py-4 sm:px-8 sm:py-6">
             <div>
-              <h2 class="text-3xl font-bold text-white mb-1">Demandez Votre Devis Gratuit</h2>
-              <p class="text-blue-100 text-sm">Réponse sous 24h • Service professionnel garanti</p>
+              <h2 class="mb-1 text-xl font-bold leading-tight text-white sm:text-3xl">Demandez Votre Devis Gratuit</h2>
+              <p class="text-xs text-blue-100 sm:text-sm">Réponse sous 24h • Service professionnel garanti</p>
             </div>
             <button
               @click="closeModal"
-              class="text-white/80 hover:text-white transition-colors cursor-pointer p-2 hover:bg-white/10 rounded-lg"
+              class="shrink-0 cursor-pointer rounded-lg p-2 text-white/80 transition-colors hover:bg-white/10 hover:text-white"
+              aria-label="Fermer la demande de devis"
             >
               <X class="w-6 h-6" />
             </button>
           </div>
 
           <!-- Contenu Modal -->
-          <div class="p-8 overflow-y-auto max-h-[calc(90vh-120px)]">
+          <div class="min-h-0 flex-1 overflow-y-auto overscroll-contain p-4 sm:p-8">
             <!-- Avantages rapides -->
-            <div class="grid grid-cols-3 gap-4 mb-8 p-4 bg-blue-50 rounded-xl border border-blue-100">
+            <div class="mb-6 grid grid-cols-1 gap-2 rounded-xl border border-blue-100 bg-blue-50 p-3 min-[430px]:grid-cols-3 sm:mb-8 sm:gap-4 sm:p-4">
               <div class="flex items-center gap-2">
                 <CheckCircle2 class="w-5 h-5 text-green-600 flex-shrink-0" />
                 <span class="text-sm font-medium text-asp-gray-800">Devis gratuit</span>
@@ -59,7 +60,7 @@
                   Type de client
                 </h3>
                 
-                <div class="grid grid-cols-2 gap-4">
+                <div class="grid grid-cols-2 gap-3 sm:gap-4">
                   <label class="relative cursor-pointer">
                     <input
                       type="radio"
@@ -67,7 +68,7 @@
                       value="particulier"
                       class="peer sr-only"
                     />
-                    <div class="p-6 border-2 border-asp-gray-200 rounded-xl transition-all duration-200 hover:border-asp-blue-300 peer-checked:border-asp-blue-600 peer-checked:bg-blue-50 peer-checked:shadow-md text-center">
+                    <div class="rounded-xl border-2 border-asp-gray-200 p-3 text-center transition-all duration-200 hover:border-asp-blue-300 peer-checked:border-asp-blue-600 peer-checked:bg-blue-50 peer-checked:shadow-md sm:p-6">
                       <User class="w-8 h-8 text-asp-blue-600 mb-2 mx-auto" />
                       <p class="text-base font-semibold text-asp-gray-800">Particulier</p>
                     </div>
@@ -80,7 +81,7 @@
                       value="entreprise"
                       class="peer sr-only"
                     />
-                    <div class="p-6 border-2 border-asp-gray-200 rounded-xl transition-all duration-200 hover:border-asp-blue-300 peer-checked:border-asp-blue-600 peer-checked:bg-blue-50 peer-checked:shadow-md text-center">
+                    <div class="rounded-xl border-2 border-asp-gray-200 p-3 text-center transition-all duration-200 hover:border-asp-blue-300 peer-checked:border-asp-blue-600 peer-checked:bg-blue-50 peer-checked:shadow-md sm:p-6">
                       <Building2 class="w-8 h-8 text-asp-blue-600 mb-2 mx-auto" />
                       <p class="text-base font-semibold text-asp-gray-800">Entreprise</p>
                     </div>
@@ -376,6 +377,7 @@
                       <a
                         href="whatsapp://send?phone=24177863198"
                         target="_blank"
+                        @click="trackWhatsAppClick('quote_success')"
                         class="inline-flex items-center gap-2 text-green-700 hover:text-green-900 font-medium cursor-pointer"
                       >
                         <Phone class="w-4 h-4" />
@@ -446,6 +448,7 @@ const services = [
 const isSubmitting = ref(false)
 const submitted = ref(false)
 const showValidationError = ref(false)
+const { trackQuoteFormSubmit, trackWhatsAppClick } = useTracking()
 
 // Form data
 const formData = reactive({
@@ -633,6 +636,7 @@ const submitForm = async () => {
         { ...emailData, to_email: 'georgesrapontchombo22@gmail.com' },
         'quote'
       )
+      trackQuoteFormSubmit({ source: 'homepage_quote_modal', service: formData.service })
       
       // Envoi 2 : Email de confirmation au client (NON BLOQUANT)
       try {

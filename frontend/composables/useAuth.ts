@@ -32,6 +32,7 @@ export const useAuth = () => {
       const data = await $fetch<LoginResponse>('/api/auth/login', {
         method: 'POST',
         body: credentials,
+        credentials: 'include',
         timeout: 15000
       })
 
@@ -104,8 +105,9 @@ export const useAuth = () => {
     isLoading.value = true
     
     try {
-      await useFetch('/api/auth/logout', {
-        method: 'POST'
+      await $fetch('/api/auth/logout', {
+        method: 'POST',
+        credentials: 'include'
       })
 
       user.value = null
@@ -130,14 +132,17 @@ export const useAuth = () => {
     isLoading.value = true
     
     try {
-      const { data, error } = await useFetch('/api/auth/me')
+      const data = await $fetch<{ success: boolean; user?: User }>('/api/auth/me', {
+        credentials: 'include',
+        cache: 'no-store'
+      })
 
-      if (error.value || !data.value?.success) {
+      if (!data?.success || !data.user) {
         user.value = null
         return { success: false }
       }
 
-      user.value = data.value.user
+      user.value = data.user
       return { success: true }
     } catch (error) {
       console.error('Fetch user error:', error)

@@ -1,5 +1,5 @@
 import { compare, hash } from 'bcryptjs'
-import { Router } from 'express'
+import { Router, type Request } from 'express'
 import rateLimit from 'express-rate-limit'
 import { randomUUID } from 'node:crypto'
 import { z } from 'zod'
@@ -46,6 +46,24 @@ function toAuthPayload(user: {
 
 export const authRouter = Router()
 
+function auditLogin(request: Request, username: string, userId: string | null, succeeded: boolean) {
+  const forwarded = request.header('x-forwarded-for')?.split(',')[0]?.trim()
+  void prisma.journalAudit.create({
+    data: {
+      identifiantUtilisateur: userId,
+      nomUtilisateur: username,
+      action: 'LOGIN',
+      ressource: 'auth',
+      methodeHttp: 'POST',
+      chemin: request.originalUrl,
+      codeStatut: succeeded ? 200 : 401,
+      reussie: succeeded,
+      adresseIp: forwarded || request.ip || request.socket.remoteAddress || null,
+      agentUtilisateur: request.header('user-agent')?.slice(0, 500) || null
+    }
+  }).catch((error) => console.error('Login audit write failed:', error))
+}
+
 const loginRateLimiter = rateLimit({
   windowMs: env.LOGIN_RATE_LIMIT_WINDOW_MS,
   max: env.LOGIN_RATE_LIMIT_MAX_REQUESTS,
@@ -80,6 +98,7 @@ authRouter.post('/login', loginRateLimiter, async (request, response) => {
   })
 
   if (!user || !(await compare(credentials.password, user.motDePasseHache))) {
+    auditLogin(request, credentials.username, null, false)
     throw new AppError(401, 'Identifiants incorrects.')
   }
 
@@ -96,6 +115,7 @@ authRouter.post('/login', loginRateLimiter, async (request, response) => {
   })
 
   const token = createAccessToken(authPayload, sessionId)
+  auditLogin(request, authPayload.nomUtilisateur, authPayload.identifiantUtilisateur, true)
 
   response.cookie(AUTH_COOKIE_NAME, token, {
     ...authCookieBaseOptions,

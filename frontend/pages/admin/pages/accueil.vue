@@ -2,17 +2,17 @@
   <div class="min-h-screen bg-gray-50">
     <ConfirmDialog ref="confirmDialog" />
     <!-- En-tête -->
-    <div class="bg-white border-b border-gray-200 p-6 rounded-lg shadow-sm mb-6">
-      <div class="flex items-center justify-between">
+    <div class="mb-6 rounded-lg border-b border-gray-200 bg-white p-4 shadow-sm sm:p-6">
+      <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 class="text-2xl font-semibold text-gray-900 mb-1">Édition de la Page d'Accueil</h1>
           <p class="text-sm text-gray-600">Modifiez le contenu et les sections de votre page d'accueil</p>
         </div>
-        <div class="flex gap-3">
+        <div class="grid grid-cols-1 gap-3 sm:flex">
           <NuxtLink
             to="/accueil"
             target="_blank"
-            class="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 hover:bg-gray-50 rounded-lg transition-colors text-sm font-medium"
+            class="inline-flex items-center justify-center gap-2 px-4 py-2 border border-gray-300 hover:bg-gray-50 rounded-lg transition-colors text-sm font-medium"
           >
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -23,7 +23,7 @@
           <button
             @click="handleSave"
             :disabled="isSaving"
-            class="inline-flex items-center gap-2 px-5 py-2 bg-asp-blue-700 hover:bg-asp-blue-800 text-white text-sm font-medium rounded-lg transition-colors shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
+            class="inline-flex items-center justify-center gap-2 px-5 py-2 bg-asp-blue-700 hover:bg-asp-blue-800 text-white text-sm font-medium rounded-lg transition-colors shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <svg v-if="!isSaving" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
@@ -153,14 +153,14 @@
 
       <!-- Section Projets -->
       <div v-show="activeTab === 'projects'" class="space-y-6">
-        <div class="flex items-center justify-between mb-6">
+        <div class="mb-6 flex flex-col items-stretch gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h2 class="text-lg font-semibold text-gray-900 mb-1">Carousel de Projets</h2>
             <p class="text-sm text-gray-600">Projets affichés dans le carousel de la page d'accueil</p>
           </div>
           <button
             @click="addProject"
-            class="inline-flex items-center gap-2 px-4 py-2 bg-asp-blue-700 hover:bg-asp-blue-800 text-white text-sm font-medium rounded-lg transition-colors"
+            class="inline-flex items-center justify-center gap-2 px-4 py-2 bg-asp-blue-700 hover:bg-asp-blue-800 text-white text-sm font-medium rounded-lg transition-colors"
           >
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
@@ -182,7 +182,7 @@
               <h3 class="text-sm font-semibold text-gray-900">Projet {{ index + 1 }}</h3>
               <button
                 @click.stop="removeProject(index)"
-                class="p-1 text-red-600 hover:bg-red-50 rounded transition-colors"
+                  class="flex size-11 items-center justify-center rounded text-red-600 transition-colors hover:bg-red-50"
                 title="Supprimer"
               >
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -277,9 +277,9 @@
 
       <!-- Section Processus -->
       <div v-show="activeTab === 'process'" class="space-y-6">
-        <div class="flex items-start justify-between gap-4">
+        <div class="flex flex-col items-stretch gap-4 sm:flex-row sm:items-start sm:justify-between">
           <div><h2 class="text-lg font-semibold text-gray-900 mb-1">Processus de Travail</h2><p class="text-sm text-gray-600 mb-6">Gérez les différentes étapes de votre processus.</p></div>
-          <button type="button" @click="addProcessStep" class="inline-flex items-center gap-2 px-4 py-2 bg-asp-blue-700 hover:bg-asp-blue-800 text-white text-sm font-medium rounded-lg">+ Ajouter une étape</button>
+          <button type="button" @click="addProcessStep" class="inline-flex items-center justify-center gap-2 px-4 py-2 bg-asp-blue-700 hover:bg-asp-blue-800 text-white text-sm font-medium rounded-lg">+ Ajouter une étape</button>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
@@ -321,7 +321,7 @@
               </div>
               <h3 class="text-sm font-semibold text-gray-900">Étape {{ step.number }}</h3>
               </div>
-              <button type="button" @click.stop="removeProcessStep(index)" class="px-2 py-1 text-sm text-red-600 hover:bg-red-50 rounded">Supprimer</button>
+              <button type="button" @click.stop="removeProcessStep(index)" class="min-h-11 rounded px-3 py-2 text-sm text-red-600 hover:bg-red-50">Supprimer</button>
             </div>
             <div class="grid grid-cols-1 gap-3">
               <div>
@@ -349,7 +349,7 @@
       </div>
 
       <div v-show="activeTab === 'faq'" class="space-y-6">
-        <div class="flex items-start justify-between gap-4"><div><h2 class="text-lg font-semibold text-gray-900">Questions Fréquentes</h2><p class="text-sm text-gray-600">Modifiez, ajoutez ou supprimez les questions et leurs réponses.</p></div><button type="button" @click="addFaqItem" class="inline-flex items-center gap-2 px-4 py-2 bg-asp-blue-700 hover:bg-asp-blue-800 text-white text-sm font-medium rounded-lg">+ Ajouter une question</button></div>
+        <div class="flex flex-col items-stretch gap-4 sm:flex-row sm:items-start sm:justify-between"><div><h2 class="text-lg font-semibold text-gray-900">Questions Fréquentes</h2><p class="text-sm text-gray-600">Modifiez, ajoutez ou supprimez les questions et leurs réponses.</p></div><button type="button" @click="addFaqItem" class="inline-flex w-full items-center justify-center gap-2 px-4 py-2 bg-asp-blue-700 hover:bg-asp-blue-800 text-white text-sm font-medium rounded-lg sm:w-auto">+ Ajouter une question</button></div>
         <label class="block text-sm font-medium text-gray-700">Titre<input v-model="content.faq.title" class="mt-2 w-full px-4 py-2 border border-gray-300 rounded-lg" /></label>
         <label class="block text-sm font-medium text-gray-700">Description<input v-model="content.faq.description" class="mt-2 w-full px-4 py-2 border border-gray-300 rounded-lg" /></label>
         <div ref="faqListTop" class="grid md:grid-cols-2 xl:grid-cols-3 gap-4 scroll-mt-40">
@@ -361,17 +361,17 @@
             class="relative min-w-0 border rounded-xl p-3 grid gap-3 transition-all duration-200"
           >
             <div v-if="selectedFaqIndex === (currentFaqPage - 1) * faqPerPage + index" class="absolute -top-2.5 left-3 px-2 py-0.5 bg-asp-blue-700 text-white text-xs font-medium rounded-full">En cours d’édition</div>
-            <div class="flex items-center justify-between"><h3 class="text-sm font-semibold text-gray-900">Question {{ (currentFaqPage - 1) * faqPerPage + index + 1 }}</h3><button type="button" @click.stop="removeFaqItem((currentFaqPage - 1) * faqPerPage + index)" class="px-2 py-1 text-sm text-red-600 hover:bg-red-50 rounded">Supprimer</button></div>
+            <div class="flex items-center justify-between gap-2"><h3 class="text-sm font-semibold text-gray-900">Question {{ (currentFaqPage - 1) * faqPerPage + index + 1 }}</h3><button type="button" @click.stop="removeFaqItem((currentFaqPage - 1) * faqPerPage + index)" class="min-h-11 shrink-0 rounded px-3 py-2 text-sm text-red-600 hover:bg-red-50">Supprimer</button></div>
             <label class="text-xs font-medium text-gray-700">Question<input v-model="item.question" class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-lg" /></label>
             <label class="min-w-0 text-xs font-medium text-gray-700">Réponse<textarea v-auto-resize v-model="item.answer" rows="2" class="faq-answer-textarea mt-1 block w-full max-w-full min-w-0 px-3 py-2 border border-gray-300 rounded-lg resize-none overflow-hidden"></textarea></label>
           </div>
         </div>
         <div v-if="totalFaqPages > 1" class="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-gray-200">
           <p class="text-sm text-gray-600">Page {{ currentFaqPage }} sur {{ totalFaqPages }} · {{ content.faq.items.length }} questions</p>
-          <div class="flex items-center gap-2">
-            <button type="button" @click="currentFaqPage--" :disabled="currentFaqPage === 1" class="px-3 py-2 text-sm border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-40">Précédent</button>
-            <button v-for="page in totalFaqPages" :key="page" type="button" @click="currentFaqPage = page" :class="currentFaqPage === page ? 'bg-asp-blue-700 text-white border-asp-blue-700' : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'" class="min-w-9 px-3 py-2 text-sm border rounded-lg">{{ page }}</button>
-            <button type="button" @click="currentFaqPage++" :disabled="currentFaqPage === totalFaqPages" class="px-3 py-2 text-sm border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-40">Suivant</button>
+          <div class="flex w-full items-center gap-2 overflow-x-auto pb-1 sm:w-auto">
+            <button type="button" @click="currentFaqPage--" :disabled="currentFaqPage === 1" class="shrink-0 px-3 py-2 text-sm border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-40">Précédent</button>
+            <button v-for="page in totalFaqPages" :key="page" type="button" @click="currentFaqPage = page" :class="currentFaqPage === page ? 'bg-asp-blue-700 text-white border-asp-blue-700' : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'" class="min-w-9 shrink-0 px-3 py-2 text-sm border rounded-lg">{{ page }}</button>
+            <button type="button" @click="currentFaqPage++" :disabled="currentFaqPage === totalFaqPages" class="shrink-0 px-3 py-2 text-sm border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-40">Suivant</button>
           </div>
         </div>
       </div>
@@ -387,7 +387,7 @@
       </div>
 
       <div v-show="activeTab === 'partners'" class="space-y-5">
-        <div class="flex items-start justify-between gap-4"><div><h2 class="text-lg font-semibold text-gray-900">Ils Nous Font Confiance</h2><p class="text-sm text-gray-600">Ajoutez, modifiez ou supprimez les partenaires affichés dans le carrousel public.</p></div><button type="button" @click="addPartner" class="inline-flex items-center gap-2 px-4 py-2 bg-asp-blue-700 hover:bg-asp-blue-800 text-white text-sm font-medium rounded-lg">+ Ajouter un partenaire</button></div>
+        <div class="flex flex-col items-stretch gap-4 sm:flex-row sm:items-start sm:justify-between"><div><h2 class="text-lg font-semibold text-gray-900">Ils Nous Font Confiance</h2><p class="text-sm text-gray-600">Ajoutez, modifiez ou supprimez les partenaires affichés dans le carrousel public.</p></div><button type="button" @click="addPartner" class="inline-flex w-full items-center justify-center gap-2 px-4 py-2 bg-asp-blue-700 hover:bg-asp-blue-800 text-white text-sm font-medium rounded-lg sm:w-auto">+ Ajouter un partenaire</button></div>
         <label class="block text-sm font-medium text-gray-700">Titre<input v-model="content.partners.title" class="mt-2 w-full px-4 py-2 border border-gray-300 rounded-lg" /></label>
         <label class="block text-sm font-medium text-gray-700">Description<input v-model="content.partners.description" class="mt-2 w-full px-4 py-2 border border-gray-300 rounded-lg" /></label>
         <div class="grid md:grid-cols-2 gap-4"><label class="text-sm font-medium text-gray-700">Nombre affiché<input v-model="content.partners.count" class="mt-2 w-full px-4 py-2 border border-gray-300 rounded-lg" /></label><label class="text-sm font-medium text-gray-700">Libellé<input v-model="content.partners.countLabel" class="mt-2 w-full px-4 py-2 border border-gray-300 rounded-lg" /></label></div>
@@ -400,7 +400,7 @@
             class="relative border rounded-xl p-3 space-y-3 transition-all duration-200"
           >
             <div v-if="selectedPartnerId === partner.id" class="absolute -top-2.5 left-3 px-2 py-0.5 bg-asp-blue-700 text-white text-xs font-medium rounded-full">En cours d’édition</div>
-            <div class="flex items-center justify-between"><h3 class="text-sm font-semibold text-gray-900">Partenaire {{ (currentPartnerPage - 1) * partnersPerPage + index + 1 }}</h3><button type="button" @click.stop="removePartner(partner.id)" class="px-2 py-1 text-sm text-red-600 hover:bg-red-50 rounded" :aria-label="`Supprimer ${partner.name || 'ce partenaire'}`">Supprimer</button></div>
+            <div class="flex items-center justify-between gap-2"><h3 class="text-sm font-semibold text-gray-900">Partenaire {{ (currentPartnerPage - 1) * partnersPerPage + index + 1 }}</h3><button type="button" @click.stop="removePartner(partner.id)" class="min-h-11 shrink-0 rounded px-3 py-2 text-sm text-red-600 hover:bg-red-50" :aria-label="`Supprimer ${partner.name || 'ce partenaire'}`">Supprimer</button></div>
             <label class="block text-xs font-medium text-gray-700">Nom<input v-model="partner.name" class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-lg" placeholder="Nom du partenaire" /></label>
             <label class="block text-xs font-medium text-gray-700">Description facultative<input v-model="partner.description" class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-lg" placeholder="Description du partenaire" /></label>
             <div><label class="block text-xs font-medium text-gray-700 mb-2">Logo</label><ImageUploader v-model="partner.logo" :alt="partner.name || `Partenaire ${index + 1}`" folder="partners" object-fit="contain" compact /></div>
@@ -408,10 +408,10 @@
         </div>
         <div v-if="totalPartnerPages > 1" class="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-gray-200">
           <p class="text-sm text-gray-600">Page {{ currentPartnerPage }} sur {{ totalPartnerPages }} · {{ content.partners.items.length }} partenaires</p>
-          <div class="flex items-center gap-2">
-            <button type="button" @click="currentPartnerPage--" :disabled="currentPartnerPage === 1" class="px-3 py-2 text-sm border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed">Précédent</button>
-            <button v-for="page in totalPartnerPages" :key="page" type="button" @click="currentPartnerPage = page" :class="currentPartnerPage === page ? 'bg-asp-blue-700 text-white border-asp-blue-700' : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'" class="min-w-9 px-3 py-2 text-sm border rounded-lg">{{ page }}</button>
-            <button type="button" @click="currentPartnerPage++" :disabled="currentPartnerPage === totalPartnerPages" class="px-3 py-2 text-sm border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed">Suivant</button>
+          <div class="flex w-full items-center gap-2 overflow-x-auto pb-1 sm:w-auto">
+            <button type="button" @click="currentPartnerPage--" :disabled="currentPartnerPage === 1" class="shrink-0 px-3 py-2 text-sm border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed">Précédent</button>
+            <button v-for="page in totalPartnerPages" :key="page" type="button" @click="currentPartnerPage = page" :class="currentPartnerPage === page ? 'bg-asp-blue-700 text-white border-asp-blue-700' : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'" class="min-w-9 shrink-0 px-3 py-2 text-sm border rounded-lg">{{ page }}</button>
+            <button type="button" @click="currentPartnerPage++" :disabled="currentPartnerPage === totalPartnerPages" class="shrink-0 px-3 py-2 text-sm border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed">Suivant</button>
           </div>
         </div>
       </div>
@@ -420,7 +420,7 @@
         <div><h2 class="text-lg font-semibold text-gray-900">ASP Services en Chiffres</h2><p class="text-sm text-gray-600">Modifiez les valeurs et leurs libellés.</p></div>
         <label class="block text-sm font-medium text-gray-700">Titre<input v-model="content.stats.title" class="mt-2 w-full px-4 py-2 border border-gray-300 rounded-lg" /></label>
         <label class="block text-sm font-medium text-gray-700">Description<input v-model="content.stats.description" class="mt-2 w-full px-4 py-2 border border-gray-300 rounded-lg" /></label>
-        <div class="grid md:grid-cols-2 gap-4"><div v-for="item in content.stats.items" :key="item.key" class="border border-gray-200 rounded-lg p-4 grid grid-cols-3 gap-3"><label class="text-xs font-medium text-gray-700">Valeur<input v-model.number="item.value" type="number" min="0" class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-lg" /></label><label class="text-xs font-medium text-gray-700">Suffixe<input v-model="item.suffix" class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-lg" /></label><label class="text-xs font-medium text-gray-700">Libellé<input v-model="item.label" class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-lg" /></label></div></div>
+        <div class="grid gap-4 md:grid-cols-2"><div v-for="item in content.stats.items" :key="item.key" class="grid grid-cols-1 gap-3 rounded-lg border border-gray-200 p-4 sm:grid-cols-3"><label class="min-w-0 text-xs font-medium text-gray-700">Valeur<input v-model.number="item.value" type="number" min="0" class="mt-1 w-full min-w-0 px-3 py-2 border border-gray-300 rounded-lg" /></label><label class="min-w-0 text-xs font-medium text-gray-700">Suffixe<input v-model="item.suffix" class="mt-1 w-full min-w-0 px-3 py-2 border border-gray-300 rounded-lg" /></label><label class="min-w-0 text-xs font-medium text-gray-700">Libellé<input v-model="item.label" class="mt-1 w-full min-w-0 px-3 py-2 border border-gray-300 rounded-lg" /></label></div></div>
       </div>
     </div>
 
@@ -433,7 +433,7 @@
       leave-from-class="opacity-100 translate-x-0"
       leave-to-class="opacity-0 translate-x-full"
     >
-      <div v-if="message" class="fixed top-4 right-4 z-50 max-w-sm">
+      <div v-if="message" class="fixed left-4 right-4 top-4 z-50 sm:left-auto sm:max-w-sm">
         <div
           :class="[
             'px-4 py-3 rounded-lg shadow-lg border',

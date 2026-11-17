@@ -167,6 +167,7 @@
         :href="`whatsapp://send?phone=${config.public.whatsappNumber}&text=${encodeWhatsAppMessage()}`"
         target="_blank"
         rel="noopener noreferrer"
+        @click="trackWhatsAppClick('contact_form')"
         class="flex-1"
       >
         <MessageCircle class="w-5 h-5" />
@@ -185,6 +186,7 @@ import {
 } from 'lucide-vue-next'
 
 const config = useRuntimeConfig()
+const { trackWhatsAppClick } = useTracking()
 
 const formData = reactive({
   name: '',
@@ -293,7 +295,6 @@ const validateForm = (): boolean => {
   return isValid
 }
 
-const { sendEmail } = useEmailJS()
 const toast = useAppToast()
 
 const handleSubmit = async () => {
@@ -307,7 +308,6 @@ const handleSubmit = async () => {
   isSubmitting.value = true
 
   try {
-    // Préparer les paramètres pour EmailJS
     const serviceNames: Record<string, string> = {
       signaletique: 'Signalétique',
       marquage: 'Marquage au sol',
@@ -317,23 +317,16 @@ const handleSubmit = async () => {
       autre: 'Autre'
     }
 
-    const templateParams = {
-      to_email: 'georgesrapontchombo22@gmail.com',
-      from_name: formData.name,
-      from_email: formData.email,
-      client_phone: formData.phone,
-      service_type: serviceNames[formData.service] || formData.service,
-      message: formData.message,
-      reply_to: formData.email,
-      // Informations supplémentaires
-      submission_date: new Date().toLocaleString('fr-FR', {
-        dateStyle: 'full',
-        timeStyle: 'short'
-      })
-    }
-
-    // Envoyer l'email via EmailJS
-    await sendEmail(templateParams)
+    await $fetch('/api/contact', {
+      method: 'POST',
+      body: {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        service: serviceNames[formData.service] || formData.service,
+        message: formData.message
+      }
+    })
 
     // Success toast
     toast.showSuccess(

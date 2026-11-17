@@ -25,6 +25,7 @@ model Utilisateur {
   creeLe            DateTime        @default(now()) @map("createdAt")
   modifieLe         DateTime        @updatedAt @map("updatedAt")
   sessions          SessionAuthentification[]
+  journauxAudit     JournalAudit[]
 
   @@map("users")
 }
@@ -46,6 +47,7 @@ model Realisation {
   identifiant       String   @id @default(uuid()) @map("id")
   titre             String   @map("title")
   categorie         String   @map("category")
+  service           String   @default("")
   description       String   @default("")
   urlImage          String   @default("") @map("imageUrl")
   cheminImage       String   @default("") @map("imagePath")
@@ -56,6 +58,7 @@ model Realisation {
   modifieLe         DateTime @updatedAt @map("updatedAt")
 
   @@index([categorie])
+  @@index([service])
   @@index([aLaUne])
   @@index([ordreAffichage])
   @@map("portfolio_items")
@@ -94,4 +97,44 @@ model MessageContact {
   @@index([estLu])
   @@index([creeLe])
   @@map("contact_messages")
+}
+
+model JournalAudit {
+  identifiant            String       @id @default(uuid()) @map("id")
+  identifiantUtilisateur String?      @map("userId")
+  nomUtilisateur         String       @map("username")
+  action                 String
+  ressource              String       @map("resource")
+  identifiantRessource   String?      @map("resourceId")
+  methodeHttp            String       @map("httpMethod")
+  chemin                 String       @map("path")
+  codeStatut             Int          @map("statusCode")
+  reussie                Boolean      @map("succeeded")
+  adresseIp              String?      @map("ipAddress")
+  agentUtilisateur       String?      @map("userAgent")
+  metadonnees            Json?        @map("metadata")
+  creeLe                 DateTime     @default(now()) @map("createdAt")
+  utilisateur            Utilisateur? @relation(fields: [identifiantUtilisateur], references: [identifiant], onDelete: SetNull)
+
+  @@index([identifiantUtilisateur])
+  @@index([action])
+  @@index([ressource])
+  @@index([creeLe])
+  @@map("audit_logs")
+}
+
+model EvenementPublic {
+  identifiant      String   @id @default(uuid()) @map("id")
+  type             String
+  source           String
+  chemin           String?  @map("path")
+  empreinteIp      String?  @map("ipHash")
+  agentUtilisateur String?  @map("userAgent")
+  metadonnees      Json?    @map("metadata")
+  creeLe           DateTime @default(now()) @map("createdAt")
+
+  @@index([type])
+  @@index([source])
+  @@index([creeLe])
+  @@map("public_events")
 }

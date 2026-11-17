@@ -1,8 +1,28 @@
-# 📚 Documentation ASP Services - Optimisations Performance
+# 📚 Documentation ASP Services
 
 ## 🎯 Vue d'ensemble
 
-Cette documentation détaille toutes les optimisations de performance appliquées au site ASP Services Gabon pour améliorer l'expérience utilisateur et les métriques Core Web Vitals.
+Ce dossier centralise les guides du projet, du frontend et du backend. Les
+`README.md` placés à la racine, dans `frontend` et dans `backend` restent les
+portes d'entrée rapides de chaque partie du projet.
+
+## 🧭 Guides principaux
+
+| Document | Description |
+|----------|-------------|
+| [GETTING-STARTED.md](./GETTING-STARTED.md) | Démarrage du projet |
+| [ARCHITECTURE.md](./ARCHITECTURE.md) | Architecture technique |
+| [COMMANDS.md](./COMMANDS.md) | Commandes essentielles |
+| [BACKEND-SETUP.md](./BACKEND-SETUP.md) | Installation du backend |
+| [DOCKER-SETUP-GUIDE.md](./DOCKER-SETUP-GUIDE.md) | Mise en place Docker complète |
+| [QUICKSTART.Docker.md](./QUICKSTART.Docker.md) | Démarrage Docker rapide |
+| [README.Docker.md](./README.Docker.md) | Référence Docker frontend |
+| [DOCUMENTATION.md](./DOCUMENTATION.md) | Point d'entrée des optimisations frontend |
+| [INDEX.md](./INDEX.md) | Index thématique |
+
+Les rapports historiques de restructuration, de routes, de chargement et
+d'optimisation sont conservés dans ce même dossier pour faciliter leur
+consultation.
 
 ---
 

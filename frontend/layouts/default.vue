@@ -22,6 +22,7 @@
       href="whatsapp://send?phone=24177863198&text=Bonjour%20ASP%20Services%2C%20je%20souhaite%20un%20devis."
       target="_blank"
       rel="noopener noreferrer"
+      @click="trackWhatsAppClick('floating_button')"
       class="fixed bottom-6 right-6 z-50 flex items-center justify-center w-14 h-14 rounded-full shadow-2xl cursor-pointer group"
       style="background-color: #25D366;"
       aria-label="Contacter sur WhatsApp"
@@ -69,6 +70,7 @@ useScrollReveal()
 
 const scrollProgress = ref(0)
 const showScrollTop = ref(false)
+const { trackWhatsAppClick } = useTracking()
 
 const onScroll = () => {
   const scrollTop = window.scrollY

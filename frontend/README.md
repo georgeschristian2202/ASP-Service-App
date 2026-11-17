@@ -38,7 +38,7 @@ docker-compose logs -f
 
 **Application disponible sur http://localhost:3000**
 
-📖 Voir [QUICKSTART.Docker.md](./QUICKSTART.Docker.md) pour le guide complet Docker.
+📖 Voir [QUICKSTART.Docker.md](./documentation/QUICKSTART.Docker.md) pour le guide complet Docker.
 
 ---
 
@@ -265,8 +265,8 @@ export default defineEventHandler(async (event) => {
 
 ## 📚 Documentation
 
-- [QUICKSTART.Docker.md](./QUICKSTART.Docker.md) - Guide Docker simplifié
-- [README.Docker.md](./README.Docker.md) - Documentation Docker complète
+- [QUICKSTART.Docker.md](./documentation/QUICKSTART.Docker.md) - Guide Docker simplifié
+- [README.Docker.md](./documentation/README.Docker.md) - Documentation Docker complète
 - [Nuxt 3 Docs](https://nuxt.com/docs)
 - [Tailwind CSS Docs](https://tailwindcss.com/docs)
 

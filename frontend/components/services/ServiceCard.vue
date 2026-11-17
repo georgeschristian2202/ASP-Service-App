@@ -35,6 +35,7 @@
           :href="`whatsapp://send?phone=${config.public.whatsappNumber}&text=Bonjour, je souhaite en savoir plus sur ${title}`"
           target="_blank"
           rel="noopener noreferrer"
+          @click="trackWhatsAppClick('service_card')"
         >
           Demander un devis
           <ArrowRight class="w-4 h-4" />
@@ -55,6 +56,8 @@ import {
   ShoppingBag,
   Box
 } from 'lucide-vue-next'
+
+const { trackWhatsAppClick } = useTracking()
 
 interface Props {
   title: string

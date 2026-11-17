@@ -47,24 +47,52 @@
             </div>
           </Card>
 
-          <!-- Catégorie -->
+          <!-- Service -->
           <Card>
             <div class="p-6">
               <label class="block text-sm font-medium text-asp-gray-700 mb-2">
-                Catégorie <span class="text-red-500">*</span>
+                Service associé <span class="text-red-500">*</span>
               </label>
               <select
+                v-model="formData.service"
+                required
+                class="w-full px-4 py-3 border border-asp-gray-300 rounded-lg focus:ring-2 focus:ring-asp-blue-500 focus:border-asp-blue-500"
+              >
+                <option value="">Sélectionner un service</option>
+                <option v-for="service in serviceOptions" :key="service.id" :value="service.id">{{ service.title }}</option>
+              </select>
+              <p class="text-xs text-asp-gray-500 mt-2">Le service correspond à la prestation présentée sur la page Services.</p>
+            </div>
+          </Card>
+
+          <!-- Catégorie de filtre -->
+          <Card>
+            <div class="p-6">
+              <label class="block text-sm font-medium text-asp-gray-700 mb-2">
+                Catégorie de filtre <span class="text-red-500">*</span>
+              </label>
+              <select
+                v-if="!isCreatingCategory"
                 v-model="formData.category"
                 required
                 class="w-full px-4 py-3 border border-asp-gray-300 rounded-lg focus:ring-2 focus:ring-asp-blue-500 focus:border-asp-blue-500"
               >
                 <option value="">Sélectionner une catégorie</option>
-                <option value="Signalétique">Signalétique</option>
-                <option value="Impression">Impression</option>
-                <option value="Marquage au Sol">Marquage au Sol</option>
-                <option value="Machines Xerox">Machines Xerox</option>
-                <option value="Consommables Xerox">Consommables Xerox</option>
+                <option v-for="category in availableCategories" :key="category" :value="category">{{ category }}</option>
               </select>
+              <input
+                v-else
+                v-model.trim="formData.category"
+                type="text"
+                required
+                maxlength="100"
+                class="w-full px-4 py-3 border border-asp-gray-300 rounded-lg focus:ring-2 focus:ring-asp-blue-500 focus:border-asp-blue-500"
+                placeholder="Nom de la nouvelle catégorie"
+              />
+              <button type="button" class="mt-3 text-sm font-semibold text-asp-blue-700 hover:text-asp-blue-900" @click="toggleCategoryMode">
+                {{ isCreatingCategory ? 'Choisir une catégorie existante' : '+ Créer une nouvelle catégorie' }}
+              </button>
+              <p class="text-xs text-asp-gray-500 mt-2">Cette catégorie apparaît comme filtre sur la page Réalisations.</p>
             </div>
           </Card>
 
@@ -178,7 +206,7 @@
     <!-- Message de succès/erreur (Toast) -->
     <div
       v-if="message"
-      class="fixed bottom-4 right-4 z-50 max-w-md animate-slide-in"
+      class="fixed bottom-4 left-4 right-4 z-50 animate-slide-in sm:left-auto sm:max-w-md"
     >
       <Card
         :class="[
@@ -228,12 +256,14 @@ definePageMeta({
 
 const route = useRoute()
 const router = useRouter()
-const { fetchById, update, isLoading } = usePortfolio()
+const { fetchById, update, fetchList, categories, isLoading } = usePortfolio()
+const { serviceOptions, fetchServiceOptions } = useServiceOptions()
 
 const formData = ref({
   id: '',
   title: '',
   category: '',
+  service: '',
   description: '',
   imageUrl: '',
   imagePath: '',
@@ -246,11 +276,21 @@ const formData = ref({
 
 const tagsInput = ref('')
 const isSaving = ref(false)
+const isCreatingCategory = ref(false)
+const availableCategories = computed(() => Array.from(new Set([
+  ...categories.value,
+  formData.value.category
+].filter(Boolean))))
+
+const toggleCategoryMode = () => {
+  isCreatingCategory.value = !isCreatingCategory.value
+  if (isCreatingCategory.value) formData.value.category = ''
+}
 
 // Charger la réalisation
 onMounted(async () => {
   const id = route.params.id as string
-  const result = await fetchById(id)
+  const [result] = await Promise.all([fetchById(id), fetchList(), fetchServiceOptions()])
 
   if (result.success && result.item) {
     formData.value = { ...result.item }

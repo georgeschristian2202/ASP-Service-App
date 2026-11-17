@@ -45,19 +45,30 @@ export const useImageKit = () => {
       console.warn('ImageKit URL Endpoint non configuré. Utilisation du chemin local.')
       return path
     }
-    
-    // Nettoyer le chemin - supprimer /images/ si présent car déjà sur ImageKit
-    let cleanPath = path.startsWith('/') ? path : `/${path}`
-    
-    // Si le chemin ne commence pas par /images/, on l'ajoute
-    // Car sur ImageKit les images sont dans le dossier /images/
-    if (!cleanPath.startsWith('/images/')) {
+
+    const normalizedEndpoint = urlEndpoint.replace(/\/+$/, '')
+    const isAbsoluteUrl = /^https?:\/\//i.test(path)
+    const isImageKitUrl = path === normalizedEndpoint || path.startsWith(`${normalizedEndpoint}/`)
+
+    // Une URL externe ne peut pas recevoir les transformations de notre endpoint ImageKit.
+    if (isAbsoluteUrl && !isImageKitUrl) {
+      return path
+    }
+
+    // Pour une URL ImageKit complète, ne conserver que son chemin après l'endpoint.
+    // Les anciens chemins relatifs restent rangés sous /images/.
+    let cleanPath = isImageKitUrl
+      ? path.slice(normalizedEndpoint.length)
+      : path.startsWith('/') ? path : `/${path}`
+
+    if (!cleanPath) cleanPath = '/'
+    if (!isImageKitUrl && !cleanPath.startsWith('/images/')) {
       cleanPath = `/images${cleanPath}`
     }
     
     // Si aucune transformation, retourner l'URL de base
     if (!transforms || Object.keys(transforms).length === 0) {
-      return `${urlEndpoint}${cleanPath}`
+      return `${normalizedEndpoint}${cleanPath}`
     }
     
     // Construire la chaîne de transformation
@@ -92,7 +103,7 @@ export const useImageKit = () => {
     
     // Construire l'URL finale
     const transformString = transformParts.join(',')
-    return `${urlEndpoint}/tr:${transformString}${cleanPath}`
+    return `${normalizedEndpoint}/tr:${transformString}${cleanPath}`
   }
   
   /**

@@ -291,10 +291,22 @@ const loadUsers = async () => {
   usersError.value = ''
 
   try {
-    const result = await $fetch<{ success: boolean; users: AccountDetails[] }>('/api/users')
+    const result = await $fetch<{ success: boolean; users: AccountDetails[] }>('/api/users', {
+      credentials: 'include',
+      cache: 'no-store'
+    })
     users.value = result.users
   } catch (error: any) {
-    usersError.value = error.data?.message || 'Impossible de charger la liste des utilisateurs.'
+    const status = Number(error?.statusCode ?? error?.status ?? error?.response?.status ?? 0)
+
+    if (status === 401) {
+      usersError.value = 'Votre session a expiré. Veuillez vous reconnecter.'
+      await navigateTo('/admin/login')
+    } else if (status === 403) {
+      usersError.value = 'Cette liste est réservée aux super administrateurs.'
+    } else {
+      usersError.value = error.data?.message || 'Impossible de charger la liste des utilisateurs.'
+    }
   } finally {
     isLoadingUsers.value = false
   }
@@ -322,6 +334,7 @@ const createUser = async () => {
       emailDelivery: { requested: boolean; sent: boolean; message: string }
     }>('/api/users', {
       method: 'POST',
+      credentials: 'include',
       body: {
         username: form.username,
         email: form.email,

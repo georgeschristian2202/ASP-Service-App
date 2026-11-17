@@ -2,6 +2,7 @@ export interface PortfolioItem {
   id: string
   title: string
   category: string
+  service: string
   description: string
   imageUrl: string
   imagePath: string

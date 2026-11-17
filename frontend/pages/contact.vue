@@ -48,6 +48,7 @@
             :href="`whatsapp://send?phone=${whatsappNumber}`"
             target="_blank"
             rel="noopener noreferrer"
+            @click="trackWhatsAppClick('contact_page_card')"
             class="contact-card opacity-0 group cursor-pointer"
             data-index="0"
           >
@@ -116,6 +117,10 @@
               </div>
             </Card>
           </a>
+        </div>
+        <div class="relative z-10 text-center">
+          <h3 class="text-xl font-semibold text-asp-black mb-4">Retrouvez-nous aussi sur les réseaux sociaux</h3>
+          <SocialLinks justify="center" show-labels aria-label="Réseaux sociaux pour contacter ASP Services" />
         </div>
       </Container>
     </section>
@@ -233,6 +238,7 @@
 
 <script setup lang="ts">
 import { onMounted } from 'vue'
+const { trackWhatsAppClick } = useTracking()
 import {
   MessageCircle,
   Phone,

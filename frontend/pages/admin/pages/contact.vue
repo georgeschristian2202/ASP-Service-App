@@ -2,21 +2,21 @@
   <div class="min-h-screen bg-gray-50">
     <ConfirmDialog ref="confirmDialog" />
     <!-- En-tête -->
-    <div class="bg-white border-b border-gray-200 p-6 rounded-lg shadow-sm mb-6">
-      <div class="flex items-center justify-between">
+    <div class="mb-6 rounded-lg border-b border-gray-200 bg-white p-4 shadow-sm sm:p-6">
+      <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 class="text-2xl font-semibold text-gray-900 mb-1">Édition de la Page Contact</h1>
           <p class="text-sm text-gray-600">Modifiez vos coordonnées, horaires et FAQ</p>
         </div>
-        <div class="flex gap-3">
-          <NuxtLink to="/contact" target="_blank" class="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 hover:bg-gray-50 rounded-lg transition-colors text-sm font-medium">
+        <div class="grid grid-cols-1 gap-3 sm:flex">
+          <NuxtLink to="/contact" target="_blank" class="inline-flex items-center justify-center gap-2 px-4 py-2 border border-gray-300 hover:bg-gray-50 rounded-lg transition-colors text-sm font-medium">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
             </svg>
             Prévisualiser
           </NuxtLink>
-          <button @click="handleSave" :disabled="isSaving" class="inline-flex items-center gap-2 px-5 py-2 bg-asp-blue-700 hover:bg-asp-blue-800 text-white text-sm font-medium rounded-lg transition-colors shadow-sm disabled:opacity-50">
+          <button @click="handleSave" :disabled="isSaving" class="inline-flex items-center justify-center gap-2 px-5 py-2 bg-asp-blue-700 hover:bg-asp-blue-800 text-white text-sm font-medium rounded-lg transition-colors shadow-sm disabled:opacity-50">
             <svg v-if="!isSaving" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
             </svg>
@@ -141,12 +141,12 @@
 
       <!-- FAQ -->
       <div v-show="activeTab === 'faq'" class="space-y-6">
-        <div class="flex items-center justify-between">
+        <div class="flex flex-col items-stretch gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h2 class="text-lg font-semibold text-gray-900">FAQ</h2>
             <p class="text-sm text-gray-600">{{ content.faq.items.length }} questions</p>
           </div>
-          <button @click="addFaqItem" class="inline-flex items-center gap-2 px-4 py-2 bg-asp-blue-700 hover:bg-asp-blue-800 text-white text-sm font-medium rounded-lg">
+          <button @click="addFaqItem" class="inline-flex items-center justify-center gap-2 px-4 py-2 bg-asp-blue-700 hover:bg-asp-blue-800 text-white text-sm font-medium rounded-lg">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
             </svg>
@@ -170,7 +170,7 @@
             <div v-if="selectedFaqIndex === (currentFaqPage - 1) * faqPerPage + index" class="absolute -top-2.5 left-3 px-2 py-0.5 bg-asp-blue-700 text-white text-xs font-medium rounded-full">En cours d’édition</div>
             <div class="flex items-center justify-between mb-3">
               <h4 class="text-sm font-semibold text-gray-900">Question {{ (currentFaqPage - 1) * faqPerPage + index + 1 }}</h4>
-              <button type="button" @click.stop="removeFaqItem((currentFaqPage - 1) * faqPerPage + index)" class="px-2 py-1 text-sm text-red-600 hover:bg-red-50 rounded">
+              <button type="button" @click.stop="removeFaqItem((currentFaqPage - 1) * faqPerPage + index)" class="flex size-11 items-center justify-center rounded text-sm text-red-600 hover:bg-red-50">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
@@ -190,14 +190,14 @@
         </div>
         <div v-if="totalFaqPages > 1" class="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-gray-200">
           <p class="text-sm text-gray-600">Page {{ currentFaqPage }} sur {{ totalFaqPages }} · {{ content.faq.items.length }} questions</p>
-          <div class="flex gap-2"><button type="button" @click="currentFaqPage--" :disabled="currentFaqPage === 1" class="px-3 py-2 border rounded-lg disabled:opacity-40">Précédent</button><button type="button" @click="currentFaqPage++" :disabled="currentFaqPage === totalFaqPages" class="px-3 py-2 border rounded-lg disabled:opacity-40">Suivant</button></div>
+          <div class="flex w-full gap-2 overflow-x-auto pb-1 sm:w-auto"><button type="button" @click="currentFaqPage--" :disabled="currentFaqPage === 1" class="shrink-0 px-3 py-2 border rounded-lg disabled:opacity-40">Précédent</button><button type="button" @click="currentFaqPage++" :disabled="currentFaqPage === totalFaqPages" class="shrink-0 px-3 py-2 border rounded-lg disabled:opacity-40">Suivant</button></div>
         </div>
       </div>
     </div>
 
     <!-- Toast -->
     <Transition enter-active-class="transition-all duration-300" enter-from-class="opacity-0 translate-x-full" enter-to-class="opacity-100 translate-x-0">
-      <div v-if="message" class="fixed top-4 right-4 z-50 max-w-sm">
+      <div v-if="message" class="fixed left-4 right-4 top-4 z-50 sm:left-auto sm:max-w-sm">
         <div :class="['px-4 py-3 rounded-lg shadow-lg border', message.type === 'success' ? 'bg-green-50 border-green-200' : 'bg-red-50 border-red-200']">
           <p :class="['text-sm font-medium', message.type === 'success' ? 'text-green-800' : 'text-red-800']">{{ message.text }}</p>
         </div>

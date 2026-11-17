@@ -24,7 +24,15 @@ const environmentSchema = z.object({
   EMAIL_USER: z.string().optional(),
   EMAIL_PASSWORD: z.string().optional(),
   EMAIL_FROM: z.string().optional(),
-  EMAIL_FROM_NAME: z.string().default('ASP Services Gabon')
+  EMAIL_FROM_NAME: z.string().default('ASP Services Gabon'),
+  SMTP_HOST: z.string().optional(),
+  SMTP_PORT: z.coerce.number().int().positive().optional(),
+  SMTP_SECURE: z.string().optional().transform((value) => value === undefined ? undefined : value === 'true'),
+  SMTP_USER: z.string().optional(),
+  SMTP_PASSWORD: z.string().optional(),
+  SMTP_FROM: z.string().optional(),
+  SMTP_FROM_NAME: z.string().optional(),
+  SMTP_TO: z.string().optional()
 })
 
 const parsedEnvironment = environmentSchema.safeParse(process.env)

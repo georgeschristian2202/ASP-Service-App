@@ -48,6 +48,7 @@
               :href="`whatsapp://send?phone=${config.public.whatsappNumber}&text=Bonjour, je souhaite obtenir un devis`"
               target="_blank"
               rel="noopener noreferrer"
+              @click="trackWhatsAppClick('hero_section')"
             >
               <MessageCircle class="w-5 h-5" />
               Devis Gratuit WhatsApp
@@ -91,6 +92,7 @@
 </template>
 
 <script setup lang="ts">
+const { trackWhatsAppClick } = useTracking()
 import {
   MessageCircle,
   ArrowRight,

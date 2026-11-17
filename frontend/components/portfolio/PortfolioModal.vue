@@ -72,7 +72,7 @@
               <div class="space-y-4 sm:space-y-6">
                 <!-- Category Badge -->
                 <span class="inline-block px-3 py-1.5 sm:px-4 sm:py-2 bg-asp-blue-100 text-asp-blue-700 rounded-full text-xs sm:text-sm font-semibold animate-fade-in" style="animation-delay: 0.1s;">
-                  {{ getCategoryName(item.category) }}
+                  {{ item.categoryLabel || getCategoryName(item.category) }}
                 </span>
 
                 <!-- Title -->
@@ -120,6 +120,7 @@
                   :href="`whatsapp://send?phone=${config.public.whatsappNumber}&text=Bonjour, j'ai vu votre réalisation '${item.title}' et je souhaite en savoir plus`"
                   target="_blank"
                   rel="noopener noreferrer"
+                  @click="trackWhatsAppClick('portfolio_modal')"
                   class="flex-1"
                 >
                   <MessageCircle class="w-5 h-5" />
@@ -147,6 +148,7 @@
 </template>
 
 <script setup lang="ts">
+const { trackWhatsAppClick } = useTracking()
 import {
   X,
   Building2,
@@ -157,9 +159,11 @@ import {
 } from 'lucide-vue-next'
 
 interface PortfolioItem {
-  id: number
+  id: number | string
   title: string
   category: string
+  categoryLabel?: string
+  service?: string
   description: string
   media: string
   type: 'image' | 'video'
@@ -194,7 +198,7 @@ const handleImageError = (event: Event) => {
   img.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600"%3E%3Crect fill="%231E293B" width="800" height="600"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="24" fill="%2394A3B8"%3EImage du projet%3C/text%3E%3C/svg%3E'
 }
 
-const categoryToService: Record<string, string> = {
+const legacyCategoryToService: Record<string, string> = {
   'panneau':      'signaletique',
   'actualites':   'signaletique',
   'carte-badge':  'badges-cartes',
@@ -205,7 +209,7 @@ const categoryToService: Record<string, string> = {
 
 const navigateToServices = () => {
   emit('close')
-  const serviceId = categoryToService[props.item.category] || ''
+  const serviceId = props.item.service || legacyCategoryToService[props.item.category] || ''
   navigateTo(`/services${serviceId ? '#' + serviceId : ''}`)
 }
 

@@ -1,10 +1,6 @@
 ASP-Service-App/
 │
 ├── 📄 README.md                        ← Documentation principale
-├── 📄 ARCHITECTURE.md                  ← Architecture détaillée
-├── 📄 GETTING-STARTED.md               ← Guide de démarrage
-├── 📄 COMMANDS.md                      ← Commandes essentielles
-├── 📄 RESTRUCTURATION-COMPLETE.md      ← Récapitulatif restructuration
 ├── 📄 PROJECT-TREE.txt                 ← Ce fichier - arborescence
 │
 ├── 🐳 docker-compose.yml               ← Orchestration Docker (frontend + backend + db)
@@ -200,9 +196,9 @@ Docker :
 
 Documentation :
   cat README.md
-  cat GETTING-STARTED.md
-  cat ARCHITECTURE.md
-  cat COMMANDS.md
+  cat frontend/documentation/GETTING-STARTED.md
+  cat frontend/documentation/ARCHITECTURE.md
+  cat frontend/documentation/COMMANDS.md
 
 ═══════════════════════════════════════════════════════════════════════════
 
@@ -218,7 +214,7 @@ PgAdmin               → http://localhost:5050
 ✨ PROCHAINES ÉTAPES
 
 1. Choisir la stack backend (Recommandé : Node.js + Express + Prisma)
-2. Initialiser le projet backend (voir backend/BACKEND-SETUP.md)
+2. Initialiser le projet backend (voir frontend/documentation/BACKEND-SETUP.md)
 3. Créer les endpoints API
 4. Connecter le frontend au backend
 5. Tester l'intégration complète
@@ -227,4 +223,3 @@ PgAdmin               → http://localhost:5050
 
 Date de restructuration : 15 septembre 2026
 Statut : ✅ Structure complète, prêt pour le développement backend
-

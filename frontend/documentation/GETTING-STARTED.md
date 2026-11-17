@@ -254,10 +254,10 @@ npm run test:coverage  # Avec couverture
 
 ## 📚 Documentation Complète
 
-- [README Principal](./README.md)
-- [Documentation Frontend](./frontend/README.md)
-- [Documentation Backend](./backend/README.md)
-- [Docker Frontend](./frontend/README.Docker.md)
+- [README Principal](../../README.md)
+- [Documentation Frontend](../README.md)
+- [Documentation Backend](../../backend/README.md)
+- [Docker Frontend](./README.Docker.md)
 
 ---
 
@@ -287,7 +287,7 @@ npm run test:coverage  # Avec couverture
 
 Pour toute question ou problème :
 
-1. Consultez la [documentation](./frontend/documentation/)
+1. Consultez l'[index de la documentation](./README.md)
 2. Vérifiez les [issues GitHub](https://github.com/votre-repo/issues)
 3. Contactez l'équipe de développement
 

@@ -69,7 +69,8 @@ Voir les fichiers README spécifiques dans chaque dossier :
 
 ## 📝 Documentation
 
-La documentation complète est disponible dans le dossier `frontend/documentation/`
+La documentation complète est disponible dans le dossier
+[`frontend/documentation/`](./frontend/documentation/README.md).
 
 ## 🐳 Docker
 

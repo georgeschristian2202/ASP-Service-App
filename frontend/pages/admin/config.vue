@@ -85,7 +85,7 @@
               <label class="block text-sm font-medium text-asp-gray-700 mb-2">
                 Téléphone <span class="text-red-500">*</span>
               </label>
-              <div class="flex gap-2">
+              <div class="flex min-w-0 gap-2">
                 <!-- Sélecteur de pays -->
                 <div class="relative" ref="phoneDropdownRef">
                   <button
@@ -103,7 +103,7 @@
                   <!-- Dropdown -->
                   <div
                     v-if="isPhoneDropdownOpen"
-                    class="absolute z-50 mt-2 w-80 bg-white rounded-lg shadow-xl border border-gray-200 max-h-96 overflow-hidden"
+                    class="absolute z-50 mt-2 w-80 max-w-[calc(100vw-2rem)] bg-white rounded-lg shadow-xl border border-gray-200 max-h-96 overflow-hidden"
                   >
                     <div class="p-3 border-b border-gray-200 sticky top-0 bg-white">
                       <input
@@ -137,7 +137,7 @@
                   v-model="phoneLocalNumber"
                   type="tel"
                   required
-                  class="flex-1 px-4 py-3 border border-asp-gray-300 rounded-lg focus:ring-2 focus:ring-asp-blue-500 focus:border-asp-blue-500"
+                  class="min-w-0 flex-1 px-4 py-3 border border-asp-gray-300 rounded-lg focus:ring-2 focus:ring-asp-blue-500 focus:border-asp-blue-500"
                   placeholder="77 86 31 98"
                 />
               </div>
@@ -163,7 +163,7 @@
               <label class="block text-sm font-medium text-asp-gray-700 mb-2">
                 WhatsApp
               </label>
-              <div class="flex gap-2">
+              <div class="flex min-w-0 gap-2">
                 <!-- Sélecteur de pays WhatsApp -->
                 <div class="relative" ref="whatsappDropdownRef">
                   <button
@@ -181,7 +181,7 @@
                   <!-- Dropdown -->
                   <div
                     v-if="isWhatsAppDropdownOpen"
-                    class="absolute z-50 mt-2 w-80 bg-white rounded-lg shadow-xl border border-gray-200 max-h-96 overflow-hidden"
+                    class="absolute z-50 mt-2 w-80 max-w-[calc(100vw-2rem)] bg-white rounded-lg shadow-xl border border-gray-200 max-h-96 overflow-hidden"
                   >
                     <div class="p-3 border-b border-gray-200 sticky top-0 bg-white">
                       <input
@@ -214,7 +214,7 @@
                 <input
                   v-model="whatsappLocalNumber"
                   type="tel"
-                  class="flex-1 px-4 py-3 border border-asp-gray-300 rounded-lg focus:ring-2 focus:ring-asp-blue-500 focus:border-asp-blue-500"
+                  class="min-w-0 flex-1 px-4 py-3 border border-asp-gray-300 rounded-lg focus:ring-2 focus:ring-asp-blue-500 focus:border-asp-blue-500"
                   placeholder="77 86 31 98"
                 />
               </div>
@@ -377,10 +377,10 @@
       </Card>
 
       <!-- Actions -->
-      <div class="flex items-center justify-between gap-4">
+      <div class="flex flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
         <NuxtLink
           to="/admin"
-          class="px-6 py-3 bg-white border border-asp-gray-300 hover:bg-gray-50 text-asp-black rounded-lg transition-colors"
+          class="inline-flex w-full items-center justify-center px-6 py-3 bg-white border border-asp-gray-300 hover:bg-gray-50 text-asp-black rounded-lg transition-colors sm:w-auto"
         >
           Annuler
         </NuxtLink>
@@ -388,7 +388,7 @@
         <button
           type="submit"
           :disabled="isSaving"
-          class="px-6 py-3 bg-asp-blue-700 hover:bg-asp-blue-800 text-white font-medium rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          class="w-full px-6 py-3 bg-asp-blue-700 hover:bg-asp-blue-800 text-white font-medium rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed sm:w-auto"
         >
           {{ isSaving ? 'Enregistrement...' : 'Enregistrer les modifications' }}
         </button>
@@ -398,7 +398,7 @@
     <!-- Message de succès/erreur -->
     <div
       v-if="message"
-      class="fixed bottom-4 right-4 z-50 max-w-md"
+      class="fixed bottom-4 left-4 right-4 z-50 sm:left-auto sm:max-w-md"
     >
       <Card
         :class="[

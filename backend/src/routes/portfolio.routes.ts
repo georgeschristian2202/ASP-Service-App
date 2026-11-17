@@ -7,6 +7,7 @@ import { requireAdmin, requireAuthentication } from '../middleware/auth.js'
 const portfolioInputSchema = z.object({
   title: z.string().trim().min(1, 'Le titre est requis.').max(180),
   category: z.string().trim().min(1, 'La catégorie est requise.').max(100),
+  service: z.string().trim().min(1, 'Le service est requis.').max(100),
   description: z.string().trim().max(5000).optional().default(''),
   imageUrl: z.string().trim().max(2048).optional().default(''),
   imagePath: z.string().trim().max(2048).optional().default(''),
@@ -30,6 +31,7 @@ type RealisationEnBase = {
   identifiant: string
   titre: string
   categorie: string
+  service: string
   description: string
   urlImage: string
   cheminImage: string
@@ -43,6 +45,7 @@ type RealisationEnBase = {
 type DonneesRealisation = {
   titre: string
   categorie: string
+  service: string
   description: string
   urlImage: string
   cheminImage: string
@@ -56,6 +59,7 @@ function versReponseRealisation(item: RealisationEnBase) {
     id: item.identifiant,
     title: item.titre,
     category: item.categorie,
+    service: item.service,
     description: item.description,
     imageUrl: item.urlImage,
     imagePath: item.cheminImage,
@@ -71,6 +75,7 @@ function versDonneesRealisation(input: z.infer<typeof portfolioInputSchema>): Do
   return {
     titre: input.title,
     categorie: input.category,
+    service: input.service,
     description: input.description,
     urlImage: input.imageUrl,
     cheminImage: input.imagePath,
@@ -85,6 +90,7 @@ function versMiseAJourRealisation(input: z.infer<typeof portfolioUpdateSchema>) 
 
   if (input.title !== undefined) donnees.titre = input.title
   if (input.category !== undefined) donnees.categorie = input.category
+  if (input.service !== undefined) donnees.service = input.service
   if (input.description !== undefined) donnees.description = input.description
   if (input.imageUrl !== undefined) donnees.urlImage = input.imageUrl
   if (input.imagePath !== undefined) donnees.cheminImage = input.imagePath

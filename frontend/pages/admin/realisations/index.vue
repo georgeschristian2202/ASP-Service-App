@@ -2,15 +2,15 @@
   <div class="min-h-screen bg-gray-50">
     <!-- En-tête professionnel -->
     <div class="header-container opacity-0 mb-6">
-      <div class="bg-white border-b border-gray-200 p-6 rounded-lg shadow-sm">
-        <div class="flex items-center justify-between">
+      <div class="rounded-lg border-b border-gray-200 bg-white p-4 shadow-sm sm:p-6">
+        <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h1 class="text-2xl font-semibold text-gray-900 mb-1">Gestion des Réalisations</h1>
             <p class="text-sm text-gray-600">Gérez votre portfolio de projets</p>
           </div>
           <NuxtLink
             to="/admin/realisations/create"
-            class="inline-flex items-center gap-2 px-5 py-2.5 bg-asp-blue-700 hover:bg-asp-blue-800 text-white text-sm font-medium rounded-lg transition-colors shadow-sm"
+            class="inline-flex w-full items-center justify-center gap-2 px-5 py-2.5 bg-asp-blue-700 hover:bg-asp-blue-800 text-white text-sm font-medium rounded-lg transition-colors shadow-sm sm:w-auto"
           >
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
@@ -26,12 +26,12 @@
       <!-- Filtres et pagination controls -->
       <div class="bg-white rounded-lg shadow-sm p-4 mb-4 border border-gray-200">
         <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <div class="flex items-center gap-4">
+          <div class="flex w-full flex-col items-stretch gap-2 sm:w-auto sm:flex-row sm:items-center sm:gap-4">
             <label class="text-sm font-medium text-gray-700">Filtrer par :</label>
             <select
               v-model="selectedCategory"
               @change="filterByCategory"
-              class="px-4 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-asp-blue-500 focus:border-asp-blue-500 bg-white"
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-asp-blue-500 focus:border-asp-blue-500 bg-white sm:w-auto"
             >
               <option value="all">Toutes les catégories</option>
               <option v-for="cat in categories" :key="cat" :value="cat">
@@ -40,7 +40,7 @@
             </select>
           </div>
           
-          <div class="flex items-center gap-3">
+          <div class="flex w-full items-center justify-between gap-3 sm:w-auto sm:justify-start">
             <label class="text-sm font-medium text-gray-700">Par page :</label>
             <select
               v-model="itemsPerPage"
@@ -115,7 +115,7 @@
 
     <!-- Liste vide -->
     <div v-else-if="items.length === 0" class="empty-state opacity-0">
-      <div class="max-w-lg mx-auto bg-white rounded-lg border border-gray-200 p-12 text-center">
+      <div class="max-w-lg mx-auto bg-white rounded-lg border border-gray-200 p-6 text-center sm:p-12">
         <div class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
           <svg class="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
@@ -181,6 +181,9 @@
                 </svg>
                 {{ item.category }}
               </div>
+              <div v-if="item.service" class="ml-2 inline-flex items-center gap-1.5 rounded border border-emerald-100 bg-emerald-50 px-2.5 py-1 text-xs font-medium text-emerald-700 mb-3">
+                Service : {{ serviceTitle(item.service) }}
+              </div>
               
               <p v-if="item.description" class="text-sm text-gray-600 line-clamp-2 mb-4">
                 {{ item.description }}
@@ -229,7 +232,7 @@
       <!-- Pagination professionnelle -->
       <div v-if="totalPages > 1" class="pagination-container mt-6 opacity-0">
         <div class="bg-white rounded-lg border border-gray-200 p-4 shadow-sm">
-          <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div class="flex flex-col items-stretch justify-between gap-4 sm:flex-row sm:items-center">
             <!-- Info pagination -->
             <div class="text-sm text-gray-600">
               Affichage de <span class="font-medium text-gray-900">{{ startItem }}</span> à 
@@ -238,7 +241,7 @@
             </div>
             
             <!-- Navigation pagination -->
-            <div class="flex items-center gap-2">
+            <div class="flex w-full items-center gap-2 overflow-x-auto pb-1 sm:w-auto [&>*]:shrink-0">
               <!-- Bouton Première page -->
               <button
                 @click="goToPage(1)"
@@ -380,7 +383,7 @@
       leave-from-class="opacity-100 translate-x-0"
       leave-to-class="opacity-0 translate-x-full"
     >
-      <div v-if="message" class="fixed top-4 right-4 z-50 max-w-sm">
+      <div v-if="message" class="fixed left-4 right-4 top-4 z-50 sm:left-auto sm:max-w-sm">
         <div
           :class="[
             'px-4 py-3 rounded-lg shadow-lg border',
@@ -447,6 +450,8 @@ definePageMeta({
 })
 
 const { items, categories, isLoading, fetchList, remove } = usePortfolio()
+const { serviceOptions, fetchServiceOptions } = useServiceOptions()
+const serviceTitle = (serviceId: string) => serviceOptions.value.find((service) => service.id === serviceId)?.title || serviceId
 
 const selectedCategory = ref('all')
 const itemToDelete = ref<PortfolioItem | null>(null)
@@ -634,6 +639,7 @@ const handleItemsPerPageChange = () => {
 
 // Charger les réalisations au montage
 onMounted(async () => {
+  await fetchServiceOptions()
   animateHeader()
   animateStats()
   

@@ -20,6 +20,7 @@
               :href="`whatsapp://send?phone=${config.public.whatsappNumber}&text=Bonjour ASP Services, je souhaite obtenir un devis gratuit`"
               target="_blank"
               rel="noopener noreferrer"
+              @click="trackWhatsAppClick('call_to_action')"
             >
               <MessageCircle class="w-6 h-6" />
               Devis Gratuit via WhatsApp
@@ -84,4 +85,5 @@ import {
 } from 'lucide-vue-next'
 
 const config = useRuntimeConfig()
+const { trackWhatsAppClick } = useTracking()
 </script>

@@ -40,7 +40,7 @@
               href="whatsapp://send?phone=24177863198&text=Bonjour%20ASP%20Services%2C%20je%20souhaite%20un%20devis%20gratuit."
               target="_blank"
               rel="noopener noreferrer"
-              @click="close"
+              @click="handleWhatsAppClick"
               class="flex-1 flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl text-white text-xs font-semibold transition-all duration-200 hover:opacity-90 active:scale-95 cursor-pointer"
               style="background-color: #25D366;"
             >
@@ -65,6 +65,12 @@
 <script setup lang="ts">
 const STORAGE_KEY = 'asp_promo_dismissed'
 const isVisible = ref(false)
+const { trackWhatsAppClick } = useTracking()
+
+const handleWhatsAppClick = () => {
+  trackWhatsAppClick('promo_popup')
+  close()
+}
 
 const close = () => {
   isVisible.value = false

@@ -13,6 +13,7 @@
             <p class="text-gray-400 leading-relaxed text-sm">
               Votre partenaire de confiance en signalétique, impression grand format et marquage au sol à Libreville depuis 28 ans.
             </p>
+            <SocialLinks theme="dark" class="mt-5" aria-label="Suivez ASP Services sur les réseaux sociaux" />
           </div>
           
           <!-- Navigation -->

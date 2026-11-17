@@ -58,6 +58,7 @@
             :href="`whatsapp://send?phone=${whatsappNumber}`"
             target="_blank"
             rel="noopener noreferrer"
+            @click="trackWhatsAppClick('contact_info')"
             class="flex items-start gap-4 p-4 rounded-lg bg-green-100 hover:bg-green-200 transition-colors duration-200 cursor-pointer group"
           >
             <div class="flex items-center justify-center w-12 h-12 rounded-lg bg-green-600 text-white flex-shrink-0 group-hover:bg-green-700 transition-colors duration-200">
@@ -135,6 +136,7 @@ const props = defineProps<{
 const phone = computed(() => props.contactInfo?.phone?.main || String(config.public.phone))
 const email = computed(() => props.contactInfo?.email?.general || String(config.public.email))
 const whatsappNumber = computed(() => (props.contactInfo?.phone?.whatsapp || String(config.public.whatsappNumber)).replace(/\D/g, ''))
+const { trackWhatsAppClick } = useTracking()
 const formattedAddress = computed(() => {
   const address = props.contactInfo?.address
   return address ? [address.street, address.city, address.country, address.details].filter(Boolean).join(', ') : String(config.public.address)

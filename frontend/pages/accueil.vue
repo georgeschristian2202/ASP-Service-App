@@ -35,7 +35,7 @@
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <!-- Texte Hero -->
             <div class="text-white space-y-6">
-              <h1 class="hero-title text-4xl sm:text-5xl lg:text-6xl font-bold mb-8 leading-tight opacity-0"
+              <h1 class="hero-title text-4xl sm:text-5xl lg:text-6xl font-bold mb-8 leading-tight"
                   role="heading"
                   aria-level="1">
                 {{ homepageContent.hero.title }}
@@ -50,13 +50,13 @@
                 </span>
               </h1>
               
-              <p class="hero-description text-lg sm:text-xl text-white/90 mb-8 leading-relaxed max-w-xl opacity-0">
+              <p class="hero-description text-lg sm:text-xl text-white/90 mb-8 leading-relaxed max-w-xl">
                 {{ homepageContent.hero.description }}
               </p>
 
               <!-- Points clés -->
               <div class="flex flex-wrap gap-4 mb-8" role="list" aria-label="Avantages ASP Services">
-                <div v-for="feature in homepageContent.hero.features" :key="feature" class="hero-feature flex items-center gap-2 opacity-0" role="listitem">
+                <div v-for="feature in homepageContent.hero.features" :key="feature" class="hero-feature flex items-center gap-2" role="listitem">
                   <CheckCircle2 class="w-6 h-6 text-green-400" aria-hidden="true" />
                   <span class="text-sm sm:text-base">{{ feature }}</span>
                 </div>
@@ -65,7 +65,7 @@
               <div class="flex flex-col sm:flex-row gap-4">
                 <button
                   @click="showQuoteModal = true"
-                  class="hero-cta bg-yellow-500 hover:bg-yellow-600 text-white px-8 py-4 rounded-lg font-semibold transition-all duration-200 inline-flex items-center justify-center gap-2 cursor-pointer shadow-lg hover:shadow-xl hover:scale-105 focus:outline-none focus:ring-4 focus:ring-yellow-300 opacity-0"
+                  class="hero-cta bg-yellow-500 hover:bg-yellow-600 text-white px-8 py-4 rounded-lg font-semibold transition-all duration-200 inline-flex items-center justify-center gap-2 cursor-pointer shadow-lg hover:shadow-xl hover:scale-105 focus:outline-none focus:ring-4 focus:ring-yellow-300"
                   aria-label="Obtenir un devis gratuit - Ouvre un formulaire de contact"
                   type="button"
                 >
@@ -76,7 +76,7 @@
             </div>
 
             <!-- Carousel des œuvres - Design Professionnel -->
-            <div class="carousel-card relative opacity-0" role="region" aria-label="Projets récents de ASP Services">
+            <div class="carousel-card relative" role="region" aria-label="Projets récents de ASP Services">
               <div class="bg-gradient-to-br from-slate-900/95 to-slate-800/95 backdrop-blur-md rounded-2xl border border-white/10 overflow-hidden shadow-2xl">
                 <!-- Header -->
                 <div class="px-6 sm:px-8 pt-6 pb-4 border-b border-white/10">
@@ -755,6 +755,10 @@
             <Phone class="w-5 h-5" />
             Contactez-nous
           </button>
+          <div class="mt-6 pt-6 border-t border-gray-200">
+            <p class="text-sm font-medium text-asp-gray-600 mb-3">Suivez nos réalisations</p>
+            <SocialLinks justify="center" aria-label="Suivez les réalisations ASP Services" />
+          </div>
         </div>
       </div>
     </section>
@@ -940,6 +944,9 @@
 
 <script setup lang="ts">
 import { ref, reactive, onMounted, watch } from 'vue'
+// animejs v3 ne publie pas ses propres déclarations TypeScript.
+// @ts-expect-error Le module JavaScript est bien fourni par la dépendance locale.
+import anime from 'animejs'
 import QuoteModal from '~/components/home/QuoteModal.vue'
 import PartnersSection from '~/components/home/PartnersSection.vue'
 import ScrambleText from '~/components/ScrambleText.vue'
@@ -1070,10 +1077,10 @@ const legacyProjectImages: Record<string, string> = {
   '/images/projects/project-3.jpg': '/images/portfolio/carte & badge/badge-setrag-1.jpg'
 }
 
-const { data: savedHomepageContent } = await useFetch<{ success: boolean; data: HomepageContent | null }>('/api/homepage/content')
+const applySavedHomepageContent = (response?: { success: boolean; data: HomepageContent | null } | null) => {
+  if (!response?.success || !response.data) return
 
-if (savedHomepageContent.value?.success && savedHomepageContent.value.data) {
-  const saved = savedHomepageContent.value.data
+  const saved = response.data
   Object.assign(homepageContent.hero, saved.hero ?? {})
   homepageContent.hero.projects = homepageContent.hero.projects.map(project => ({
     ...project,
@@ -1086,6 +1093,15 @@ if (savedHomepageContent.value?.success && savedHomepageContent.value.data) {
   Object.assign(homepageContent.partners, saved.partners ?? {})
   Object.assign(homepageContent.stats, saved.stats ?? {})
 }
+
+// Les valeurs par défaut s'affichent immédiatement. Le contenu administrable est
+// ensuite fusionné dès son arrivée, sans bloquer le premier rendu du hero.
+const { data: savedHomepageContent } = useFetch<{ success: boolean; data: HomepageContent | null }>('/api/homepage/content', {
+  lazy: true,
+  server: false
+})
+
+watch(savedHomepageContent, applySavedHomepageContent, { immediate: true })
 
 useHead({
   title: 'ASP Services Gabon - Signalétique, Impression & Marquage au Sol à Libreville',
@@ -1286,31 +1302,11 @@ const prevTestimonial = () => {
 
 // Auto-play carousel
 onMounted(() => {
-  // ✨ ANIME.JS via CDN (plus fiable pour Nuxt)
-  if (process.client) {
-    // Charger anime.js via CDN si pas déjà chargé
-    if (!(window as any).anime) {
-      const script = document.createElement('script')
-      script.src = 'https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js'
-      script.onload = () => {
-        console.log('✅ Anime.js chargé via CDN')
-        initAnimations()
-      }
-      script.onerror = () => {
-        console.error('❌ Erreur chargement anime.js')
-        showContentWithoutAnimations()
-      }
-      document.head.appendChild(script)
-    } else {
-      console.log('✅ Anime.js déjà disponible')
-      initAnimations()
-    }
-  }
+  // La dépendance locale est disponible immédiatement, sans attente réseau/CDN.
+  initAnimations()
   
   // Fonction pour initialiser les animations
   function initAnimations() {
-    const anime = (window as any).anime
-    
     if (typeof anime !== 'function') {
       console.error('❌ anime n\'est pas une fonction')
       showContentWithoutAnimations()
@@ -1323,7 +1319,6 @@ onMounted(() => {
       // 1. Hero Title
       anime({
         targets: '.hero-title',
-        opacity: [0, 1],
         translateY: [50, 0],
         duration: 1200,
         easing: 'easeOutExpo',
@@ -1333,7 +1328,6 @@ onMounted(() => {
       // 2. Hero Description
       anime({
         targets: '.hero-description',
-        opacity: [0, 1],
         translateY: [30, 0],
         duration: 1000,
         easing: 'easeOutExpo',
@@ -1343,7 +1337,6 @@ onMounted(() => {
       // 3. Hero Features (staggered)
       anime({
         targets: '.hero-feature',
-        opacity: [0, 1],
         translateX: [-30, 0],
         duration: 800,
         easing: 'easeOutExpo',
@@ -1353,7 +1346,6 @@ onMounted(() => {
       // 4. CTA Button
       anime({
         targets: '.hero-cta',
-        opacity: [0, 1],
         scale: [0.8, 1],
         duration: 1000,
         easing: 'easeOutElastic(1, .8)',
@@ -1363,7 +1355,6 @@ onMounted(() => {
       // 5. Carousel Card
       anime({
         targets: '.carousel-card',
-        opacity: [0, 1],
         translateX: [100, 0],
         rotate: [5, 0],
         duration: 1400,
@@ -1397,7 +1388,7 @@ onMounted(() => {
   
   // Services Section Animations avec Intersection Observer
   const setupServicesAnimations = () => {
-    if (!window.anime) {
+    if (typeof anime !== 'function') {
       console.warn('⚠️ anime.js non disponible pour les animations Services')
       return
     }
@@ -1472,7 +1463,7 @@ onMounted(() => {
   
   // Avantages Section Animations avec Intersection Observer
   const setupAvantagesAnimations = () => {
-    if (!window.anime) {
+    if (typeof anime !== 'function') {
       console.warn('⚠️ anime.js non disponible pour les animations Avantages')
       return
     }

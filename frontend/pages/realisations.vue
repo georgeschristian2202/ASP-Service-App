@@ -239,6 +239,7 @@ interface PortfolioDisplayItem {
   title: string
   category: string
   categoryLabel: string
+  service: string
   description: string
   media: string
   type: 'image' | 'video'
@@ -246,39 +247,27 @@ interface PortfolioDisplayItem {
   date: string
 }
 
-// Mapping des catégories : API (français) → IDs page publique (minuscules)
-const categoryMapping: Record<string, string> = {
-  'Actualités': 'actualites',
-  'Signalétique': 'actualites', // Signalétique = Actualités
-  'Panneaux Publicitaires': 'panneau',
-  'Machines Xerox': 'machine-xerox',
-  'Toners Xerox': 'toner',
-  'Cartes & Badges': 'carte-badge',
-  'Imprimerie & Textile': 'imprimerie'
-}
+const normalizeCategory = (value: string) => value
+  .normalize('NFD')
+  .replace(/[\u0300-\u036f]/g, '')
+  .toLowerCase()
+  .replace(/&/g, ' et ')
+  .replace(/[^a-z0-9]+/g, '-')
+  .replace(/^-|-$/g, '')
 
-// Reverse mapping pour affichage
-const categoryLabelMapping: Record<string, string> = {
-  'actualites': 'Actualités',
-  'panneau': 'Panneaux Publicitaires',
-  'machine-xerox': 'Machines Xerox',
-  'toner': 'Toners Xerox',
-  'carte-badge': 'Cartes & Badges',
-  'imprimerie': 'Imprimerie & Textile'
+const getCategoryIcon = (category: string) => {
+  const id = normalizeCategory(category)
+  if (id.includes('panneau')) return Megaphone
+  if (id.includes('carte') || id.includes('badge')) return CreditCard
+  if (id.includes('textile') || id.includes('imprimerie')) return Shirt
+  if (id.includes('machine') || id.includes('imprimante')) return Printer
+  if (id.includes('toner') || id.includes('consommable')) return Droplet
+  if (id.includes('actualite')) return Newspaper
+  return LayoutGrid
 }
 
 const selectedCategory = ref<string>('all')
 const selectedItem = ref<PortfolioDisplayItem | null>(null)
-
-const categories = [
-  { id: 'all', name: 'Tous les Projets', icon: LayoutGrid },
-  { id: 'panneau', name: 'Panneaux Publicitaires', icon: Megaphone },
-  { id: 'carte-badge', name: 'Cartes & Badges', icon: CreditCard },
-  { id: 'imprimerie', name: 'Imprimerie & Textile', icon: Shirt },
-  { id: 'machine-xerox', name: 'Machines Xerox', icon: Printer },
-  { id: 'toner', name: 'Toners Xerox', icon: Droplet },
-  { id: 'actualites', name: 'Actualités', icon: Newspaper }
-]
 
 // Utiliser le composable usePortfolio pour charger depuis l'API
 const { items, isLoading, fetchList } = usePortfolio()
@@ -399,14 +388,14 @@ const setupStatsAnimation = () => {
 // Convertir les items de l'API au format attendu par la page
 const portfolioItems = computed<PortfolioDisplayItem[]>(() => {
   return items.value.map(item => {
-    // Convertir la catégorie de l'API (français) vers l'ID (minuscules)
-    const categoryId = categoryMapping[item.category] || item.category.toLowerCase()
+    const categoryId = normalizeCategory(item.category)
     
     return {
       id: item.id,
       title: item.title,
       category: categoryId,
-      categoryLabel: categoryLabelMapping[categoryId] || item.category,
+      categoryLabel: item.category,
+      service: item.service,
       description: item.description,
       media: item.imageUrl || item.imagePath, // Utiliser imageUrl en priorité
       type: 'image' as const, // Pour l'instant, toutes les réalisations sont des images
@@ -414,6 +403,16 @@ const portfolioItems = computed<PortfolioDisplayItem[]>(() => {
       date: item.createdAt
     }
   })
+})
+
+const categories = computed(() => {
+  const uniqueCategories = new Map<string, string>()
+  items.value.forEach((item) => uniqueCategories.set(normalizeCategory(item.category), item.category))
+
+  return [
+    { id: 'all', name: 'Tous les Projets', icon: LayoutGrid },
+    ...Array.from(uniqueCategories, ([id, name]) => ({ id, name, icon: getCategoryIcon(name) }))
+  ]
 })
 
 // Filtrer par catégorie sélectionnée

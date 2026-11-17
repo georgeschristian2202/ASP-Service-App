@@ -10,7 +10,7 @@ Toute la documentation des optimisations de performance est centralisée dans le
 
 ### 🚀 Document Consolidé (Recommandé)
 
-**[documentation/GUIDE-OPTIMISATIONS-PERFORMANCE.md](./documentation/GUIDE-OPTIMISATIONS-PERFORMANCE.md)**
+**[GUIDE-OPTIMISATIONS-PERFORMANCE.md](./GUIDE-OPTIMISATIONS-PERFORMANCE.md)**
 
 Ce document contient **TOUT** :
 - Vue d'ensemble
@@ -27,8 +27,8 @@ Ce document contient **TOUT** :
 
 ### 📑 Index & Navigation
 
-- **[documentation/README.md](./documentation/README.md)** - Vue d'ensemble et quick start
-- **[documentation/INDEX.md](./documentation/INDEX.md)** - Index par sujet et cas d'usage
+- **[README.md](./README.md)** - Vue d'ensemble et quick start
+- **[INDEX.md](./INDEX.md)** - Index par sujet et cas d'usage
 
 ---
 
@@ -38,13 +38,13 @@ Ce document contient **TOUT** :
 
 | Je veux... | Document |
 |------------|----------|
-| **Comprendre tout rapidement** | [GUIDE-OPTIMISATIONS-PERFORMANCE.md](./documentation/GUIDE-OPTIMISATIONS-PERFORMANCE.md) |
-| **Implémenter lazy loading** | [IMPLEMENTATION-CHARGEMENT-PROGRESSIF.md](./documentation/IMPLEMENTATION-CHARGEMENT-PROGRESSIF.md) |
-| **Créer animations au scroll** | [IMPLEMENTATION-CHARGEMENT-PROGRESSIF.md](./documentation/IMPLEMENTATION-CHARGEMENT-PROGRESSIF.md#étape-2) |
-| **Personnaliser les loaders** | [ANIMATION-CHARGEMENT.md](./documentation/ANIMATION-CHARGEMENT.md) |
-| **Optimiser Anime.js** | [OPTIMISATION-PERFORMANCE.md](./documentation/OPTIMISATION-PERFORMANCE.md) |
-| **Générer favicons** | [LOGO-FAVICON-STATUS.md](./documentation/LOGO-FAVICON-STATUS.md) |
-| **Voir les résultats** | [GUIDE-OPTIMISATIONS-PERFORMANCE.md](./documentation/GUIDE-OPTIMISATIONS-PERFORMANCE.md#7-résultats-et-métriques) |
+| **Comprendre tout rapidement** | [GUIDE-OPTIMISATIONS-PERFORMANCE.md](./GUIDE-OPTIMISATIONS-PERFORMANCE.md) |
+| **Implémenter lazy loading** | [IMPLEMENTATION-CHARGEMENT-PROGRESSIF.md](./IMPLEMENTATION-CHARGEMENT-PROGRESSIF.md) |
+| **Créer animations au scroll** | [IMPLEMENTATION-CHARGEMENT-PROGRESSIF.md](./IMPLEMENTATION-CHARGEMENT-PROGRESSIF.md#étape-2) |
+| **Personnaliser les loaders** | [ANIMATION-CHARGEMENT.md](./ANIMATION-CHARGEMENT.md) |
+| **Optimiser Anime.js** | [OPTIMISATION-PERFORMANCE.md](./OPTIMISATION-PERFORMANCE.md) |
+| **Générer favicons** | [LOGO-FAVICON-STATUS.md](./LOGO-FAVICON-STATUS.md) |
+| **Voir les résultats** | [GUIDE-OPTIMISATIONS-PERFORMANCE.md](./GUIDE-OPTIMISATIONS-PERFORMANCE.md#7-résultats-et-métriques) |
 
 ---
 
@@ -77,7 +77,7 @@ documentation/
 ### 1. Lire la documentation
 ```bash
 # Ouvrir le document principal
-cat documentation/GUIDE-OPTIMISATIONS-PERFORMANCE.md
+cat frontend/documentation/GUIDE-OPTIMISATIONS-PERFORMANCE.md
 ```
 
 ### 2. Tester le site
@@ -107,8 +107,8 @@ Ouvrir http://localhost:3001
 ## 📞 Support
 
 Pour plus de détails, consulter :
-- [documentation/README.md](./documentation/README.md)
-- [documentation/INDEX.md](./documentation/INDEX.md)
+- [README.md](./README.md)
+- [INDEX.md](./INDEX.md)
 
 ---
 

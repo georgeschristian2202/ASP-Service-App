@@ -15,6 +15,20 @@ export const useTracking = () => {
     }
   }
 
+  const persistEvent = (type: 'QUOTE_REQUEST' | 'WHATSAPP_CLICK', source: string, metadata?: Record<string, string | number | boolean | null>) => {
+    if (!import.meta.client) return
+
+    void $fetch('/api/events', {
+      method: 'POST',
+      body: {
+        type,
+        source,
+        path: window.location.pathname,
+        metadata
+      }
+    }).catch((error) => console.warn('Public event tracking failed:', error))
+  }
+
   /**
    * Tracker un clic WhatsApp
    */
@@ -23,6 +37,7 @@ export const useTracking = () => {
       source,
       contact_method: 'whatsapp'
     })
+    persistEvent('WHATSAPP_CLICK', source)
   }
 
   /**
@@ -62,6 +77,9 @@ export const useTracking = () => {
     trackEvent('quote_form_submit', {
       form_type: 'quote',
       ...formData
+    })
+    persistEvent('QUOTE_REQUEST', String(formData?.source || 'quote_form'), {
+      service: typeof formData?.service === 'string' ? formData.service : null
     })
   }
 

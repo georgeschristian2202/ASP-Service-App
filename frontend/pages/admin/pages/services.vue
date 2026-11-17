@@ -2,17 +2,17 @@
   <div class="min-h-screen bg-gray-50">
     <ConfirmDialog ref="confirmDialog" />
     <!-- En-tête -->
-    <div class="bg-white border-b border-gray-200 p-6 rounded-lg shadow-sm mb-6">
-      <div class="flex items-center justify-between">
+    <div class="mb-6 rounded-lg border-b border-gray-200 bg-white p-4 shadow-sm sm:p-6">
+      <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 class="text-2xl font-semibold text-gray-900 mb-1">Édition de la Page Services</h1>
           <p class="text-sm text-gray-600">Modifiez le contenu détaillé de vos services</p>
         </div>
-        <div class="flex gap-3">
+        <div class="grid grid-cols-1 gap-3 sm:flex">
           <NuxtLink
             to="/services"
             target="_blank"
-            class="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 hover:bg-gray-50 rounded-lg transition-colors text-sm font-medium"
+            class="inline-flex items-center justify-center gap-2 px-4 py-2 border border-gray-300 hover:bg-gray-50 rounded-lg transition-colors text-sm font-medium"
           >
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -23,7 +23,7 @@
           <button
             @click="handleSave"
             :disabled="isSaving"
-            class="inline-flex items-center gap-2 px-5 py-2 bg-asp-blue-700 hover:bg-asp-blue-800 text-white text-sm font-medium rounded-lg transition-colors shadow-sm disabled:opacity-50"
+            class="inline-flex items-center justify-center gap-2 px-5 py-2 bg-asp-blue-700 hover:bg-asp-blue-800 text-white text-sm font-medium rounded-lg transition-colors shadow-sm disabled:opacity-50"
           >
             <svg v-if="!isSaving" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
@@ -62,7 +62,7 @@
 
     <!-- Liste des services avec navigation -->
     <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-      <div class="flex items-center justify-between mb-6">
+      <div class="mb-6 flex flex-col items-stretch gap-4 sm:flex-row sm:items-center sm:justify-between">
         <h2 class="text-lg font-semibold text-gray-900">Services ({{ content.services.length }})</h2>
         <div class="flex items-center gap-3">
           <span class="hidden sm:inline text-sm text-gray-600">
@@ -71,7 +71,7 @@
           <button
             type="button"
             @click="addService"
-            class="inline-flex items-center gap-2 px-4 py-2 bg-asp-blue-700 hover:bg-asp-blue-800 text-white text-sm font-medium rounded-lg transition-colors"
+            class="inline-flex items-center justify-center gap-2 px-4 py-2 bg-asp-blue-700 hover:bg-asp-blue-800 text-white text-sm font-medium rounded-lg transition-colors"
           >
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
@@ -123,14 +123,14 @@
         </div>
       </div>
 
-      <div v-if="totalServicesPages > 1" class="mb-6 flex flex-wrap items-center justify-between gap-3 border-b border-gray-200 pb-5">
+      <div v-if="totalServicesPages > 1" class="mb-6 flex flex-wrap items-start justify-between gap-3 border-b border-gray-200 pb-5 sm:items-center">
         <p class="text-sm text-gray-600">Page {{ currentServicesPage }} sur {{ totalServicesPages }} · {{ content.services.length }} services</p>
-        <div class="flex items-center gap-2"><button type="button" @click="currentServicesPage--" :disabled="currentServicesPage === 1" class="rounded-lg border border-gray-300 px-3 py-2 text-sm disabled:opacity-40">Précédent</button><button v-for="page in totalServicesPages" :key="page" type="button" @click="currentServicesPage = page" :class="currentServicesPage === page ? 'border-asp-blue-700 bg-asp-blue-700 text-white' : 'border-gray-300 bg-white text-gray-700'" class="min-w-9 rounded-lg border px-3 py-2 text-sm">{{ page }}</button><button type="button" @click="currentServicesPage++" :disabled="currentServicesPage === totalServicesPages" class="rounded-lg border border-gray-300 px-3 py-2 text-sm disabled:opacity-40">Suivant</button></div>
+        <div class="flex w-full items-center gap-2 overflow-x-auto pb-1 sm:w-auto"><button type="button" @click="currentServicesPage--" :disabled="currentServicesPage === 1" class="shrink-0 rounded-lg border border-gray-300 px-3 py-2 text-sm disabled:opacity-40">Précédent</button><button v-for="page in totalServicesPages" :key="page" type="button" @click="currentServicesPage = page" :class="currentServicesPage === page ? 'border-asp-blue-700 bg-asp-blue-700 text-white' : 'border-gray-300 bg-white text-gray-700'" class="min-w-9 shrink-0 rounded-lg border px-3 py-2 text-sm">{{ page }}</button><button type="button" @click="currentServicesPage++" :disabled="currentServicesPage === totalServicesPages" class="shrink-0 rounded-lg border border-gray-300 px-3 py-2 text-sm disabled:opacity-40">Suivant</button></div>
       </div>
 
       <!-- Formulaire d'édition du service sélectionné -->
       <div v-if="selectedServiceIndex !== null" ref="serviceEditor" class="scroll-mt-36 rounded-2xl border border-asp-blue-200 bg-asp-blue-50/30 p-5 sm:p-6">
-        <div class="flex items-center justify-between mb-6">
+        <div class="mb-6 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
           <h3 class="text-lg font-semibold text-gray-900">
             Édition : {{ content.services[selectedServiceIndex].title }}
           </h3>
@@ -305,7 +305,7 @@
       leave-from-class="opacity-100 translate-x-0"
       leave-to-class="opacity-0 translate-x-full"
     >
-      <div v-if="message" class="fixed top-4 right-4 z-50 max-w-sm">
+      <div v-if="message" class="fixed left-4 right-4 top-4 z-50 sm:left-auto sm:max-w-sm">
         <div
           :class="[
             'px-4 py-3 rounded-lg shadow-lg border',
